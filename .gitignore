@@ -64,9 +64,10 @@ desktop.ini
 *.swo
 *~
 
-# Census API key (if accidentally put in a .env file)
+# Environment variables / secrets — NEVER commit these
 .env
 *.env
+# (the .env.example template IS committed — that is intentional)
 
 # Stata log files (if any are generated)
 *.smcl
