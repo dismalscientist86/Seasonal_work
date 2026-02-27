@@ -24,5 +24,8 @@ seaborn>=0.12
 # Progress bars (for large file processing)
 tqdm>=4.65
 
+# Load .env files for secrets (Census API key etc.)
+python-dotenv>=1.0
+
 # Parquet support for firm-level data
 pyarrow>=13.0
