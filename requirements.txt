@@ -1,0 +1,28 @@
+# Core data science
+pandas>=2.0
+numpy>=1.24
+scipy>=1.10
+
+# Reading Stata files
+pyreadstat>=1.2
+
+# Econometric modeling
+statsmodels>=0.14
+linearmodels>=5.3    # panel regressions with clustered SEs
+
+# Machine learning (GBT classifier)
+lightgbm>=4.0
+scikit-learn>=1.3
+
+# HTTP requests (QWI API)
+requests>=2.31
+
+# Visualization
+matplotlib>=3.7
+seaborn>=0.12
+
+# Progress bars (for large file processing)
+tqdm>=4.65
+
+# Parquet support for firm-level data
+pyarrow>=13.0
