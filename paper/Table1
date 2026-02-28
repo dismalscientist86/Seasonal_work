@@ -1,0 +1,31 @@
+Table 1. Summary Statistics: SIPP Separators Least/Most Likely to Separate Again
+Least seasonal Most seasonal
+(N = 61,274) (N = 12,678)
+Demographics
+Female 48.1 (50.0) 47.8 (50.0)
+Age 37.0 (8.3) 37.6 (8.4)
+Non-white 30.5 (46.0) 26.8 (44.3)
+Non-college 52.0 (50.0) 51.6 (50.0)
+Household structure
+Spouse or partner in household 60.2 (48.9) 65.4 (47.6)
+Spouse/partner employed (if present) 77.2 (42.0) 78.4 (41.1)
+Spouse/partner in same industry (if employed) 18.2 (38.6) 20.8 (40.6)
+q1 children in household 55.5 (49.7) 57.9 (49.4)
+Pre-separation industries (select examples)
+Agriculture, fishing, & forestry 0.6 (7.5) 12.0 (32.5)
+Construction 12.2 (32.8) 14.7 (35.4)
+Educational services 4.9 (21.7) 27.6 (44.7)
+Health care 11.3 (31.7) 0.3 (5.5)
+Pre-separation monthly earnings (2017$)
+Personal earnings 2,678.4 (2,862.3) 2,532.6 (2,192.4)
+Household income 5,709.4 (4,960.9) 5,838.0 (4,535.9)
+Separated into:
+Unemployment 58.6 (49.3) 64.3 (47.9)
+Non-participation 41.4 (49.3) 35.7 (47.9)
+Notes: All columns restrict to job separators ages 25–54 observed during 1984–2013. ‘‘Least seasonal’’:
+restrict to separators in the bottom half of predicted excess recurrence. ‘‘Most seasonal’’: restrict to
+separators in the top decile of predicted excess recurrence. Separators’ industries, earnings, and
+income are measured one month prior to separation. Other than age, earnings, and income, all
+statistics are expressed as percentages (standard deviation in parentheses). Decile cutoffs are calculated
+using sampling weights, so sample sizes differ between deciles. SIPP, Survey of Income and Program
+Participation.
