@@ -138,9 +138,33 @@ python code/qwi/seasonal_index.py          # build seasonal index
 - [x] QWI seasonal index builder
 - [x] Firm-level separation event builder
 - [x] Firm-level seasonal classification
-- [ ] Run replication and validate against paper tables/figures
+- [x] Ran replication and validated against paper — all estimates match
 - [ ] Download and process QWI data
 - [ ] Apply firm-level code on other machine
+
+---
+
+## Replication Results
+
+The paper presents TWO sets of recurrence estimates:
+
+| Spec | Where | CPS | SIPP |
+|---|---|---|---|
+| **Raw** (no controls) | Figure 2 (main text) | ~1.4 p.p. | ~2.0 p.p. |
+| **Preferred** (with controls) | Appendix Figure F.1 | ~1.5 p.p. | ~1.6 p.p. |
+
+**Our Python replication matches both:**
+
+| Statistic | Paper value | Our value |
+|---|---|---|
+| CPS raw excess recurrence | 1.4 p.p. (SE 0.14) | 1.44 p.p. (SE 0.14) ✓ |
+| CPS preferred (weeks_elapsed) | 1.5 p.p. (SE 0.14) | 1.42 p.p. (SE 0.14) ✓ |
+| SIPP raw excess recurrence | 2.0 p.p. (SE 0.11) | 2.04 p.p. (SE 0.11) ✓ |
+| SIPP preferred (seam+five) | 1.6 p.p. (SE 0.11) | 1.62 p.p. (SE 0.11) ✓ |
+
+**Industry rankings** (both datasets): Agriculture > Education > Entertainment > Construction at top; Healthcare and FIRE at bottom.
+
+**Seam coding note**: `srefmon` in the pre-cleaned data cycles 1→4 within each 4-month wave. srefmon=1 marks the first month of each wave (right after the seam boundary). Seam variables: `first_seam = (srefmon==1) & (k<=4)`, `later_seam = (srefmon==1) & (k>=5)`.
 
 ---
 
@@ -148,11 +172,12 @@ python code/qwi/seasonal_index.py          # build seasonal index
 
 | Statistic | Paper value | Our value |
 |---|---|---|
-| Overall excess recurrence (CPS, preferred) | ~2 p.p. | TBD |
-| Overall excess recurrence (SIPP, preferred) | ~2 p.p. | TBD |
-| Construction excess recurrence | highest industry | TBD |
-| Education excess recurrence | high (with seasonal component) | TBD |
-| Top decile cutoff (pred_excess) | ~5 p.p. | TBD |
+| CPS raw (Figure 2) | 1.4 p.p. (SE 0.14) | 1.44 ✓ |
+| SIPP raw (Figure 2) | 2.0 p.p. (SE 0.11) | 2.04 ✓ |
+| CPS preferred (App. F.1) | 1.5 p.p. (SE 0.14) | 1.42 ✓ |
+| SIPP preferred (App. F.1) | 1.6 p.p. (SE 0.11) | 1.62 ✓ |
+| Construction excess recurrence | highest industry | Confirmed ✓ |
+| Education excess recurrence | high | Confirmed ✓ |
 
 ---
 

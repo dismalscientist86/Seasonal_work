@@ -216,9 +216,10 @@ def estimate_cps(df: pd.DataFrame, **kwargs) -> dict:
 
 def estimate_sipp(df: pd.DataFrame, **kwargs) -> dict:
     """
-    SIPP preferred specification:
+    SIPP preferred specification (Appendix F.1 in paper):
         sep ~ k1 + ... + k10 + k12 + ... + k18 + five + first_seam + later_seam
               (k=11 omitted as base; intercept included)
+    Gives ExR ~ 1.6 p.p.
     """
     return estimate_recurrence(
         df,
@@ -226,6 +227,36 @@ def estimate_sipp(df: pd.DataFrame, **kwargs) -> dict:
         controls=["five", "first_seam", "later_seam"],
         no_const=False,
         base_k=BASE_MONTH_K,
+        **kwargs,
+    )
+
+
+def estimate_cps_raw(df: pd.DataFrame, **kwargs) -> dict:
+    """
+    CPS raw specification (Figure 2 in paper):
+        sep ~ k10 + k11 + k12 + k13 + k14  (no intercept, no controls)
+    Gives ExR ~ 1.4 p.p.
+    """
+    return estimate_recurrence(
+        df,
+        horizons=CPS_HORIZONS,
+        controls=[],
+        no_const=True,
+        **kwargs,
+    )
+
+
+def estimate_sipp_raw(df: pd.DataFrame, **kwargs) -> dict:
+    """
+    SIPP raw specification (Figure 2 in paper):
+        sep ~ k1 + ... + k18  (all dummies, no intercept, no controls)
+    Gives ExR ~ 2.0 p.p.
+    """
+    return estimate_recurrence(
+        df,
+        horizons=SIPP_HORIZONS,
+        controls=[],
+        no_const=True,
         **kwargs,
     )
 
@@ -392,11 +423,18 @@ def run_replication(save_outputs: bool = True) -> dict:
     cps = load_cps_separators(horizons=CPS_HORIZONS)
     print(f"  {cps['rid'].nunique():,} focal separations, {len(cps):,} obs")
 
-    print("\n=== CPS: preferred specification ===")
+    print("\n=== CPS: raw specification (Figure 2 in paper, target ~1.4 p.p.) ===")
+    res_cps_raw = estimate_cps_raw(cps)
+    exr_cps_raw = 100 * res_cps_raw["excess_recurrence"]
+    se_cps_raw  = 100 * res_cps_raw["se_excess_recurrence"]
+    print(f"  Excess recurrence: {exr_cps_raw:.2f} p.p.  (SE {se_cps_raw:.2f})  [paper: 1.4 (0.14)]")
+    results["cps_raw"] = res_cps_raw
+
+    print("\n=== CPS: preferred specification (Appendix F.1, target ~1.5 p.p.) ===")
     res_cps = estimate_cps(cps)
     exr_cps = 100 * res_cps["excess_recurrence"]
     se_cps  = 100 * res_cps["se_excess_recurrence"]
-    print(f"  Excess recurrence: {exr_cps:.2f} p.p.  (SE {se_cps:.2f})")
+    print(f"  Excess recurrence: {exr_cps:.2f} p.p.  (SE {se_cps:.2f})  [paper: 1.5 (0.14)]")
     results["cps_preferred"] = res_cps
 
     # By industry (CPS)
@@ -418,11 +456,18 @@ def run_replication(save_outputs: bool = True) -> dict:
     sipp = load_sipp_separators(earn_sample_only=False, horizons=SIPP_HORIZONS)
     print(f"  {sipp['rid'].nunique():,} focal separations, {len(sipp):,} obs")
 
-    print("\n=== SIPP: preferred specification ===")
+    print("\n=== SIPP: raw specification (Figure 2 in paper, target ~2.0 p.p.) ===")
+    res_sipp_raw = estimate_sipp_raw(sipp)
+    exr_sipp_raw = 100 * res_sipp_raw["excess_recurrence"]
+    se_sipp_raw  = 100 * res_sipp_raw["se_excess_recurrence"]
+    print(f"  Excess recurrence: {exr_sipp_raw:.2f} p.p.  (SE {se_sipp_raw:.2f})  [paper: 2.0 (0.11)]")
+    results["sipp_raw"] = res_sipp_raw
+
+    print("\n=== SIPP: preferred specification (Appendix F.1, target ~1.6 p.p.) ===")
     res_sipp = estimate_sipp(sipp)
     exr_sipp = 100 * res_sipp["excess_recurrence"]
     se_sipp  = 100 * res_sipp["se_excess_recurrence"]
-    print(f"  Excess recurrence: {exr_sipp:.2f} p.p.  (SE {se_sipp:.2f})")
+    print(f"  Excess recurrence: {exr_sipp:.2f} p.p.  (SE {se_sipp:.2f})  [paper: 1.6 (0.11)]")
     results["sipp_preferred"] = res_sipp
 
     # By industry (SIPP)
@@ -441,8 +486,10 @@ def run_replication(save_outputs: bool = True) -> dict:
     if save_outputs:
         # Robustness table
         rob = pd.DataFrame([
-            {"spec": "CPS: preferred",  "excess_recurrence": exr_cps, "se": se_cps},
-            {"spec": "SIPP: preferred", "excess_recurrence": exr_sipp, "se": se_sipp},
+            {"spec": "CPS: raw (Figure 2)",           "excess_recurrence": exr_cps_raw, "se": se_cps_raw,  "paper_target": "1.4 (0.14)"},
+            {"spec": "CPS: preferred (Appendix F.1)", "excess_recurrence": exr_cps,     "se": se_cps,      "paper_target": "1.5 (0.14)"},
+            {"spec": "SIPP: raw (Figure 2)",          "excess_recurrence": exr_sipp_raw,"se": se_sipp_raw, "paper_target": "2.0 (0.11)"},
+            {"spec": "SIPP: preferred (App. F.1)",    "excess_recurrence": exr_sipp,    "se": se_sipp,     "paper_target": "1.6 (0.11)"},
         ])
         rob.to_csv(TABLES_DIR / "recurrence_overall.csv", index=False)
         cps_by_ind.to_csv(TABLES_DIR / "recurrence_by_industry_cps.csv", index=False)
@@ -450,10 +497,12 @@ def run_replication(save_outputs: bool = True) -> dict:
         cps_by_mth.to_csv(TABLES_DIR / "recurrence_by_month_cps.csv", index=False)
         sipp_by_mth.to_csv(TABLES_DIR / "recurrence_by_month_sipp.csv", index=False)
 
-        # Separation profile figures
-        fig, axes = plt.subplots(1, 2, figsize=(12, 4))
-        plot_separation_profile(res_cps,  title="CPS",  ax=axes[0])
-        plot_separation_profile(res_sipp, title="SIPP", ax=axes[1])
+        # Separation profile figures — raw (Figure 2) and preferred (Appendix F.1)
+        fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+        plot_separation_profile(res_cps_raw,  title="CPS (raw, Figure 2)",           ax=axes[0][0])
+        plot_separation_profile(res_sipp_raw, title="SIPP (raw, Figure 2)",          ax=axes[0][1])
+        plot_separation_profile(res_cps,      title="CPS (preferred, Appendix F.1)", ax=axes[1][0])
+        plot_separation_profile(res_sipp,     title="SIPP (preferred, App. F.1)",    ax=axes[1][1])
         fig.suptitle("Separation probability profiles (Coglianese & Price replication)")
         fig.tight_layout()
         fig.savefig(FIGURES_DIR / "recurrence_profiles.pdf", bbox_inches="tight")
