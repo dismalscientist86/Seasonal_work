@@ -88,7 +88,7 @@ def _build_url(
     params = {
         "get":      get,
         "for":      f"state:{state_fips}",
-        "in":       f"industry:{industry_code}",
+        "industry": industry_code,
         "time":     f"{year}Q{quarter}",
     }
     if api_key:
@@ -117,10 +117,10 @@ def _fetch_one(
     get_vars   = ",".join(QWI_VARS)
 
     params = {
-        "get":  get_vars,
-        "for":  f"state:{state}",
-        "in":   f"industry:{industry}",
-        "time": time_range,
+        "get":      get_vars,
+        "for":      f"state:{state}",
+        "industry": industry,
+        "time":     f"from {time_range}",
     }
     if api_key:
         params["key"] = api_key
@@ -128,6 +128,8 @@ def _fetch_one(
     for attempt in range(max_retries):
         try:
             r = requests.get(QWI_BASE, params=params, timeout=30)
+            if r.status_code == 204:
+                return None   # No data for this cell
             r.raise_for_status()
             data = r.json()
             if len(data) < 2:

@@ -232,11 +232,13 @@ def build_seasonal_index(excess_df: pd.DataFrame) -> pd.DataFrame:
     available   = [c for c in excess_cols if c in df.columns]
 
     df["seasonal_amplitude"] = df[available].max(axis=1) - df[available].min(axis=1)
+    _peak = df[available].apply(
+        lambda row: row.idxmax() if row.notna().any() else pd.NA, axis=1
+    )
     df["peak_quarter"] = (
-        df[available]
-        .idxmax(axis=1)
-        .str.replace("excess", "")
-        .str.replace("Q", "")
+        _peak
+        .str.replace("excess", "", regex=False)
+        .str.replace("Q", "", regex=False)
         .astype("Int64")
     )
 
@@ -333,7 +335,7 @@ def validate_against_cp(
             )
             print("\nCorrelation with CP's excess recurrence estimates:")
             corr = agg[["seasonal_index", "excess_recurrence"]].dropna().corr()
-            print(f"  ρ = {corr.loc['seasonal_index','excess_recurrence']:.3f}")
+            print(f"  rho = {corr.loc['seasonal_index','excess_recurrence']:.3f}")
 
     return agg
 
