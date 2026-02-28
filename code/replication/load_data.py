@@ -47,7 +47,7 @@ def extract_replication_zip(force: bool = False) -> Path:
             "Make sure you have the file 238636-V1.zip in replication_package/."
         )
 
-    print(f"Extracting {REPKG_ZIP} → {dest} (this may take a few minutes) …")
+    print(f"Extracting {REPKG_ZIP} -> {dest} (this may take a few minutes) ...")
     dest.mkdir(parents=True, exist_ok=True)
 
     with zipfile.ZipFile(REPKG_ZIP, "r") as zf:
@@ -192,10 +192,10 @@ def load_cps_separators(
     df = load_dta_gz(path, usecols=cols)
 
     # Cast key columns to correct types
-    df["k"]   = df["k"].astype(int)
+    df["k"]   = df["k"].astype("int64")
     df["sep"] = df["sep"].astype(float)
-    df["rid"] = df["rid"].astype(int)
-    df["pid"] = df["pid"].astype(int)
+    df["rid"] = df["rid"].astype("int64")
+    df["pid"] = df["pid"].astype("int64")   # float64 → int64 (avoids int32 overflow on Windows)
 
     if horizons is not None:
         df = df[df["k"].isin(horizons)].copy()
@@ -236,10 +236,10 @@ def load_sipp_separators(
     filters = {"earn_sample": 1} if earn_sample_only else None
     df = load_dta_gz(path, usecols=cols, filters=filters)
 
-    df["k"]   = df["k"].astype(int)
+    df["k"]   = df["k"].astype("int64")
     df["sep"] = df["sep"].astype(float)
-    df["rid"] = df["rid"].astype(int)
-    df["pid"] = df["pid"].astype(int)
+    df["rid"] = df["rid"].astype("int64")
+    df["pid"] = df["pid"].astype("int64")
 
     # Compute SIPP panel-structure controls (from recurrence.do)
     # first_seam: obs is a reference-month seam within the first 4 months post-sep

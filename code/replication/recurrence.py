@@ -121,11 +121,19 @@ def estimate_recurrence(
     intercept = "" if no_const else ""   # statsmodels includes intercept by default
     formula = f"{outcome} ~ {k_terms}{ctrl_terms}" + (" - 1" if no_const else "")
 
-    # Fit WLS with clustered SEs
+    # Drop rows with NaN in any variable used by the formula so that
+    # the cluster array length matches the regression design matrix exactly.
+    all_vars = [outcome, cluster_col, weight_col] + list(dummy_ks and []) + (controls or [])
+    dummy_var_names = [f"_k{k}" for k in dummy_ks]
+    all_vars = [outcome, cluster_col, weight_col] + dummy_var_names + (controls or [])
+    data = data.dropna(subset=[c for c in all_vars if c in data.columns]).copy()
+
+    # statsmodels needs a 0-indexed non-negative integer array for np.bincount
+    cluster_ids = pd.factorize(data[cluster_col])[0]
     wls = smf.wls(formula, data=data, weights=data[weight_col])
     result = wls.fit(
         cov_type="cluster",
-        cov_kwds={"groups": data[cluster_col]},
+        cov_kwds={"groups": cluster_ids},
     )
 
     params = result.params
@@ -258,33 +266,21 @@ def run_by_industry(
 def run_by_month(
     df: pd.DataFrame,
     dataset: str = "cps",
-    month_col: str = "month",
 ) -> pd.DataFrame:
     """
-    Run the recurrence regression separately for each calendar month of separation.
-    The month_col should be the month *at the focal separation* (i.e., month at k=0
-    or the base_month if available).
+    Run the recurrence regression separately for each calendar month.
+
+    Replicates Stata's approach: filter the entire panel on `month == m`,
+    then run the full event-study regression on that subset.
+    At k=12, month==m means the focal separation was also in month m (since
+    the worker is observed exactly 12 months later), so this correctly
+    stratifies by month of the focal separation.
     """
     estimator = estimate_cps if dataset == "cps" else estimate_sipp
 
-    # For the separators panel, 'month' at the base event (k=0 or baseline)
-    # is what determines the calendar month of the focal separation.
-    # We need to use the baseline month — in CPS it's the month at the focal sep.
-    # The CPS separators file has 'month' as month at each horizon k, so we use
-    # the month at k=10 (first observed horizon) as a proxy for base month,
-    # or we can merge in the base month separately.
-    # For simplicity: use the month at the minimum horizon.
-    base_month = (
-        df[df["k"] == df["k"].min()]
-        .set_index("rid")["month"]
-    )
-    df = df.copy()
-    df["base_month"] = df["rid"].map(base_month)
-
     rows = []
     for m in range(1, 13):
-        rids_m = df.loc[df["base_month"] == m, "rid"].unique()
-        sub = df[df["rid"].isin(rids_m)]
+        sub = df[df["month"] == m]
         if len(sub) < 200:
             continue
         try:
@@ -412,11 +408,14 @@ def run_replication(save_outputs: bool = True) -> dict:
     # By month (CPS)
     print("\n=== CPS: by month of separation ===")
     cps_by_mth = run_by_month(cps, dataset="cps")
+    print(cps_by_mth[["month", "excess_recurrence", "se", "n"]].to_string(index=False))
     results["cps_by_month"] = cps_by_mth
 
     # ── SIPP overall ─────────────────────────────────────────────────────────
     print("\n=== SIPP: loading separators ===")
-    sipp = load_sipp_separators(earn_sample_only=True, horizons=SIPP_HORIZONS)
+    # The main recurrence analysis does NOT restrict to earn_sample==1
+    # (that restriction is only for the income event studies and ML analysis)
+    sipp = load_sipp_separators(earn_sample_only=False, horizons=SIPP_HORIZONS)
     print(f"  {sipp['rid'].nunique():,} focal separations, {len(sipp):,} obs")
 
     print("\n=== SIPP: preferred specification ===")
@@ -435,6 +434,7 @@ def run_replication(save_outputs: bool = True) -> dict:
     # By month (SIPP)
     print("\n=== SIPP: by month of separation ===")
     sipp_by_mth = run_by_month(sipp, dataset="sipp")
+    print(sipp_by_mth[["month", "excess_recurrence", "se", "n"]].to_string(index=False))
     results["sipp_by_month"] = sipp_by_mth
 
     # ── Save outputs ─────────────────────────────────────────────────────────
