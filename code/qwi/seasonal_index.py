@@ -172,8 +172,17 @@ def compute_excess_recurrence_by_quarter(rates: pd.DataFrame) -> pd.DataFrame:
             q_next = 1 if q == 4 else q + 1
 
             if q not in pivot.columns:
-                excess[f"excessQ{q}"] = np.nan
+                excess[f"excessQ{q}"]   = np.nan
+                excess[f"n_excessQ{q}"] = 0
                 mean_rates[f"sep_rate_Q{q}"] = np.nan
+                continue
+
+            mean_rates[f"sep_rate_Q{q}"] = pivot[q].mean()
+
+            # Need both adjacent quarters to compute the counterfactual
+            if q_prev not in pivot.columns or q_next not in pivot.columns:
+                excess[f"excessQ{q}"]   = np.nan
+                excess[f"n_excessQ{q}"] = 0
                 continue
 
             # For cyclical neighbors, we need to handle year wrap
@@ -193,12 +202,11 @@ def compute_excess_recurrence_by_quarter(rates: pd.DataFrame) -> pd.DataFrame:
                 s_next = pivot[q_next]
 
             cf = (s_prev + s_next) / 2
-            exr_series = s_curr - cf
-            exr_series = exr_series.dropna()
+            exr_series = (s_curr - cf).dropna()
 
             excess[f"excessQ{q}"]        = exr_series.mean()
             excess[f"n_excessQ{q}"]      = len(exr_series)
-            mean_rates[f"sep_rate_Q{q}"] = pivot[q].mean() if q in pivot.columns else np.nan
+            mean_rates[f"sep_rate_Q{q}"] = pivot[q].mean()
 
         # Data coverage: how many state × year cells contributed
         n_years = len(grp["year"].unique())

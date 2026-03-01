@@ -282,9 +282,9 @@ def fetch_qwi(
 
     full_df = pd.concat(all_frames, ignore_index=True)
 
-    # Parse time column: "2010Q1" → year and quarter
+    # Parse time column: "2010-Q1" → year and quarter
     full_df["year"]    = full_df["time"].str[:4].astype(int)
-    full_df["quarter"] = full_df["time"].str[5].astype(int)
+    full_df["quarter"] = full_df["time"].str[-1].astype(int)
 
     # Optionally aggregate to national
     if national_only:
