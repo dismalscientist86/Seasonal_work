@@ -62,6 +62,19 @@ This yields an industry-level seasonal index at 6-digit NAICS, useful for:
 - Validating CP's 1-digit results
 - Classifying firms by their NAICS industry seasonal intensity
 
+**National index (completed Mar 2026)**: all 51 states, 2000–2023, 1,011 industries.
+Correlation with CP's 1-digit industry rankings: ρ = 0.826.
+Saved to `data/qwi_clean/seasonal_index_naics6.csv`.
+
+Key columns: `naics_code`, `seasonal_index` (0–1), `excessQ4`, `peak_quarter`,
+`n_excess_obs` (number of years contributing to excessQ4 — flag thin estimates,
+especially for suppressed agriculture sub-industries).
+
+**Census API notes**:
+- Time format returned: `2000-Q1` (parse year with `str[:4]`, quarter with `str[-1]`)
+- `industry=` is a regular query param; one code per call; ~18 min per state
+- 6-digit NAICS only available at state level (no national wildcard)
+
 ### Firm-Level Module
 
 Input: UI wage records (worker_id, employer_id, quarter, earnings)
@@ -139,7 +152,8 @@ python code/qwi/seasonal_index.py          # build seasonal index
 - [x] Firm-level separation event builder
 - [x] Firm-level seasonal classification
 - [x] Ran replication and validated against paper — all estimates match
-- [ ] Download and process QWI data
+- [x] Fetched QWI data — all 51 states, 2000–2023, 6-digit NAICS
+- [x] Built national seasonal index — 1,011 industries, ρ = 0.826 vs CP rankings
 - [ ] Apply firm-level code on other machine
 
 ---
