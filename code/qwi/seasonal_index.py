@@ -196,7 +196,8 @@ def compute_excess_recurrence_by_quarter(rates: pd.DataFrame) -> pd.DataFrame:
             exr_series = s_curr - cf
             exr_series = exr_series.dropna()
 
-            excess[f"excessQ{q}"]     = exr_series.mean()
+            excess[f"excessQ{q}"]        = exr_series.mean()
+            excess[f"n_excessQ{q}"]      = len(exr_series)
             mean_rates[f"sep_rate_Q{q}"] = pivot[q].mean() if q in pivot.columns else np.nan
 
         # Data coverage: how many state × year cells contributed
@@ -230,6 +231,10 @@ def build_seasonal_index(excess_df: pd.DataFrame) -> pd.DataFrame:
 
     excess_cols = ["excessQ1", "excessQ2", "excessQ3", "excessQ4"]
     available   = [c for c in excess_cols if c in df.columns]
+
+    # n_excess_obs: years contributing to the excessQ4 estimate (the primary measure)
+    if "n_excessQ4" in df.columns:
+        df["n_excess_obs"] = df["n_excessQ4"].astype("Int64")
 
     df["seasonal_amplitude"] = df[available].max(axis=1) - df[available].min(axis=1)
     _peak = df[available].apply(
@@ -431,7 +436,7 @@ def build_and_save_index(
 
     print(f"\nTop 15 most seasonal industries (NAICS-{naics_level}):")
     print(index.head(15)[["naics_code", "sector_label", "seasonal_index",
-                           "excessQ4", "peak_quarter"]].to_string(index=False))
+                           "excessQ4", "peak_quarter", "n_excess_obs"]].to_string(index=False))
 
     if save:
         out_path = QWI_CLEAN / f"seasonal_index_naics{naics_level}.csv"
