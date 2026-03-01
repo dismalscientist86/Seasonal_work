@@ -1,7 +1,7 @@
 """
 geographic_analysis.py — State-level geographic variation in the QWI seasonal index.
 
-Computes excessQ4 for each (state x industry) cell and produces:
+Computes peak_excess for each (state x industry) cell and produces:
   1. Bar chart: mean state seasonality (across industries)
   2. Bar chart: sector geographic variation (cross-state SD)
   3. Two-panel: construction and agriculture by state
@@ -46,7 +46,7 @@ SECTOR_LABELS = {
 
 
 def load_and_compute(min_obs: int = 5) -> pd.DataFrame:
-    """Load QWI data and compute excessQ4 for each (state x industry) cell."""
+    """Load QWI data and compute peak_excess for each (state x industry) cell."""
     print("Loading combined QWI parquet...")
     df = pd.read_parquet(QWI_RAW / "qwi_naics6_all.parquet")
 
@@ -60,21 +60,41 @@ def load_and_compute(min_obs: int = 5) -> pd.DataFrame:
     df["sector"] = df["industry"].astype(str).str[:2]
     print(f"Loaded: {len(df):,} rows, {df['state'].nunique()} states, {df['industry'].nunique()} industries")
 
-    print("Computing state x industry excessQ4...")
+    print("Computing state x industry peak excess (all quarters)...")
     records = []
     for (state, ind), grp in df.groupby(["state", "industry"]):
         pivot = grp.pivot_table(index="year", columns="quarter", values="sep_rate", aggfunc="mean")
-        if 4 not in pivot.columns or 3 not in pivot.columns or 1 not in pivot.columns:
+
+        excesses = {}
+        for q in [1, 2, 3, 4]:
+            q_prev = 4 if q == 1 else q - 1
+            q_next = 1 if q == 4 else q + 1
+            if q not in pivot.columns or q_prev not in pivot.columns or q_next not in pivot.columns:
+                continue
+            if q == 1:
+                exr = (pivot[1] - (pivot[4].shift(1) + pivot[2]) / 2).dropna()
+            elif q == 4:
+                exr = (pivot[4] - (pivot[3] + pivot[1].shift(-1)) / 2).dropna()
+            else:
+                exr = (pivot[q] - (pivot[q - 1] + pivot[q + 1]) / 2).dropna()
+            if len(exr) >= min_obs:
+                excesses[q] = (exr.mean(), len(exr))
+
+        if not excesses:
             continue
-        exr = (pivot[4] - (pivot[3] + pivot[1].shift(-1)) / 2).dropna()
-        if len(exr) < min_obs:
-            continue
+        peak_q   = max(excesses, key=lambda q: excesses[q][0])
+        peak_val = excesses[peak_q][0]
+        peak_n   = excesses[peak_q][1]
+        amplitude = max(v for v, _ in excesses.values()) - min(v for v, _ in excesses.values())
+
         records.append({
-            "state":    state,
-            "industry": ind,
-            "sector":   str(ind)[:2],
-            "excessQ4": exr.mean(),
-            "n_obs":    len(exr),
+            "state":      state,
+            "industry":   ind,
+            "sector":     str(ind)[:2],
+            "peak_excess": peak_val,
+            "peak_quarter": peak_q,
+            "amplitude":   amplitude,
+            "n_obs":       peak_n,
         })
 
     si = pd.DataFrame(records)
@@ -88,9 +108,9 @@ def make_figures(si: pd.DataFrame):
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     TABLES_DIR.mkdir(parents=True, exist_ok=True)
 
-    state_avg = si.groupby("state_name")["excessQ4"].mean().sort_values(ascending=True)
+    state_avg = si.groupby("state_name")["peak_excess"].mean().sort_values(ascending=True)
     sector_var = (
-        si.groupby("sector_label")["excessQ4"]
+        si.groupby("sector_label")["peak_excess"]
         .agg(["mean", "std"])
         .sort_values("std", ascending=True)
     )
@@ -101,8 +121,8 @@ def make_figures(si: pd.DataFrame):
     colors = ["#d62728" if v > med else "#1f77b4" for v in state_avg]
     ax.barh(state_avg.index, state_avg.values * 100, color=colors)
     ax.axvline(med * 100, color="black", lw=0.8, ls="--", label=f"Median ({med*100:.2f} p.p.)")
-    ax.set_xlabel("Mean excess Q4 separation rate (p.p.)")
-    ax.set_title("State-level seasonality\n(mean excess Q4 across 6-digit NAICS industries)")
+    ax.set_xlabel("Mean peak quarter excess separation rate (p.p.)")
+    ax.set_title("State-level seasonality\n(mean peak excess across 6-digit NAICS industries)")
     ax.legend(fontsize=8)
     fig.tight_layout()
     fig.savefig(FIGURES_DIR / "geo_state_mean_seasonality.pdf", bbox_inches="tight")
@@ -113,7 +133,7 @@ def make_figures(si: pd.DataFrame):
     fig, ax = plt.subplots(figsize=(7, 7))
     ax.barh(sector_var.index, sector_var["std"] * 100, color="steelblue", label="Cross-state SD")
     ax.barh(sector_var.index, sector_var["mean"] * 100, color="orange", alpha=0.7, label="National mean")
-    ax.set_xlabel("Excess Q4 separation rate (p.p.)")
+    ax.set_xlabel("Peak quarter excess separation rate (p.p.)")
     ax.set_title("Geographic variation in seasonality by sector\n(cross-state standard deviation vs. national mean)")
     ax.legend(fontsize=8)
     fig.tight_layout()
@@ -126,31 +146,31 @@ def make_figures(si: pd.DataFrame):
     for ax, sector_code, title in zip(axes, ["23", "11"], ["Construction", "Agriculture"]):
         sub = (
             si[si["sector"] == sector_code]
-            .groupby("state_name")["excessQ4"]
+            .groupby("state_name")["peak_excess"]
             .mean()
             .sort_values(ascending=True)
         )
         colors = plt.cm.RdYlGn(np.linspace(0.1, 0.9, len(sub)))
         ax.barh(sub.index, sub.values * 100, color=colors)
         ax.axvline(0, color="black", lw=0.5)
-        ax.set_xlabel("Excess Q4 separation rate (p.p.)", fontsize=9)
-        ax.set_title(f"{title}: excess Q4 by state", fontsize=10)
+        ax.set_xlabel("Peak quarter excess separation rate (p.p.)", fontsize=9)
+        ax.set_title(f"{title}: peak excess by state", fontsize=10)
     fig.tight_layout()
     fig.savefig(FIGURES_DIR / "geo_construction_agriculture_by_state.pdf", bbox_inches="tight")
     plt.close(fig)
     print("Saved: geo_construction_agriculture_by_state.pdf")
 
     # ── Fig 4: Heatmap — state x sector ───────────────────────────────────────
-    top_sectors = si.groupby("sector_label")["excessQ4"].std().nlargest(8).index.tolist()
+    top_sectors = si.groupby("sector_label")["peak_excess"].std().nlargest(8).index.tolist()
     state_order = (
-        si.groupby("state_name")["excessQ4"]
+        si.groupby("state_name")["peak_excess"]
         .mean()
         .sort_values(ascending=False)
         .index.tolist()
     )
     heat = (
         si[si["sector_label"].isin(top_sectors)]
-        .pivot_table(index="state_name", columns="sector_label", values="excessQ4", aggfunc="mean")
+        .pivot_table(index="state_name", columns="sector_label", values="peak_excess", aggfunc="mean")
         .reindex(state_order)
     )
     vmax = float(heat.abs().quantile(0.95).max()) * 100
@@ -181,24 +201,24 @@ def print_key_numbers(si: pd.DataFrame, state_avg: pd.Series):
     print(f"Least seasonal: {state_avg.idxmin()} ({state_avg.min()*100:.2f} p.p.)")
     print(f"Ratio max/min:  {state_avg.max()/state_avg.min():.1f}x")
 
-    constr = si[si["sector"] == "23"].groupby("state_name")["excessQ4"].mean()
+    constr = si[si["sector"] == "23"].groupby("state_name")["peak_excess"].mean()
     mn = constr.get("Minnesota", float("nan"))
     fl = constr.get("Florida",   float("nan"))
     nd = constr.get("North Dakota", float("nan"))
-    print(f"\nConstruction excess Q4: MN={mn*100:.2f}, FL={fl*100:.2f}, ND={nd*100:.2f} p.p.")
+    print(f"\nConstruction peak excess: MN={mn*100:.2f}, FL={fl*100:.2f}, ND={nd*100:.2f} p.p.")
     print("Construction top 5:")
     print(constr.nlargest(5).mul(100).round(2).to_string())
     print("Construction bottom 5:")
     print(constr.nsmallest(5).mul(100).round(2).to_string())
 
-    agr = si[si["sector"] == "11"].groupby("state_name")["excessQ4"].mean()
+    agr = si[si["sector"] == "11"].groupby("state_name")["peak_excess"].mean()
     print(f"\nAgriculture top 5:")
     print(agr.nlargest(5).mul(100).round(2).to_string())
 
     # Save state_avg table for Beamer
-    out = si.groupby(["state_name","sector_label"])["excessQ4"].mean().reset_index()
-    out.to_csv(str(TABLES_DIR / "geo_state_sector_excessQ4.csv"), index=False)
-    state_avg.mul(100).round(4).rename("mean_excessQ4_pp").to_csv(
+    out = si.groupby(["state_name","sector_label"])["peak_excess"].mean().reset_index()
+    out.to_csv(str(TABLES_DIR / "geo_state_sector_peak_excess.csv"), index=False)
+    state_avg.mul(100).round(4).rename("mean_peak_excess_pp").to_csv(
         str(TABLES_DIR / "geo_state_avg_seasonality.csv")
     )
     print("\nTables saved.")

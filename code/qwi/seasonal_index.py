@@ -240,10 +240,6 @@ def build_seasonal_index(excess_df: pd.DataFrame) -> pd.DataFrame:
     excess_cols = ["excessQ1", "excessQ2", "excessQ3", "excessQ4"]
     available   = [c for c in excess_cols if c in df.columns]
 
-    # n_excess_obs: years contributing to the excessQ4 estimate (the primary measure)
-    if "n_excessQ4" in df.columns:
-        df["n_excess_obs"] = df["n_excessQ4"].astype("Int64")
-
     df["seasonal_amplitude"] = df[available].max(axis=1) - df[available].min(axis=1)
     _peak = df[available].apply(
         lambda row: row.idxmax() if row.notna().any() else pd.NA, axis=1
@@ -254,6 +250,21 @@ def build_seasonal_index(excess_df: pd.DataFrame) -> pd.DataFrame:
         .str.replace("Q", "", regex=False)
         .astype("Int64")
     )
+
+    # peak_excess: excess separation rate at the peak quarter
+    df["peak_excess"] = df[available].max(axis=1)
+
+    # n_excess_obs: years contributing to the peak-quarter excess estimate
+    n_cols = {c.replace("excessQ", "n_excessQ"): c.replace("excessQ", "Q")
+              for c in available if c.replace("excessQ", "n_excessQ") in df.columns}
+    if n_cols:
+        df["n_excess_obs"] = df.apply(
+            lambda row: row[f"n_excessQ{int(row['peak_quarter'])}"]
+            if pd.notna(row["peak_quarter"])
+               and f"n_excessQ{int(row['peak_quarter'])}" in df.columns
+            else pd.NA,
+            axis=1,
+        ).astype("Int64")
 
     # Normalize seasonal_amplitude to [0, 1] using 99th-percentile winsorization
     p99 = df["seasonal_amplitude"].quantile(0.99)
@@ -444,7 +455,7 @@ def build_and_save_index(
 
     print(f"\nTop 15 most seasonal industries (NAICS-{naics_level}):")
     print(index.head(15)[["naics_code", "sector_label", "seasonal_index",
-                           "excessQ4", "peak_quarter", "n_excess_obs"]].to_string(index=False))
+                           "peak_excess", "peak_quarter", "n_excess_obs"]].to_string(index=False))
 
     if save:
         out_path = QWI_CLEAN / f"seasonal_index_naics{naics_level}.csv"
