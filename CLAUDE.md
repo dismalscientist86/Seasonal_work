@@ -66,6 +66,14 @@ This yields an industry-level seasonal index at 6-digit NAICS, useful for:
 Correlation with CP's 1-digit industry rankings: ρ = 0.826.
 Saved to `data/qwi_clean/seasonal_index_naics6.csv`.
 
+Top sectors by seasonal_index (mean peak_excess):
+- Agriculture (0.472, 15.2 p.p.) > Arts/entertainment (0.419, 12.1 p.p.) > Education (0.257, 8.4 p.p.) > Construction (0.183, 5.9 p.p.)
+
+Note: Education peaks in Q2 (end of school year), not Q4. All education industries have
+positive peak_excess. Mathematical identity: the four quarter excesses sum to zero within
+any year, so peak_excess ≥ 0 by construction (barring thin-data filtering that excludes
+the true peak quarter).
+
 The index is **quarter-flexible**: Excess(q) is computed for all four quarters;
 the primary summary measures are:
 - `peak_excess`: excess separation rate at the industry's peak quarter
@@ -174,7 +182,7 @@ python code/qwi/geographic_analysis.py     # state-level variation + figures
 - [x] Fetched QWI data — all 51 states, 2000–2023, 6-digit NAICS
 - [x] Built national seasonal index — 1,011 industries, ρ = 0.826 vs CP rankings
 - [x] Geographic variation analysis — state × industry peak excess; 4 figures + 2 tables
-- [x] Beamer presentation — output/slides/slides.tex (15 slides)
+- [x] Beamer presentation — output/slides/slides.tex (15 slides); sector table uses peak_excess; education note corrected (peaks Q2, positive)
 - [ ] Apply firm-level code on other machine
 
 ---
