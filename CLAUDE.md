@@ -66,14 +66,30 @@ This yields an industry-level seasonal index at 6-digit NAICS, useful for:
 Correlation with CP's 1-digit industry rankings: ρ = 0.826.
 Saved to `data/qwi_clean/seasonal_index_naics6.csv`.
 
-Key columns: `naics_code`, `seasonal_index` (0–1), `excessQ4`, `peak_quarter`,
-`n_excess_obs` (number of years contributing to excessQ4 — flag thin estimates,
-especially for suppressed agriculture sub-industries).
+The index is **quarter-flexible**: Excess(q) is computed for all four quarters;
+the primary summary measures are:
+- `peak_excess`: excess separation rate at the industry's peak quarter
+- `seasonal_amplitude`: max(Excess) − min(Excess), normalized to `seasonal_index` ∈ [0,1]
+- `peak_quarter`: which quarter drives seasonality (1–4)
+- `n_excess_obs`: year-obs contributing to the peak quarter's estimate (flag thin cells)
 
 **Census API notes**:
 - Time format returned: `2000-Q1` (parse year with `str[:4]`, quarter with `str[-1]`)
 - `industry=` is a regular query param; one code per call; ~18 min per state
 - 6-digit NAICS only available at state level (no national wildcard)
+
+### Geographic Variation
+
+`code/qwi/geographic_analysis.py` computes peak excess for each state × industry cell
+(39k+ cells with ≥5 year-observations) and produces four figures:
+- `geo_state_mean_seasonality.pdf`: mean peak excess by state
+- `geo_sector_variation.pdf`: cross-state SD by sector
+- `geo_construction_agriculture_by_state.pdf`: construction and agriculture by state
+- `geo_heatmap_state_sector.pdf`: state × sector heatmap
+
+Key finding: 2.4× gap between most seasonal (Alaska, 8.0 p.p.) and least seasonal
+(Texas, 3.3 p.p.) states. Construction: MN 19.7 p.p. vs FL 2.6 p.p. (8× gap).
+Implication: use state × NAICS index for firm classification when state is known.
 
 ### Firm-Level Module
 
@@ -97,7 +113,9 @@ code/
 │   └── gbt_classifier.py       # LightGBM classifier: train on CPS, apply to SIPP
 ├── qwi/
 │   ├── fetch_qwi.py             # Download QWI data via Census API
-│   └── seasonal_index.py       # Build 6-digit NAICS seasonal index
+│   ├── seasonal_index.py        # Build 6-digit NAICS seasonal index (peak-flexible)
+│   ├── geographic_analysis.py   # State-level variation: figures + tables
+│   └── naics_codes.csv          # 1,012 six-digit NAICS codes (2022 vintage)
 └── firm_level/
     ├── build_events.py          # Build separation events from UI wage records
     └── classify_firms.py       # Classify firms as seasonal
@@ -136,8 +154,9 @@ Then run in order:
 python code/replication/load_data.py        # extract data
 python code/replication/recurrence.py       # replicate core results
 python code/replication/gbt_classifier.py   # (optional) retrain GBT
-python code/qwi/fetch_qwi.py               # download QWI data
-python code/qwi/seasonal_index.py          # build seasonal index
+python code/qwi/fetch_qwi.py               # download QWI data (all states, ~17 hrs)
+python code/qwi/seasonal_index.py          # build national seasonal index
+python code/qwi/geographic_analysis.py     # state-level variation + figures
 ```
 
 ---
@@ -154,6 +173,8 @@ python code/qwi/seasonal_index.py          # build seasonal index
 - [x] Ran replication and validated against paper — all estimates match
 - [x] Fetched QWI data — all 51 states, 2000–2023, 6-digit NAICS
 - [x] Built national seasonal index — 1,011 industries, ρ = 0.826 vs CP rankings
+- [x] Geographic variation analysis — state × industry peak excess; 4 figures + 2 tables
+- [x] Beamer presentation — output/slides/slides.tex (15 slides)
 - [ ] Apply firm-level code on other machine
 
 ---
