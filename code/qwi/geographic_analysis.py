@@ -1,11 +1,14 @@
 """
 geographic_analysis.py — State-level geographic variation in the QWI seasonal index.
 
-Computes peak_excess for each (state x industry) cell and produces:
+Computes a reusable state x NAICS6 seasonal index, then produces:
   1. Bar chart: mean state seasonality (across industries)
   2. Bar chart: sector geographic variation (cross-state SD)
   3. Two-panel: construction and agriculture by state
   4. Heatmap: state x sector for top variable sectors
+
+Outputs:
+  data/qwi_clean/seasonal_index_naics6_by_state.csv
 """
 
 import pandas as pd
@@ -18,8 +21,8 @@ warnings.filterwarnings("ignore")
 
 import sys
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from code.config import QWI_RAW, FIGURES_DIR, TABLES_DIR
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from config import QWI_RAW, QWI_CLEAN, FIGURES_DIR, TABLES_DIR
 
 STATE_NAMES = {
     "01":"Alabama","02":"Alaska","04":"Arizona","05":"Arkansas","06":"California",
@@ -46,7 +49,7 @@ SECTOR_LABELS = {
 
 
 def load_and_compute(min_obs: int = 5) -> pd.DataFrame:
-    """Load QWI data and compute peak_excess for each (state x industry) cell."""
+    """Load QWI data and compute seasonal indexes for state x NAICS6 cells."""
     print("Loading combined QWI parquet...")
     df = pd.read_parquet(QWI_RAW / "qwi_naics6_all.parquet")
 
@@ -57,19 +60,30 @@ def load_and_compute(min_obs: int = 5) -> pd.DataFrame:
     df["sep_rate"] = df["Sep"] / df[denom]
     df.loc[df["sep_rate"] <= 0, "sep_rate"] = np.nan
     df.loc[df["sep_rate"] >= 1, "sep_rate"] = np.nan
-    df["sector"] = df["industry"].astype(str).str[:2]
     print(f"Loaded: {len(df):,} rows, {df['state'].nunique()} states, {df['industry'].nunique()} industries")
 
-    print("Computing state x industry peak excess (all quarters)...")
+    print("Computing state x industry seasonal index (all quarters)...")
     records = []
     for (state, ind), grp in df.groupby(["state", "industry"]):
         pivot = grp.pivot_table(index="year", columns="quarter", values="sep_rate", aggfunc="mean")
 
         excesses = {}
+        record = {
+            "state": state,
+            "naics_code": ind,
+            "sector_2d": str(ind)[:2],
+            "naics_level": len(str(ind)),
+            "n_years": len(grp["year"].unique()),
+        }
+
         for q in [1, 2, 3, 4]:
             q_prev = 4 if q == 1 else q - 1
             q_next = 1 if q == 4 else q + 1
+            record[f"sep_rate_Q{q}"] = pivot[q].mean() if q in pivot.columns else np.nan
+
             if q not in pivot.columns or q_prev not in pivot.columns or q_next not in pivot.columns:
+                record[f"excessQ{q}"] = np.nan
+                record[f"n_excessQ{q}"] = 0
                 continue
             if q == 1:
                 exr = (pivot[1] - (pivot[4].shift(1) + pivot[2]) / 2).dropna()
@@ -77,6 +91,9 @@ def load_and_compute(min_obs: int = 5) -> pd.DataFrame:
                 exr = (pivot[4] - (pivot[3] + pivot[1].shift(-1)) / 2).dropna()
             else:
                 exr = (pivot[q] - (pivot[q - 1] + pivot[q + 1]) / 2).dropna()
+
+            record[f"excessQ{q}"] = exr.mean() if len(exr) >= min_obs else np.nan
+            record[f"n_excessQ{q}"] = len(exr)
             if len(exr) >= min_obs:
                 excesses[q] = (exr.mean(), len(exr))
 
@@ -87,21 +104,41 @@ def load_and_compute(min_obs: int = 5) -> pd.DataFrame:
         peak_n   = excesses[peak_q][1]
         amplitude = max(v for v, _ in excesses.values()) - min(v for v, _ in excesses.values())
 
-        records.append({
-            "state":      state,
-            "industry":   ind,
-            "sector":     str(ind)[:2],
-            "peak_excess": peak_val,
+        record.update({
+            "seasonal_amplitude": amplitude,
             "peak_quarter": peak_q,
-            "amplitude":   amplitude,
-            "n_obs":       peak_n,
+            "peak_excess": peak_val,
+            "n_excess_obs": peak_n,
         })
+        records.append(record)
 
     si = pd.DataFrame(records)
-    si["state_name"]   = si["state"].map(STATE_NAMES)
-    si["sector_label"] = si["sector"].map(SECTOR_LABELS)
+    p99 = si["seasonal_amplitude"].quantile(0.99)
+    si["seasonal_index"] = (si["seasonal_amplitude"] / p99).clip(0, 1)
+    si["state_name"] = si["state"].map(STATE_NAMES)
+    si["sector_label"] = si["sector_2d"].map(SECTOR_LABELS)
+    si = si.sort_values(["state_name", "seasonal_index"], ascending=[True, False])
     print(f"Computed {len(si):,} state x industry cells (>={min_obs} obs each)")
     return si
+
+
+def save_state_naics_index(si: pd.DataFrame) -> Path:
+    """Save the reusable state x NAICS6 seasonal index for firm lookup."""
+    QWI_CLEAN.mkdir(parents=True, exist_ok=True)
+    out_path = QWI_CLEAN / "seasonal_index_naics6_by_state.csv"
+
+    cols = [
+        "state", "state_name", "naics_code", "naics_level", "sector_2d", "sector_label",
+        "n_years",
+        "excessQ1", "n_excessQ1", "excessQ2", "n_excessQ2",
+        "excessQ3", "n_excessQ3", "excessQ4", "n_excessQ4",
+        "sep_rate_Q1", "sep_rate_Q2", "sep_rate_Q3", "sep_rate_Q4",
+        "seasonal_amplitude", "peak_quarter", "peak_excess", "n_excess_obs",
+        "seasonal_index",
+    ]
+    si[cols].to_csv(out_path, index=False)
+    print(f"Saved: {out_path}")
+    return out_path
 
 
 def make_figures(si: pd.DataFrame):
@@ -145,7 +182,7 @@ def make_figures(si: pd.DataFrame):
     fig, axes = plt.subplots(1, 2, figsize=(13, 8))
     for ax, sector_code, title in zip(axes, ["23", "11"], ["Construction", "Agriculture"]):
         sub = (
-            si[si["sector"] == sector_code]
+            si[si["sector_2d"] == sector_code]
             .groupby("state_name")["peak_excess"]
             .mean()
             .sort_values(ascending=True)
@@ -181,9 +218,9 @@ def make_figures(si: pd.DataFrame):
     ax.set_xticklabels(heat.columns, rotation=35, ha="right", fontsize=8)
     ax.set_yticks(range(len(heat.index)))
     ax.set_yticklabels(heat.index, fontsize=7)
-    plt.colorbar(im, ax=ax, label="Excess Q4 sep. rate (p.p.)")
+    plt.colorbar(im, ax=ax, label="Peak excess sep. rate (p.p.)")
     ax.set_title(
-        "Excess Q4 separation rate: state x sector\n"
+        "Peak excess separation rate: state x sector\n"
         "(states sorted by overall seasonality; top 8 sectors by geographic variation)",
         fontsize=9,
     )
@@ -201,7 +238,7 @@ def print_key_numbers(si: pd.DataFrame, state_avg: pd.Series):
     print(f"Least seasonal: {state_avg.idxmin()} ({state_avg.min()*100:.2f} p.p.)")
     print(f"Ratio max/min:  {state_avg.max()/state_avg.min():.1f}x")
 
-    constr = si[si["sector"] == "23"].groupby("state_name")["peak_excess"].mean()
+    constr = si[si["sector_2d"] == "23"].groupby("state_name")["peak_excess"].mean()
     mn = constr.get("Minnesota", float("nan"))
     fl = constr.get("Florida",   float("nan"))
     nd = constr.get("North Dakota", float("nan"))
@@ -211,7 +248,7 @@ def print_key_numbers(si: pd.DataFrame, state_avg: pd.Series):
     print("Construction bottom 5:")
     print(constr.nsmallest(5).mul(100).round(2).to_string())
 
-    agr = si[si["sector"] == "11"].groupby("state_name")["peak_excess"].mean()
+    agr = si[si["sector_2d"] == "11"].groupby("state_name")["peak_excess"].mean()
     print(f"\nAgriculture top 5:")
     print(agr.nlargest(5).mul(100).round(2).to_string())
 
@@ -226,5 +263,6 @@ def print_key_numbers(si: pd.DataFrame, state_avg: pd.Series):
 
 if __name__ == "__main__":
     si = load_and_compute(min_obs=5)
+    save_state_naics_index(si)
     state_avg, sector_var = make_figures(si)
     print_key_numbers(si, state_avg)
