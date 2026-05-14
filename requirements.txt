@@ -29,3 +29,6 @@ python-dotenv>=1.0
 
 # Parquet support for firm-level data
 pyarrow>=13.0
+
+# Excel support for NAICS crosswalks
+openpyxl>=3.1

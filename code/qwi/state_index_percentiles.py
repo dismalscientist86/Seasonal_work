@@ -11,6 +11,7 @@ restriction avoids treating thin cells with mechanically zero amplitude as
 
 The script also reads the national NAICS6 seasonal index and flags state-tail
 industries that are also in the national top or bottom tail.
+If a cleaned NAICS title lookup exists, names are added to output tables.
 
 Outputs are written to output/tables:
   state_top1pct_naics6.csv
@@ -125,6 +126,26 @@ def add_national_flags(df: pd.DataFrame, national_flags: pd.DataFrame) -> pd.Dat
     return out
 
 
+def load_naics_titles(path: Path | None) -> pd.DataFrame | None:
+    """Load optional cleaned NAICS6 title lookup."""
+    if path is None or not path.exists():
+        return None
+    titles = pd.read_csv(path, dtype={"naics_code": str, "sector_2d": str})
+    keep_cols = [
+        "naics_code", "national_industry_title", "sector_title",
+        "subsector_title", "industry_group_title", "naics_industry_title",
+    ]
+    keep_cols = [c for c in keep_cols if c in titles.columns]
+    return titles[keep_cols].drop_duplicates("naics_code")
+
+
+def add_naics_titles(df: pd.DataFrame, titles: pd.DataFrame | None) -> pd.DataFrame:
+    """Attach NAICS title fields when a cleaned lookup is available."""
+    if titles is None:
+        return df
+    return df.merge(titles, on="naics_code", how="left")
+
+
 def select_state_tail(
     df: pd.DataFrame,
     percentile: float,
@@ -158,9 +179,14 @@ def select_state_tail(
 
 def frequency_by_naics(selected: pd.DataFrame, n_states: int) -> pd.DataFrame:
     """Count how often each NAICS appears in a selected state tail."""
+    group_cols = ["naics_code"]
+    if "national_industry_title" in selected.columns:
+        group_cols.append("national_industry_title")
+    group_cols.extend(["sector_2d", "sector_label"])
+
     freq = (
         selected
-        .groupby(["naics_code", "sector_2d", "sector_label"], dropna=False)
+        .groupby(group_cols, dropna=False)
         .agg(
             n_states=("state_name", "nunique"),
             n_state_industry_slots=("state_name", "size"),
@@ -283,6 +309,7 @@ def write_tail_outputs(
 def run_analysis(
     input_path: Path,
     national_input_path: Path,
+    naics_titles_path: Path | None,
     percentile: float = 0.01,
     require_complete_quarters: bool = True,
     out_dir: Path = TABLES_DIR,
@@ -295,6 +322,7 @@ def run_analysis(
         require_complete_quarters=require_complete_quarters,
     )
     df = add_national_flags(df, national_flags)
+    df = add_naics_titles(df, load_naics_titles(naics_titles_path))
     n_states = df["state_name"].nunique()
     percentile_label = percentile_to_label(percentile)
 
@@ -342,6 +370,12 @@ def parse_args() -> argparse.Namespace:
         help="Path to national NAICS6 seasonal index CSV.",
     )
     parser.add_argument(
+        "--naics-titles",
+        type=Path,
+        default=QWI_CLEAN.parents[0] / "naics_xwalk" / "naics6_2022_titles.csv",
+        help="Optional cleaned NAICS6 title lookup created by clean_naics_xwalk.py.",
+    )
+    parser.add_argument(
         "--percentile",
         type=float,
         default=0.01,
@@ -366,6 +400,7 @@ if __name__ == "__main__":
     result = run_analysis(
         input_path=args.input,
         national_input_path=args.national_input,
+        naics_titles_path=args.naics_titles,
         percentile=args.percentile,
         require_complete_quarters=not args.no_require_complete_quarters,
         out_dir=args.out_dir,
