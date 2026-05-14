@@ -5,7 +5,8 @@ Computes a reusable state x NAICS6 seasonal index, then produces:
   1. Bar chart: mean state seasonality (across industries)
   2. Bar chart: sector geographic variation (cross-state SD)
   3. Two-panel: construction and agriculture by state
-  4. Heatmap: state x sector for top variable sectors
+  4. State tile map: mean state seasonality
+  5. Heatmap: state x sector for top variable sectors
 
 Outputs:
   data/qwi_clean/seasonal_index_naics6_by_state.csv
@@ -16,6 +17,7 @@ import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -36,6 +38,36 @@ STATE_NAMES = {
     "41":"Oregon","42":"Pennsylvania","44":"Rhode Island","45":"South Carolina",
     "46":"South Dakota","47":"Tennessee","48":"Texas","49":"Utah","50":"Vermont",
     "51":"Virginia","53":"Washington","54":"West Virginia","55":"Wisconsin","56":"Wyoming",
+}
+
+STATE_ABBR = {
+    "Alabama":"AL","Alaska":"AK","Arizona":"AZ","Arkansas":"AR","California":"CA",
+    "Colorado":"CO","Connecticut":"CT","Delaware":"DE","DC":"DC","Florida":"FL",
+    "Georgia":"GA","Hawaii":"HI","Idaho":"ID","Illinois":"IL","Indiana":"IN",
+    "Iowa":"IA","Kansas":"KS","Kentucky":"KY","Louisiana":"LA","Maine":"ME",
+    "Maryland":"MD","Massachusetts":"MA","Michigan":"MI","Minnesota":"MN",
+    "Mississippi":"MS","Missouri":"MO","Montana":"MT","Nebraska":"NE","Nevada":"NV",
+    "New Hampshire":"NH","New Jersey":"NJ","New Mexico":"NM","New York":"NY",
+    "North Carolina":"NC","North Dakota":"ND","Ohio":"OH","Oklahoma":"OK",
+    "Oregon":"OR","Pennsylvania":"PA","Rhode Island":"RI","South Carolina":"SC",
+    "South Dakota":"SD","Tennessee":"TN","Texas":"TX","Utah":"UT","Vermont":"VT",
+    "Virginia":"VA","Washington":"WA","West Virginia":"WV","Wisconsin":"WI","Wyoming":"WY",
+}
+
+STATE_TILE_POSITIONS = {
+    "AK": (0, 6), "ME": (11, 0), "VT": (10, 1), "NH": (11, 1),
+    "WA": (1, 1), "ID": (2, 2), "MT": (3, 2), "ND": (4, 2), "MN": (5, 2),
+    "IL": (6, 2), "WI": (6, 1), "MI": (7, 1), "NY": (9, 2),
+    "MA": (10, 2), "RI": (11, 2), "OR": (1, 2), "NV": (2, 3),
+    "WY": (3, 3), "SD": (4, 3), "IA": (5, 3), "IN": (6, 3),
+    "OH": (7, 3), "PA": (8, 3), "NJ": (9, 3), "CT": (10, 3),
+    "CA": (1, 4), "UT": (2, 4), "CO": (3, 4), "NE": (4, 4),
+    "MO": (5, 4), "KY": (6, 4), "WV": (7, 4), "VA": (8, 4),
+    "MD": (9, 4), "DE": (10, 4), "AZ": (2, 5), "NM": (3, 5),
+    "KS": (4, 5), "AR": (5, 5), "TN": (6, 5), "NC": (7, 5),
+    "SC": (8, 5), "DC": (9, 5), "OK": (4, 6), "LA": (5, 6),
+    "MS": (6, 6), "AL": (7, 6), "GA": (8, 6), "HI": (1, 7),
+    "TX": (4, 7), "FL": (9, 7),
 }
 
 SECTOR_LABELS = {
@@ -165,6 +197,47 @@ def make_figures(si: pd.DataFrame):
     fig.savefig(FIGURES_DIR / "geo_state_mean_seasonality.pdf", bbox_inches="tight")
     plt.close(fig)
     print("Saved: geo_state_mean_seasonality.pdf")
+
+    # Fig 1b: State tile map
+    tile = state_avg.rename_axis("state_name").reset_index(name="mean_peak_excess")
+    tile["abbr"] = tile["state_name"].map(STATE_ABBR)
+    tile["x"] = tile["abbr"].map(lambda s: STATE_TILE_POSITIONS.get(s, (np.nan, np.nan))[0])
+    tile["y"] = tile["abbr"].map(lambda s: STATE_TILE_POSITIONS.get(s, (np.nan, np.nan))[1])
+    tile = tile.dropna(subset=["x", "y"])
+
+    fig, ax = plt.subplots(figsize=(11, 7.2))
+    cmap = plt.cm.YlOrRd
+    norm = plt.Normalize(tile["mean_peak_excess"].min(), tile["mean_peak_excess"].max())
+    for _, row in tile.iterrows():
+        ax.add_patch(plt.Rectangle(
+            (row["x"], row["y"]), 0.9, 0.9,
+            facecolor=cmap(norm(row["mean_peak_excess"])),
+            edgecolor="white", linewidth=1.5,
+        ))
+        ax.text(row["x"] + 0.45, row["y"] + 0.33, row["abbr"],
+                ha="center", va="center", fontsize=10, fontweight="bold")
+        ax.text(row["x"] + 0.45, row["y"] + 0.62, f"{row['mean_peak_excess']*100:.1f}",
+                ha="center", va="center", fontsize=7)
+
+    ax.set_xlim(-0.2, 12.2)
+    ax.set_ylim(8.1, -0.5)
+    ax.set_aspect("equal")
+    ax.axis("off")
+    sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
+    sm.set_array([])
+    cbar = fig.colorbar(sm, ax=ax, fraction=0.03, pad=0.01)
+    cbar.set_label("Mean peak excess (p.p.)")
+    cbar.ax.yaxis.set_major_formatter(mtick.FuncFormatter(lambda x, pos: f"{x*100:.1f}"))
+    ax.set_title(
+        "State-level seasonality\n"
+        "Mean peak excess separation rate across 6-digit NAICS industries",
+        loc="left", fontsize=12,
+    )
+    fig.tight_layout()
+    fig.savefig(FIGURES_DIR / "geo_state_mean_tile_map.png", dpi=200, bbox_inches="tight")
+    fig.savefig(FIGURES_DIR / "geo_state_mean_tile_map.pdf", bbox_inches="tight")
+    plt.close(fig)
+    print("Saved: geo_state_mean_tile_map.png/pdf")
 
     # ── Fig 2: Sector geographic variation ────────────────────────────────────
     fig, ax = plt.subplots(figsize=(7, 7))
