@@ -62,12 +62,24 @@ This yields an industry-level seasonal index at 6-digit NAICS, useful for:
 - Validating CP's 1-digit results
 - Classifying firms by their NAICS industry seasonal intensity
 
-**National index (completed Mar 2026)**: all 51 states, 2000–2023, 1,011 industries.
-Correlation with CP's 1-digit industry rankings: ρ = 0.826.
-Saved to `data/qwi_clean/seasonal_index_naics6.csv`.
+**National index (completed Mar 2026, regenerated Jul 2026 — see robustness note below)**:
+all 51 states, 2000–2023, 1,011 industries. Correlation with CP's 1-digit industry
+rankings: ρ = 0.836. Saved to `data/qwi_clean/seasonal_index_naics6.csv`.
 
 Top sectors by seasonal_index (mean peak_excess):
-- Agriculture (0.472, 15.2 p.p.) > Arts/entertainment (0.419, 12.1 p.p.) > Education (0.257, 8.4 p.p.) > Construction (0.183, 5.9 p.p.)
+- Agriculture (0.469, 14.8 p.p.) > Arts/entertainment (0.446, 12.1 p.p.) > Accommodation/food (0.323, 8.3 p.p.) > Education (0.273, 8.4 p.p.) > Construction (0.194, 5.9 p.p.)
+
+**Data-quality fix (Jul 2026)**: `seasonal_index.py` was missing the `sys.path`
+bootstrap present in every other `code/qwi/` script, so it silently depended on
+the now-deleted shadowed `code/qwi/config.py` — fixed by adding the same
+bootstrap line. Regenerating the index with the current `MIN_EXCESS_OBS=5`
+threshold also fixed 3 industries (Tax Preparation Services, Cotton Ginning,
+Strawberry Farming) whose old `seasonal_index_naics6.csv` (Mar 2026) ranked
+them #1 nationally at `seasonal_index=1.0` off of just **2** contributing
+years — below the 5-year minimum — driven by anomalous 2020/2022 Q2 separation
+spikes, not genuine seasonality. The old file predated the current min-obs
+standard. Fixing this also nudged `state_index_percentiles.py`'s
+national-overlap figure (see below) from ~13% to ~11%.
 
 Note: Education peaks in Q2 (end of school year), not Q4. All education industries have
 positive peak_excess. Mathematical identity: the four quarter excesses sum to zero within
@@ -85,6 +97,27 @@ the primary summary measures are:
 - Time format returned: `2000-Q1` (parse year with `str[:4]`, quarter with `str[-1]`)
 - `industry=` is a regular query param; one code per call; ~18 min per state
 - 6-digit NAICS only available at state level (no national wildcard)
+
+### COVID-Era Robustness Check
+
+`code/qwi/covid_robustness_check.py` recomputes the national index restricted
+to 2000–2019 (reusing `seasonal_index.py`'s own pipeline functions) and compares
+it to the full 2000–2023 sample, to check whether pandemic-era disruption
+distorts industry rankings. Outputs `output/tables/covid_robustness_naics6.csv`
+and `output/figures/covid_robustness_scatter.pdf`.
+
+**Result: rankings are robust.** Pearson correlation between full-sample and
+pre-COVID `seasonal_index` = 0.997; Spearman rank correlation = 0.986; only
+6.3% of industries have a different peak quarter. The "watch sectors" most
+exposed to pandemic shutdowns (agriculture, construction, education, arts/
+entertainment, accommodation/food) all shift by ≤0.017 in `seasonal_index`.
+The single largest mover is a transportation industry (likely transit —
+NAICS 485111) whose seasonal_index roughly quintuples in the full sample
+versus pre-COVID, plausibly a genuine ridership-collapse effect rather than
+a data artifact. Running this check is what surfaced the stale national-index
+bug described above — the three thin-cell artifacts it originally flagged as
+the biggest "movers" turned out to be a min-obs threshold bug, not a COVID
+effect, and are now fixed at the source.
 
 ### Geographic Variation
 
@@ -127,7 +160,7 @@ Key findings:
   state's top-1% tail, and just 6 of those appear in 10+ states.
 - **Least-seasonal tail**: dominated by Mfg-metals (84% of states), Wholesale (67%),
   Mfg-chemicals (57%), Finance (55%).
-- **Only ~13% overlap with the national ranking** (52 of 413 state top-tail slots
+- **Only ~11% overlap with the national ranking** (45 of 413 state top-tail slots
   are also in the national top 1%): most industries that are "most seasonal" in a
   given state are not nationally seasonal, i.e. there's substantial state-specific
   heterogeneity a national-only index would miss.
@@ -181,6 +214,7 @@ code/
 │   ├── seasonal_index.py            # Build 6-digit NAICS seasonal index (peak-flexible)
 │   ├── geographic_analysis.py       # State-level variation: figures + tables
 │   ├── state_index_percentiles.py   # Within-state top/bottom-1% seasonality + national/cross-state overlap
+│   ├── covid_robustness_check.py    # Pre-COVID (2000-19) vs. full-sample index comparison
 │   ├── clean_naics_xwalk.py         # Census NAICS structure workbook -> naics6 title lookup
 │   ├── national_state_scatterplot.py  # diagnostic: state vs. national seasonal index scatter
 │   ├── plot_seasonality_figures.py    # diagnostic: employment time series + amplitude histogram
@@ -236,6 +270,7 @@ python code/qwi/seasonal_index.py          # build national seasonal index
 python code/qwi/geographic_analysis.py     # state-level variation + figures
 python code/qwi/clean_naics_xwalk.py       # (optional) build NAICS6 title lookup for labeling
 python code/qwi/state_index_percentiles.py # within-state top/bottom-1% seasonality + overlap
+python code/qwi/covid_robustness_check.py  # pre-COVID vs. full-sample index comparison
 python code/fetch_cbp.py                   # (in progress) county x NAICS establishment counts
 ```
 
@@ -252,11 +287,12 @@ python code/fetch_cbp.py                   # (in progress) county x NAICS establ
 - [x] Firm-level seasonal classification
 - [x] Ran replication and validated against paper — all estimates match
 - [x] Fetched QWI data — all 51 states, 2000–2023, 6-digit NAICS
-- [x] Built national seasonal index — 1,011 industries, ρ = 0.826 vs CP rankings
+- [x] Built national seasonal index — 1,011 industries, ρ = 0.836 vs CP rankings
 - [x] Geographic variation analysis — state × industry peak excess; 5 figures + 2 tables
 - [x] Beamer presentation — output/slides/slides.tex (15 slides); sector table uses peak_excess; education note corrected (peaks Q2, positive)
 - [x] NAICS title crosswalk — Census 2022 structure workbook cleaned to a NAICS6 lookup
-- [x] State-level percentile/overlap analysis — within-state top/bottom 1%; only ~13% overlap with national tail; 8 output tables
+- [x] State-level percentile/overlap analysis — within-state top/bottom 1%; only ~11% overlap with national tail; 8 output tables
+- [x] COVID-era robustness check — rankings hold (Pearson 0.997, Spearman 0.986) after excluding 2020-2021; fixed a stale-threshold bug in seasonal_index.py along the way (3 industries had wrongly ranked #1 off 2 years of data, below the 5-year minimum) and a missing sys.path bootstrap that broke the script entirely
 - [x] Figures/tables/final slide deck now synced to GitHub (previously all of output/ was gitignored)
 - [x] Ran exploratory QWI diagnostic scripts (`national_state_scatterplot.py`, `plot_seasonality_figures.py`); fixed a pandas 3.0 `PeriodIndex` API break and a seaborn/pandas incompatibility found along the way
 - [x] Deduplicated `STATE_NAMES`/`STATE_FIPS` — `fetch_qwi.py` and `geographic_analysis.py` now import from `config.py` instead of redefining locally
