@@ -51,9 +51,8 @@ def load_employment(qwi_file: Path) -> pd.DataFrame:
     agg["industry"] = agg["industry"].astype(str)
 
     # Convert to timestamp (quarter → first day of quarter)
-    agg["date"] = pd.PeriodIndex(
-        year=agg["year"], quarter=agg["quarter"]
-    ).to_timestamp()
+    period_strings = agg["year"].astype(int).astype(str) + "Q" + agg["quarter"].astype(int).astype(str)
+    agg["date"] = pd.PeriodIndex(period_strings, freq="Q").to_timestamp()
 
     return agg
 
@@ -210,12 +209,14 @@ def plot_seasonal_amplitude_distribution(seasonal_index: pd.DataFrame):
     ax.set_ylabel("Count")
     ax.grid(alpha=0.3)
 
-    # Optional KDE if seaborn is installed
+    # Optional KDE if seaborn is installed and compatible with the installed
+    # pandas version (older seaborn releases call pandas internals that have
+    # since been removed, e.g. the 'mode.use_inf_as_na' option).
     try:
         import seaborn as sns
         sns.kdeplot(vals, ax=ax, color="darkred", linewidth=1.6)
-    except ImportError:
-        pass
+    except Exception as e:
+        print(f"  [warn] Skipping KDE overlay (seaborn/pandas incompatibility): {e}")
 
     fig.tight_layout()
     return fig
