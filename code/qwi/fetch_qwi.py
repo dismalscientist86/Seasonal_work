@@ -30,10 +30,14 @@ import requests
 import pandas as pd
 from tqdm import tqdm
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from code.config import (
-    CENSUS_API_KEY, QWI_RAW, QWI_YEARS, QWI_NAICS_LEVEL,
+
+from config import (
+    CENSUS_API_KEY,
+    QWI_RAW,
+    QWI_YEARS,
+    QWI_NAICS_LEVEL,
 )
+
 
 # Census QWI API base URL
 QWI_BASE = "https://api.census.gov/data/timeseries/qwi/se"
@@ -65,7 +69,7 @@ STATE_NAMES = {
 }
 
 
-# ── API helpers ───────────────────────────────────────────────────────────────
+#  API helpers 
 
 def _qwi_quarters(years: list[int]) -> list[str]:
     """Generate quarter strings like '2010Q1', '2010Q2', … for the given years."""
@@ -163,7 +167,7 @@ def _fetch_one(
     return None
 
 
-# ── Industry list helper ──────────────────────────────────────────────────────
+#  Industry list helper 
 
 def get_available_industries(naics_level: int = 6, api_key: str = "") -> list[str]:
     """
@@ -210,7 +214,7 @@ def get_available_industries(naics_level: int = 6, api_key: str = "") -> list[st
     return two_digit
 
 
-# ── Main fetch function ───────────────────────────────────────────────────────
+#  Main fetch function 
 
 def fetch_qwi(
     states: list[str] | None = None,
@@ -302,7 +306,7 @@ def fetch_qwi(
     return out_path
 
 
-# ── Entry point ───────────────────────────────────────────────────────────────
+#  Entry point 
 
 if __name__ == "__main__":
     import argparse

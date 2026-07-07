@@ -24,7 +24,7 @@ warnings.filterwarnings("ignore")
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from config import QWI_RAW, QWI_CLEAN, FIGURES_DIR, TABLES_DIR
+from config import QWI_RAW, QWI_CLEAN, FIGURES_DIR, TABLES_DIR, MIN_EXCESS_OBS
 
 STATE_NAMES = {
     "01":"Alabama","02":"Alaska","04":"Arizona","05":"Arkansas","06":"California",
@@ -80,7 +80,7 @@ SECTOR_LABELS = {
 }
 
 
-def load_and_compute(min_obs: int = 5) -> pd.DataFrame:
+def load_and_compute(min_obs: int = MIN_EXCESS_OBS) -> pd.DataFrame:
     """Load QWI data and compute seasonal indexes for state x NAICS6 cells."""
     print("Loading combined QWI parquet...")
     df = pd.read_parquet(QWI_RAW / "qwi_naics6_all.parquet")
@@ -335,7 +335,7 @@ def print_key_numbers(si: pd.DataFrame, state_avg: pd.Series):
 
 
 if __name__ == "__main__":
-    si = load_and_compute(min_obs=5)
+    si = load_and_compute()
     save_state_naics_index(si)
     state_avg, sector_var = make_figures(si)
     print_key_numbers(si, state_avg)

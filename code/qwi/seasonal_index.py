@@ -16,7 +16,7 @@ Outputs a CSV: data/qwi_clean/seasonal_index_naics<N>.csv
            excessQ1, excessQ2, excessQ3, excessQ4,
            seasonal_amplitude, peak_quarter,
            excessQ4_norm, seasonal_index,
-           n_state_years (data coverage)
+           seasonal_index_emp
 
 The 'seasonal_index' is a 0–1 score suitable for classifying firms:
   0 = no seasonality, 1 = extreme seasonality.
@@ -35,8 +35,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from code.config import QWI_RAW, QWI_CLEAN, FIGURES_DIR, TABLES_DIR, QWI_NAICS_LEVEL
+from config import (
+    QWI_RAW, 
+    QWI_CLEAN, 
+    FIGURES_DIR, 
+    TABLES_DIR, 
+    QWI_NAICS_LEVEL,
+    MIN_EXCESS_OBS,
+)
 
 warnings.filterwarnings("ignore")
 
@@ -69,7 +75,7 @@ NAICS_SECTOR_LABELS = {
 }
 
 
-# ── Data loading ─────────────────────────────────────────────────────────────
+#  Data loading 
 
 def load_qwi(path: Path | None = None, naics_level: int | None = None) -> pd.DataFrame:
     """Load QWI parquet file(s) from QWI_RAW directory."""
@@ -102,7 +108,7 @@ def load_qwi(path: Path | None = None, naics_level: int | None = None) -> pd.Dat
     return df
 
 
-# ── Separation rate calculation ───────────────────────────────────────────────
+#  Separation rate calculation 
 
 def compute_sep_rates(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -137,10 +143,137 @@ def compute_sep_rates(df: pd.DataFrame) -> pd.DataFrame:
 
     return national
 
+def compute_employment_shares(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Build national employment 'shares' s_{industry,year,quarter} = EmpEnd / mean(EmpEnd in year),
+    where EmpEnd is preferred (time-aligned) and Emp is the fallback if EmpEnd is not present.
+    Negative/suppressed values are treated as missing.
+    """
+    d = df.copy()
+    for c in ["Emp", "EmpEnd"]:
+        if c in d.columns:
+            d.loc[d[c] < 0, c] = np.nan
 
-# ── Excess-Q4 computation ─────────────────────────────────────────────────────
+    # National aggregation across states
+    agg_cols = [c for c in ["Emp", "EmpEnd"] if c in d.columns]
+    groupcols = ["industry", "year", "quarter"]
+    nat = (
+        d.groupby(groupcols)[agg_cols]
+        .agg(lambda x: x.dropna().sum() if x.dropna().sum() > 0 else np.nan)
+        .reset_index()
+    )
 
-def compute_excess_recurrence_by_quarter(rates: pd.DataFrame) -> pd.DataFrame:
+    denom = "EmpEnd" if "EmpEnd" in nat.columns else "Emp"
+    nat["emp_level"] = nat[denom]
+
+    # Within-year normalization: share = level / mean(level in that industry-year)
+    nat["year_mean_emp"] = nat.groupby(["industry", "year"])["emp_level"].transform("mean")
+    nat["emp_share"] = nat["emp_level"] / nat["year_mean_emp"]
+
+    # Sanity: if only one quarter exists in a year, shares=1 but no neighbors, so excess won't be computed
+    return nat[["industry", "year", "quarter", "emp_share"]]
+
+
+def compute_employment_excess_by_quarter(
+    emp_shares: pd.DataFrame, min_obs: int = MIN_EXCESS_OBS
+) -> pd.DataFrame:
+    """
+    Analog of compute_excess_recurrence_by_quarter(), but using employment shares s_{j,t,q}.
+
+    Cells with fewer than `min_obs` contributing years are set to NaN, matching
+    the threshold used for the separation-rate excess measure and for the
+    state x industry index in geographic_analysis.py.
+
+    Returns a DataFrame indexed by industry with columns:
+        emp_excessQ1, emp_excessQ2, emp_excessQ3, emp_excessQ4,
+        emp_share_Q1, emp_share_Q2, emp_share_Q3, emp_share_Q4,
+        n_emp_excessQ1..Q4, n_years
+    """
+    emp_shares = emp_shares.sort_values(["industry", "year", "quarter"]).copy()
+    records = []
+
+    for ind, grp in emp_shares.groupby("industry"):
+        pivot = grp.pivot(index="year", columns="quarter", values="emp_share")
+        excess = {}
+        mean_shares = {}
+
+        for q in [1, 2, 3, 4]:
+            q_prev = 4 if q == 1 else q - 1
+            q_next = 1 if q == 4 else q + 1
+
+            if q not in pivot.columns:
+                excess[f"emp_excessQ{q}"]   = np.nan
+                excess[f"n_emp_excessQ{q}"] = 0
+                mean_shares[f"emp_share_Q{q}"] = np.nan
+                continue
+
+            mean_shares[f"emp_share_Q{q}"] = pivot[q].mean()
+
+            # Need both adjacent quarters for the counterfactual
+            if q_prev not in pivot.columns or q_next not in pivot.columns:
+                excess[f"emp_excessQ{q}"]   = np.nan
+                excess[f"n_emp_excessQ{q}"] = 0
+                continue
+
+            # Handle year wrap for Q1/Q4 neighbors
+            if q == 1:
+                s_curr = pivot[1]
+                s_prev = pivot[4].shift(1)   # previous year's Q4
+                s_next = pivot[2]
+            elif q == 4:
+                s_curr = pivot[4]
+                s_prev = pivot[3]
+                s_next = pivot[1].shift(-1)  # next year's Q1
+            else:
+                s_curr = pivot[q]
+                s_prev = pivot[q_prev]
+                s_next = pivot[q_next]
+
+            cf = (s_prev + s_next) / 2
+            exr_series = (s_curr - cf).dropna()
+
+            excess[f"emp_excessQ{q}"]        = exr_series.mean() if len(exr_series) >= min_obs else np.nan
+            excess[f"n_emp_excessQ{q}"]      = len(exr_series)
+            mean_shares[f"emp_share_Q{q}"]   = pivot[q].mean()
+
+        records.append({
+            "industry": ind,
+            "n_years": len(grp["year"].unique()),
+            **excess,
+            **mean_shares,
+        })
+
+    return pd.DataFrame(records)
+
+
+def build_employment_seasonal_index(emp_excess_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Construct a 0�1 seasonal index from employment excess-by-quarter.
+    Returns minimal columns for merging:
+        naics_code, seasonal_index_emp
+    (Also computes amplitude and peak quarter internally for normalization.)
+    """
+    df = emp_excess_df.copy()
+    excess_cols = ["emp_excessQ1", "emp_excessQ2", "emp_excessQ3", "emp_excessQ4"]
+    available = [c for c in excess_cols if c in df.columns]
+
+    df["emp_seasonal_amplitude"] = df[available].max(axis=1) - df[available].min(axis=1)
+    # 99th-percentile winsorization for 0�1 scale
+    p99_emp = df["emp_seasonal_amplitude"].quantile(0.99)
+    df["seasonal_index_emp"] = (df["emp_seasonal_amplitude"] / p99_emp).clip(0, 1)
+
+    # Bring over NAICS code and sector info similarly to build_seasonal_index()
+    df["sector_2d"] = df["industry"].astype(str).str[:2]
+    df["sector_label"] = df["sector_2d"].map(NAICS_SECTOR_LABELS).fillna("Other")
+    df["naics_level"] = df["industry"].astype(str).str.len()
+
+    return df.rename(columns={"industry": "naics_code"})[["naics_code", "seasonal_index_emp"]]
+
+#  Excess-Q4 computation 
+
+def compute_excess_recurrence_by_quarter(
+    rates: pd.DataFrame, min_obs: int = MIN_EXCESS_OBS
+) -> pd.DataFrame:
     """
     For each industry and focal quarter Q ∈ {1,2,3,4}, compute the excess
     separation rate relative to the average of the two adjacent quarters.
@@ -150,6 +283,10 @@ def compute_excess_recurrence_by_quarter(rates: pd.DataFrame) -> pd.DataFrame:
     where the average is taken over all years with non-missing adjacent quarters.
 
     Quarters are treated cyclically: Q4's neighbors are Q3 and Q1(next year).
+
+    Cells with fewer than `min_obs` contributing years are set to NaN rather
+    than reported as-is, to avoid thin cells masquerading as low-seasonality
+    estimates (matches the min_obs filter used in geographic_analysis.py).
 
     Returns a DataFrame indexed by industry with columns:
         excessQ1, excessQ2, excessQ3, excessQ4,
@@ -204,7 +341,7 @@ def compute_excess_recurrence_by_quarter(rates: pd.DataFrame) -> pd.DataFrame:
             cf = (s_prev + s_next) / 2
             exr_series = (s_curr - cf).dropna()
 
-            excess[f"excessQ{q}"]        = exr_series.mean()
+            excess[f"excessQ{q}"]        = exr_series.mean() if len(exr_series) >= min_obs else np.nan
             excess[f"n_excessQ{q}"]      = len(exr_series)
             mean_rates[f"sep_rate_Q{q}"] = pivot[q].mean()
 
@@ -222,7 +359,7 @@ def compute_excess_recurrence_by_quarter(rates: pd.DataFrame) -> pd.DataFrame:
     return result
 
 
-# ── Seasonal index construction ───────────────────────────────────────────────
+#  Seasonal index construction 
 
 def build_seasonal_index(excess_df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -283,7 +420,7 @@ def build_seasonal_index(excess_df: pd.DataFrame) -> pd.DataFrame:
     )
 
 
-# ── Validation: compare to CP's 1-digit results ──────────────────────────────
+#  Validation: compare to CP's 1-digit results 
 
 def validate_against_cp(
     seasonal_index: pd.DataFrame,
@@ -364,7 +501,7 @@ def validate_against_cp(
     return agg
 
 
-# ── Figures ───────────────────────────────────────────────────────────────────
+#  Figures 
 
 def plot_seasonal_index(
     seasonal_index: pd.DataFrame,
@@ -424,7 +561,7 @@ def plot_quarterly_profiles(
     return fig
 
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+#  Main 
 
 def build_and_save_index(
     qwi_path: Path | None = None,
@@ -452,6 +589,16 @@ def build_and_save_index(
 
     # Build seasonal index
     index = build_seasonal_index(excess)
+    
+    
+    # Employment-only seasonal index
+    emp_shares = compute_employment_shares(qwi)
+    emp_excess = compute_employment_excess_by_quarter(emp_shares)
+    index_emp  = build_employment_seasonal_index(emp_excess)
+
+    # Merge employment index into the main index
+    index = index.merge(index_emp, on="naics_code", how="left")
+
 
     print(f"\nTop 15 most seasonal industries (NAICS-{naics_level}):")
     print(index.head(15)[["naics_code", "sector_label", "seasonal_index",
@@ -494,3 +641,4 @@ if __name__ == "__main__":
         qwi_path=args.naics_file,
         naics_level=args.naics_level,
     )
+
