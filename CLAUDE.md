@@ -143,8 +143,17 @@ Key findings:
 `code/fetch_cbp.py` downloads County Business Patterns (establishment counts by
 county × NAICS) from the Census API, as a first step toward weighting the
 state × NAICS6 seasonal index down to the county level by local industry mix.
-**Not yet run** — no `data/cbp_raw/` output exists yet. NAICS-6 county cells
-are heavily suppressed; the script also fetches NAICS-4 as a fallback.
+NAICS-6 county cells are heavily suppressed; the script also fetches NAICS-4
+as a fallback.
+
+**Validated but not fully run.** A single-state test (`--state 06 --naics-level 6`)
+succeeded after fixing a path bug (`load_naics_codes()` resolved to the wrong
+directory for its default NAICS code list). The test also revealed the real
+cost of a full run: ~1.15s/API call means NAICS-6 alone is ~1,012 codes × 51
+states ≈ **16.5 hours**, and NAICS-4 (~308 codes) adds another ~5 hours — a
+~21–22 hour full run, vs. the QWI fetcher's ~17 hours. The fetcher is resumable
+(skips a state if its output file already exists), so this can run unattended
+whenever it's worth committing the time.
 
 ### Firm-Level Module
 
@@ -249,7 +258,10 @@ python code/fetch_cbp.py                   # (in progress) county x NAICS establ
 - [x] NAICS title crosswalk — Census 2022 structure workbook cleaned to a NAICS6 lookup
 - [x] State-level percentile/overlap analysis — within-state top/bottom 1%; only ~13% overlap with national tail; 8 output tables
 - [x] Figures/tables/final slide deck now synced to GitHub (previously all of output/ was gitignored)
-- [ ] Fetch and merge County Business Patterns (CBP) data for a county-level index (code written, not yet run)
+- [x] Ran exploratory QWI diagnostic scripts (`national_state_scatterplot.py`, `plot_seasonality_figures.py`); fixed a pandas 3.0 `PeriodIndex` API break and a seaborn/pandas incompatibility found along the way
+- [x] Deduplicated `STATE_NAMES`/`STATE_FIPS` — `fetch_qwi.py` and `geographic_analysis.py` now import from `config.py` instead of redefining locally
+- [x] Validated CBP fetcher with a single-state test (fixed a NAICS-code-list path bug); full 51-state run (~21–22 hrs) deferred by choice, not run yet
+- [ ] Fetch and merge County Business Patterns (CBP) data for a county-level index (validated, ~21-22hr full run not yet launched)
 - [ ] Apply firm-level code on other machine
 
 ---
