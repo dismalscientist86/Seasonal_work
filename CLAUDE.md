@@ -89,8 +89,9 @@ the primary summary measures are:
 ### Geographic Variation
 
 `code/qwi/geographic_analysis.py` computes peak excess for each state × industry cell
-(39k+ cells with ≥5 year-observations) and produces four figures:
+(39k+ cells with ≥5 year-observations) and produces five figures:
 - `geo_state_mean_seasonality.pdf`: mean peak excess by state
+- `geo_state_mean_tile_map.png` / `.pdf`: state tile-grid map of mean peak excess
 - `geo_sector_variation.pdf`: cross-state SD by sector
 - `geo_construction_agriculture_by_state.pdf`: construction and agriculture by state
 - `geo_heatmap_state_sector.pdf`: state × sector heatmap
@@ -98,6 +99,52 @@ the primary summary measures are:
 Key finding: 2.4× gap between most seasonal (Alaska, 8.0 p.p.) and least seasonal
 (Texas, 3.3 p.p.) states. Construction: MN 19.7 p.p. vs FL 2.6 p.p. (8× gap).
 Implication: use state × NAICS index for firm classification when state is known.
+
+### NAICS Title Crosswalk
+
+`code/qwi/clean_naics_xwalk.py` cleans the Census 2022 NAICS structure workbook
+(`data/naics_xwalk/2022_NAICS_Structure.xlsx`) into a NAICS6 title lookup
+(`data/naics_xwalk/naics6_2022_titles.csv`) with sector/subsector/industry-group
+titles attached at every level. Used to attach human-readable industry names to
+the seasonal index tables (e.g. in `state_index_percentiles.py` below) — purely
+a labeling convenience, no effect on the underlying index.
+
+### State-Level Percentile / Overlap Analysis
+
+`code/qwi/state_index_percentiles.py` identifies, **within each state**, the
+top and bottom 1% of NAICS6 industries by `seasonal_index` (restricted to
+cells with all four quarterly excess estimates non-missing), then checks how
+those state-specific tails relate to the national ranking and to each other.
+Outputs (`output/tables/`): `state_top1pct_naics6.csv`, `state_bottom1pct_naics6.csv`,
+`top1pct_naics_frequency.csv`, `bottom1pct_naics_frequency.csv`,
+`top1pct_sector_frequency.csv`, `bottom1pct_sector_frequency.csv`,
+`state_percentile_overlap_summary.csv`, `state_percentile_pairwise_jaccard.csv`.
+
+Key findings:
+- **Most-seasonal tail is sector-concentrated but state-specific**: Agriculture
+  appears in the top 1% of 96% of states, Arts/entertainment in 86%, Accommodation/food
+  in 41%, Construction in 33% — but only **133 unique NAICS6 codes** ever make a
+  state's top-1% tail, and just 6 of those appear in 10+ states.
+- **Least-seasonal tail**: dominated by Mfg-metals (84% of states), Wholesale (67%),
+  Mfg-chemicals (57%), Finance (55%).
+- **Only ~13% overlap with the national ranking** (52 of 413 state top-tail slots
+  are also in the national top 1%): most industries that are "most seasonal" in a
+  given state are not nationally seasonal, i.e. there's substantial state-specific
+  heterogeneity a national-only index would miss.
+- **Low cross-state overlap** (mean pairwise Jaccard ≈ 0.05 for top tails): beyond
+  the common sectors above, which specific industries make a state's top-1% list
+  varies a lot state to state.
+- Implication: for firm classification, prefer the **state × NAICS** index
+  (`geographic_analysis.py`'s output) over the national index when the firm's
+  state is known — confirms and quantifies the geographic-variation finding above.
+
+### County-Level Extension (CBP) — in progress
+
+`code/fetch_cbp.py` downloads County Business Patterns (establishment counts by
+county × NAICS) from the Census API, as a first step toward weighting the
+state × NAICS6 seasonal index down to the county level by local industry mix.
+**Not yet run** — no `data/cbp_raw/` output exists yet. NAICS-6 county cells
+are heavily suppressed; the script also fetches NAICS-4 as a fallback.
 
 ### Firm-Level Module
 
@@ -114,19 +161,24 @@ Two approaches:
 
 ```
 code/
-├── config.py                    # Paths and parameters (edit before running)
+├── config.py                        # Paths and parameters (REPO_ROOT auto-detected)
+├── fetch_cbp.py                     # [in progress] County Business Patterns fetcher (county x NAICS)
 ├── replication/
-│   ├── load_data.py             # Extract zip; load .dta.gz files
-│   ├── recurrence.py            # Core excess recurrence estimation (main replication)
-│   └── gbt_classifier.py       # LightGBM classifier: train on CPS, apply to SIPP
+│   ├── load_data.py                 # Extract zip; load .dta.gz files
+│   ├── recurrence.py                # Core excess recurrence estimation (main replication)
+│   └── gbt_classifier.py           # LightGBM classifier: train on CPS, apply to SIPP
 ├── qwi/
-│   ├── fetch_qwi.py             # Download QWI data via Census API
-│   ├── seasonal_index.py        # Build 6-digit NAICS seasonal index (peak-flexible)
-│   ├── geographic_analysis.py   # State-level variation: figures + tables
-│   └── naics_codes.csv          # 1,012 six-digit NAICS codes (2022 vintage)
+│   ├── fetch_qwi.py                 # Download QWI data via Census API
+│   ├── seasonal_index.py            # Build 6-digit NAICS seasonal index (peak-flexible)
+│   ├── geographic_analysis.py       # State-level variation: figures + tables
+│   ├── state_index_percentiles.py   # Within-state top/bottom-1% seasonality + national/cross-state overlap
+│   ├── clean_naics_xwalk.py         # Census NAICS structure workbook -> naics6 title lookup
+│   ├── national_state_scatterplot.py  # diagnostic: state vs. national seasonal index scatter
+│   ├── plot_seasonality_figures.py    # diagnostic: employment time series + amplitude histogram
+│   └── naics_codes.csv              # 1,012 six-digit NAICS codes (2022 vintage)
 └── firm_level/
-    ├── build_events.py          # Build separation events from UI wage records
-    └── classify_firms.py       # Classify firms as seasonal
+    ├── build_events.py              # Build separation events from UI wage records
+    └── classify_firms.py           # Classify firms as seasonal
 ```
 
 ---
@@ -139,7 +191,15 @@ code/
 
 ### QWI Extension
 - Census API key (free: https://api.census.gov/data/key_signup.html)
-- Set `CENSUS_API_KEY` in `code/config.py`
+- Set `CENSUS_API_KEY` in a `.env` file at the repo root (see `.env.example`)
+
+### NAICS Title Crosswalk (optional)
+- `data/naics_xwalk/2022_NAICS_Structure.xlsx` — Census 2022 NAICS structure workbook
+  (not in repo; download from census.gov and place here to run `clean_naics_xwalk.py`)
+
+### County-Level Extension (CBP, in progress)
+- Same Census API key as the QWI extension
+- `code/qwi/naics_codes.csv` (reused for the CBP NAICS code list)
 
 ### Firm-level Module
 - UI wage records in parquet or CSV format (see `code/firm_level/build_events.py`)
@@ -153,9 +213,9 @@ code/
 pip install -r requirements.txt
 ```
 
-Edit `code/config.py` to set:
-- `REPO_ROOT`: path to this directory
-- `CENSUS_API_KEY`: your Census API key
+`REPO_ROOT` in `code/config.py` is auto-detected from the file's location — no
+editing needed. Set `CENSUS_API_KEY` in a `.env` file at the repo root instead
+(copy `.env.example`).
 
 Then run in order:
 ```bash
@@ -165,6 +225,9 @@ python code/replication/gbt_classifier.py   # (optional) retrain GBT
 python code/qwi/fetch_qwi.py               # download QWI data (all states, ~17 hrs)
 python code/qwi/seasonal_index.py          # build national seasonal index
 python code/qwi/geographic_analysis.py     # state-level variation + figures
+python code/qwi/clean_naics_xwalk.py       # (optional) build NAICS6 title lookup for labeling
+python code/qwi/state_index_percentiles.py # within-state top/bottom-1% seasonality + overlap
+python code/fetch_cbp.py                   # (in progress) county x NAICS establishment counts
 ```
 
 ---
@@ -181,8 +244,12 @@ python code/qwi/geographic_analysis.py     # state-level variation + figures
 - [x] Ran replication and validated against paper — all estimates match
 - [x] Fetched QWI data — all 51 states, 2000–2023, 6-digit NAICS
 - [x] Built national seasonal index — 1,011 industries, ρ = 0.826 vs CP rankings
-- [x] Geographic variation analysis — state × industry peak excess; 4 figures + 2 tables
+- [x] Geographic variation analysis — state × industry peak excess; 5 figures + 2 tables
 - [x] Beamer presentation — output/slides/slides.tex (15 slides); sector table uses peak_excess; education note corrected (peaks Q2, positive)
+- [x] NAICS title crosswalk — Census 2022 structure workbook cleaned to a NAICS6 lookup
+- [x] State-level percentile/overlap analysis — within-state top/bottom 1%; only ~13% overlap with national tail; 8 output tables
+- [x] Figures/tables/final slide deck now synced to GitHub (previously all of output/ was gitignored)
+- [ ] Fetch and merge County Business Patterns (CBP) data for a county-level index (code written, not yet run)
 - [ ] Apply firm-level code on other machine
 
 ---
