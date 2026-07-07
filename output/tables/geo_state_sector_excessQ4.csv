@@ -1,0 +1,1222 @@
+state_name,sector_label,excessQ4
+Alabama,Accommodation/food,0.013384137322917124
+Alabama,Admin/waste,0.011261802271912558
+Alabama,Agriculture,0.07814689293545975
+Alabama,Arts/entertain,0.04504358357486403
+Alabama,Construction,0.030563731831420398
+Alabama,Education,0.004639178778840203
+Alabama,Finance,0.029097124671751046
+Alabama,Healthcare,0.0009811859765747632
+Alabama,Information,0.009307042117627668
+Alabama,Management,0.02993868241588375
+Alabama,Mfg-chem,-0.0041274696935373
+Alabama,Mfg-food,-0.00016552306363217095
+Alabama,Mfg-metals,-0.004283273662018824
+Alabama,Mining,0.008917972179445094
+Alabama,Other services,0.0016194412646007717
+Alabama,Prof services,0.02302805672235472
+Alabama,Public admin,0.016332550590388035
+Alabama,Real estate,0.011257519343744875
+Alabama,Retail-gen,0.015840431865157885
+Alabama,Retail-spec,0.005955143707581411
+Alabama,Transportation,0.0125836388407049
+Alabama,Utilities,-0.018371299448141566
+Alabama,Warehousing,0.03998637088853397
+Alabama,Wholesale,0.00814719775603504
+Alaska,Accommodation/food,-0.0017146419097094912
+Alaska,Admin/waste,0.02699526222418899
+Alaska,Agriculture,0.14497754070235755
+Alaska,Arts/entertain,-0.11410387348251592
+Alaska,Construction,0.1799717707551425
+Alaska,Education,-0.02127720276731539
+Alaska,Finance,0.010597654641290448
+Alaska,Healthcare,-0.0006420737118897618
+Alaska,Information,-0.0014127197809857015
+Alaska,Management,0.03268170897897001
+Alaska,Mfg-chem,0.12892240252823306
+Alaska,Mfg-food,0.07051525374606747
+Alaska,Mfg-metals,-0.019852644526012708
+Alaska,Mining,0.1389625335765703
+Alaska,Other services,0.009458507804146424
+Alaska,Prof services,0.046624266214819535
+Alaska,Public admin,-0.015298238003462522
+Alaska,Real estate,0.021284427163734614
+Alaska,Retail-gen,0.014550442862937355
+Alaska,Retail-spec,0.005733585316003883
+Alaska,Transportation,0.041612082361796
+Alaska,Utilities,0.046691576524356966
+Alaska,Warehousing,0.018504629330401538
+Alaska,Wholesale,-0.007688645807739726
+Arizona,Accommodation/food,0.005287277266164391
+Arizona,Admin/waste,0.01614915221390396
+Arizona,Agriculture,0.051247750368587024
+Arizona,Arts/entertain,0.03267035908089763
+Arizona,Construction,0.014931972557046383
+Arizona,Education,0.013514228664485775
+Arizona,Finance,0.023116681871805076
+Arizona,Healthcare,0.008351017930805341
+Arizona,Information,0.018731066000757347
+Arizona,Management,0.021439140786490955
+Arizona,Mfg-chem,0.003923192339966777
+Arizona,Mfg-food,0.019133015625644078
+Arizona,Mfg-metals,0.004428071557567719
+Arizona,Mining,0.006652797423095201
+Arizona,Other services,0.01822570056103792
+Arizona,Prof services,0.03886476948178669
+Arizona,Public admin,0.002445155099563607
+Arizona,Real estate,0.028328650857751016
+Arizona,Retail-gen,0.018967577039259356
+Arizona,Retail-spec,0.013003101203684328
+Arizona,Transportation,0.012180836731370624
+Arizona,Utilities,-0.004290047750702876
+Arizona,Warehousing,0.012612626874900707
+Arizona,Wholesale,0.0060423998592295455
+Arkansas,Accommodation/food,0.03751912669116541
+Arkansas,Admin/waste,0.020888036606375594
+Arkansas,Agriculture,0.09732945210118082
+Arkansas,Arts/entertain,0.011096733260556576
+Arkansas,Construction,0.029255843585478655
+Arkansas,Education,0.011042726792380674
+Arkansas,Finance,0.004091261672538197
+Arkansas,Healthcare,0.00241041917836286
+Arkansas,Information,0.01187723745436081
+Arkansas,Management,0.006923757685382079
+Arkansas,Mfg-chem,-0.004569200303992996
+Arkansas,Mfg-food,0.002914409008078896
+Arkansas,Mfg-metals,-0.006261943062843251
+Arkansas,Mining,0.007551970901939392
+Arkansas,Other services,-0.0034413684371483112
+Arkansas,Prof services,0.03159686538247131
+Arkansas,Public admin,0.004441541017375393
+Arkansas,Real estate,0.024192920907258726
+Arkansas,Retail-gen,0.013785454424981263
+Arkansas,Retail-spec,-0.0014198086209621318
+Arkansas,Transportation,0.00410361674476903
+Arkansas,Utilities,-0.00990116297450821
+Arkansas,Warehousing,0.09403871591032452
+Arkansas,Wholesale,0.010700215393003087
+California,Accommodation/food,0.040180885682378445
+California,Admin/waste,0.023662524759015514
+California,Agriculture,0.1724818477584617
+California,Arts/entertain,0.03949649601036553
+California,Construction,0.031104134327585412
+California,Education,-0.009034829901698975
+California,Finance,0.01577183220418572
+California,Healthcare,0.006197969691982421
+California,Information,0.01805388026717291
+California,Management,0.01887248553203816
+California,Mfg-chem,0.004971214816193919
+California,Mfg-food,0.034404616982817084
+California,Mfg-metals,0.0042939449524005595
+California,Mining,0.02148437035391473
+California,Other services,0.005000077218814168
+California,Prof services,0.03168978258496878
+California,Public admin,0.0031242412316384066
+California,Real estate,0.029366677588977902
+California,Retail-gen,0.021055500675314247
+California,Retail-spec,0.01885213566695571
+California,Transportation,0.026044287082442785
+California,Utilities,0.00041154610543419387
+California,Warehousing,0.058760380076722345
+California,Wholesale,0.013163614903611497
+Colorado,Accommodation/food,0.03449537555019106
+Colorado,Admin/waste,0.025122468417154275
+Colorado,Agriculture,0.1144303071242324
+Colorado,Arts/entertain,0.034272120891927944
+Colorado,Construction,0.05489965053413582
+Colorado,Education,0.00929692716869741
+Colorado,Finance,0.017323797812166013
+Colorado,Healthcare,0.011734099867013672
+Colorado,Information,0.01537641478986824
+Colorado,Management,0.014194288548994497
+Colorado,Mfg-chem,0.006914076833789565
+Colorado,Mfg-food,0.014318392906414032
+Colorado,Mfg-metals,0.007290487878084107
+Colorado,Mining,0.048342270273758176
+Colorado,Other services,0.009671385064635498
+Colorado,Prof services,0.03460445781705571
+Colorado,Public admin,0.013275908617732746
+Colorado,Real estate,0.026546712088359566
+Colorado,Retail-gen,0.006722496134804462
+Colorado,Retail-spec,0.007021405871765853
+Colorado,Transportation,0.01884939438843888
+Colorado,Utilities,0.006728432891517961
+Colorado,Warehousing,0.01168140949965983
+Colorado,Wholesale,0.008816552543008779
+Connecticut,Accommodation/food,0.05557981426419686
+Connecticut,Admin/waste,0.043661091204786825
+Connecticut,Agriculture,0.17294478537437727
+Connecticut,Arts/entertain,0.055589293721623606
+Connecticut,Construction,0.11098337798503902
+Connecticut,Education,0.00333622823286457
+Connecticut,Finance,0.009772705723660322
+Connecticut,Healthcare,0.0009147050607055104
+Connecticut,Information,0.010090725057912892
+Connecticut,Management,0.02366724649261233
+Connecticut,Mfg-chem,0.01881775134362303
+Connecticut,Mfg-food,0.018853107535183926
+Connecticut,Mfg-metals,-0.0004681396908003668
+Connecticut,Mining,0.14419803253580457
+Connecticut,Other services,0.005073167294977673
+Connecticut,Prof services,0.036305583667302015
+Connecticut,Public admin,-0.022363085744162934
+Connecticut,Real estate,0.02863660096268376
+Connecticut,Retail-gen,0.027294415925674855
+Connecticut,Retail-spec,0.009635540487840568
+Connecticut,Transportation,0.03206351660080714
+Connecticut,Utilities,-0.0022771278433736273
+Connecticut,Warehousing,0.04358260764413217
+Connecticut,Wholesale,0.009462155876191588
+DC,Accommodation/food,0.04229116935142707
+DC,Admin/waste,0.03536508542218887
+DC,Arts/entertain,0.0662305870438308
+DC,Construction,0.055307691650376765
+DC,Education,-0.048643014701959524
+DC,Finance,0.0032108043748849666
+DC,Healthcare,0.0031643014356801578
+DC,Information,0.004425846273047065
+DC,Management,-0.009051462345977656
+DC,Mfg-chem,0.013197114943010894
+DC,Mfg-food,-0.01375924301013713
+DC,Mfg-metals,-0.08274690183122808
+DC,Other services,0.01161445809603033
+DC,Prof services,0.03390556723930384
+DC,Public admin,-0.009257792198638379
+DC,Real estate,0.02950778522924889
+DC,Retail-gen,0.01045760006402115
+DC,Retail-spec,0.007733111327688073
+DC,Transportation,0.020032401253915713
+DC,Utilities,-0.021455117494562238
+DC,Warehousing,0.0031954929917326087
+DC,Wholesale,0.015431940366446562
+Delaware,Accommodation/food,0.07244151570100611
+Delaware,Admin/waste,0.04073021274828935
+Delaware,Agriculture,0.09864894729129094
+Delaware,Arts/entertain,0.08682644593761202
+Delaware,Construction,0.03782546123948131
+Delaware,Education,-0.011332294317140744
+Delaware,Finance,0.010361637871618465
+Delaware,Healthcare,0.0010559915749371643
+Delaware,Information,0.02115575019940308
+Delaware,Management,0.01762898485333849
+Delaware,Mfg-chem,0.006531100605095353
+Delaware,Mfg-food,0.03146041806658596
+Delaware,Mfg-metals,-0.005681301374029176
+Delaware,Other services,0.007267154640769326
+Delaware,Prof services,0.016287026843987376
+Delaware,Public admin,-0.008828622331819585
+Delaware,Real estate,0.032166334758686736
+Delaware,Retail-gen,0.009114893195011589
+Delaware,Retail-spec,0.02439729779602185
+Delaware,Transportation,0.00780262456731954
+Delaware,Utilities,-0.0028685062968697972
+Delaware,Warehousing,0.02678222648848922
+Delaware,Wholesale,0.008614267523031502
+Florida,Accommodation/food,-0.01293028278283296
+Florida,Admin/waste,0.021516365484658084
+Florida,Agriculture,0.03001509330717055
+Florida,Arts/entertain,0.004846036700700826
+Florida,Construction,0.02203482614571494
+Florida,Education,0.001313491845659892
+Florida,Finance,0.02845919964352282
+Florida,Healthcare,0.003805309295173692
+Florida,Information,0.028203765985203997
+Florida,Management,0.023241351051188675
+Florida,Mfg-chem,0.0016396057878454214
+Florida,Mfg-food,0.00863981432989927
+Florida,Mfg-metals,0.0050325459510893004
+Florida,Mining,0.0047319177844559555
+Florida,Other services,0.01898871979669331
+Florida,Prof services,0.04073296523652547
+Florida,Public admin,0.003512272940290457
+Florida,Real estate,0.02283611511570909
+Florida,Retail-gen,0.014228031077609376
+Florida,Retail-spec,0.012943084140501387
+Florida,Transportation,0.010305467398063586
+Florida,Utilities,-0.005300763115496278
+Florida,Warehousing,0.028033858573332963
+Florida,Wholesale,0.014317301821723147
+Georgia,Accommodation/food,0.02706274270443455
+Georgia,Admin/waste,0.023300876944553076
+Georgia,Agriculture,0.06935972921063338
+Georgia,Arts/entertain,0.03485830664022512
+Georgia,Construction,0.019742487543040966
+Georgia,Education,0.008868416008011746
+Georgia,Finance,0.023502920345711213
+Georgia,Healthcare,0.006262307456573541
+Georgia,Information,0.034083943187353215
+Georgia,Management,0.025067995950002798
+Georgia,Mfg-chem,-0.004108408553706703
+Georgia,Mfg-food,0.00703277430515445
+Georgia,Mfg-metals,-0.0011143460969856873
+Georgia,Mining,-0.002062641259290594
+Georgia,Other services,0.017685985850349462
+Georgia,Prof services,0.028787222170328346
+Georgia,Public admin,-0.0018572865136698398
+Georgia,Real estate,0.02434794011411551
+Georgia,Retail-gen,0.021325424388922813
+Georgia,Retail-spec,0.005543884629005126
+Georgia,Transportation,0.010667842631686983
+Georgia,Utilities,-0.0026738956585955864
+Georgia,Warehousing,0.07096656093021025
+Georgia,Wholesale,0.01464434070200565
+Hawaii,Accommodation/food,-0.005774030706416253
+Hawaii,Admin/waste,0.014654862402069146
+Hawaii,Agriculture,0.007836660163181299
+Hawaii,Arts/entertain,0.021149653344115775
+Hawaii,Construction,0.028190108177403937
+Hawaii,Education,0.018848304340531533
+Hawaii,Finance,0.028082318802416333
+Hawaii,Healthcare,0.002869342022372251
+Hawaii,Information,0.007685885044742865
+Hawaii,Management,0.044121241814548066
+Hawaii,Mfg-chem,0.0007345708331262168
+Hawaii,Mfg-food,-0.0005068557927236563
+Hawaii,Mfg-metals,0.016818094384562984
+Hawaii,Mining,0.01355472579356821
+Hawaii,Other services,0.007507089719428129
+Hawaii,Prof services,0.026402110480147106
+Hawaii,Public admin,-0.01142575693775028
+Hawaii,Real estate,0.017149336742766218
+Hawaii,Retail-gen,0.0075276916352428735
+Hawaii,Retail-spec,-0.003536527724386166
+Hawaii,Transportation,-0.0014606482560576243
+Hawaii,Utilities,-0.014081282238988998
+Hawaii,Warehousing,0.005735617436030551
+Hawaii,Wholesale,0.003878262002999631
+Idaho,Accommodation/food,0.009084624483643234
+Idaho,Admin/waste,0.0394616499006895
+Idaho,Agriculture,0.193655935235199
+Idaho,Arts/entertain,0.06264955954232933
+Idaho,Construction,0.10489704773532878
+Idaho,Education,-0.011993165249742718
+Idaho,Finance,0.020624521802399307
+Idaho,Healthcare,0.006213282101666548
+Idaho,Information,-0.001800001602567158
+Idaho,Management,0.03233159568574622
+Idaho,Mfg-chem,0.012867900331162566
+Idaho,Mfg-food,0.018817485879231023
+Idaho,Mfg-metals,-0.0011237292153415714
+Idaho,Mining,0.07788422183928244
+Idaho,Other services,0.022250474941068167
+Idaho,Prof services,0.04345922335913126
+Idaho,Public admin,0.017974745842329772
+Idaho,Real estate,0.04740117821818507
+Idaho,Retail-gen,0.02620917746945063
+Idaho,Retail-spec,0.008295962740046776
+Idaho,Transportation,0.014078798547369663
+Idaho,Utilities,0.024907954354814455
+Idaho,Warehousing,0.020585037417499737
+Idaho,Wholesale,0.010969542857829789
+Illinois,Accommodation/food,0.07037982241048499
+Illinois,Admin/waste,0.040282329284927205
+Illinois,Agriculture,0.129054142552641
+Illinois,Arts/entertain,0.06883757127519048
+Illinois,Construction,0.1529244717292031
+Illinois,Education,-0.005228615526554396
+Illinois,Finance,0.013253993475802863
+Illinois,Healthcare,0.002893393888543682
+Illinois,Information,0.030302003427590884
+Illinois,Management,0.00668151606787943
+Illinois,Mfg-chem,0.012143373636112478
+Illinois,Mfg-food,0.01387948794725801
+Illinois,Mfg-metals,0.002402975019499121
+Illinois,Mining,0.05454303093371339
+Illinois,Other services,0.017374661633691533
+Illinois,Prof services,0.051382350658534394
+Illinois,Public admin,-0.0068115843565979915
+Illinois,Real estate,0.059258573264686
+Illinois,Retail-gen,0.032001545056208794
+Illinois,Retail-spec,0.011947264930249503
+Illinois,Transportation,0.033042416723441596
+Illinois,Utilities,0.011574920356977008
+Illinois,Warehousing,0.04485466440977348
+Illinois,Wholesale,0.01270049955416026
+Indiana,Accommodation/food,0.039079698882185696
+Indiana,Admin/waste,0.033285096791262236
+Indiana,Agriculture,0.09627211323900645
+Indiana,Arts/entertain,0.0974402979934101
+Indiana,Construction,0.0907802670275807
+Indiana,Education,0.003939105922033511
+Indiana,Finance,0.014909636654080812
+Indiana,Healthcare,0.00781222348756541
+Indiana,Information,0.01669667734324785
+Indiana,Management,-0.0045174392325525855
+Indiana,Mfg-chem,0.0005204139427627801
+Indiana,Mfg-food,0.014646422507566344
+Indiana,Mfg-metals,-0.005122746009875253
+Indiana,Mining,0.028424674612377836
+Indiana,Other services,0.012504864898509244
+Indiana,Prof services,0.04159061443339498
+Indiana,Public admin,-0.004102909883822704
+Indiana,Real estate,0.027742208537530275
+Indiana,Retail-gen,0.02437020513486734
+Indiana,Retail-spec,0.015628655763416884
+Indiana,Transportation,0.04913476884448995
+Indiana,Utilities,-0.0063507942448069645
+Indiana,Warehousing,0.0117542103418841
+Indiana,Wholesale,0.007656077605485926
+Iowa,Accommodation/food,0.016252747186114438
+Iowa,Admin/waste,0.0380150093858524
+Iowa,Agriculture,0.09367377568153248
+Iowa,Arts/entertain,0.10440838366305927
+Iowa,Construction,0.1579193228187152
+Iowa,Education,-0.006254125183956527
+Iowa,Finance,0.015485532101135738
+Iowa,Healthcare,-0.0018995562765138651
+Iowa,Information,0.009992719489679931
+Iowa,Management,0.019597908616179445
+Iowa,Mfg-chem,0.018605015015806463
+Iowa,Mfg-food,0.0018355349997929086
+Iowa,Mfg-metals,-0.00269586244098714
+Iowa,Mining,0.09452049714855719
+Iowa,Other services,0.015627291261556073
+Iowa,Prof services,0.03773657297777759
+Iowa,Public admin,-0.007359922968928529
+Iowa,Real estate,0.03486524330631862
+Iowa,Retail-gen,0.030274336883170123
+Iowa,Retail-spec,0.012825229662016671
+Iowa,Transportation,0.021433905513175158
+Iowa,Utilities,-0.005602037021343746
+Iowa,Warehousing,0.08019126823173224
+Iowa,Wholesale,0.012124069572859244
+Kansas,Accommodation/food,0.04712458768748906
+Kansas,Admin/waste,0.026677352185127713
+Kansas,Agriculture,0.07186702978953234
+Kansas,Arts/entertain,-0.005517377198487131
+Kansas,Construction,0.0560938461050391
+Kansas,Education,-0.005335420762929342
+Kansas,Finance,0.018217182241447433
+Kansas,Healthcare,0.010354750009875862
+Kansas,Information,0.004432148485749342
+Kansas,Management,0.01894327500656355
+Kansas,Mfg-chem,-0.011063886105438923
+Kansas,Mfg-food,0.018447567144314808
+Kansas,Mfg-metals,-0.005775489219835292
+Kansas,Mining,0.004286778485490038
+Kansas,Other services,0.014633101038580426
+Kansas,Prof services,0.029934523960143757
+Kansas,Public admin,-0.005273751005986292
+Kansas,Real estate,0.02637266495593929
+Kansas,Retail-gen,0.018452022571458348
+Kansas,Retail-spec,0.0071456210426600365
+Kansas,Transportation,0.0036911998428826452
+Kansas,Utilities,0.0043701414544883846
+Kansas,Warehousing,0.023035387854107216
+Kansas,Wholesale,0.005760453072059165
+Kentucky,Accommodation/food,0.08505452623120192
+Kentucky,Admin/waste,0.028020836007649236
+Kentucky,Agriculture,0.07174984952445229
+Kentucky,Arts/entertain,0.10720304038856276
+Kentucky,Construction,0.07423163130770813
+Kentucky,Education,0.017137079447345778
+Kentucky,Finance,0.018802414245111167
+Kentucky,Healthcare,0.005583002492374274
+Kentucky,Information,0.006814497287444071
+Kentucky,Management,0.014812511050033055
+Kentucky,Mfg-chem,-0.0025177846148261274
+Kentucky,Mfg-food,-0.0014122776147724406
+Kentucky,Mfg-metals,-0.0032755216035198096
+Kentucky,Mining,0.007080435628097384
+Kentucky,Other services,0.013790718184770833
+Kentucky,Prof services,0.03177160913997485
+Kentucky,Public admin,-0.0038694787596231387
+Kentucky,Real estate,0.020285422502552348
+Kentucky,Retail-gen,0.022238712853646394
+Kentucky,Retail-spec,0.007750774585715555
+Kentucky,Transportation,0.02424803462015471
+Kentucky,Utilities,0.000356346343660332
+Kentucky,Warehousing,0.0029817616820410377
+Kentucky,Wholesale,0.003446975543721993
+Louisiana,Accommodation/food,0.009651271192667175
+Louisiana,Admin/waste,0.01842073235667301
+Louisiana,Agriculture,0.06305532515505825
+Louisiana,Arts/entertain,-0.006485480196799423
+Louisiana,Construction,0.02735019727676043
+Louisiana,Education,-0.00687440640632483
+Louisiana,Finance,0.02276062056089554
+Louisiana,Healthcare,-0.0020510302418512718
+Louisiana,Information,0.004761966976107822
+Louisiana,Management,0.03631135568799879
+Louisiana,Mfg-chem,-0.001883562633191507
+Louisiana,Mfg-food,0.022516955993184613
+Louisiana,Mfg-metals,-0.003552772093558671
+Louisiana,Mining,-0.0023268788112123344
+Louisiana,Other services,0.01726536646597316
+Louisiana,Prof services,0.022377941597660392
+Louisiana,Public admin,-0.01595178175839099
+Louisiana,Real estate,0.016077197941349618
+Louisiana,Retail-gen,0.0059608898459919705
+Louisiana,Retail-spec,0.00648327305637972
+Louisiana,Transportation,0.007850203758019538
+Louisiana,Utilities,-0.002250851861481748
+Louisiana,Warehousing,0.07037724517921257
+Louisiana,Wholesale,0.004943712468610857
+Maine,Accommodation/food,0.10292528148133667
+Maine,Admin/waste,0.057118753040898515
+Maine,Agriculture,0.12001427003617096
+Maine,Arts/entertain,0.08790200919511158
+Maine,Construction,0.11773721165273245
+Maine,Education,0.0038579473433058395
+Maine,Finance,0.013231091184494366
+Maine,Healthcare,0.006342941971109182
+Maine,Information,0.007732794387545953
+Maine,Management,0.030737038866284105
+Maine,Mfg-chem,0.047141040054278674
+Maine,Mfg-food,0.007849533799951462
+Maine,Mfg-metals,0.007868354743438864
+Maine,Mining,0.3171254152939124
+Maine,Other services,0.026548143241689682
+Maine,Prof services,0.04681871402300714
+Maine,Public admin,0.0043432787133440955
+Maine,Real estate,0.05379861284134713
+Maine,Retail-gen,0.04877222354361873
+Maine,Retail-spec,0.05567138101226964
+Maine,Transportation,0.06406443219866896
+Maine,Utilities,0.02380000306123938
+Maine,Warehousing,0.03075608650349444
+Maine,Wholesale,0.031255220644688025
+Maryland,Accommodation/food,0.07086777850195979
+Maryland,Admin/waste,0.03202222338478689
+Maryland,Agriculture,0.11609095378646518
+Maryland,Arts/entertain,0.07464651314754414
+Maryland,Construction,0.034921562389694974
+Maryland,Education,-0.01601166983118025
+Maryland,Finance,0.023788133119248097
+Maryland,Healthcare,0.003330173436856451
+Maryland,Information,0.02147210424157954
+Maryland,Management,0.008199325131905638
+Maryland,Mfg-chem,0.00486311448278394
+Maryland,Mfg-food,0.018018940244418608
+Maryland,Mfg-metals,0.00024569417647106755
+Maryland,Mining,0.04144779922570874
+Maryland,Other services,0.011330179846036976
+Maryland,Prof services,0.03225861089369168
+Maryland,Public admin,-0.0011775942590954995
+Maryland,Real estate,0.03628263863063224
+Maryland,Retail-gen,0.028670658580806613
+Maryland,Retail-spec,0.014442134440899883
+Maryland,Transportation,0.06717809606711093
+Maryland,Utilities,0.0025581044744191384
+Maryland,Warehousing,0.03818772902306715
+Maryland,Wholesale,0.02166746863580532
+Massachusetts,Accommodation/food,0.11323512963823894
+Massachusetts,Admin/waste,0.035357165566469194
+Massachusetts,Agriculture,0.19417361704569494
+Massachusetts,Arts/entertain,0.09512557116855451
+Massachusetts,Construction,0.09444247606851064
+Massachusetts,Education,-0.03527175368453379
+Massachusetts,Finance,0.0036448149019121124
+Massachusetts,Healthcare,-0.004867285454120273
+Massachusetts,Information,0.010661320463465993
+Massachusetts,Management,0.010121677061559009
+Massachusetts,Mfg-chem,0.009213396472892538
+Massachusetts,Mfg-food,0.009861131033592093
+Massachusetts,Mfg-metals,0.0016403361074817284
+Massachusetts,Mining,0.10553701083584854
+Massachusetts,Other services,0.015378019441816881
+Massachusetts,Prof services,0.030859010300352433
+Massachusetts,Public admin,-0.01603739494791771
+Massachusetts,Real estate,0.03704291525494634
+Massachusetts,Retail-gen,0.02607410507151119
+Massachusetts,Retail-spec,0.014017785814503182
+Massachusetts,Transportation,0.050479457854431885
+Massachusetts,Utilities,0.007433167936015549
+Massachusetts,Warehousing,0.024918967328329204
+Massachusetts,Wholesale,0.010509682605736462
+Michigan,Accommodation/food,0.04301205788997604
+Michigan,Admin/waste,0.03913913641213192
+Michigan,Agriculture,0.19760797248959386
+Michigan,Arts/entertain,0.056003859577571515
+Michigan,Construction,0.14233453806707508
+Michigan,Education,0.007403567956906341
+Michigan,Finance,0.01897006273390238
+Michigan,Healthcare,0.008329313737831408
+Michigan,Information,0.008525158469157638
+Michigan,Management,0.03131579780607349
+Michigan,Mfg-chem,0.019395624779693612
+Michigan,Mfg-food,0.04190170324882876
+Michigan,Mfg-metals,0.0071493766926537415
+Michigan,Mining,0.06859726812395257
+Michigan,Other services,0.017418087117478866
+Michigan,Prof services,0.04360826764280173
+Michigan,Public admin,0.020704369305461857
+Michigan,Real estate,0.032779848737131176
+Michigan,Retail-gen,0.025167037946248826
+Michigan,Retail-spec,0.019670778563242623
+Michigan,Transportation,0.0513172054961888
+Michigan,Utilities,0.004688516326092159
+Michigan,Warehousing,0.044839143997607946
+Michigan,Wholesale,0.021583125659210542
+Minnesota,Accommodation/food,0.025521153710177654
+Minnesota,Admin/waste,0.04782032978369137
+Minnesota,Agriculture,0.1801657007482832
+Minnesota,Arts/entertain,0.06804459403098259
+Minnesota,Construction,0.19686610945626312
+Minnesota,Education,0.002486331002350791
+Minnesota,Finance,0.020233260633600425
+Minnesota,Healthcare,0.008708835435785657
+Minnesota,Information,0.016668132768679088
+Minnesota,Management,0.031033850204215157
+Minnesota,Mfg-chem,0.023457940307135584
+Minnesota,Mfg-food,0.028027942067190302
+Minnesota,Mfg-metals,0.007155876888577857
+Minnesota,Mining,0.15172821479482998
+Minnesota,Other services,0.030426208376540174
+Minnesota,Prof services,0.05169255077545153
+Minnesota,Public admin,0.00579762162275023
+Minnesota,Real estate,0.052753332689370304
+Minnesota,Retail-gen,0.04850625513479986
+Minnesota,Retail-spec,0.0296823572138834
+Minnesota,Transportation,0.04514410229892962
+Minnesota,Utilities,0.026254481154833757
+Minnesota,Warehousing,0.05633398267677132
+Minnesota,Wholesale,0.021247724599354978
+Mississippi,Accommodation/food,-0.011998888795278714
+Mississippi,Admin/waste,0.020968269038712614
+Mississippi,Agriculture,0.13261310342142876
+Mississippi,Arts/entertain,-0.001569752400703483
+Mississippi,Construction,0.033813145941042934
+Mississippi,Education,0.01392512988942628
+Mississippi,Finance,0.017719320068283008
+Mississippi,Healthcare,-0.0006355458945653004
+Mississippi,Information,0.01273944630006887
+Mississippi,Management,0.0032206349953665518
+Mississippi,Mfg-chem,-0.0044162448339030574
+Mississippi,Mfg-food,0.02471194017782498
+Mississippi,Mfg-metals,-0.006741148884765733
+Mississippi,Mining,0.0032160995052973695
+Mississippi,Other services,0.00275464264666257
+Mississippi,Prof services,0.03177248077921906
+Mississippi,Public admin,-0.014010726691959238
+Mississippi,Real estate,0.025090609335954268
+Mississippi,Retail-gen,0.0108460052489584
+Mississippi,Retail-spec,2.4780889852121215e-05
+Mississippi,Transportation,0.019106257976257195
+Mississippi,Utilities,-0.004441289923226722
+Mississippi,Warehousing,0.05981005484248554
+Mississippi,Wholesale,0.0034600991036413766
+Missouri,Accommodation/food,0.05543730878034358
+Missouri,Admin/waste,0.020674973022132382
+Missouri,Agriculture,0.09092837687982085
+Missouri,Arts/entertain,0.12451131041194836
+Missouri,Construction,0.057223200570310696
+Missouri,Education,0.011715764469358585
+Missouri,Finance,0.009908309359831956
+Missouri,Healthcare,0.0034877315482889125
+Missouri,Information,0.015811629550863553
+Missouri,Management,0.013420252186307068
+Missouri,Mfg-chem,0.002615653850847824
+Missouri,Mfg-food,0.015267271753977775
+Missouri,Mfg-metals,-0.003506137456640932
+Missouri,Mining,0.013734194500043446
+Missouri,Other services,0.007253980489301471
+Missouri,Prof services,0.02689145414239959
+Missouri,Public admin,-0.00428840688963559
+Missouri,Real estate,0.032051137550022
+Missouri,Retail-gen,0.030426688094656835
+Missouri,Retail-spec,0.011223359103779822
+Missouri,Transportation,0.02608161418157447
+Missouri,Utilities,-0.013719207677157666
+Missouri,Warehousing,0.0333183024585148
+Missouri,Wholesale,0.0063715673521587465
+Montana,Accommodation/food,0.03624094224429699
+Montana,Admin/waste,0.04269320156081291
+Montana,Agriculture,0.17699986702744058
+Montana,Arts/entertain,0.021726532894402354
+Montana,Construction,0.15388104655581125
+Montana,Education,-0.012102813278000342
+Montana,Finance,0.025387267787180662
+Montana,Healthcare,0.002647108142247888
+Montana,Information,0.012734314556119994
+Montana,Management,0.011935673165019811
+Montana,Mfg-chem,0.007451515122501503
+Montana,Mfg-food,0.04795273671843055
+Montana,Mfg-metals,0.0003027132216682394
+Montana,Mining,0.06571475669360795
+Montana,Other services,0.013455081585693016
+Montana,Prof services,0.06190634750447195
+Montana,Public admin,0.002371283513408748
+Montana,Real estate,0.05349030315646252
+Montana,Retail-gen,0.03287358548768578
+Montana,Retail-spec,0.01084448765281103
+Montana,Transportation,0.015073346617982321
+Montana,Utilities,0.026260460100279142
+Montana,Warehousing,0.02001345715358252
+Montana,Wholesale,0.019094041311614216
+Nebraska,Accommodation/food,0.03470431125306673
+Nebraska,Admin/waste,0.03318576814177686
+Nebraska,Agriculture,0.1685486775337363
+Nebraska,Arts/entertain,0.050463439437414576
+Nebraska,Construction,0.09254710586524642
+Nebraska,Education,-0.015761733239196468
+Nebraska,Finance,0.013390089105548422
+Nebraska,Healthcare,0.005089157242373581
+Nebraska,Information,0.015322124345220582
+Nebraska,Management,0.03086728597170038
+Nebraska,Mfg-chem,0.007606971883811812
+Nebraska,Mfg-food,0.009259832409821688
+Nebraska,Mfg-metals,0.00016149741933103382
+Nebraska,Mining,0.03799293222462719
+Nebraska,Other services,0.014553091374808933
+Nebraska,Prof services,0.03778433150060335
+Nebraska,Public admin,-0.00337278593127044
+Nebraska,Real estate,0.03423443527032575
+Nebraska,Retail-gen,0.007843979466874642
+Nebraska,Retail-spec,0.01399844779248676
+Nebraska,Transportation,0.02070179092308435
+Nebraska,Utilities,-0.013176697713044161
+Nebraska,Warehousing,0.07374584109886362
+Nebraska,Wholesale,0.009241105793291886
+Nevada,Accommodation/food,0.03606309492235586
+Nevada,Admin/waste,0.020090337730393253
+Nevada,Agriculture,0.0999336370025812
+Nevada,Arts/entertain,0.03421407347561125
+Nevada,Construction,0.04039633594205992
+Nevada,Education,0.005390058391103549
+Nevada,Finance,0.032099759437228995
+Nevada,Healthcare,0.005857573464367543
+Nevada,Information,0.03133295056192169
+Nevada,Management,-0.0026061085097994533
+Nevada,Mfg-chem,0.0026785213440467036
+Nevada,Mfg-food,0.013334690677214328
+Nevada,Mfg-metals,0.00023158940135425607
+Nevada,Mining,0.033193327966941626
+Nevada,Other services,0.020199359667051286
+Nevada,Prof services,0.037550335357932514
+Nevada,Public admin,0.003319222468546564
+Nevada,Real estate,0.035032799128820145
+Nevada,Retail-gen,0.027628105992894853
+Nevada,Retail-spec,0.005856186701713475
+Nevada,Transportation,0.018972558259494895
+Nevada,Utilities,-0.010001967017988847
+Nevada,Warehousing,0.00949030950036455
+Nevada,Wholesale,0.004043179684176745
+New Hampshire,Accommodation/food,0.07219679218108259
+New Hampshire,Admin/waste,0.03638575961337363
+New Hampshire,Agriculture,0.11074948064652952
+New Hampshire,Arts/entertain,0.08060261300531642
+New Hampshire,Construction,0.09948837704116714
+New Hampshire,Education,-0.020197847882864047
+New Hampshire,Finance,0.015353897967316777
+New Hampshire,Healthcare,0.001938880409617731
+New Hampshire,Information,0.015174331589246843
+New Hampshire,Management,0.0030179819591242356
+New Hampshire,Mfg-chem,0.01891270201645408
+New Hampshire,Mfg-food,0.015498250430004863
+New Hampshire,Mfg-metals,-0.0010050282377779874
+New Hampshire,Mining,0.20746873001909502
+New Hampshire,Other services,-0.008689189377790198
+New Hampshire,Prof services,0.028358147043638766
+New Hampshire,Public admin,0.04298436546935009
+New Hampshire,Real estate,0.0551841394748927
+New Hampshire,Retail-gen,0.03236956605599267
+New Hampshire,Retail-spec,0.012702730347053683
+New Hampshire,Transportation,0.021413777837821425
+New Hampshire,Utilities,0.037095577168401596
+New Hampshire,Warehousing,0.03438952892501229
+New Hampshire,Wholesale,0.00895902484449081
+New Jersey,Accommodation/food,0.01817411358274385
+New Jersey,Admin/waste,0.03213001452897715
+New Jersey,Agriculture,0.1636772700716253
+New Jersey,Arts/entertain,0.10719370635018091
+New Jersey,Construction,0.08714725316519828
+New Jersey,Education,0.005377058158825299
+New Jersey,Finance,0.022946089553641184
+New Jersey,Healthcare,0.0012337555214526235
+New Jersey,Information,0.021506485135773426
+New Jersey,Management,0.01153572296826208
+New Jersey,Mfg-chem,0.006167081557264036
+New Jersey,Mfg-food,0.019156453187075706
+New Jersey,Mfg-metals,0.001767273874531397
+New Jersey,Mining,0.034675664494156516
+New Jersey,Other services,0.03282847566476
+New Jersey,Prof services,0.03195884008383768
+New Jersey,Public admin,0.015132603128347938
+New Jersey,Real estate,0.020731434966950048
+New Jersey,Retail-gen,0.0252703072661204
+New Jersey,Retail-spec,0.011665436762159635
+New Jersey,Transportation,0.02305994629622935
+New Jersey,Utilities,-0.0051174436499351605
+New Jersey,Warehousing,0.023763059013711636
+New Jersey,Wholesale,0.010886594862705462
+New Mexico,Accommodation/food,0.06186175446037941
+New Mexico,Admin/waste,0.016822120595021667
+New Mexico,Agriculture,0.07936913919587421
+New Mexico,Arts/entertain,0.03418137853515336
+New Mexico,Construction,0.03215767772558043
+New Mexico,Education,0.011454230607382546
+New Mexico,Finance,0.024900754577098397
+New Mexico,Healthcare,-0.0037122899430324183
+New Mexico,Information,0.004500784133499002
+New Mexico,Management,0.008607410905072726
+New Mexico,Mfg-chem,0.01730075982942827
+New Mexico,Mfg-food,0.05506940170282802
+New Mexico,Mfg-metals,1.0317473711214133e-05
+New Mexico,Mining,-0.009773461042721065
+New Mexico,Other services,0.011206900123155011
+New Mexico,Prof services,0.03607312703969506
+New Mexico,Public admin,-0.031305299455523045
+New Mexico,Real estate,0.0030698249242914013
+New Mexico,Retail-gen,0.02169222315948593
+New Mexico,Retail-spec,0.005199312096507874
+New Mexico,Transportation,0.025730505962892194
+New Mexico,Utilities,-0.00483015830684213
+New Mexico,Warehousing,0.014840933940761686
+New Mexico,Wholesale,0.011367883997952345
+New York,Accommodation/food,0.05364475206764838
+New York,Admin/waste,0.03869943386200788
+New York,Agriculture,0.16971123413650416
+New York,Arts/entertain,0.07067842263173263
+New York,Construction,0.11695999551012357
+New York,Education,-0.005958417372436668
+New York,Finance,0.022686682907563073
+New York,Healthcare,0.004758243299451536
+New York,Information,0.019534491326331695
+New York,Management,0.016106718649683008
+New York,Mfg-chem,0.01437473241253044
+New York,Mfg-food,0.02630641231543677
+New York,Mfg-metals,0.003836613241454623
+New York,Mining,0.13240776419388067
+New York,Other services,0.02363113846936299
+New York,Prof services,0.031453560207411246
+New York,Public admin,0.07125837554799978
+New York,Real estate,0.04377087643348504
+New York,Retail-gen,0.031035689506029907
+New York,Retail-spec,0.01685417474758909
+New York,Transportation,0.03885949602833511
+New York,Utilities,0.007195155954986238
+New York,Warehousing,0.02841615947728895
+New York,Wholesale,0.014093128192909348
+North Carolina,Accommodation/food,0.06593781367843947
+North Carolina,Admin/waste,0.026575931684394472
+North Carolina,Agriculture,0.08005371807808745
+North Carolina,Arts/entertain,0.0842249100167577
+North Carolina,Construction,0.03180070229439481
+North Carolina,Education,-0.012692717408320143
+North Carolina,Finance,0.020001452348273392
+North Carolina,Healthcare,0.00619472099547711
+North Carolina,Information,0.012756234973776093
+North Carolina,Management,-0.0014586877033870912
+North Carolina,Mfg-chem,0.0016885026276307915
+North Carolina,Mfg-food,0.01138737173055769
+North Carolina,Mfg-metals,0.00046461333024149003
+North Carolina,Mining,0.015821116305423277
+North Carolina,Other services,0.009703483205263175
+North Carolina,Prof services,0.03350376769416132
+North Carolina,Public admin,0.016997406645793283
+North Carolina,Real estate,0.02574137751755552
+North Carolina,Retail-gen,0.028378323511943023
+North Carolina,Retail-spec,0.010471703977066014
+North Carolina,Transportation,0.026804701301242066
+North Carolina,Utilities,0.012000576860643675
+North Carolina,Warehousing,0.08660315088591676
+North Carolina,Wholesale,0.013878052494429749
+North Dakota,Accommodation/food,0.021721035609453022
+North Dakota,Admin/waste,0.04064671921280122
+North Dakota,Agriculture,0.2888823544185189
+North Dakota,Arts/entertain,-0.009122018630203309
+North Dakota,Construction,0.18150521641095876
+North Dakota,Education,-0.02817123216772616
+North Dakota,Finance,0.03296671924617856
+North Dakota,Healthcare,0.006760487940959673
+North Dakota,Information,0.0019899800427194306
+North Dakota,Management,0.0012752057136066655
+North Dakota,Mfg-chem,0.05625481019051642
+North Dakota,Mfg-food,0.029821445068082163
+North Dakota,Mfg-metals,-0.0035768736587031107
+North Dakota,Mining,0.06456606314567556
+North Dakota,Other services,0.035192295102724765
+North Dakota,Prof services,0.04345993452270515
+North Dakota,Public admin,0.02903491472746541
+North Dakota,Real estate,0.04623984338857619
+North Dakota,Retail-gen,0.006871338322732221
+North Dakota,Retail-spec,0.001580084343473391
+North Dakota,Transportation,0.01544714092336541
+North Dakota,Utilities,0.004798361498308511
+North Dakota,Warehousing,0.0643534508162344
+North Dakota,Wholesale,0.016030898161316896
+Ohio,Accommodation/food,0.02247708634798253
+Ohio,Admin/waste,0.04662921339967816
+Ohio,Agriculture,0.13053919535601202
+Ohio,Arts/entertain,0.10823302840770123
+Ohio,Construction,0.11881274598457774
+Ohio,Education,0.003334362963170709
+Ohio,Finance,0.004671646006524161
+Ohio,Healthcare,0.0006227941947640056
+Ohio,Information,0.007206610809513764
+Ohio,Management,0.01062682085888056
+Ohio,Mfg-chem,0.003378786117739119
+Ohio,Mfg-food,0.010338337602971382
+Ohio,Mfg-metals,0.0010262778026243963
+Ohio,Mining,0.040433459526603224
+Ohio,Other services,0.015024533025965764
+Ohio,Prof services,0.027114143640289884
+Ohio,Public admin,-0.00011969857667101544
+Ohio,Real estate,0.029797288837119268
+Ohio,Retail-gen,0.03260638143468809
+Ohio,Retail-spec,0.024296350020143437
+Ohio,Transportation,0.0232345792949629
+Ohio,Utilities,-0.017590717741484338
+Ohio,Warehousing,0.021238082882824368
+Ohio,Wholesale,0.007990346659938797
+Oklahoma,Accommodation/food,0.010974738887843536
+Oklahoma,Admin/waste,0.019214378467438436
+Oklahoma,Agriculture,0.06285945043242745
+Oklahoma,Arts/entertain,0.06041321966305994
+Oklahoma,Construction,0.02845662989907141
+Oklahoma,Education,0.0005067531019640674
+Oklahoma,Finance,0.02109896899498478
+Oklahoma,Healthcare,0.00434734917912684
+Oklahoma,Information,0.012500553292944657
+Oklahoma,Management,0.008708001454145705
+Oklahoma,Mfg-chem,-0.0023426462485076015
+Oklahoma,Mfg-food,0.00048487561227795334
+Oklahoma,Mfg-metals,-0.0018014603142217272
+Oklahoma,Mining,0.009608199661207503
+Oklahoma,Other services,0.008463569105508419
+Oklahoma,Prof services,0.03691724037655204
+Oklahoma,Public admin,-0.0029012437100309537
+Oklahoma,Real estate,0.0252260731353687
+Oklahoma,Retail-gen,0.006607093593888969
+Oklahoma,Retail-spec,0.006781086349240817
+Oklahoma,Transportation,0.013774415868162568
+Oklahoma,Utilities,-0.013029791817164908
+Oklahoma,Warehousing,0.04258100626313592
+Oklahoma,Wholesale,0.001656947950318952
+Oregon,Accommodation/food,0.05562725773553791
+Oregon,Admin/waste,0.026278154080646345
+Oregon,Agriculture,0.16235516299941435
+Oregon,Arts/entertain,0.022766533683826303
+Oregon,Construction,0.057857996797979754
+Oregon,Education,-0.0057542372997749225
+Oregon,Finance,0.013680008508565487
+Oregon,Healthcare,0.00529775223365004
+Oregon,Information,0.012798965910114354
+Oregon,Management,0.018613296384160875
+Oregon,Mfg-chem,0.005416253916507661
+Oregon,Mfg-food,0.026123155813323654
+Oregon,Mfg-metals,0.007313395256660367
+Oregon,Mining,0.0407858469863252
+Oregon,Other services,0.018152563818544347
+Oregon,Prof services,0.0408405774031051
+Oregon,Public admin,0.01447988826317845
+Oregon,Real estate,0.03629264996872977
+Oregon,Retail-gen,0.027620579739469353
+Oregon,Retail-spec,0.024120714599905266
+Oregon,Transportation,0.03388966173725942
+Oregon,Utilities,0.00204692596662241
+Oregon,Warehousing,0.026483208422873394
+Oregon,Wholesale,0.011064390308176441
+Pennsylvania,Accommodation/food,0.05536655532020872
+Pennsylvania,Admin/waste,0.029508971209523737
+Pennsylvania,Agriculture,0.11687588289112003
+Pennsylvania,Arts/entertain,0.10381527192553625
+Pennsylvania,Construction,0.08453380406844481
+Pennsylvania,Education,-0.010849911800651651
+Pennsylvania,Finance,0.016028573764283103
+Pennsylvania,Healthcare,-0.0016956651122191201
+Pennsylvania,Information,0.010695648944995237
+Pennsylvania,Management,0.009384282614893309
+Pennsylvania,Mfg-chem,0.0020274734169965446
+Pennsylvania,Mfg-food,0.012045755165275389
+Pennsylvania,Mfg-metals,-0.0024117745822004846
+Pennsylvania,Mining,0.02743320023252705
+Pennsylvania,Other services,0.01062124417687015
+Pennsylvania,Prof services,0.023551396486284057
+Pennsylvania,Public admin,0.0033680792082271377
+Pennsylvania,Real estate,0.0219555084975184
+Pennsylvania,Retail-gen,0.022789965524369356
+Pennsylvania,Retail-spec,0.013954329895424649
+Pennsylvania,Transportation,0.024771745102282597
+Pennsylvania,Utilities,-0.001973475542632588
+Pennsylvania,Warehousing,0.0066530267214498845
+Pennsylvania,Wholesale,0.012764456782470839
+Rhode Island,Accommodation/food,0.14874420127027307
+Rhode Island,Admin/waste,0.03360424116349756
+Rhode Island,Agriculture,0.21485781362543677
+Rhode Island,Arts/entertain,0.056797725883830544
+Rhode Island,Construction,0.136219588382567
+Rhode Island,Education,-0.013443913453768719
+Rhode Island,Finance,0.013438988276347496
+Rhode Island,Healthcare,0.0025474601470965165
+Rhode Island,Information,-0.0023822412734368164
+Rhode Island,Management,0.024591601215351082
+Rhode Island,Mfg-chem,0.01663691681911887
+Rhode Island,Mfg-food,0.010449597818814053
+Rhode Island,Mfg-metals,0.004634824919147786
+Rhode Island,Mining,0.1679196903639941
+Rhode Island,Other services,0.018874590172116446
+Rhode Island,Prof services,0.03242093183391934
+Rhode Island,Public admin,-0.009496800349625455
+Rhode Island,Real estate,0.04962257355143772
+Rhode Island,Retail-gen,0.0222075931177996
+Rhode Island,Retail-spec,0.02646693882406762
+Rhode Island,Transportation,0.02923348205548357
+Rhode Island,Utilities,0.0010705075674105593
+Rhode Island,Warehousing,0.040965034096515904
+Rhode Island,Wholesale,0.01690267810501118
+South Carolina,Accommodation/food,0.009239539937166601
+South Carolina,Admin/waste,0.021481795990092107
+South Carolina,Agriculture,0.020312495107867264
+South Carolina,Arts/entertain,0.03759412574450344
+South Carolina,Construction,0.022940074932933548
+South Carolina,Education,-0.008610404342145129
+South Carolina,Finance,0.017233226778712148
+South Carolina,Healthcare,-0.00017009773623649833
+South Carolina,Information,0.024767781973995893
+South Carolina,Management,0.02251706419023693
+South Carolina,Mfg-chem,-0.0026737313007461692
+South Carolina,Mfg-food,-0.013037454273409734
+South Carolina,Mfg-metals,0.0028187762987823537
+South Carolina,Mining,0.012667358856731162
+South Carolina,Other services,0.008104132705889944
+South Carolina,Prof services,0.029925732099405317
+South Carolina,Public admin,-0.001626716417574593
+South Carolina,Real estate,0.018397495798903988
+South Carolina,Retail-gen,0.017050008227025737
+South Carolina,Retail-spec,0.00364164607974472
+South Carolina,Transportation,0.027677726662217857
+South Carolina,Utilities,-0.005625238835593273
+South Carolina,Warehousing,0.07308948983848039
+South Carolina,Wholesale,0.013316547104594912
+South Dakota,Accommodation/food,0.04074597732392094
+South Dakota,Admin/waste,0.0467432863792877
+South Dakota,Agriculture,0.1562047371096847
+South Dakota,Arts/entertain,0.027968267353091693
+South Dakota,Construction,0.14388584950200856
+South Dakota,Education,-0.005317110831807457
+South Dakota,Finance,0.01494909599516224
+South Dakota,Healthcare,0.008549160637718638
+South Dakota,Information,-0.001916938207416023
+South Dakota,Management,0.020516747565932716
+South Dakota,Mfg-chem,0.006430908716254088
+South Dakota,Mfg-food,0.0224045209809664
+South Dakota,Mfg-metals,-0.007106669164533323
+South Dakota,Mining,0.09683868921093103
+South Dakota,Other services,0.028384192313498022
+South Dakota,Prof services,0.03086532389377863
+South Dakota,Public admin,-0.011074356551735666
+South Dakota,Real estate,0.03258509682967197
+South Dakota,Retail-gen,-0.004260204456867817
+South Dakota,Retail-spec,0.011111979148951918
+South Dakota,Transportation,0.017520936305551158
+South Dakota,Utilities,0.01886892486414421
+South Dakota,Warehousing,0.0007071384404308138
+South Dakota,Wholesale,0.000892105315237458
+Tennessee,Accommodation/food,0.03878486042775165
+Tennessee,Admin/waste,0.022639442869651607
+Tennessee,Agriculture,0.10606794723563194
+Tennessee,Arts/entertain,0.03633682299726959
+Tennessee,Construction,0.039026734512227164
+Tennessee,Education,0.008187154205048997
+Tennessee,Finance,0.012448036752740265
+Tennessee,Healthcare,0.0038178314991499686
+Tennessee,Information,0.016173119600082705
+Tennessee,Management,0.01738684680383533
+Tennessee,Mfg-chem,0.0040293976048967365
+Tennessee,Mfg-food,0.00047534607614370557
+Tennessee,Mfg-metals,-3.248741850788927e-05
+Tennessee,Mining,0.006766070836883449
+Tennessee,Other services,0.00977552064194525
+Tennessee,Prof services,0.024809600654002856
+Tennessee,Public admin,-0.0049920539028518165
+Tennessee,Real estate,0.016535742637063942
+Tennessee,Retail-gen,0.019775158971290455
+Tennessee,Retail-spec,0.01026070049371675
+Tennessee,Transportation,0.020014658063933977
+Tennessee,Utilities,-0.0024209249761459654
+Tennessee,Warehousing,0.04095996117139311
+Tennessee,Wholesale,0.008537880431175237
+Texas,Accommodation/food,0.011545509322550149
+Texas,Admin/waste,0.013513989870945093
+Texas,Agriculture,0.05239507926640864
+Texas,Arts/entertain,0.03588464147522951
+Texas,Construction,0.012368992743347858
+Texas,Education,-0.01158718125002675
+Texas,Finance,0.027190010618659968
+Texas,Healthcare,-0.001153754291935287
+Texas,Information,0.009149912656637735
+Texas,Management,0.01788410393681662
+Texas,Mfg-chem,-0.005081761857560826
+Texas,Mfg-food,0.003731188056293202
+Texas,Mfg-metals,-0.002984066907157821
+Texas,Mining,0.009388934205795944
+Texas,Other services,0.012109661126671072
+Texas,Prof services,0.022333534539416052
+Texas,Public admin,-0.0056154611329469264
+Texas,Real estate,0.00507441607095702
+Texas,Retail-gen,0.003385114324503973
+Texas,Retail-spec,0.004161904751612074
+Texas,Transportation,0.006454477898362501
+Texas,Utilities,0.0017238241198080945
+Texas,Warehousing,0.02380368341420066
+Texas,Wholesale,0.004733806020109811
+Utah,Accommodation/food,0.07073463986388016
+Utah,Admin/waste,0.029144792951058564
+Utah,Agriculture,0.1275386683957389
+Utah,Arts/entertain,0.07878602440801027
+Utah,Construction,0.06468177852014587
+Utah,Education,0.013989685329333382
+Utah,Finance,0.016224970128322892
+Utah,Healthcare,0.006714587861996438
+Utah,Information,0.03648697372675065
+Utah,Management,0.022454579722137394
+Utah,Mfg-chem,0.010805516886729736
+Utah,Mfg-food,0.02352201136502453
+Utah,Mfg-metals,0.003789848393521085
+Utah,Mining,0.058734140665218725
+Utah,Other services,0.01782491562750898
+Utah,Prof services,0.04452225064225692
+Utah,Public admin,0.00529317366338732
+Utah,Real estate,0.013245825869024664
+Utah,Retail-gen,0.03238918102249763
+Utah,Retail-spec,0.022258354786828406
+Utah,Transportation,0.009037305880371065
+Utah,Utilities,0.004894454498078699
+Utah,Warehousing,0.03261068655284909
+Utah,Wholesale,0.007234912603141103
+Vermont,Accommodation/food,0.02692885154667659
+Vermont,Admin/waste,0.05084848651418709
+Vermont,Agriculture,0.13066296860638243
+Vermont,Arts/entertain,0.04307280185844002
+Vermont,Construction,0.1532935382975243
+Vermont,Education,-0.03504551644203556
+Vermont,Finance,0.013539756635091854
+Vermont,Healthcare,0.0038915438060659543
+Vermont,Information,0.009695750271599924
+Vermont,Management,0.09045051588242349
+Vermont,Mfg-chem,0.022752023618617657
+Vermont,Mfg-food,0.024257254404723667
+Vermont,Mfg-metals,0.0042694815145713026
+Vermont,Mining,0.23323976037841787
+Vermont,Other services,0.03124809136334905
+Vermont,Prof services,0.053171583425444854
+Vermont,Public admin,0.00745560782312144
+Vermont,Real estate,0.03677764953437798
+Vermont,Retail-gen,0.06290694448551758
+Vermont,Retail-spec,0.03655882221595467
+Vermont,Transportation,0.02536384790936735
+Vermont,Utilities,0.008029009488755057
+Vermont,Warehousing,0.020084943935352782
+Vermont,Wholesale,0.025018441285257955
+Virginia,Accommodation/food,0.06414348095440284
+Virginia,Admin/waste,0.02388060878543652
+Virginia,Agriculture,0.11844875303142156
+Virginia,Arts/entertain,0.05088453416391244
+Virginia,Construction,0.030734965538203866
+Virginia,Education,0.002483103506455664
+Virginia,Finance,0.021697792438642033
+Virginia,Healthcare,0.005339282279805289
+Virginia,Information,0.00688594724493998
+Virginia,Management,0.011836742786392044
+Virginia,Mfg-chem,-0.0012351379794887847
+Virginia,Mfg-food,0.016598320327519924
+Virginia,Mfg-metals,-0.00014479458137432348
+Virginia,Mining,0.004684112236669906
+Virginia,Other services,0.02347483952138287
+Virginia,Prof services,0.027171002577672757
+Virginia,Public admin,0.0013460924931334877
+Virginia,Real estate,0.020188741202989958
+Virginia,Retail-gen,0.03036189993565765
+Virginia,Retail-spec,0.014906758942415672
+Virginia,Transportation,0.02748519418380935
+Virginia,Utilities,0.013351408888147268
+Virginia,Warehousing,0.036906454603560714
+Virginia,Wholesale,0.016294726795806277
+Washington,Accommodation/food,0.04680763941963036
+Washington,Admin/waste,0.03189572725222014
+Washington,Agriculture,0.05271953464645221
+Washington,Arts/entertain,0.02808118951933046
+Washington,Construction,0.06115575675246882
+Washington,Education,-0.02018656460161936
+Washington,Finance,0.01197746270411624
+Washington,Healthcare,0.0034073183401186068
+Washington,Information,0.016494603973300756
+Washington,Management,0.03706470655501454
+Washington,Mfg-chem,0.008754954008214374
+Washington,Mfg-food,0.034607449649400907
+Washington,Mfg-metals,0.0026574216186164854
+Washington,Mining,0.06882827484607386
+Washington,Other services,0.015317542709297792
+Washington,Prof services,0.025719503858959134
+Washington,Public admin,-0.006836000998806486
+Washington,Real estate,0.02487368268136793
+Washington,Retail-gen,0.01665355000450895
+Washington,Retail-spec,0.010605078058786096
+Washington,Transportation,0.023283806597163496
+Washington,Utilities,-0.0008461379791630469
+Washington,Warehousing,0.04505544507038652
+Washington,Wholesale,0.006437083017669486
+West Virginia,Accommodation/food,0.04617860935675148
+West Virginia,Admin/waste,0.027198735078210082
+West Virginia,Agriculture,0.11194463802390275
+West Virginia,Arts/entertain,0.016299809128057112
+West Virginia,Construction,0.11663271349373085
+West Virginia,Education,0.009936275517335365
+West Virginia,Finance,0.024164550383630565
+West Virginia,Healthcare,0.005830647895199981
+West Virginia,Information,0.015568647729665116
+West Virginia,Management,0.007441396029101405
+West Virginia,Mfg-chem,0.0038791914094731756
+West Virginia,Mfg-food,0.026495155650150228
+West Virginia,Mfg-metals,0.003565869661838588
+West Virginia,Mining,0.029325716082515392
+West Virginia,Other services,0.009157195020871303
+West Virginia,Prof services,0.043049526225944976
+West Virginia,Public admin,0.00032050054684498865
+West Virginia,Real estate,0.027124729449088503
+West Virginia,Retail-gen,0.01596520516566989
+West Virginia,Retail-spec,0.01305105803018297
+West Virginia,Transportation,0.034850203452018266
+West Virginia,Utilities,-0.014307386988351262
+West Virginia,Warehousing,0.05888497355934754
+West Virginia,Wholesale,0.024068811696811722
+Wisconsin,Accommodation/food,0.04536162907652361
+Wisconsin,Admin/waste,0.043948222997077624
+Wisconsin,Agriculture,0.14622808403551968
+Wisconsin,Arts/entertain,0.08350172848273617
+Wisconsin,Construction,0.1222994513165735
+Wisconsin,Education,0.0017898096651298248
+Wisconsin,Finance,0.0073332781443855985
+Wisconsin,Healthcare,0.005949878393423065
+Wisconsin,Information,0.017092163081815163
+Wisconsin,Management,0.011418048739416988
+Wisconsin,Mfg-chem,0.006068374300231443
+Wisconsin,Mfg-food,0.025918632302189226
+Wisconsin,Mfg-metals,-0.0030238072963174626
+Wisconsin,Mining,0.0826128391058802
+Wisconsin,Other services,0.021039165978891317
+Wisconsin,Prof services,0.03649328606924498
+Wisconsin,Public admin,0.027375408016225886
+Wisconsin,Real estate,0.033016312166033596
+Wisconsin,Retail-gen,0.034348745896664
+Wisconsin,Retail-spec,0.02934000997713285
+Wisconsin,Transportation,0.05884957262602297
+Wisconsin,Utilities,0.013622410647725099
+Wisconsin,Warehousing,0.046614210468993056
+Wisconsin,Wholesale,0.00668381334226268
+Wyoming,Accommodation/food,-0.02023867827515221
+Wyoming,Admin/waste,0.04406092829419812
+Wyoming,Agriculture,0.17967086672573762
+Wyoming,Arts/entertain,-0.026209133835043134
+Wyoming,Construction,0.13600289372273208
+Wyoming,Education,-0.01583090530429151
+Wyoming,Finance,0.011788367851179454
+Wyoming,Healthcare,-0.004308804973931983
+Wyoming,Information,-0.005440749075107204
+Wyoming,Management,0.023150921065884157
+Wyoming,Mfg-chem,0.012887761530776993
+Wyoming,Mfg-food,0.038487438819423764
+Wyoming,Mfg-metals,-0.015361771109075368
+Wyoming,Mining,0.04415326774264364
+Wyoming,Other services,0.007378361335296154
+Wyoming,Prof services,0.03851070035175596
+Wyoming,Public admin,-0.03332178011941152
+Wyoming,Real estate,0.01889336812656853
+Wyoming,Retail-gen,0.008045826168450489
+Wyoming,Retail-spec,0.023775252828043235
+Wyoming,Transportation,0.004336213208769323
+Wyoming,Utilities,-0.006975611133187817
+Wyoming,Warehousing,0.024247758280435187
+Wyoming,Wholesale,0.007979168221905232

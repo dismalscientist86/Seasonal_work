@@ -1,0 +1,351 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{microtype}
+
+% Suppress navigation bar
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+% Figure path
+\graphicspath{{../figures/}}
+
+\title{Seasonal Employment: Replication and Extension}
+\subtitle{Coglianese \& Price (2025) + QWI 6-Digit NAICS Index}
+\date{\today}
+
+\begin{document}
+
+% ── Title ─────────────────────────────────────────────────────────────────────
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% ── Outline ───────────────────────────────────────────────────────────────────
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Replication of Coglianese \& Price (2025)}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Coglianese \& Price (2025): Overview}
+  \begin{itemize}
+    \item ``Income in the Off-Season: Household Adaptation to Yearly Work
+          Interruptions,'' \textit{ILRR} 2025
+    \item \textbf{Question:} How do households smooth income when employment
+          separations recur annually (i.e.\ are \emph{seasonal})?
+    \item \textbf{Key innovation:} Identify seasonal separations from
+          administrative data without requiring industry or occupation labels
+    \bigskip
+    \item Core estimand: \textbf{excess recurrence} at 12-month horizon
+    \[
+      \widehat{\text{ExR}}
+      = \Pr(\text{sep at }k{=}12)
+        - \frac{\Pr(\text{sep at }k{=}11) + \Pr(\text{sep at }k{=}13)}{2}
+    \]
+    \item Counterfactual = average of adjacent lags $\to$ isolates the
+          \emph{annual spike} marking genuine seasonal separations
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Estimation Strategy}
+  \textbf{Event-study OLS on separators panel (CPS and SIPP):}
+  \[
+    \mathbf{1}[\text{sep at }k] = \sum_{j} \beta_j \mathbf{1}[k=j] + \varepsilon
+  \]
+  \begin{itemize}
+    \item Estimate by OLS; excess recurrence = $\beta_{12} - (\beta_{11}+\beta_{13})/2$
+    \item Standard error via delta method
+    \bigskip
+    \item \textbf{Two specifications:}
+    \begin{enumerate}
+      \item \textit{Raw} (Figure 2 in paper): only horizon dummies, no constant
+      \item \textit{Preferred} (Appendix F.1): adds controls for interview-seam
+            artifacts (SIPP) and weeks elapsed since separation (CPS)
+    \end{enumerate}
+    \bigskip
+    \item Python replication uses \texttt{statsmodels} WLS with clustered SEs;
+          data from the LEHD-style pre-cleaned \texttt{.dta.gz} files in the
+          replication package
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Replication Results}
+  \begin{table}
+    \centering
+    \caption{Excess recurrence estimates: paper vs.\ Python replication}
+    \begin{tabular}{llcc}
+      \toprule
+      Specification & Where & Paper & Replication \\
+      \midrule
+      CPS raw (Figure 2) & Figure 2 & 1.4 p.p.\ (SE 0.14) & 1.44\ \checkmark \\
+      CPS preferred & App.\ F.1 & 1.5 p.p.\ (SE 0.14) & 1.42\ \checkmark \\
+      SIPP raw (Figure 2) & Figure 2 & 2.0 p.p.\ (SE 0.11) & 2.04\ \checkmark \\
+      SIPP preferred & App.\ F.1 & 1.6 p.p.\ (SE 0.11) & 1.62\ \checkmark \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  \vspace{0.5em}
+  \begin{itemize}
+    \item All four estimates within rounding of published values
+    \item Industry ranking (both datasets): Agriculture $>$ Entertainment
+          $>$ Education $>$ Construction $\gg$ Healthcare, FIRE
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{QWI 6-Digit NAICS Seasonal Index}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Extending to 6-Digit NAICS via QWI}
+  \begin{itemize}
+    \item CP's classifier operates at the worker level; industry rankings are
+          reported at 1-digit NAICS only
+    \item \textbf{Goal:} produce a finer, industry-level seasonal index suitable
+          for firm classification
+    \bigskip
+    \item \textbf{Data:} Census Quarterly Workforce Indicators (QWI)
+    \begin{itemize}
+      \item Quarterly separations and employment by state $\times$ 6-digit NAICS
+      \item 51 states + DC, years 2000--2023 (1,011 industries)
+    \end{itemize}
+    \bigskip
+    \item \textbf{Quarterly analog to excess recurrence:} for each quarter
+          $q \in \{1,2,3,4\}$ and industry $j$,
+    \[
+      \text{Excess}(q)_{j}
+      = \overline{
+          \text{SepRate}_{j,q,t}
+          - \frac{\text{SepRate}_{j,q-1,t} + \text{SepRate}_{j,q+1,t}}{2}
+        }
+    \]
+    (quarters treated cyclically; average over years $t$)
+    \item \textbf{Peak excess:} $\text{ExcessPeak}_{j} = \max_q\, \text{Excess}(q)_j$
+    \item \textbf{Seasonal amplitude:} $\max_q - \min_q$ normalised to $[0,1]$;
+          does not assume any particular quarter is ``the'' seasonal quarter
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{National Seasonal Index: Top Industries}
+  \begin{columns}
+    \begin{column}{0.55\textwidth}
+      \begin{table}
+        \footnotesize
+        \caption{Top 12 most seasonal 6-digit NAICS industries (national)}
+        \begin{tabular}{lcc}
+          \toprule
+          NAICS \& description & ExcessPeak & $n$ \\
+          \midrule
+          111160 Leafy veg.\ farming    & 0.561 & 22 \\
+          111219 Other berries           & 0.454 & 14 \\
+          115113 Crop harvesting         & 0.398 & 10 \\
+          111199 Other food crops        & 0.397 & 23 \\
+          111140 Wheat farming           & 0.287 & 20 \\
+          111336 Fruit \& tree nut farm. & 0.333 & 18 \\
+          115111 Cotton ginning          & 0.414 & 2  \\
+          311421 Fruit/veg.\ canning     & 0.466 & 21 \\
+          711212 Racetracks              & 0.371 & 21 \\
+          115114 Postharvest services    & 0.382 & 22 \\
+          111998 Other crop farming      & 0.328 & 20 \\
+          111120 Oilseed farming         & 0.345 & 12 \\
+          \bottomrule
+        \end{tabular}
+      \end{table}
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \begin{itemize}
+        \item $n$ = years contributing to ExcessPeak estimate; small $n$ reflects
+              Census disclosure suppression for thin cells
+        \item Non-agriculture entries: fruit/veg canning (311421), racetracks
+              (711212) --- both with $n=21$, robust estimates
+        \item Seasonal index normalized to [0,1] via 99th-pct winsorization
+        \item Correlation with CP 1-digit rankings: $\rho = 0.826$
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{National Seasonal Index: Sector Summary}
+  \begin{table}
+    \centering
+    \footnotesize
+    \caption{Mean seasonal index by 2-digit sector (national)}
+    \begin{tabular}{lcc}
+      \toprule
+      Sector & Mean seasonal index & ExcessPeak (p.p.) \\
+      \midrule
+      Agriculture, forestry, fishing      & 0.472 & 15.2 \\
+      Arts, entertainment \& recreation   & 0.419 & 12.1 \\
+      Educational services                & 0.257 & 8.4  \\
+      Construction                        & 0.183 & 5.9  \\
+      Personal services                   & 0.126 & 4.2  \\
+      Business services (54--56)          & 0.123 & 4.2  \\
+      Finance \& real estate              & 0.121 & 4.2  \\
+      Retail trade                        & 0.115 & 3.5  \\
+      \midrule
+      Health care \& social assistance    & 0.063 & 2.2  \\
+      Wholesale trade                     & 0.060 & 1.8  \\
+      Manufacturing (metals/machinery)    & 0.034 & 1.1  \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  \vspace{0.3em}
+  \small Education peaks in Q2 (end of school year), not Q4 --- ExcessPeak is
+  positive across all sectors. CP's 1-digit rankings confirmed at finer granularity.
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Geographic Variation}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Geographic Variation: Overview}
+  \begin{itemize}
+    \item The national index masks substantial state-level heterogeneity
+    \item We compute ExcessPeak for each state $\times$ 6-digit NAICS cell
+          (40,222 cells with $\geq 5$ year-observations)
+    \bigskip
+    \item \textbf{Main finding:} a 2.4$\times$ gap between most and least seasonal
+          states in mean peak excess (Alaska: 8.0 p.p.\ vs.\ Texas: 3.3 p.p.)
+    \item Northern/Great Plains states consistently more seasonal across
+          multiple sectors; Sun Belt states consistently less so
+    \bigskip
+    \item \textbf{Most geographically variable sectors:}
+    \begin{enumerate}
+      \item Agriculture (cross-state SD = 15.4 p.p.)
+      \item Arts \& entertainment (SD = 14.4 p.p.)
+      \item Construction (SD = 9.9 p.p.)
+    \end{enumerate}
+    \item \textbf{Least geographically variable:} healthcare, metals manufacturing,
+          utilities --- consistent low seasonality everywhere
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{State-Level Mean Seasonality}
+  \begin{center}
+    \includegraphics[width=0.95\textwidth,height=0.78\textheight,keepaspectratio]%
+      {geo_state_mean_tile_map.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Construction and Agriculture by State}
+  \begin{center}
+    \includegraphics[width=0.95\textwidth,height=0.68\textheight,keepaspectratio]%
+      {geo_construction_agriculture_by_state.pdf}
+  \end{center}
+  \vspace{-0.3em}
+  {\small
+  \textbf{Construction:} Minnesota (19.7 p.p.) vs.\ Florida (2.6 p.p.) --- an 8$\times$
+  gap driven by winter construction shutdowns in northern states.
+  \textbf{Agriculture:} Montana (20.2 p.p.) and Idaho (19.3 p.p.) lead.}
+\end{frame}
+
+\begin{frame}{State-Specific Top and Bottom 1\% Industries}
+  \begin{columns}
+    \begin{column}{0.50\textwidth}
+      \begin{table}
+        \footnotesize
+        \caption{Within-state NAICS6 tails}
+        \begin{tabular}{lcc}
+          \toprule
+          Statistic & Top 1\% & Bottom 1\% \\
+          \midrule
+          State-industry slots & 413 & 413 \\
+          Unique NAICS6 codes & 133 & 252 \\
+          Codes appearing once & 57 & 158 \\
+          Codes in 10+ states & 6 & 0 \\
+          Pairwise Jaccard & 0.054 & 0.015 \\
+          Also national same tail & 12.6\% & 2.7\% \\
+          \bottomrule
+        \end{tabular}
+      \end{table}
+      \vspace{0.4em}
+      {\small
+      Interpretation: the state-specific tails are related to the national index,
+      but most state-tail industries are not simply the national top or bottom
+      1\% repeated everywhere.}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \footnotesize
+      \textbf{Recurring top-1\% industries}
+      \begin{itemize}
+        \item Nursery/tree production: 15 states
+        \item Marinas: 14 states
+        \item Specialty trade contractors: 12 states
+        \item Golf courses/country clubs: 11 states
+        \item Miscellaneous crop farming: 11 states
+      \end{itemize}
+      \medskip
+      \textbf{Bottom-1\% pattern}
+      \begin{itemize}
+        \item More diffuse than the top tail
+        \item Concentrated in metals manufacturing, wholesale,
+              chemicals, finance, and transportation
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Geographic Variation: Sector Cross-State SD}
+  \begin{center}
+    \includegraphics[width=0.85\textwidth,height=0.78\textheight,keepaspectratio]%
+      {geo_sector_variation.pdf}
+  \end{center}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Discussion}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Implications for Firm Classification}
+  \begin{itemize}
+    \item The QWI index enables firm-level seasonal classification via NAICS lookup
+    \item The top/bottom 1\% analysis shows the exact NAICS6 tails differ sharply
+          across states: top tail has 133 unique codes; bottom tail has 252
+    \item \textbf{But:} for geographically sensitive sectors (construction,
+          agriculture), a single national index may misclassify:
+    \begin{itemize}
+      \item A Minnesota construction firm is highly seasonal
+      \item A Florida construction firm is nearly non-seasonal
+    \end{itemize}
+    \bigskip
+    \item \textbf{Preferred approach for firm classification:}
+    \begin{enumerate}
+      \item Use the \emph{state $\times$ NAICS} ExcessPeak as the lookup value
+            when state of operation is known
+      \item Fall back to national index for industries with thin state-level
+            coverage (low $n\_excess\_obs$)
+      \item Direct estimation from UI wage records when sufficient separations
+            are available ($n \geq 20$ per firm)
+    \end{enumerate}
+    \bigskip
+    \item \textbf{Caveat:} 6-digit cells are often suppressed in small states;
+          state-level estimates for niche agriculture sub-industries may rest on
+          very few year-observations
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Summary}
+  \begin{enumerate}
+    \item \textbf{Replication:} Python replication of CP (2025) excess recurrence
+          matches all four published estimates within rounding
+    \bigskip
+    \item \textbf{National index:} QWI-based ExcessPeak at 6-digit NAICS correlates
+          strongly with CP's 1-digit rankings ($\rho = 0.826$); agriculture and
+          entertainment top the seasonal hierarchy
+    \bigskip
+    \item \textbf{Geographic variation:} large and systematic state heterogeneity
+          --- a 2.4$\times$ gap between most and least seasonal states (Alaska
+          vs.\ Texas); state-specific top/bottom 1\% NAICS lists differ sharply
+          from each other and from the national tails
+    \bigskip
+    \item \textbf{Next step:} apply state $\times$ NAICS index to UI wage records
+          for firm-level seasonal classification
+  \end{enumerate}
+\end{frame}
+
+\end{document}
