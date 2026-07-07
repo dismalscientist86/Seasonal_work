@@ -88,7 +88,7 @@ def load_naics_codes(level: int, naics_file: Path | None = None) -> list[str]:
     mismatch should not require any special-casing here.
     """
     if naics_file is None:
-        naics_file = Path(__file__).resolve().parents[1] / "qwi" / "naics_codes.csv"
+        naics_file = Path(__file__).resolve().parent / "qwi" / "naics_codes.csv"
 
     if not naics_file.exists():
         raise FileNotFoundError(

@@ -116,9 +116,6 @@ CBP_NAICS_LEVELS = [6, 4]
 CBP_LFO_TOTAL = "001"
 
 # State FIPS codes (50 states + DC), shared across QWI and CBP fetchers.
-# NOTE: fetch_qwi.py and geographic_analysis.py currently define their own
-# local copies of this same list/dict; consider pointing them at this shared
-# version in a future cleanup pass so there's a single source of truth.
 STATE_FIPS = [
     "01","02","04","05","06","08","09","10","11","12","13","15","16","17","18",
     "19","20","21","22","23","24","25","26","27","28","29","30","31","32","33",
