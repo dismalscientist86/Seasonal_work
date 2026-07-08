@@ -107,7 +107,7 @@ def load_qwi(path: Path | None = None, naics_level: int | None = None) -> pd.Dat
         df["quarter"] = df["time"].str[-1].astype(int)
 
     # Ensure numeric columns
-    for c in ["Emp", "EmpEnd", "Sep", "SepBeg", "year", "quarter"]:
+    for c in ["Emp", "EmpEnd", "Sep", "SepBeg", "EarnBeg", "year", "quarter"]:
         if c in df.columns:
             df[c] = pd.to_numeric(df[c], errors="coerce")
 

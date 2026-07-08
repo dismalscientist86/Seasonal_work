@@ -139,10 +139,10 @@ at either level. Outputs: `output/tables/flow_vs_stock_{national,state}.csv`
 `flow_vs_stock_{national,state}_by_sector/by_state.csv`, and
 `flow_vs_stock_{national,state}_scatter.pdf`.
 
-**Key findings** (validation run, 50/51 states — see coverage note below):
+**Key findings** (complete 51-state run):
 - **Correlated but far from identical**: national Pearson r = 0.653, Spearman
-  r = 0.627 (n=1,004); state × NAICS6 Pearson r = 0.521, Spearman r = 0.585
-  (n=39,225). Flow and stock seasonality are related but measure genuinely
+  r = 0.626 (n=1,004); state × NAICS6 Pearson r = 0.526, Spearman r = 0.585
+  (n=40,239). Flow and stock seasonality are related but measure genuinely
   different things.
 - **Peak-quarter concordance is low — ~15% nationally, ~14% by state**: even
   when both measures agree an industry is seasonal, they usually disagree on
@@ -163,11 +163,70 @@ at either level. Outputs: `output/tables/flow_vs_stock_{national,state}.csv`
   harvest-time ginning), a real, sensible econ story once the index bug was
   fixed rather than a leftover artifact.
 
-**Coverage note**: this validation run used per-state files while the CBP-style
-QWI refetch (below) was running in the background, and caught California
-mid-rewrite — 50 of 51 states. Rerun `geographic_analysis.py` and
-`seasonal_index.py --compare-flow-stock both` once that refetch finishes for
-the complete, race-free 51-state version.
+### Income/Earnings Seasonality Index
+
+`code/qwi/earnings_index.py` builds a third seasonal measure — **income**, not
+separations or headcount — using `EarnBeg` (average monthly earnings),
+directly testing the paper's title question at the industry level: does
+income dip in an industry's own off-season?
+
+**Data note**: `fetch_qwi.py` originally requested `Payroll` (Total Quarterly
+Payroll: Sum), but that field returns `null` from the Census API for every
+cell tested (confirmed live — even huge industries where `Emp` populates
+fine), with a permanent "not good" status flag. `EarnBeg` is the working
+substitute and is now what `QWI_VARS` fetches. This required a fresh ~15hr
+QWI refetch (all 51 states); the refetch also caught two more scripts
+missing the `sys.path` bootstrap (`fetch_qwi.py` itself), and a partial test
+run silently overwrote the shared combined parquet (`fetch_qwi.py` now only
+writes there when every state was actually fetched — see Code Structure
+notes). One transient DNS blip during the big refetch left Ohio short ~45
+industries; refetched cleanly on retry.
+
+**Methodology**: `earnings_share_{j,t,q} = EarnBeg / mean_year(EarnBeg)`, then
+the same cyclical excess-by-quarter computation used everywhere else, giving
+`earnings_seasonal_index` (0–1) plus `peak_quarter_earnings` /
+`trough_quarter_earnings`.
+
+**Critical finding — the raw index is confounded, not industry-specific**:
+83% of all 1,011 industries have their raw earnings index peak in Q4 — a
+broad, economy-wide year-end bonus/holiday-pay effect, not industry-specific
+seasonality. Left uncorrected, this swamps any genuine signal: whether an
+industry's *own* separation-peak quarter happens to coincide with the common
+Q4 bump almost entirely determines whether its earnings look like they "dip"
+there. `earnings_index.py` computes this common cross-industry calendar
+effect (`compute_common_calendar_effect()`: Q1 −0.031, Q2 −0.005, Q3 −0.048,
+Q4 +0.085) and nets it out (`add_idiosyncratic_excess()`) to get an
+**idiosyncratic** index isolating industry-specific timing — this, not the
+raw index, is the credible basis for the hypothesis test below.
+
+**The test: does income dip in the off-season?** Merges the earnings index
+onto each industry's own separation `peak_quarter` (from `seasonal_index.py`)
+and checks the earnings excess at that same quarter
+(`output/tables/earnings_at_separation_peak.csv`).
+- **Naive/raw test: 51.9% of industries "dip"** — but this is almost entirely
+  mechanical (8.3% dip when the separation peak falls in Q4, since Q4 is
+  everyone's earnings peak; 93.6% "dip" when it falls in Q3, since Q3 is
+  rarely anyone's earnings peak) — an artifact of the Q4-bonus confound, not
+  a behavioral finding.
+- **Idiosyncratic/credible test: 43.9% dip, mean excess +0.0065** (essentially
+  flat, slightly positive) — once the common calendar effect is removed,
+  there is **no strong evidence of industry-average income dipping** when
+  separations peak.
+- **Construction is the sharpest counter-example**: dip rate only 3.2%, mean
+  excess **+0.044** — earnings are *higher*, not lower, at construction's own
+  separation-peak quarter, plausibly reflecting end-of-season overtime pay
+  ahead of winter layoffs rather than income loss.
+- **Interpretation**: this doesn't contradict CP's paper — their finding is
+  about income loss for the *specific worker who separates*, a micro-level
+  treatment effect. This test instead asks whether an industry's *average*
+  earnings (across all its still-employed workers) dip that quarter, a
+  different, aggregate/compositional question the QWI data can speak to but
+  the paper's worker-level SIPP analysis does not directly address.
+
+Outputs: `data/qwi_clean/earnings_index_naics6.csv`,
+`output/tables/earnings_at_separation_peak.csv`,
+`output/figures/earnings_seasonal_index.pdf` (idiosyncratic top-30),
+`output/figures/earnings_at_separation_peak_hist.pdf`.
 
 ### Geographic Variation
 
@@ -210,7 +269,7 @@ Key findings:
   state's top-1% tail, and just 6 of those appear in 10+ states.
 - **Least-seasonal tail**: dominated by Mfg-metals (84% of states), Wholesale (67%),
   Mfg-chemicals (57%), Finance (55%).
-- **Only ~11% overlap with the national ranking** (45 of 413 state top-tail slots
+- **Only ~11% overlap with the national ranking** (47 of 413 state top-tail slots
   are also in the national top 1%): most industries that are "most seasonal" in a
   given state are not nationally seasonal, i.e. there's substantial state-specific
   heterogeneity a national-only index would miss.
@@ -265,6 +324,7 @@ code/
 │   ├── geographic_analysis.py       # State-level variation (flow + stock): figures + tables
 │   ├── state_index_percentiles.py   # Within-state top/bottom-1% seasonality + national/cross-state overlap
 │   ├── covid_robustness_check.py    # Pre-COVID (2000-19) vs. full-sample index comparison
+│   ├── earnings_index.py            # Income seasonality (EarnBeg): does income dip in the off-season?
 │   ├── clean_naics_xwalk.py         # Census NAICS structure workbook -> naics6 title lookup
 │   ├── national_state_scatterplot.py  # diagnostic: state vs. national seasonal index scatter
 │   ├── plot_seasonality_figures.py    # diagnostic: employment time series + amplitude histogram
@@ -322,6 +382,7 @@ python code/qwi/clean_naics_xwalk.py       # (optional) build NAICS6 title looku
 python code/qwi/state_index_percentiles.py # within-state top/bottom-1% seasonality + overlap
 python code/qwi/covid_robustness_check.py  # pre-COVID vs. full-sample index comparison
 python code/qwi/seasonal_index.py --compare-flow-stock both  # flow vs. stock index comparison
+python code/qwi/earnings_index.py          # income/earnings seasonality + off-season income-dip test
 python code/fetch_cbp.py                   # (in progress) county x NAICS establishment counts
 ```
 
@@ -349,7 +410,8 @@ python code/fetch_cbp.py                   # (in progress) county x NAICS establ
 - [x] Deduplicated `STATE_NAMES`/`STATE_FIPS` — `fetch_qwi.py` and `geographic_analysis.py` now import from `config.py` instead of redefining locally
 - [x] Validated CBP fetcher with a single-state test (fixed a NAICS-code-list path bug); full 51-state run (~21–22 hrs) deferred by choice, not run yet
 - [x] Flow (separations) vs. stock (employment) seasonal index comparison — `compare_flow_vs_stock()`/`plot_flow_vs_stock()`/`--compare-flow-stock` in seasonal_index.py, stock-side state x NAICS computation added to geographic_analysis.py. Correlated but distinct (national Pearson 0.653; peak-quarter concordance only ~15%); Construction near-perfectly aligned (r≈0.96), Agriculture surprisingly not (r≈0.21, likely rapid worker replacement). Also fixed: fetch_qwi.py missing sys.path bootstrap (broke the script entirely), a partial/test fetch silently overwriting the shared all-states combined parquet (now only writes there when every state was actually fetched), and load_qwi()'s per-state fallback missing year/quarter parsing.
-- [ ] Refetching QWI data with EarnBeg (earnings) in place of the broken Payroll field, ~15hr background run, for the planned income/earnings seasonality index (Payroll returns null from the Census API for every cell tested; EarnBeg is the working equivalent). Rerun geographic_analysis.py/seasonal_index.py --compare-flow-stock once done — the version committed now used 50/51 states (California caught mid-rewrite by this same refetch)
+- [x] Refetched QWI data with EarnBeg (earnings) in place of the broken Payroll field — complete 51-state run; rebuilt the national/state indices, flow-vs-stock comparison, and state percentiles on the final complete data (all numbers stable vs. the interim 50-state validation runs)
+- [x] Income/earnings seasonality index (`earnings_index.py`) — found the raw index is ~83% dominated by a common Q4-bonus effect (not industry-specific), added a de-confounding step (`compute_common_calendar_effect`/`add_idiosyncratic_excess`). Credible test: only 43.9% of industries show an income dip at their own separation-peak quarter once de-confounded (mean excess ≈ 0, not clearly negative); Construction shows the opposite (earnings *higher*, not lower, likely overtime pay before layoffs). No strong evidence of industry-average income dipping in the off-season — consistent with CP's effect being about the separating worker specifically, not the industry-wide average
 - [ ] Fetch and merge County Business Patterns (CBP) data for a county-level index (validated, ~21-22hr full run not yet launched)
 - [ ] Apply firm-level code on other machine
 

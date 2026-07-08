@@ -1,51 +1,52 @@
 state_name,mean_peak_excess_pp
-Texas,3.3296
-Hawaii,3.4061
-Florida,3.4386
-Tennessee,3.5638
-South Carolina,3.8119
-Georgia,3.8656
+Texas,3.3509
+Hawaii,3.4052
+Florida,3.4298
+Tennessee,3.5293
+South Carolina,3.8094
+Georgia,3.8256
+California,3.8635
 Alabama,3.9708
-Nevada,3.9839
-Virginia,4.0464
-Ohio,4.0895
+Virginia,4.0122
+Nevada,4.0195
+Ohio,4.0843
 Arizona,4.1088
-Kentucky,4.1202
-Pennsylvania,4.1749
-North Carolina,4.1992
-Missouri,4.2976
-Oklahoma,4.395
-New Jersey,4.4912
+Kentucky,4.1471
+Pennsylvania,4.1641
+North Carolina,4.1995
+Missouri,4.3841
+Oklahoma,4.3907
+Indiana,4.4802
 Arkansas,4.4949
-Louisiana,4.4983
-Indiana,4.5079
-Washington,4.5417
-Colorado,4.5503
-Kansas,4.6445
-New Hampshire,4.6805
-Utah,4.7087
-Mississippi,4.7456
-Maryland,4.778
-Massachusetts,4.7795
-Illinois,4.8378
-Connecticut,4.9493
-New York,4.9504
-Oregon,4.9887
-West Virginia,5.0479
+Louisiana,4.5217
+New Jersey,4.5395
+Washington,4.5423
+Colorado,4.5436
+Kansas,4.6272
+New Hampshire,4.7104
+Utah,4.7389
+Maryland,4.7683
+Mississippi,4.7708
+Massachusetts,4.7832
+Illinois,4.807
+Connecticut,4.9345
+New York,4.9425
+Oregon,4.945
+West Virginia,5.0203
+New Mexico,5.0215
 DC,5.0512
-Nebraska,5.0514
-New Mexico,5.061
-Wisconsin,5.114
-Iowa,5.3126
-Delaware,5.3361
-Michigan,5.3853
-Rhode Island,5.6577
-Minnesota,5.8052
-Idaho,6.0433
-Maine,6.2396
-Vermont,6.5758
-North Dakota,6.6728
-South Dakota,6.8814
-Montana,6.9011
-Wyoming,7.4961
+Nebraska,5.0665
+Wisconsin,5.0822
+Iowa,5.2853
+Delaware,5.3222
+Michigan,5.4316
+Rhode Island,5.6544
+Minnesota,5.7693
+Idaho,6.0544
+Maine,6.2436
+Vermont,6.5661
+North Dakota,6.6304
+South Dakota,6.9107
+Montana,6.9523
+Wyoming,7.5027
 Alaska,7.9674
