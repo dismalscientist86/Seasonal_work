@@ -66,10 +66,69 @@ SECTOR_LABELS = {
 }
 
 
+def _excess_by_quarter(pivot: pd.DataFrame, min_obs: int, prefix: str) -> tuple[dict, dict]:
+    """
+    Shared cyclical-neighbor excess computation for one (state, industry)
+    pivot table (year x quarter). Used for both the flow (sep_rate) and
+    stock (emp_share) measures so the two are computed identically.
+
+    Returns (record_fields, {quarter: (mean_excess, n_obs)} for quarters
+    meeting min_obs).
+    """
+    record = {}
+    excesses = {}
+    for q in [1, 2, 3, 4]:
+        q_prev = 4 if q == 1 else q - 1
+        q_next = 1 if q == 4 else q + 1
+
+        if q not in pivot.columns or q_prev not in pivot.columns or q_next not in pivot.columns:
+            record[f"{prefix}Q{q}"] = np.nan
+            record[f"n_{prefix}Q{q}"] = 0
+            continue
+        if q == 1:
+            exr = (pivot[1] - (pivot[4].shift(1) + pivot[2]) / 2).dropna()
+        elif q == 4:
+            exr = (pivot[4] - (pivot[3] + pivot[1].shift(-1)) / 2).dropna()
+        else:
+            exr = (pivot[q] - (pivot[q - 1] + pivot[q + 1]) / 2).dropna()
+
+        record[f"{prefix}Q{q}"] = exr.mean() if len(exr) >= min_obs else np.nan
+        record[f"n_{prefix}Q{q}"] = len(exr)
+        if len(exr) >= min_obs:
+            excesses[q] = (exr.mean(), len(exr))
+
+    return record, excesses
+
+
 def load_and_compute(min_obs: int = MIN_EXCESS_OBS) -> pd.DataFrame:
-    """Load QWI data and compute seasonal indexes for state x NAICS6 cells."""
-    print("Loading combined QWI parquet...")
-    df = pd.read_parquet(QWI_RAW / "qwi_naics6_all.parquet")
+    """
+    Load QWI data and compute both the flow (separation-based) and stock
+    (employment-based) seasonal indexes for state x NAICS6 cells, so the two
+    can be compared directly (see compare_flow_vs_stock() in seasonal_index.py).
+    """
+    combined_path = QWI_RAW / "qwi_naics6_all.parquet"
+    if combined_path.exists():
+        print("Loading combined QWI parquet...")
+        df = pd.read_parquet(combined_path)
+    else:
+        # Fall back to concatenating per-state files (mirrors load_qwi() in
+        # seasonal_index.py) rather than failing outright if the combined
+        # file hasn't been (re)built yet.
+        state_files = sorted(QWI_RAW.glob("qwi_state_*.parquet"))
+        if not state_files:
+            raise FileNotFoundError(
+                f"Neither {combined_path} nor any qwi_state_*.parquet files "
+                f"found in {QWI_RAW}. Run fetch_qwi.py first."
+            )
+        print(f"Combined file missing; loading {len(state_files)} per-state files...")
+        df = pd.concat([pd.read_parquet(f) for f in state_files], ignore_index=True)
+
+    # Per-state files only have the raw "time" string (e.g. "2010-Q1") — the
+    # year/quarter split normally happens once, on the combined file, inside
+    # fetch_qwi(). Derive it here too so this fallback path works standalone.
+    if "year" not in df.columns and "time" in df.columns:
+        df["year"] = df["time"].str[:4].astype(int)
+        df["quarter"] = df["time"].str[-1].astype(int)
 
     for c in ["Sep", "Emp", "EmpEnd"]:
         if c in df.columns:
@@ -78,14 +137,21 @@ def load_and_compute(min_obs: int = MIN_EXCESS_OBS) -> pd.DataFrame:
     df["sep_rate"] = df["Sep"] / df[denom]
     df.loc[df["sep_rate"] <= 0, "sep_rate"] = np.nan
     df.loc[df["sep_rate"] >= 1, "sep_rate"] = np.nan
+
+    # Employment share: EmpEnd normalized to its own (state, industry, year)
+    # mean, mirroring compute_employment_shares() in seasonal_index.py but
+    # keyed on state as well so it can be computed per state x industry cell.
+    df["year_state_ind_mean_emp"] = df.groupby(["state", "industry", "year"])[denom].transform("mean")
+    df["emp_share"] = df[denom] / df["year_state_ind_mean_emp"]
+
     print(f"Loaded: {len(df):,} rows, {df['state'].nunique()} states, {df['industry'].nunique()} industries")
 
-    print("Computing state x industry seasonal index (all quarters)...")
+    print("Computing state x industry seasonal index (flow + stock, all quarters)...")
     records = []
     for (state, ind), grp in df.groupby(["state", "industry"]):
         pivot = grp.pivot_table(index="year", columns="quarter", values="sep_rate", aggfunc="mean")
+        emp_pivot = grp.pivot_table(index="year", columns="quarter", values="emp_share", aggfunc="mean")
 
-        excesses = {}
         record = {
             "state": state,
             "naics_code": ind,
@@ -93,46 +159,49 @@ def load_and_compute(min_obs: int = MIN_EXCESS_OBS) -> pd.DataFrame:
             "naics_level": len(str(ind)),
             "n_years": len(grp["year"].unique()),
         }
-
         for q in [1, 2, 3, 4]:
-            q_prev = 4 if q == 1 else q - 1
-            q_next = 1 if q == 4 else q + 1
             record[f"sep_rate_Q{q}"] = pivot[q].mean() if q in pivot.columns else np.nan
+            record[f"emp_share_Q{q}"] = emp_pivot[q].mean() if q in emp_pivot.columns else np.nan
 
-            if q not in pivot.columns or q_prev not in pivot.columns or q_next not in pivot.columns:
-                record[f"excessQ{q}"] = np.nan
-                record[f"n_excessQ{q}"] = 0
-                continue
-            if q == 1:
-                exr = (pivot[1] - (pivot[4].shift(1) + pivot[2]) / 2).dropna()
-            elif q == 4:
-                exr = (pivot[4] - (pivot[3] + pivot[1].shift(-1)) / 2).dropna()
-            else:
-                exr = (pivot[q] - (pivot[q - 1] + pivot[q + 1]) / 2).dropna()
+        flow_fields, flow_excesses = _excess_by_quarter(pivot, min_obs, "excess")
+        stock_fields, stock_excesses = _excess_by_quarter(emp_pivot, min_obs, "emp_excess")
+        record.update(flow_fields)
+        record.update(stock_fields)
 
-            record[f"excessQ{q}"] = exr.mean() if len(exr) >= min_obs else np.nan
-            record[f"n_excessQ{q}"] = len(exr)
-            if len(exr) >= min_obs:
-                excesses[q] = (exr.mean(), len(exr))
-
-        if not excesses:
+        if not flow_excesses and not stock_excesses:
             continue
-        peak_q   = max(excesses, key=lambda q: excesses[q][0])
-        peak_val = excesses[peak_q][0]
-        peak_n   = excesses[peak_q][1]
-        amplitude = max(v for v, _ in excesses.values()) - min(v for v, _ in excesses.values())
 
-        record.update({
-            "seasonal_amplitude": amplitude,
-            "peak_quarter": peak_q,
-            "peak_excess": peak_val,
-            "n_excess_obs": peak_n,
-        })
+        if flow_excesses:
+            peak_q = max(flow_excesses, key=lambda q: flow_excesses[q][0])
+            record.update({
+                "seasonal_amplitude": max(v for v, _ in flow_excesses.values()) - min(v for v, _ in flow_excesses.values()),
+                "peak_quarter": peak_q,
+                "peak_excess": flow_excesses[peak_q][0],
+                "n_excess_obs": flow_excesses[peak_q][1],
+            })
+        else:
+            record.update({"seasonal_amplitude": np.nan, "peak_quarter": pd.NA,
+                           "peak_excess": np.nan, "n_excess_obs": pd.NA})
+
+        if stock_excesses:
+            peak_q_emp = max(stock_excesses, key=lambda q: stock_excesses[q][0])
+            record.update({
+                "emp_seasonal_amplitude": max(v for v, _ in stock_excesses.values()) - min(v for v, _ in stock_excesses.values()),
+                "peak_quarter_emp": peak_q_emp,
+                "peak_excess_emp": stock_excesses[peak_q_emp][0],
+                "n_emp_excess_obs": stock_excesses[peak_q_emp][1],
+            })
+        else:
+            record.update({"emp_seasonal_amplitude": np.nan, "peak_quarter_emp": pd.NA,
+                           "peak_excess_emp": np.nan, "n_emp_excess_obs": pd.NA})
+
         records.append(record)
 
     si = pd.DataFrame(records)
     p99 = si["seasonal_amplitude"].quantile(0.99)
     si["seasonal_index"] = (si["seasonal_amplitude"] / p99).clip(0, 1)
+    p99_emp = si["emp_seasonal_amplitude"].quantile(0.99)
+    si["seasonal_index_emp"] = (si["emp_seasonal_amplitude"] / p99_emp).clip(0, 1)
     si["state_name"] = si["state"].map(STATE_NAMES)
     si["sector_label"] = si["sector_2d"].map(SECTOR_LABELS)
     si = si.sort_values(["state_name", "seasonal_index"], ascending=[True, False])
@@ -153,6 +222,11 @@ def save_state_naics_index(si: pd.DataFrame) -> Path:
         "sep_rate_Q1", "sep_rate_Q2", "sep_rate_Q3", "sep_rate_Q4",
         "seasonal_amplitude", "peak_quarter", "peak_excess", "n_excess_obs",
         "seasonal_index",
+        "emp_excessQ1", "n_emp_excessQ1", "emp_excessQ2", "n_emp_excessQ2",
+        "emp_excessQ3", "n_emp_excessQ3", "emp_excessQ4", "n_emp_excessQ4",
+        "emp_share_Q1", "emp_share_Q2", "emp_share_Q3", "emp_share_Q4",
+        "emp_seasonal_amplitude", "peak_quarter_emp", "peak_excess_emp", "n_emp_excess_obs",
+        "seasonal_index_emp",
     ]
     si[cols].to_csv(out_path, index=False)
     print(f"Saved: {out_path}")

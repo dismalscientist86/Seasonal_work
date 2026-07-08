@@ -5,19 +5,18 @@ Florida,3.4386
 Tennessee,3.5638
 South Carolina,3.8119
 Georgia,3.8656
-California,3.8724
+Alabama,3.9708
 Nevada,3.9839
-Alabama,3.9969
 Virginia,4.0464
 Ohio,4.0895
-Arizona,4.1017
+Arizona,4.1088
 Kentucky,4.1202
 Pennsylvania,4.1749
 North Carolina,4.1992
 Missouri,4.2976
 Oklahoma,4.395
-Arkansas,4.4844
 New Jersey,4.4912
+Arkansas,4.4949
 Louisiana,4.4983
 Indiana,4.5079
 Washington,4.5417
@@ -33,8 +32,8 @@ Connecticut,4.9493
 New York,4.9504
 Oregon,4.9887
 West Virginia,5.0479
+DC,5.0512
 Nebraska,5.0514
-DC,5.0609
 New Mexico,5.061
 Wisconsin,5.114
 Iowa,5.3126
@@ -49,4 +48,4 @@ North Dakota,6.6728
 South Dakota,6.8814
 Montana,6.9011
 Wyoming,7.4961
-Alaska,7.9818
+Alaska,7.9674

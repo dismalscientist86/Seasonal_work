@@ -30,7 +30,7 @@ import requests
 import pandas as pd
 from tqdm import tqdm
 
-
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from config import (
     CENSUS_API_KEY,
     QWI_RAW,
@@ -44,8 +44,14 @@ from config import (
 # Census QWI API base URL
 QWI_BASE = "https://api.census.gov/data/timeseries/qwi/se"
 
-# Variables to fetch
-QWI_VARS = ["Emp", "EmpEnd", "Sep", "SepBeg", "EmpS", "Payroll"]
+# Variables to fetch.
+# NOTE: "Payroll" (Total Quarterly Payroll: Sum) was dropped 2026-07 — verified
+# live against the Census API that it returns null for every cell tested
+# (including large industries where Emp/EmpEnd populate fine; status flag is
+# always 5, unlike EarnBeg/EarnS which return flag 1 = good). "EarnBeg"
+# (End-of-Quarter Employment: Average Monthly Earnings) is the working
+# equivalent and is what code/qwi/earnings_index.py is built on.
+QWI_VARS = ["Emp", "EmpEnd", "Sep", "SepBeg", "EmpS", "EarnBeg"]
 
 
 #  API helpers 
@@ -244,6 +250,21 @@ def fetch_qwi(
 
     with tqdm(total=n_cells, desc="API calls") as pbar:
         for state in states:
+            out_path = output_dir / f"qwi_state_{state}.parquet"
+
+            # Resume support: skip a state if it was already fetched with the
+            # current QWI_VARS (checked via a variable that must have real,
+            # non-null data if this file reflects the current fetch — guards
+            # against silently reusing a file saved under an older QWI_VARS
+            # list that didn't include that variable at all).
+            if out_path.exists():
+                cached = pd.read_parquet(out_path)
+                check_var = QWI_VARS[-1]
+                if check_var in cached.columns and cached[check_var].notna().any():
+                    all_frames.append(cached)
+                    pbar.update(len(industries))
+                    continue
+
             state_frames = []
             for ind in industries:
                 df = _fetch_one(state, ind, years, api_key)
@@ -256,8 +277,7 @@ def fetch_qwi(
                 state_df = pd.concat(state_frames, ignore_index=True)
                 all_frames.append(state_df)
 
-                # Save per-state file incrementally
-                out_path = output_dir / f"qwi_state_{state}.parquet"
+                # Save per-state file incrementally (enables the resume check above)
                 state_df.to_parquet(out_path, index=False)
 
     if not all_frames:
@@ -279,7 +299,19 @@ def fetch_qwi(
             .reset_index()
         )
 
-    out_path = output_dir / f"qwi_naics{naics_level}_all.parquet"
+    # Only overwrite the shared "_all" combined file (used by seasonal_index.py
+    # and geographic_analysis.py as the default input) when this run actually
+    # covered every state. A partial/test run (e.g. --state 06) would otherwise
+    # silently clobber that file with a small subset — this happened once
+    # (2026-07) and corrupted downstream results until caught.
+    if set(states) == set(STATE_FIPS):
+        out_path = output_dir / f"qwi_naics{naics_level}_all.parquet"
+    else:
+        state_tag = "-".join(sorted(states))
+        out_path = output_dir / f"qwi_naics{naics_level}_subset_{state_tag}.parquet"
+        print(f"\nPartial run ({len(states)} state(s)): NOT overwriting the "
+              f"combined qwi_naics{naics_level}_all.parquet. Saving to {out_path} instead.")
+
     full_df.to_parquet(out_path, index=False)
     print(f"\nSaved {len(full_df):,} rows to {out_path}")
     return out_path

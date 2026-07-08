@@ -99,6 +99,13 @@ def load_qwi(path: Path | None = None, naics_level: int | None = None) -> pd.Dat
                 )
             df = pd.concat([pd.read_parquet(f) for f in files], ignore_index=True)
 
+    # Per-state files only have the raw "time" string (e.g. "2010-Q1") — the
+    # year/quarter split normally happens once, on the combined file, inside
+    # fetch_qwi(). Derive it here too so this fallback path works standalone.
+    if "year" not in df.columns and "time" in df.columns:
+        df["year"] = df["time"].str[:4].astype(int)
+        df["quarter"] = df["time"].str[-1].astype(int)
+
     # Ensure numeric columns
     for c in ["Emp", "EmpEnd", "Sep", "SepBeg", "year", "quarter"]:
         if c in df.columns:
@@ -249,26 +256,54 @@ def compute_employment_excess_by_quarter(
 
 def build_employment_seasonal_index(emp_excess_df: pd.DataFrame) -> pd.DataFrame:
     """
-    Construct a 0�1 seasonal index from employment excess-by-quarter.
-    Returns minimal columns for merging:
-        naics_code, seasonal_index_emp
-    (Also computes amplitude and peak quarter internally for normalization.)
+    Construct a 0-1 seasonal index from employment excess-by-quarter, mirroring
+    build_seasonal_index() so the flow (separation-based) and stock
+    (employment-based) indices carry the same kind of columns and are directly
+    comparable — including *timing* (peak_quarter_emp), not just amplitude.
+
+    Returns columns for merging:
+        naics_code, emp_seasonal_amplitude, peak_quarter_emp, peak_excess_emp,
+        n_emp_excess_obs, seasonal_index_emp
     """
     df = emp_excess_df.copy()
     excess_cols = ["emp_excessQ1", "emp_excessQ2", "emp_excessQ3", "emp_excessQ4"]
     available = [c for c in excess_cols if c in df.columns]
 
     df["emp_seasonal_amplitude"] = df[available].max(axis=1) - df[available].min(axis=1)
-    # 99th-percentile winsorization for 0�1 scale
+    _peak = df[available].apply(
+        lambda row: row.idxmax() if row.notna().any() else pd.NA, axis=1
+    )
+    df["peak_quarter_emp"] = (
+        _peak
+        .str.replace("emp_excess", "", regex=False)
+        .str.replace("Q", "", regex=False)
+        .astype("Int64")
+    )
+
+    # peak_excess_emp: excess employment share at the industry's peak quarter
+    df["peak_excess_emp"] = df[available].max(axis=1)
+
+    # n_emp_excess_obs: years contributing to the peak-quarter excess estimate
+    # (the analog of n_excess_obs on the flow side — flags thin cells)
+    n_cols = {c.replace("emp_excessQ", "n_emp_excessQ"): c.replace("emp_excessQ", "Q")
+              for c in available if c.replace("emp_excessQ", "n_emp_excessQ") in df.columns}
+    if n_cols:
+        df["n_emp_excess_obs"] = df.apply(
+            lambda row: row[f"n_emp_excessQ{int(row['peak_quarter_emp'])}"]
+            if pd.notna(row["peak_quarter_emp"])
+               and f"n_emp_excessQ{int(row['peak_quarter_emp'])}" in df.columns
+            else pd.NA,
+            axis=1,
+        ).astype("Int64")
+
+    # 99th-percentile winsorization for 0-1 scale
     p99_emp = df["emp_seasonal_amplitude"].quantile(0.99)
     df["seasonal_index_emp"] = (df["emp_seasonal_amplitude"] / p99_emp).clip(0, 1)
 
-    # Bring over NAICS code and sector info similarly to build_seasonal_index()
-    df["sector_2d"] = df["industry"].astype(str).str[:2]
-    df["sector_label"] = df["sector_2d"].map(NAICS_SECTOR_LABELS).fillna("Other")
-    df["naics_level"] = df["industry"].astype(str).str.len()
-
-    return df.rename(columns={"industry": "naics_code"})[["naics_code", "seasonal_index_emp"]]
+    return df.rename(columns={"industry": "naics_code"})[
+        ["naics_code", "emp_seasonal_amplitude", "peak_quarter_emp",
+         "peak_excess_emp", "n_emp_excess_obs", "seasonal_index_emp"]
+    ]
 
 #  Excess-Q4 computation 
 
@@ -562,7 +597,200 @@ def plot_quarterly_profiles(
     return fig
 
 
-#  Main 
+#  Flow vs. stock comparison
+
+def compare_flow_vs_stock(
+    df: pd.DataFrame,
+    group_col: str | None = "sector_label",
+) -> dict:
+    """
+    Compare the flow (separation-based, seasonal_index/peak_quarter) and stock
+    (employment-based, seasonal_index_emp/peak_quarter_emp) seasonal indices on
+    the same dataframe — works for either the national index (one row per
+    naics_code) or the state x NAICS6 index from geographic_analysis.py (one
+    row per state x naics_code), as long as both sets of columns are present.
+
+    Returns a dict:
+        overall    : dict of n, pearson_r, spearman_r, peak_concordance_rate
+        by_group   : DataFrame with the same stats computed within each value
+                     of `group_col` (e.g. sector_label nationally, or
+                     state_name for the state-level index) — None if group_col
+                     isn't in df
+        divergence : df with a 'divergence' column (seasonal_index -
+                     seasonal_index_emp) added, sorted ascending. Very negative
+                     = "stock without flow" (headcount swings without a
+                     separation spike); very positive = "flow without stock"
+                     (separations spike without headcount visibly moving).
+    """
+    d = df.dropna(subset=["seasonal_index", "seasonal_index_emp"]).copy()
+    d["divergence"] = d["seasonal_index"] - d["seasonal_index_emp"]
+
+    has_peak_cols = "peak_quarter" in d.columns and "peak_quarter_emp" in d.columns
+
+    def _stats(sub: pd.DataFrame) -> dict:
+        row = {
+            "n": len(sub),
+            "pearson_r": sub[["seasonal_index", "seasonal_index_emp"]].corr().iloc[0, 1],
+            "spearman_r": sub[["seasonal_index", "seasonal_index_emp"]].corr(method="spearman").iloc[0, 1],
+        }
+        if has_peak_cols:
+            pv = sub.dropna(subset=["peak_quarter", "peak_quarter_emp"])
+            row["peak_concordance_rate"] = (
+                (pv["peak_quarter"] == pv["peak_quarter_emp"]).mean() if len(pv) else np.nan
+            )
+            row["n_peak_compared"] = len(pv)
+        return row
+
+    overall = _stats(d)
+
+    by_group = None
+    if group_col and group_col in d.columns:
+        rows = []
+        for g, sub in d.groupby(group_col):
+            if len(sub) < 3:
+                continue
+            row = {group_col: g, "mean_divergence": sub["divergence"].mean(), **_stats(sub)}
+            rows.append(row)
+        by_group = pd.DataFrame(rows).sort_values("n", ascending=False) if rows else None
+
+    return {
+        "overall": overall,
+        "by_group": by_group,
+        "divergence": d.sort_values("divergence"),
+    }
+
+
+def print_flow_vs_stock_summary(
+    result: dict, top_n: int = 10, label_cols: list[str] | None = None,
+) -> None:
+    """Print a human-readable summary of compare_flow_vs_stock()'s output."""
+    overall = result["overall"]
+    print(f"\nFlow (separations) vs. stock (employment) seasonal index comparison")
+    print(f"  n = {overall['n']}")
+    print(f"  Pearson r  = {overall['pearson_r']:.3f}")
+    print(f"  Spearman r = {overall['spearman_r']:.3f}")
+    if "peak_concordance_rate" in overall:
+        print(f"  Peak-quarter concordance = {overall['peak_concordance_rate']:.1%} "
+              f"({overall['n_peak_compared']} cells with both peak quarters)")
+
+    if result["by_group"] is not None:
+        print("\nBy group:")
+        print(result["by_group"].round(3).to_string(index=False))
+
+    divergence = result["divergence"]
+    label_cols = label_cols or [
+        c for c in ["state_name", "naics_code", "sector_label"] if c in divergence.columns
+    ]
+    cols = label_cols + ["seasonal_index", "seasonal_index_emp", "divergence"]
+
+    print(f"\nTop {top_n} 'flow without stock' (separations spike, headcount doesn't):")
+    print(divergence.tail(top_n)[cols].sort_values("divergence", ascending=False).to_string(index=False))
+
+    print(f"\nTop {top_n} 'stock without flow' (headcount swings, separations don't spike):")
+    print(divergence.head(top_n)[cols].to_string(index=False))
+
+
+def plot_flow_vs_stock(
+    df: pd.DataFrame,
+    group_col: str = "sector_2d",
+    title: str = "Flow vs. stock seasonal index",
+) -> plt.Figure:
+    """Scatter of seasonal_index (flow, x-axis) vs. seasonal_index_emp (stock, y-axis)."""
+    d = df.dropna(subset=["seasonal_index", "seasonal_index_emp"]).copy()
+
+    fig, ax = plt.subplots(figsize=(7, 7))
+    if group_col in d.columns:
+        groups = sorted(d[group_col].astype(str).unique())
+        cmap = plt.cm.get_cmap("tab20", max(len(groups), 1))
+        color_map = {g: cmap(i) for i, g in enumerate(groups)}
+        ax.scatter(
+            d["seasonal_index"], d["seasonal_index_emp"],
+            s=10, alpha=0.5, c=d[group_col].astype(str).map(color_map),
+        )
+    else:
+        ax.scatter(d["seasonal_index"], d["seasonal_index_emp"], s=10, alpha=0.5, c="#1f77b4")
+
+    ax.plot([0, 1], [0, 1], color="black", lw=0.8, ls="--", label="y = x")
+    ax.set_xlabel("Seasonal index — flow (separations)")
+    ax.set_ylabel("Seasonal index — stock (employment)")
+    ax.set_title(title)
+    ax.legend(fontsize=8)
+    fig.tight_layout()
+    return fig
+
+
+def run_flow_vs_stock(
+    level: str = "national",
+    national_index: pd.DataFrame | None = None,
+) -> dict:
+    """
+    Run the flow-vs-stock comparison and save tables/figure.
+
+    level : "national", "state", or "both"
+        "state" reads data/qwi_clean/seasonal_index_naics6_by_state.csv, which
+        must already exist (run code/qwi/geographic_analysis.py first).
+    """
+    results = {}
+
+    if level in ("national", "both"):
+        if national_index is None:
+            nat_path = QWI_CLEAN / "seasonal_index_naics6.csv"
+            if not nat_path.exists():
+                raise FileNotFoundError(f"{nat_path} not found. Run seasonal_index.py first.")
+            national_index = pd.read_csv(nat_path, dtype={"naics_code": str, "sector_2d": str})
+
+        result = compare_flow_vs_stock(national_index, group_col="sector_label")
+        print("\n=== National: flow vs. stock comparison ===")
+        print_flow_vs_stock_summary(result)
+
+        TABLES_DIR.mkdir(parents=True, exist_ok=True)
+        result["divergence"].to_csv(TABLES_DIR / "flow_vs_stock_national.csv", index=False)
+        if result["by_group"] is not None:
+            result["by_group"].to_csv(TABLES_DIR / "flow_vs_stock_national_by_sector.csv", index=False)
+
+        fig = plot_flow_vs_stock(
+            national_index, group_col="sector_2d",
+            title="National: flow (separations) vs. stock (employment) seasonal index",
+        )
+        FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+        fig.savefig(FIGURES_DIR / "flow_vs_stock_national_scatter.pdf", bbox_inches="tight")
+        plt.close(fig)
+        results["national"] = result
+
+    if level in ("state", "both"):
+        state_path = QWI_CLEAN / "seasonal_index_naics6_by_state.csv"
+        if not state_path.exists():
+            raise FileNotFoundError(
+                f"{state_path} not found. Run code/qwi/geographic_analysis.py first."
+            )
+        state_index = pd.read_csv(
+            state_path, dtype={"naics_code": str, "sector_2d": str, "state": str}
+        )
+
+        result = compare_flow_vs_stock(state_index, group_col="state_name")
+        print("\n=== State x NAICS6: flow vs. stock comparison ===")
+        print_flow_vs_stock_summary(
+            result, label_cols=["state_name", "naics_code", "sector_label"]
+        )
+
+        TABLES_DIR.mkdir(parents=True, exist_ok=True)
+        result["divergence"].to_csv(TABLES_DIR / "flow_vs_stock_state.csv", index=False)
+        if result["by_group"] is not None:
+            result["by_group"].to_csv(TABLES_DIR / "flow_vs_stock_state_by_state.csv", index=False)
+
+        fig = plot_flow_vs_stock(
+            state_index, group_col="sector_2d",
+            title="State x NAICS6: flow (separations) vs. stock (employment) seasonal index",
+        )
+        FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+        fig.savefig(FIGURES_DIR / "flow_vs_stock_state_scatter.pdf", bbox_inches="tight")
+        plt.close(fig)
+        results["state"] = result
+
+    return results
+
+
+#  Main
 
 def build_and_save_index(
     qwi_path: Path | None = None,
@@ -636,10 +864,20 @@ if __name__ == "__main__":
     parser.add_argument("--naics-file", type=Path, default=None,
                         help="Path to the QWI parquet file")
     parser.add_argument("--naics-level", type=int, default=QWI_NAICS_LEVEL)
+    parser.add_argument(
+        "--compare-flow-stock", choices=["none", "national", "state", "both"], default="none",
+        help="After building the national index, also compare the flow "
+             "(separations) vs. stock (employment) seasonal indices at this "
+             "level. 'state'/'both' require geographic_analysis.py to have "
+             "already been run (reads seasonal_index_naics6_by_state.csv).",
+    )
     args = parser.parse_args()
 
     index = build_and_save_index(
         qwi_path=args.naics_file,
         naics_level=args.naics_level,
     )
+
+    if args.compare_flow_stock != "none":
+        run_flow_vs_stock(level=args.compare_flow_stock, national_index=index)
 

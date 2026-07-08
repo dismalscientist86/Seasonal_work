@@ -119,6 +119,56 @@ bug described above — the three thin-cell artifacts it originally flagged as
 the biggest "movers" turned out to be a min-obs threshold bug, not a COVID
 effect, and are now fixed at the source.
 
+### Flow vs. Stock Seasonal Index Comparison
+
+The seasonal index has always been built two ways in parallel: **flow**
+(`seasonal_index`, from `Sep/EmpEnd` separation rates — does a quarter see an
+excess of *separations*?) and **stock** (`seasonal_index_emp`, from `EmpEnd`
+normalized to its own annual mean — does *headcount itself* swell or shrink
+that quarter?). Until now the two were merged into the same CSV but never
+formally compared, and the stock side had no peak-quarter or coverage tracking
+at all, so timing couldn't be compared, only amplitude.
+
+`code/qwi/seasonal_index.py` now provides `compare_flow_vs_stock()`,
+`plot_flow_vs_stock()`, and a `--compare-flow-stock {national,state,both}` CLI
+flag; `code/qwi/geographic_analysis.py`'s `load_and_compute()` now computes the
+stock-side measure (`emp_excessQ1-4`, `seasonal_index_emp`, `peak_quarter_emp`,
+`n_emp_excess_obs`) at the state × NAICS6 level too, so the comparison can run
+at either level. Outputs: `output/tables/flow_vs_stock_{national,state}.csv`
+(every cell, with a `divergence = seasonal_index - seasonal_index_emp` column),
+`flow_vs_stock_{national,state}_by_sector/by_state.csv`, and
+`flow_vs_stock_{national,state}_scatter.pdf`.
+
+**Key findings** (validation run, 50/51 states — see coverage note below):
+- **Correlated but far from identical**: national Pearson r = 0.653, Spearman
+  r = 0.627 (n=1,004); state × NAICS6 Pearson r = 0.521, Spearman r = 0.585
+  (n=39,225). Flow and stock seasonality are related but measure genuinely
+  different things.
+- **Peak-quarter concordance is low — ~15% nationally, ~14% by state**: even
+  when both measures agree an industry is seasonal, they usually disagree on
+  *which quarter* drives it. Timing, not just amplitude, differs between
+  "separations spike" and "headcount swings."
+- **Sector heterogeneity is the more interesting result**: Construction shows
+  near-perfect flow/stock agreement (r ≈ 0.96-0.97) — a physically direct
+  layoff-and-headcount relationship. Agriculture shows the *opposite* — high
+  seasonal_index on both measures individually, but low correlation between
+  them (r ≈ 0.21) — consistent with rapid within-quarter worker replacement
+  (separating workers are immediately replaced by newly hired ones), which
+  spikes the separation rate without much net headcount movement.
+- **"Stock without flow" examples are economically sensible, not artifacts**:
+  Tax Preparation Services and Cotton Ginning — the two industries whose
+  *flow* index was wrongly inflated to 1.0 by the stale-threshold bug fixed
+  above — now correctly show a low flow index, and instead show a genuinely
+  high *stock* index (large seasonal hiring surges: tax season staffing,
+  harvest-time ginning), a real, sensible econ story once the index bug was
+  fixed rather than a leftover artifact.
+
+**Coverage note**: this validation run used per-state files while the CBP-style
+QWI refetch (below) was running in the background, and caught California
+mid-rewrite — 50 of 51 states. Rerun `geographic_analysis.py` and
+`seasonal_index.py --compare-flow-stock both` once that refetch finishes for
+the complete, race-free 51-state version.
+
 ### Geographic Variation
 
 `code/qwi/geographic_analysis.py` computes peak excess for each state × industry cell
@@ -211,8 +261,8 @@ code/
 │   └── gbt_classifier.py           # LightGBM classifier: train on CPS, apply to SIPP
 ├── qwi/
 │   ├── fetch_qwi.py                 # Download QWI data via Census API
-│   ├── seasonal_index.py            # Build 6-digit NAICS seasonal index (peak-flexible)
-│   ├── geographic_analysis.py       # State-level variation: figures + tables
+│   ├── seasonal_index.py            # Build 6-digit NAICS seasonal index (flow + stock, peak-flexible); flow-vs-stock comparison
+│   ├── geographic_analysis.py       # State-level variation (flow + stock): figures + tables
 │   ├── state_index_percentiles.py   # Within-state top/bottom-1% seasonality + national/cross-state overlap
 │   ├── covid_robustness_check.py    # Pre-COVID (2000-19) vs. full-sample index comparison
 │   ├── clean_naics_xwalk.py         # Census NAICS structure workbook -> naics6 title lookup
@@ -271,6 +321,7 @@ python code/qwi/geographic_analysis.py     # state-level variation + figures
 python code/qwi/clean_naics_xwalk.py       # (optional) build NAICS6 title lookup for labeling
 python code/qwi/state_index_percentiles.py # within-state top/bottom-1% seasonality + overlap
 python code/qwi/covid_robustness_check.py  # pre-COVID vs. full-sample index comparison
+python code/qwi/seasonal_index.py --compare-flow-stock both  # flow vs. stock index comparison
 python code/fetch_cbp.py                   # (in progress) county x NAICS establishment counts
 ```
 
@@ -297,6 +348,8 @@ python code/fetch_cbp.py                   # (in progress) county x NAICS establ
 - [x] Ran exploratory QWI diagnostic scripts (`national_state_scatterplot.py`, `plot_seasonality_figures.py`); fixed a pandas 3.0 `PeriodIndex` API break and a seaborn/pandas incompatibility found along the way
 - [x] Deduplicated `STATE_NAMES`/`STATE_FIPS` — `fetch_qwi.py` and `geographic_analysis.py` now import from `config.py` instead of redefining locally
 - [x] Validated CBP fetcher with a single-state test (fixed a NAICS-code-list path bug); full 51-state run (~21–22 hrs) deferred by choice, not run yet
+- [x] Flow (separations) vs. stock (employment) seasonal index comparison — `compare_flow_vs_stock()`/`plot_flow_vs_stock()`/`--compare-flow-stock` in seasonal_index.py, stock-side state x NAICS computation added to geographic_analysis.py. Correlated but distinct (national Pearson 0.653; peak-quarter concordance only ~15%); Construction near-perfectly aligned (r≈0.96), Agriculture surprisingly not (r≈0.21, likely rapid worker replacement). Also fixed: fetch_qwi.py missing sys.path bootstrap (broke the script entirely), a partial/test fetch silently overwriting the shared all-states combined parquet (now only writes there when every state was actually fetched), and load_qwi()'s per-state fallback missing year/quarter parsing.
+- [ ] Refetching QWI data with EarnBeg (earnings) in place of the broken Payroll field, ~15hr background run, for the planned income/earnings seasonality index (Payroll returns null from the Census API for every cell tested; EarnBeg is the working equivalent). Rerun geographic_analysis.py/seasonal_index.py --compare-flow-stock once done — the version committed now used 50/51 states (California caught mid-rewrite by this same refetch)
 - [ ] Fetch and merge County Business Patterns (CBP) data for a county-level index (validated, ~21-22hr full run not yet launched)
 - [ ] Apply firm-level code on other machine
 
