@@ -288,14 +288,55 @@ state × NAICS6 seasonal index down to the county level by local industry mix.
 NAICS-6 county cells are heavily suppressed; the script also fetches NAICS-4
 as a fallback.
 
-**Validated but not fully run.** A single-state test (`--state 06 --naics-level 6`)
-succeeded after fixing a path bug (`load_naics_codes()` resolved to the wrong
-directory for its default NAICS code list). The test also revealed the real
-cost of a full run: ~1.15s/API call means NAICS-6 alone is ~1,012 codes × 51
-states ≈ **16.5 hours**, and NAICS-4 (~308 codes) adds another ~5 hours — a
-~21–22 hour full run, vs. the QWI fetcher's ~17 hours. The fetcher is resumable
-(skips a state if its output file already exists), so this can run unattended
-whenever it's worth committing the time.
+**Validated but not fully run nationally.** A single-state test (`--state 06
+--naics-level 6`) succeeded after fixing a path bug (`load_naics_codes()`
+resolved to the wrong directory for its default NAICS code list). The test
+also revealed the real cost of a full 51-state run: ~1.15s/API call means
+NAICS-6 alone is ~1,012 codes × 51 states ≈ **16.5 hours**, and NAICS-4
+(~308 codes) adds another ~5 hours — a ~21–22 hour full run, vs. the QWI
+fetcher's ~17 hours. The fetcher is resumable (skips a state if its output
+file already exists), so this can run unattended whenever it's worth
+committing the time nationally. Both NAICS-6 and NAICS-4 have since been
+fetched for **California only**, to build the county-level index below.
+
+### County-Level Seasonal Exposure Index (California pilot)
+
+`code/county_seasonal_index.py` weights the state × NAICS6 seasonal index by
+each county's own industry mix (CBP establishment/employment counts) to score
+"how seasonal is the average job in this county, given what industries are
+actually here":
+
+    county_exposure_c = sum_j( EMP_{c,j} × seasonal_index_j ) / sum_j( EMP_{c,j} )
+
+Since CBP suppresses most county × NAICS6 cells, each industry's seasonal
+score is looked up through a three-tier fallback, in order: (1) state ×
+NAICS6 (`geographic_analysis.py`), (2) national NAICS6
+(`seasonal_index.py`), (3) national NAICS4 (simple mean of the national
+NAICS6 index within that 4-digit group) — used both when a county's NAICS6
+cell has no index match, and to recover employment from NAICS6 cells CBP
+suppresses entirely but which still report at the NAICS4 level. In the
+California run this reached **100% employment coverage in every one of the
+58 counties** — no county's score rests on a partial industry match.
+
+**Case study result (Yolo County, FIPS 06113)**: ranks **40th of 58** CA
+counties (32nd percentile) — *less* exposed to seasonal work than roughly
+two-thirds of California counties, despite being an agricultural county.
+Driver: employment-weighting means the county's large, stable
+service/logistics employers (limited-service restaurants, general
+warehousing, couriers — all with low seasonal_index) outweigh its genuinely
+extreme agricultural niches (crop harvesting scores the maximum 1.0, but
+employs only ~250 people locally vs. thousands in restaurants/warehousing).
+Central Valley farm counties top the ranking (Madera 0.179, Colusa 0.170 —
+roughly 2× Yolo's 0.088); the rest of the Sacramento metro area (Sacramento,
+Solano, Placer) clusters near Yolo at the low-seasonality end.
+
+Outputs: `output/tables/county_seasonal_exposure_06.csv` (one row per
+county), `..._06_detail.csv` (one row per county × industry, with the
+matched seasonal_index and which fallback tier supplied it — for auditing
+any county's score), `output/figures/county_seasonal_exposure_06.pdf`.
+
+Usage: `python code/county_seasonal_index.py --state 06 --highlight 06113`
+(any state/county FIPS works once that state's CBP data is fetched).
 
 ### Firm-Level Module
 
@@ -313,7 +354,8 @@ Two approaches:
 ```
 code/
 ├── config.py                        # Paths and parameters (REPO_ROOT auto-detected)
-├── fetch_cbp.py                     # [in progress] County Business Patterns fetcher (county x NAICS)
+├── fetch_cbp.py                     # County Business Patterns fetcher (county x NAICS); CA done, other states [in progress]
+├── county_seasonal_index.py         # County-level seasonal exposure (CBP industry mix x QWI seasonal index)
 ├── replication/
 │   ├── load_data.py                 # Extract zip; load .dta.gz files
 │   ├── recurrence.py                # Core excess recurrence estimation (main replication)
@@ -383,7 +425,9 @@ python code/qwi/state_index_percentiles.py # within-state top/bottom-1% seasonal
 python code/qwi/covid_robustness_check.py  # pre-COVID vs. full-sample index comparison
 python code/qwi/seasonal_index.py --compare-flow-stock both  # flow vs. stock index comparison
 python code/qwi/earnings_index.py          # income/earnings seasonality + off-season income-dip test
-python code/fetch_cbp.py                   # (in progress) county x NAICS establishment counts
+python code/fetch_cbp.py --state 06 --naics-level 6  # county x NAICS establishment counts (CA done; other states in progress)
+python code/fetch_cbp.py --state 06 --naics-level 4  # NAICS-4 fallback for suppressed county cells
+python code/county_seasonal_index.py --state 06 --highlight 06113  # county-level seasonal exposure (example: Yolo, CA)
 ```
 
 ---
@@ -412,7 +456,8 @@ python code/fetch_cbp.py                   # (in progress) county x NAICS establ
 - [x] Flow (separations) vs. stock (employment) seasonal index comparison — `compare_flow_vs_stock()`/`plot_flow_vs_stock()`/`--compare-flow-stock` in seasonal_index.py, stock-side state x NAICS computation added to geographic_analysis.py. Correlated but distinct (national Pearson 0.653; peak-quarter concordance only ~15%); Construction near-perfectly aligned (r≈0.96), Agriculture surprisingly not (r≈0.21, likely rapid worker replacement). Also fixed: fetch_qwi.py missing sys.path bootstrap (broke the script entirely), a partial/test fetch silently overwriting the shared all-states combined parquet (now only writes there when every state was actually fetched), and load_qwi()'s per-state fallback missing year/quarter parsing.
 - [x] Refetched QWI data with EarnBeg (earnings) in place of the broken Payroll field — complete 51-state run; rebuilt the national/state indices, flow-vs-stock comparison, and state percentiles on the final complete data (all numbers stable vs. the interim 50-state validation runs)
 - [x] Income/earnings seasonality index (`earnings_index.py`) — found the raw index is ~83% dominated by a common Q4-bonus effect (not industry-specific), added a de-confounding step (`compute_common_calendar_effect`/`add_idiosyncratic_excess`). Credible test: only 43.9% of industries show an income dip at their own separation-peak quarter once de-confounded (mean excess ≈ 0, not clearly negative); Construction shows the opposite (earnings *higher*, not lower, likely overtime pay before layoffs). No strong evidence of industry-average income dipping in the off-season — consistent with CP's effect being about the separating worker specifically, not the industry-wide average
-- [ ] Fetch and merge County Business Patterns (CBP) data for a county-level index (validated, ~21-22hr full run not yet launched)
+- [x] County-level seasonal exposure index (`county_seasonal_index.py`) — fetched CBP NAICS-6 and NAICS-4 for California, built a 3-tier fallback (state NAICS6 -> national NAICS6 -> national NAICS4) reaching 100% employment coverage in all 58 CA counties. Case study: Yolo County ranks 40th of 58 (32nd percentile) -- less seasonal than ~2/3 of CA counties despite being an ag county, because its employment is dominated by large stable service/logistics employers, not its small-but-extreme agricultural niches
+- [ ] Fetch and merge County Business Patterns (CBP) data nationally for a 51-state county-level index (California pilot validated; full run not yet launched, ~21-22hrs)
 - [ ] Apply firm-level code on other machine
 
 ---
