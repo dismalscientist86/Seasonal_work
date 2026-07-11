@@ -107,6 +107,16 @@ also now labels its example industries by name (was NAICS code only) and adds
 a belt-and-suspenders check requiring all four `n_excessQ*` counts to be
 positive, not just the existing `n_excess_obs` (peak-quarter-only) floor.
 
+One of the "least seasonal" picks that survived all of the above filters,
+HMO Medical Centers (621491), still wasn't a clean illustration — its
+employment series has a sharp 2015–2019 level shift (likely a merger or
+reclassification effect) that has nothing to do with seasonality. Rather
+than hand-edit the output, `select_industries_for_plot()` now takes an
+`exclude_codes` list (default `DEFAULT_EXCLUDE_CODES`, currently just
+621491) so this and any future exclusions are explicit and reproducible.
+Artificial and Synthetic Fibers and Filaments Manufacturing (325220) fills
+the slot instead — a clean flat/declining trend.
+
 Note: Education peaks in Q2 (end of school year), not Q4. All education industries have
 positive peak_excess. Mathematical identity: the four quarter excesses sum to zero within
 any year, so peak_excess ≥ 0 by construction (barring thin-data filtering that excludes
