@@ -37,12 +37,13 @@ import matplotlib.ticker as mtick
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from config import (
-    QWI_RAW, 
-    QWI_CLEAN, 
-    FIGURES_DIR, 
-    TABLES_DIR, 
+    QWI_RAW,
+    QWI_CLEAN,
+    FIGURES_DIR,
+    TABLES_DIR,
     QWI_NAICS_LEVEL,
     MIN_EXCESS_OBS,
+    XWALK,
 )
 
 warnings.filterwarnings("ignore")
@@ -792,10 +793,31 @@ def run_flow_vs_stock(
 
 #  Main
 
+def load_naics_titles(path: Path | None) -> pd.DataFrame | None:
+    """Load the optional cleaned NAICS6 title lookup (clean_naics_xwalk.py's output)."""
+    if path is None or not path.exists():
+        return None
+    titles = pd.read_csv(path, dtype={"naics_code": str, "sector_2d": str})
+    keep_cols = [
+        "naics_code", "national_industry_title", "sector_title",
+        "subsector_title", "industry_group_title", "naics_industry_title",
+    ]
+    keep_cols = [c for c in keep_cols if c in titles.columns]
+    return titles[keep_cols].drop_duplicates("naics_code")
+
+
+def add_naics_titles(df: pd.DataFrame, titles: pd.DataFrame | None) -> pd.DataFrame:
+    """Attach NAICS title fields when a cleaned lookup is available; no-op otherwise."""
+    if titles is None:
+        return df
+    return df.merge(titles, on="naics_code", how="left")
+
+
 def build_and_save_index(
     qwi_path: Path | None = None,
     naics_level: int | None = None,
     save: bool = True,
+    naics_titles_path: Path | None = None,
 ) -> pd.DataFrame:
     """
     Full pipeline: load QWI → compute sep rates → compute excess → build index → save.
@@ -828,10 +850,18 @@ def build_and_save_index(
     # Merge employment index into the main index
     index = index.merge(index_emp, on="naics_code", how="left")
 
+    # Attach human-readable NAICS6 industry titles when the cleaned crosswalk
+    # is available (code/qwi/clean_naics_xwalk.py); harmless no-op otherwise.
+    naics_titles_path = naics_titles_path or (XWALK / "naics6_2022_titles.csv")
+    index = add_naics_titles(index, load_naics_titles(naics_titles_path))
+
+    top15_cols = ["naics_code"]
+    if "national_industry_title" in index.columns:
+        top15_cols.append("national_industry_title")
+    top15_cols += ["sector_label", "seasonal_index", "peak_excess", "peak_quarter", "n_excess_obs"]
 
     print(f"\nTop 15 most seasonal industries (NAICS-{naics_level}):")
-    print(index.head(15)[["naics_code", "sector_label", "seasonal_index",
-                           "peak_excess", "peak_quarter", "n_excess_obs"]].to_string(index=False))
+    print(index.head(15)[top15_cols].to_string(index=False))
 
     if save:
         out_path = QWI_CLEAN / f"seasonal_index_naics{naics_level}.csv"
@@ -865,6 +895,11 @@ if __name__ == "__main__":
                         help="Path to the QWI parquet file")
     parser.add_argument("--naics-level", type=int, default=QWI_NAICS_LEVEL)
     parser.add_argument(
+        "--naics-titles", type=Path, default=None,
+        help="Optional cleaned NAICS6 title lookup created by clean_naics_xwalk.py "
+             f"(default: {XWALK / 'naics6_2022_titles.csv'}).",
+    )
+    parser.add_argument(
         "--compare-flow-stock", choices=["none", "national", "state", "both"], default="none",
         help="After building the national index, also compare the flow "
              "(separations) vs. stock (employment) seasonal indices at this "
@@ -876,6 +911,7 @@ if __name__ == "__main__":
     index = build_and_save_index(
         qwi_path=args.naics_file,
         naics_level=args.naics_level,
+        naics_titles_path=args.naics_titles,
     )
 
     if args.compare_flow_stock != "none":

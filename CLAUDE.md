@@ -64,7 +64,11 @@ This yields an industry-level seasonal index at 6-digit NAICS, useful for:
 
 **National index (completed Mar 2026, regenerated Jul 2026 — see robustness note below)**:
 all 51 states, 2000–2023, 1,011 industries. Correlation with CP's 1-digit industry
-rankings: ρ = 0.836. Saved to `data/qwi_clean/seasonal_index_naics6.csv`.
+rankings: ρ = 0.836. Saved to `data/qwi_clean/seasonal_index_naics6.csv`, which
+now also carries `national_industry_title` and the full sector/subsector/
+industry-group title hierarchy (via the same NAICS crosswalk lookup used in
+`state_index_percentiles.py`) so 6-digit codes are human-readable without a
+separate join.
 
 Top sectors by seasonal_index (mean peak_excess):
 - Agriculture (0.469, 14.8 p.p.) > Arts/entertainment (0.446, 12.1 p.p.) > Accommodation/food (0.323, 8.3 p.p.) > Education (0.273, 8.4 p.p.) > Construction (0.194, 5.9 p.p.)
