@@ -166,7 +166,7 @@
               services (food trucks), drive-in theaters, recreational
               goods rental
         \item Seasonal index normalized to [0,1] via 99th-pct winsorization
-        \item Correlation with CP 1-digit rankings: $\rho = 0.835$
+        \item Correlation with CP 1-digit rankings: $\rho = 0.829$
       \end{itemize}
     \end{column}
   \end{columns}
@@ -181,10 +181,10 @@
       \toprule
       Sector & Mean seasonal index & ExcessPeak (p.p.) \\
       \midrule
-      Agriculture, forestry, fishing      & 0.471 & 15.0 \\
-      Arts, entertainment \& recreation   & 0.445 & 12.1 \\
-      Accommodation \& food services      & 0.323 & 8.3  \\
-      Educational services                & 0.273 & 8.4  \\
+      Agriculture, forestry, fishing      & 0.504 & 15.7 \\
+      Arts, entertainment \& recreation   & 0.461 & 14.3 \\
+      Accommodation \& food services      & 0.345 & 10.3 \\
+      Educational services                & 0.272 & 8.4  \\
       Construction                        & 0.194 & 5.9  \\
       Real estate                         & 0.167 & 5.6  \\
       Warehousing \& couriers             & 0.135 & 4.6  \\
@@ -304,16 +304,17 @@
     \item We compute ExcessPeak for each state $\times$ 6-digit NAICS cell
           (40,222 cells with $\geq 5$ year-observations)
     \bigskip
-    \item \textbf{Main finding:} a 2.4$\times$ gap between most and least seasonal
-          states in mean peak excess (Alaska: 8.0 p.p.\ vs.\ Texas: 3.3 p.p.)
+    \item \textbf{Main finding:} a 2.8$\times$ gap between most and least seasonal
+          states in mean peak excess (Alaska: 9.6 p.p.\ vs.\ Texas: 3.4 p.p.)
     \item Northern/Great Plains states consistently more seasonal across
           multiple sectors; Sun Belt states consistently less so
     \bigskip
     \item \textbf{Most geographically variable sectors:}
     \begin{enumerate}
-      \item Agriculture (cross-state SD = 15.4 p.p.)
-      \item Arts \& entertainment (SD = 14.4 p.p.)
-      \item Construction (SD = 9.9 p.p.)
+      \item Agriculture (cross-state SD = 14.5 p.p.)
+      \item Arts \& entertainment (SD = 13.4 p.p.)
+      \item Accommodation/food (SD = 10.8 p.p.)
+      \item Construction (SD = 9.6 p.p.)
     \end{enumerate}
     \item \textbf{Least geographically variable:} healthcare, metals manufacturing,
           utilities --- consistent low seasonality everywhere
@@ -336,7 +337,9 @@
   {\small
   \textbf{Construction:} Minnesota (19.7 p.p.) vs.\ Florida (2.6 p.p.) --- an 8$\times$
   gap driven by winter construction shutdowns in northern states.
-  \textbf{Agriculture:} Montana (20.2 p.p.) and Idaho (19.3 p.p.) lead.}
+  \textbf{Agriculture:} North Dakota (29.6 p.p.) now leads, ahead of Michigan
+  (23.5 p.p.) and Alaska (23.1 p.p.); Montana and Idaho (previously \#1/\#2)
+  remain in the top 5.}
 \end{frame}
 
 \begin{frame}{State-Specific Top and Bottom 1\% Industries}
@@ -354,7 +357,7 @@
           Codes appearing once & 57 & 158 \\
           Codes in 10+ states & 6 & 0 \\
           Pairwise Jaccard & 0.054 & 0.015 \\
-          Also national same tail & 10.9\% & 2.7\% \\
+          Also national same tail & 11.4\% & 2.7\% \\
           \bottomrule
         \end{tabular}
       \end{table}
@@ -469,18 +472,20 @@
             headcount itself swell or shrink that quarter?
     \end{itemize}
     \bigskip
-    \item \textbf{Result: correlated, but far from the same thing.}
+    \item \textbf{Result: correlated, more so than first measured.}
     \begin{itemize}
-      \item National ($n=1{,}004$): Pearson $r = 0.653$, Spearman $r = 0.627$
-      \item State $\times$ NAICS6 ($n=39{,}225$): Pearson $r = 0.521$,
-            Spearman $r = 0.585$
-      \item \textbf{Peak-quarter concordance is low --- only $\sim$15\%
-            nationally, $\sim$14\% by state}: even when both measures agree
+      \item National ($n=997$): Pearson $r = 0.784$, Spearman $r = 0.660$
+      \item State $\times$ NAICS6 ($n=39{,}446$): Pearson $r = 0.750$,
+            Spearman $r = 0.661$
+      \item \textbf{Peak-quarter concordance is still low --- $\sim$15\%
+            nationally, $\sim$13\% by state}: even when both measures agree
             an industry is seasonal, they usually disagree on \emph{which
             quarter} drives it
     \end{itemize}
     \item[$\to$] Timing, not just amplitude, differs between ``separations
-          spike'' and ``headcount swings''
+          spike'' and ``headcount swings'' --- but the two are more tightly
+          linked in overall magnitude than an earlier data-thinness bug made
+          them look (see next slide)
   \end{itemize}
 \end{frame}
 
@@ -496,24 +501,24 @@
       \scriptsize
       \textbf{Construction: near-perfect agreement}
       \begin{itemize}
-        \item Flow/stock correlation $r \approx 0.96$--$0.97$
-        \item A direct, physical relationship: winter layoffs $=$ winter headcount drop
+        \item Flow/stock correlation $r = 0.97$ ($n=31$): winter layoffs $=$
+              winter headcount drop
       \end{itemize}
       \smallskip
-      \textbf{Agriculture: the opposite}
+      \textbf{Agriculture: weaker, not decoupled}
       \begin{itemize}
-        \item High seasonal index on \emph{both} measures, but $r \approx 0.21$
-              between them
-        \item Consistent with rapid within-quarter worker replacement: departing
-              workers are immediately replaced, spiking separations without
-              moving headcount much
+        \item $r = 0.64$ ($n=55$), revised up sharply from an original
+              $r \approx 0.21$ --- that estimate was itself a data-thinness
+              artifact (a few single-quarter cells dragging it down); the
+              ``rapid worker replacement'' story is retracted
       \end{itemize}
       \smallskip
-      \textbf{Validates the bug fix}
+      \textbf{``Stock without flow,'' updated}
       \begin{itemize}
-        \item Tax Prep Services and Cotton Ginning --- wrongly inflated on the
-              flow side (previous slide) --- now correctly show \emph{low}
-              flow, \emph{high} stock: a real hiring-surge story, not an artifact
+        \item Cotton Ginning (flow 0.01, stock 0.82) pairs with Political
+              Organizations (flow 0.18, stock 0.83) --- hiring surges (harvest;
+              elections) without a matching separation spike. Tax Prep
+              Services dropped out entirely (flow now correctly undefined)
       \end{itemize}
     \end{column}
   \end{columns}
@@ -613,9 +618,9 @@
             are available ($n \geq 20$ per firm)
     \end{enumerate}
     \smallskip
-    \item \textbf{Which index?} Flow suits classification by \emph{turnover
-          risk}; stock suits \emph{headcount/staffing swings} --- they agree
-          only $\sim$65\% of the time nationally
+    \item \textbf{Which index?} Flow suits \emph{turnover risk}; stock suits
+          \emph{headcount/staffing swings} --- correlated ($r \approx 0.78$)
+          but timing (peak quarter) still agrees only $\sim$15\% of the time
     \item \textbf{Caveat:} 6-digit cells are often suppressed in small states;
           state-level estimates for niche agriculture sub-industries may rest on
           very few year-observations
@@ -629,19 +634,21 @@
           matches all four published estimates within rounding
     \smallskip
     \item \textbf{National index:} QWI-based ExcessPeak at 6-digit NAICS correlates
-          strongly with CP's 1-digit rankings ($\rho = 0.835$); robust to
+          strongly with CP's 1-digit rankings ($\rho = 0.829$); robust to
           excluding 2020--2021 (Pearson $0.997$). Economy-wide seasonality is
           roughly flat 2000--10 to 2011--23, but Agriculture rose ($+0.044$)
           and Construction fell ($-0.046$) beneath that average
     \smallskip
-    \item \textbf{Geographic variation:} large state heterogeneity (2.4$\times$
+    \item \textbf{Geographic variation:} large state heterogeneity (2.8$\times$
           gap, Alaska vs.\ Texas); a California county-level pilot applies the
           same logic down to counties --- Yolo County ranks 40th of 58 CA
           counties, less seasonal than most despite its agricultural economy
     \smallskip
     \item \textbf{Flow vs.\ stock:} separations-based and employment-based
-          seasonality are correlated but distinct ($r \approx 0.65$ national);
-          sharp sector heterogeneity (Construction: near-identical; Agriculture: not)
+          seasonality are correlated ($r \approx 0.78$ national) but timing
+          concordance is low ($\sim$15\%); Construction near-identical
+          ($r=0.97$), Agriculture moderate ($r=0.64$, revised up from an
+          original 0.21 that turned out to be a data-thinness artifact)
     \smallskip
     \item \textbf{Income/earnings:} a third lens (\texttt{EarnBeg}) finds no
           strong evidence of industry-average income dipping in the off-season

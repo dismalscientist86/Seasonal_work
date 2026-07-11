@@ -550,7 +550,7 @@ top,Idaho,Montana,7,6,1,12,0.08333333333333333
 top,Idaho,Nebraska,7,7,3,11,0.2727272727272727
 top,Idaho,Nevada,7,7,0,14,0.0
 top,Idaho,New Hampshire,7,7,0,14,0.0
-top,Idaho,New Jersey,7,9,1,15,0.06666666666666667
+top,Idaho,New Jersey,7,9,0,16,0.0
 top,Idaho,New Mexico,7,7,1,13,0.07692307692307693
 top,Idaho,New York,7,10,2,15,0.13333333333333333
 top,Idaho,North Carolina,7,10,0,17,0.0
@@ -623,7 +623,7 @@ top,Indiana,Montana,9,6,1,14,0.07142857142857142
 top,Indiana,Nebraska,9,7,4,12,0.3333333333333333
 top,Indiana,Nevada,9,7,0,16,0.0
 top,Indiana,New Hampshire,9,7,1,15,0.06666666666666667
-top,Indiana,New Jersey,9,9,1,17,0.058823529411764705
+top,Indiana,New Jersey,9,9,0,18,0.0
 top,Indiana,New Mexico,9,7,0,16,0.0
 top,Indiana,New York,9,10,3,16,0.1875
 top,Indiana,North Carolina,9,10,2,17,0.11764705882352941
@@ -658,7 +658,7 @@ top,Iowa,Montana,8,6,2,12,0.16666666666666666
 top,Iowa,Nebraska,8,7,3,12,0.25
 top,Iowa,Nevada,8,7,0,15,0.0
 top,Iowa,New Hampshire,8,7,2,13,0.15384615384615385
-top,Iowa,New Jersey,8,9,1,16,0.0625
+top,Iowa,New Jersey,8,9,0,17,0.0
 top,Iowa,New Mexico,8,7,0,15,0.0
 top,Iowa,New York,8,10,4,14,0.2857142857142857
 top,Iowa,North Carolina,8,10,1,17,0.058823529411764705
@@ -692,7 +692,7 @@ top,Kansas,Montana,8,6,0,14,0.0
 top,Kansas,Nebraska,8,7,2,13,0.15384615384615385
 top,Kansas,Nevada,8,7,0,15,0.0
 top,Kansas,New Hampshire,8,7,0,15,0.0
-top,Kansas,New Jersey,8,9,1,16,0.0625
+top,Kansas,New Jersey,8,9,0,17,0.0
 top,Kansas,New Mexico,8,7,0,15,0.0
 top,Kansas,New York,8,10,1,17,0.058823529411764705
 top,Kansas,North Carolina,8,10,2,16,0.125
@@ -818,7 +818,7 @@ top,Maryland,Montana,9,6,0,15,0.0
 top,Maryland,Nebraska,9,7,0,16,0.0
 top,Maryland,Nevada,9,7,1,15,0.06666666666666667
 top,Maryland,New Hampshire,9,7,0,16,0.0
-top,Maryland,New Jersey,9,9,0,18,0.0
+top,Maryland,New Jersey,9,9,1,17,0.058823529411764705
 top,Maryland,New Mexico,9,7,0,16,0.0
 top,Maryland,New York,9,10,0,19,0.0
 top,Maryland,North Carolina,9,10,3,16,0.1875
@@ -1000,7 +1000,7 @@ top,Montana,Wisconsin,6,9,3,12,0.25
 top,Montana,Wyoming,6,5,2,9,0.2222222222222222
 top,Nebraska,Nevada,7,7,0,14,0.0
 top,Nebraska,New Hampshire,7,7,1,13,0.07692307692307693
-top,Nebraska,New Jersey,7,9,1,15,0.06666666666666667
+top,Nebraska,New Jersey,7,9,0,16,0.0
 top,Nebraska,New Mexico,7,7,0,14,0.0
 top,Nebraska,New York,7,10,4,13,0.3076923076923077
 top,Nebraska,North Carolina,7,10,1,16,0.0625
@@ -1065,11 +1065,11 @@ top,New Hampshire,West Virginia,7,7,1,13,0.07692307692307693
 top,New Hampshire,Wisconsin,7,9,2,14,0.14285714285714285
 top,New Hampshire,Wyoming,7,5,0,12,0.0
 top,New Jersey,New Mexico,9,7,0,16,0.0
-top,New Jersey,New York,9,10,3,16,0.1875
+top,New Jersey,New York,9,10,2,17,0.11764705882352941
 top,New Jersey,North Carolina,9,10,0,19,0.0
 top,New Jersey,North Dakota,9,6,0,15,0.0
 top,New Jersey,Ohio,9,10,2,17,0.11764705882352941
-top,New Jersey,Oklahoma,9,9,1,17,0.058823529411764705
+top,New Jersey,Oklahoma,9,9,0,18,0.0
 top,New Jersey,Oregon,9,9,0,18,0.0
 top,New Jersey,Pennsylvania,9,10,2,17,0.11764705882352941
 top,New Jersey,Rhode Island,9,7,1,15,0.06666666666666667
@@ -1080,7 +1080,7 @@ top,New Jersey,Texas,9,10,1,18,0.05555555555555555
 top,New Jersey,Utah,9,9,1,17,0.058823529411764705
 top,New Jersey,Vermont,9,6,0,15,0.0
 top,New Jersey,Virginia,9,9,0,18,0.0
-top,New Jersey,Washington,9,9,3,15,0.2
+top,New Jersey,Washington,9,9,2,16,0.125
 top,New Jersey,West Virginia,9,7,0,16,0.0
 top,New Jersey,Wisconsin,9,9,1,17,0.058823529411764705
 top,New Jersey,Wyoming,9,5,1,13,0.07692307692307693

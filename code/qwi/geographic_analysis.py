@@ -171,7 +171,11 @@ def load_and_compute(min_obs: int = MIN_EXCESS_OBS) -> pd.DataFrame:
         if not flow_excesses and not stock_excesses:
             continue
 
-        if flow_excesses:
+        # A meaningful amplitude needs >=2 valid quarters -- with only 1,
+        # max-min collapses to exactly 0, a data-thinness artifact rather
+        # than genuine flatness (see build_seasonal_index() in
+        # seasonal_index.py for the national-level version of this fix).
+        if len(flow_excesses) >= 2:
             peak_q = max(flow_excesses, key=lambda q: flow_excesses[q][0])
             record.update({
                 "seasonal_amplitude": max(v for v, _ in flow_excesses.values()) - min(v for v, _ in flow_excesses.values()),
@@ -183,7 +187,7 @@ def load_and_compute(min_obs: int = MIN_EXCESS_OBS) -> pd.DataFrame:
             record.update({"seasonal_amplitude": np.nan, "peak_quarter": pd.NA,
                            "peak_excess": np.nan, "n_excess_obs": pd.NA})
 
-        if stock_excesses:
+        if len(stock_excesses) >= 2:
             peak_q_emp = max(stock_excesses, key=lambda q: stock_excesses[q][0])
             record.update({
                 "emp_seasonal_amplitude": max(v for v, _ in stock_excesses.values()) - min(v for v, _ in stock_excesses.values()),

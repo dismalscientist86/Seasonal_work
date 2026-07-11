@@ -7,7 +7,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from config import QWI_RAW, QWI_CLEAN, FIGURES_DIR
+from config import QWI_RAW, QWI_CLEAN, FIGURES_DIR, XWALK
+
+
+def load_naics_titles(path: Path | None) -> pd.DataFrame | None:
+    """Load the optional cleaned NAICS6 title lookup (clean_naics_xwalk.py's output)."""
+    if path is None or not path.exists():
+        return None
+    titles = pd.read_csv(path, dtype={"naics_code": str})
+    keep_cols = [c for c in ["naics_code", "national_industry_title"] if c in titles.columns]
+    return titles[keep_cols].drop_duplicates("naics_code")
 
 
 # -------------------------------------------------------------------
@@ -22,7 +31,27 @@ def load_employment(qwi_file: Path) -> pd.DataFrame:
     Returns a DataFrame with:
         industry, year, quarter, employment, date
     """
-    df = pd.read_parquet(qwi_file)
+    if qwi_file.exists():
+        df = pd.read_parquet(qwi_file)
+    else:
+        # Fall back to concatenating per-state files (mirrors load_qwi() in
+        # seasonal_index.py) rather than failing outright if the combined
+        # file hasn't been (re)built yet.
+        state_files = sorted(qwi_file.parent.glob("qwi_state_*.parquet"))
+        if not state_files:
+            raise FileNotFoundError(
+                f"Neither {qwi_file} nor any qwi_state_*.parquet files found "
+                f"in {qwi_file.parent}. Run fetch_qwi.py first."
+            )
+        print(f"Combined file missing; loading {len(state_files)} per-state files...")
+        df = pd.concat([pd.read_parquet(f) for f in state_files], ignore_index=True)
+
+    # Per-state files only have the raw "time" string (e.g. "2010-Q1") -- the
+    # year/quarter split normally happens once, on the combined file, inside
+    # fetch_qwi.py. Derive it here too so this fallback path works standalone.
+    if "year" not in df.columns and "time" in df.columns:
+        df["year"] = df["time"].str[:4].astype(int)
+        df["quarter"] = df["time"].str[-1].astype(int)
 
     # Ensure numeric
     for c in ["Emp", "EmpEnd", "year", "quarter"]:
@@ -95,8 +124,21 @@ def select_industries_for_plot(seasonal_index: pd.DataFrame,
     if "n_excess_obs" in df.columns:
         df = df[df["n_excess_obs"] >= min_excess_obs]
 
-    # Drop NA or pathological values
+    # Drop NA or pathological values (seasonal_index.py now NaNs these out at
+    # the source when an industry has <2 non-missing quarters, so this alone
+    # already excludes the worst thin-cell cases -- e.g. an industry with
+    # data in only one quarter, where max-min trivially collapses to 0 and
+    # would otherwise masquerade as "not seasonal")
     df = df.dropna(subset=["seasonal_index", "seasonal_amplitude"])
+
+    # Belt-and-suspenders for this illustrative figure specifically: require
+    # ALL FOUR quarters to have a real excess estimate, not just enough to
+    # clear the n_excess_obs floor above (which only checks the peak
+    # quarter). Otherwise a "least seasonal" pick could still be built from
+    # e.g. 2 of 4 quarters rather than a genuinely flat year-round profile.
+    q_obs_cols = [c for c in ["n_excessQ1", "n_excessQ2", "n_excessQ3", "n_excessQ4"] if c in df.columns]
+    if q_obs_cols:
+        df = df[(df[q_obs_cols] > 0).all(axis=1)]
 
     # Select extremes within filtered set
     most = (
@@ -135,7 +177,8 @@ def load_seasonal_index(path: Path) -> pd.DataFrame:
 def plot_employment_timeseries(emp: pd.DataFrame,
                                seasonal_index: pd.DataFrame,
                                n_seasonal: int = 3,
-                               n_nonseasonal: int = 3):
+                               n_nonseasonal: int = 3,
+                               naics_titles_path: Path | None = None):
     """
     Plot normalized employment time series for seasonal vs non-seasonal industries,
     strictly using 6-digit NAICS and reasonable coverage thresholds.
@@ -146,6 +189,13 @@ def plot_employment_timeseries(emp: pd.DataFrame,
 
     seasonal_index = seasonal_index.copy()
     seasonal_index["naics_code"] = seasonal_index["naics_code"].astype(str)
+
+    # Attach NAICS titles if not already present in the seasonal index CSV
+    if "national_industry_title" not in seasonal_index.columns:
+        naics_titles_path = naics_titles_path or (XWALK / "naics6_2022_titles.csv")
+        titles = load_naics_titles(naics_titles_path)
+        if titles is not None:
+            seasonal_index = seasonal_index.merge(titles, on="naics_code", how="left")
 
     # Use the robust selector
     most_seasonal, least_seasonal, filtered_df = select_industries_for_plot(
@@ -159,8 +209,12 @@ def plot_employment_timeseries(emp: pd.DataFrame,
 
     selected = most_seasonal + least_seasonal
 
-    # Informative legend labels with index value
+    # Informative legend labels with index value and industry title
     idx_map = filtered_df.set_index("naics_code")["seasonal_index"].to_dict()
+    title_map = (
+        filtered_df.set_index("naics_code")["national_industry_title"].to_dict()
+        if "national_industry_title" in filtered_df.columns else {}
+    )
 
     fig, ax = plt.subplots(figsize=(11, 6))
 
@@ -176,7 +230,9 @@ def plot_employment_timeseries(emp: pd.DataFrame,
 
         label_class = ("seasonal" if ind in most_seasonal else "non-seasonal")
         idx_val = idx_map.get(ind, np.nan)
-        label = f"NAICS {ind} ({label_class}, idx={idx_val:.2f})"
+        title = title_map.get(ind)
+        name = f"{ind} {title}" if isinstance(title, str) else f"NAICS {ind}"
+        label = f"{name} ({label_class}, idx={idx_val:.2f})"
 
         ax.plot(sub["date"], sub["emp_index"], label=label, linewidth=1.8)
 

@@ -62,16 +62,16 @@ This yields an industry-level seasonal index at 6-digit NAICS, useful for:
 - Validating CP's 1-digit results
 - Classifying firms by their NAICS industry seasonal intensity
 
-**National index (completed Mar 2026, regenerated Jul 2026 — see robustness note below)**:
-all 51 states, 2000–2023, 1,011 industries. Correlation with CP's 1-digit industry
-rankings: ρ = 0.836. Saved to `data/qwi_clean/seasonal_index_naics6.csv`, which
-now also carries `national_industry_title` and the full sector/subsector/
+**National index (completed Mar 2026, regenerated Jul 2026 twice — see robustness
+notes below)**: all 51 states, 2000–2023, 1,011 industries. Correlation with CP's
+1-digit industry rankings: ρ = 0.829. Saved to `data/qwi_clean/seasonal_index_naics6.csv`,
+which now also carries `national_industry_title` and the full sector/subsector/
 industry-group title hierarchy (via the same NAICS crosswalk lookup used in
 `state_index_percentiles.py`) so 6-digit codes are human-readable without a
 separate join.
 
 Top sectors by seasonal_index (mean peak_excess):
-- Agriculture (0.469, 14.8 p.p.) > Arts/entertainment (0.446, 12.1 p.p.) > Accommodation/food (0.323, 8.3 p.p.) > Education (0.273, 8.4 p.p.) > Construction (0.194, 5.9 p.p.)
+- Agriculture (0.504, 15.7 p.p.) > Arts/entertainment (0.461, 14.3 p.p.) > Accommodation/food (0.345, 10.3 p.p.) > Education (0.272, 8.4 p.p.) > Construction (0.193, 5.9 p.p.)
 
 **Data-quality fix (Jul 2026)**: `seasonal_index.py` was missing the `sys.path`
 bootstrap present in every other `code/qwi/` script, so it silently depended on
@@ -84,6 +84,28 @@ years — below the 5-year minimum — driven by anomalous 2020/2022 Q2 separati
 spikes, not genuine seasonality. The old file predated the current min-obs
 standard. Fixing this also nudged `state_index_percentiles.py`'s
 national-overlap figure (see below) from ~13% to ~11%.
+
+**Second data-quality fix (Jul 2026)**: while building an illustrative "most
+vs. least seasonal" employment figure (`plot_seasonality_figures.py`), a
+handful of "least seasonal" picks turned out to have data in only **one** of
+four quarters (e.g. Potato Farming: 24 years of Q2 data, zero in Q1/Q3/Q4).
+`seasonal_amplitude = max(Excess) - min(Excess)` collapses to exactly 0 when
+only one quarter has a real value — a data-thinness artifact, not genuine
+flatness — and was silently reported as `seasonal_index = 0.0`, the most
+extreme possible "non-seasonal" score. `build_seasonal_index()` (and its
+stock-side, state-level, and earnings-index analogs) now requires **≥2**
+non-missing quarters before reporting amplitude/peak/index, NaN otherwise.
+Nationally this affected only 6 of 1,011 industries (incl. Tax Preparation
+Services and Cotton Ginning, already flagged above for a *different* reason —
+both are also thin on the flow side). At the **state** level the same bug was
+far more consequential: **2,898 of 42,344 state × industry cells (6.8%)** had
+this single-quarter problem, vs. 0.6% nationally — thin cells are much more
+common once you slice by state. Regenerating the state index shifted real
+headline numbers (see Geographic Variation and Flow vs. Stock below), since
+small/sparse states were disproportionately affected. `plot_seasonality_figures.py`
+also now labels its example industries by name (was NAICS code only) and adds
+a belt-and-suspenders check requiring all four `n_excessQ*` counts to be
+positive, not just the existing `n_excess_obs` (peak-quarter-only) floor.
 
 Note: Education peaks in Q2 (end of school year), not Q4. All education industries have
 positive peak_excess. Mathematical identity: the four quarter excesses sum to zero within
@@ -186,29 +208,35 @@ at either level. Outputs: `output/tables/flow_vs_stock_{national,state}.csv`
 `flow_vs_stock_{national,state}_by_sector/by_state.csv`, and
 `flow_vs_stock_{national,state}_scatter.pdf`.
 
-**Key findings** (complete 51-state run):
-- **Correlated but far from identical**: national Pearson r = 0.653, Spearman
-  r = 0.626 (n=1,004); state × NAICS6 Pearson r = 0.526, Spearman r = 0.585
-  (n=40,239). Flow and stock seasonality are related but measure genuinely
-  different things.
-- **Peak-quarter concordance is low — ~15% nationally, ~14% by state**: even
-  when both measures agree an industry is seasonal, they usually disagree on
-  *which quarter* drives it. Timing, not just amplitude, differs between
-  "separations spike" and "headcount swings."
-- **Sector heterogeneity is the more interesting result**: Construction shows
-  near-perfect flow/stock agreement (r ≈ 0.96-0.97) — a physically direct
-  layoff-and-headcount relationship. Agriculture shows the *opposite* — high
-  seasonal_index on both measures individually, but low correlation between
-  them (r ≈ 0.21) — consistent with rapid within-quarter worker replacement
-  (separating workers are immediately replaced by newly hired ones), which
-  spikes the separation rate without much net headcount movement.
-- **"Stock without flow" examples are economically sensible, not artifacts**:
-  Tax Preparation Services and Cotton Ginning — the two industries whose
-  *flow* index was wrongly inflated to 1.0 by the stale-threshold bug fixed
-  above — now correctly show a low flow index, and instead show a genuinely
-  high *stock* index (large seasonal hiring surges: tax season staffing,
-  harvest-time ginning), a real, sensible econ story once the index bug was
-  fixed rather than a leftover artifact.
+**Key findings** (complete 51-state run, regenerated after the degenerate-quarter
+fix above — this comparison moved more than most other outputs, since a false
+flow=0 or stock=0 in either measure mechanically drags down their correlation):
+- **More correlated than first reported**: national Pearson r = 0.784, Spearman
+  r = 0.66 (n=997, up from 0.653/0.626 pre-fix); state × NAICS6 Pearson r = 0.75,
+  Spearman r = 0.661 (n=39,446, up from 0.526/0.585). Flow and stock seasonality
+  are more closely related than the pre-fix numbers suggested, though still not
+  identical.
+- **Peak-quarter concordance is low — ~15% nationally, ~13% by state — and this
+  part didn't change**: even when both measures agree an industry is seasonal,
+  they usually disagree on *which quarter* drives it. Timing, not just
+  amplitude, differs between "separations spike" and "headcount swings."
+- **Sector heterogeneity, revised**: Construction still shows near-perfect
+  flow/stock agreement (r = 0.966, n=31, essentially unchanged) — a physically
+  direct layoff-and-headcount relationship. Agriculture no longer looks
+  decoupled: r = 0.642 (n=55), up sharply from an original 0.207. That 0.207
+  was itself a symptom of the bug above — Potato Farming, Apple Orchards, and
+  Sugar Beet Farming (all degenerate, single-quarter cells) were dragging the
+  correlation down. Agriculture's flow/stock relationship is still weaker than
+  Construction's, just not the "near-zero, rapid worker replacement" story
+  originally reported — treat that hypothesis as retracted pending a fresh look
+  at the corrected data.
+- **"Stock without flow" examples, updated**: Tax Preparation Services no
+  longer appears in this comparison at all — its flow index is now correctly
+  NaN (it was one of the 6 degenerate national industries). Cotton Ginning's
+  story holds (flow 0.009, stock 0.823) and pairs well with Political
+  Organizations (flow 0.176, stock 0.826) — both show a genuine stock-side
+  hiring/staffing surge (harvest-time ginning; election-cycle staffing) not
+  matched by a comparable separation-rate spike.
 
 ### Income/Earnings Seasonality Index
 
@@ -250,12 +278,12 @@ raw index, is the credible basis for the hypothesis test below.
 onto each industry's own separation `peak_quarter` (from `seasonal_index.py`)
 and checks the earnings excess at that same quarter
 (`output/tables/earnings_at_separation_peak.csv`).
-- **Naive/raw test: 51.9% of industries "dip"** — but this is almost entirely
+- **Naive/raw test: 52.3% of industries "dip"** — but this is almost entirely
   mechanical (8.3% dip when the separation peak falls in Q4, since Q4 is
   everyone's earnings peak; 93.6% "dip" when it falls in Q3, since Q3 is
   rarely anyone's earnings peak) — an artifact of the Q4-bonus confound, not
   a behavioral finding.
-- **Idiosyncratic/credible test: 43.9% dip, mean excess +0.0065** (essentially
+- **Idiosyncratic/credible test: 44.2% dip, mean excess +0.0055** (essentially
   flat, slightly positive) — once the common calendar effect is removed,
   there is **no strong evidence of industry-average income dipping** when
   separations peak.
@@ -290,8 +318,15 @@ and the sector/subsector/industry-group title hierarchy now (same crosswalk
 merge as the national index), 100% matched across all 42,344 state × industry
 rows.
 
-Key finding: 2.4× gap between most seasonal (Alaska, 8.0 p.p.) and least seasonal
-(Texas, 3.3 p.p.) states. Construction: MN 19.7 p.p. vs FL 2.6 p.p. (8× gap).
+Key finding: 2.8× gap between most seasonal (Alaska, 9.6 p.p.) and least seasonal
+(Texas, 3.4 p.p.) states — up from an originally-reported 2.4× (8.0 vs. 3.3 p.p.)
+after the degenerate-quarter fix above; small/sparse states like Alaska had more
+single-quarter cells to correct than large ones, so its true mean rose more.
+Construction: MN 19.7 p.p. vs FL 2.6 p.p. (8× gap, unchanged) — Alaska newly
+enters construction's state top-5 (18.7 p.p.) post-fix, previously absent.
+Cross-state variation (SD) is now led by Agriculture (14.5 p.p.) and
+Arts/entertainment (13.4 p.p.); Construction (9.6 p.p.) drops behind
+Accommodation/food (10.8 p.p.) into 4th, from 3rd pre-fix.
 Implication: use state × NAICS index for firm classification when state is known.
 
 ### NAICS Title Crosswalk
@@ -497,7 +532,7 @@ python code/county_seasonal_index.py --state 06 --highlight 06113  # county-leve
 - [x] Firm-level seasonal classification
 - [x] Ran replication and validated against paper — all estimates match
 - [x] Fetched QWI data — all 51 states, 2000–2023, 6-digit NAICS
-- [x] Built national seasonal index — 1,011 industries, ρ = 0.836 vs CP rankings
+- [x] Built national seasonal index — 1,011 industries, ρ = 0.829 vs CP rankings
 - [x] Geographic variation analysis — state × industry peak excess; 5 figures + 2 tables
 - [x] Beamer presentation — output/slides/slides.tex (15 slides); sector table uses peak_excess; education note corrected (peaks Q2, positive)
 - [x] NAICS title crosswalk — Census 2022 structure workbook cleaned to a NAICS6 lookup
@@ -507,7 +542,8 @@ python code/county_seasonal_index.py --state 06 --highlight 06113  # county-leve
 - [x] Ran exploratory QWI diagnostic scripts (`national_state_scatterplot.py`, `plot_seasonality_figures.py`); fixed a pandas 3.0 `PeriodIndex` API break and a seaborn/pandas incompatibility found along the way
 - [x] Deduplicated `STATE_NAMES`/`STATE_FIPS` — `fetch_qwi.py` and `geographic_analysis.py` now import from `config.py` instead of redefining locally
 - [x] Validated CBP fetcher with a single-state test (fixed a NAICS-code-list path bug); full 51-state run (~21–22 hrs) deferred by choice, not run yet
-- [x] Flow (separations) vs. stock (employment) seasonal index comparison — `compare_flow_vs_stock()`/`plot_flow_vs_stock()`/`--compare-flow-stock` in seasonal_index.py, stock-side state x NAICS computation added to geographic_analysis.py. Correlated but distinct (national Pearson 0.653; peak-quarter concordance only ~15%); Construction near-perfectly aligned (r≈0.96), Agriculture surprisingly not (r≈0.21, likely rapid worker replacement). Also fixed: fetch_qwi.py missing sys.path bootstrap (broke the script entirely), a partial/test fetch silently overwriting the shared all-states combined parquet (now only writes there when every state was actually fetched), and load_qwi()'s per-state fallback missing year/quarter parsing.
+- [x] Flow (separations) vs. stock (employment) seasonal index comparison — `compare_flow_vs_stock()`/`plot_flow_vs_stock()`/`--compare-flow-stock` in seasonal_index.py, stock-side state x NAICS computation added to geographic_analysis.py. Also fixed: fetch_qwi.py missing sys.path bootstrap (broke the script entirely), a partial/test fetch silently overwriting the shared all-states combined parquet (now only writes there when every state was actually fetched), and load_qwi()'s per-state fallback missing year/quarter parsing. **Numbers revised after the degenerate-quarter fix below**: national Pearson 0.784 (was 0.653), peak-quarter concordance still only ~15%; Construction still near-perfectly aligned (r=0.966), Agriculture revised from "near-zero" (r=0.207) to moderate (r=0.642) — the original "rapid worker replacement" hypothesis is retracted, it was largely a thin-cell artifact
+- [x] **Degenerate single-quarter amplitude bug fixed at the source** — `build_seasonal_index()` and its stock/state/earnings analogs required only 1 non-missing quarter to compute `seasonal_amplitude`, which trivially collapses to 0 in that case (a data-thinness artifact, not genuine flatness). Affected only 6/1,011 industries nationally but **2,898/42,344 (6.8%) state x industry cells** — enough to move real headline numbers: Alaska's exposure 8.0->9.6 p.p., max/min ratio 2.4x->2.8x, and the flow-vs-stock correlations above. Surfaced while investigating thin cells for `plot_seasonality_figures.py`'s example industries, which now also carry NAICS titles and a stricter "all 4 quarters populated" check
 - [x] Refetched QWI data with EarnBeg (earnings) in place of the broken Payroll field — complete 51-state run; rebuilt the national/state indices, flow-vs-stock comparison, and state percentiles on the final complete data (all numbers stable vs. the interim 50-state validation runs)
 - [x] Income/earnings seasonality index (`earnings_index.py`) — found the raw index is ~83% dominated by a common Q4-bonus effect (not industry-specific), added a de-confounding step (`compute_common_calendar_effect`/`add_idiosyncratic_excess`). Credible test: only 43.9% of industries show an income dip at their own separation-peak quarter once de-confounded (mean excess ≈ 0, not clearly negative); Construction shows the opposite (earnings *higher*, not lower, likely overtime pay before layoffs). No strong evidence of industry-average income dipping in the off-season — consistent with CP's effect being about the separating worker specifically, not the industry-wide average
 - [x] County-level seasonal exposure index (`county_seasonal_index.py`) — fetched CBP NAICS-6 and NAICS-4 for California, built a 3-tier fallback (state NAICS6 -> national NAICS6 -> national NAICS4) reaching 100% employment coverage in all 58 CA counties. Case study: Yolo County ranks 40th of 58 (32nd percentile) -- less seasonal than ~2/3 of CA counties despite being an ag county, because its employment is dominated by large stable service/logistics employers, not its small-but-extreme agricultural niches

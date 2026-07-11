@@ -150,19 +150,30 @@ def build_earnings_seasonal_index(earnings_excess_df: pd.DataFrame) -> pd.DataFr
     excess_cols = ["earnings_excessQ1", "earnings_excessQ2", "earnings_excessQ3", "earnings_excessQ4"]
     available = [c for c in excess_cols if c in df.columns]
 
+    # A meaningful amplitude needs >=2 valid quarters -- with only 1,
+    # max-min (and peak==trough) collapses trivially, a data-thinness
+    # artifact rather than genuine flatness (see build_seasonal_index() in
+    # seasonal_index.py for the separations-side version of this fix).
+    enough_quarters = df[available].notna().sum(axis=1) >= 2
+
     df["earnings_seasonal_amplitude"] = df[available].max(axis=1) - df[available].min(axis=1)
+    df.loc[~enough_quarters, "earnings_seasonal_amplitude"] = np.nan
 
     _peak = df[available].apply(lambda row: row.idxmax() if row.notna().any() else pd.NA, axis=1)
     df["peak_quarter_earnings"] = (
         _peak.str.replace("earnings_excess", "", regex=False).str.replace("Q", "", regex=False).astype("Int64")
     )
+    df.loc[~enough_quarters, "peak_quarter_earnings"] = pd.NA
     df["peak_excess_earnings"] = df[available].max(axis=1)
+    df.loc[~enough_quarters, "peak_excess_earnings"] = np.nan
 
     _trough = df[available].apply(lambda row: row.idxmin() if row.notna().any() else pd.NA, axis=1)
     df["trough_quarter_earnings"] = (
         _trough.str.replace("earnings_excess", "", regex=False).str.replace("Q", "", regex=False).astype("Int64")
     )
+    df.loc[~enough_quarters, "trough_quarter_earnings"] = pd.NA
     df["trough_excess_earnings"] = df[available].min(axis=1)
+    df.loc[~enough_quarters, "trough_excess_earnings"] = np.nan
 
     df["n_earnings_excess_obs"] = df.apply(
         lambda row: row[f"n_earnings_excessQ{int(row['peak_quarter_earnings'])}"]

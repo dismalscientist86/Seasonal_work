@@ -270,7 +270,13 @@ def build_employment_seasonal_index(emp_excess_df: pd.DataFrame) -> pd.DataFrame
     excess_cols = ["emp_excessQ1", "emp_excessQ2", "emp_excessQ3", "emp_excessQ4"]
     available = [c for c in excess_cols if c in df.columns]
 
+    # See build_seasonal_index() for why: <2 non-missing quarters makes
+    # max-min trivially 0, a data-thinness artifact, not genuine flatness.
+    enough_quarters = df[available].notna().sum(axis=1) >= 2
+
     df["emp_seasonal_amplitude"] = df[available].max(axis=1) - df[available].min(axis=1)
+    df.loc[~enough_quarters, "emp_seasonal_amplitude"] = np.nan
+
     _peak = df[available].apply(
         lambda row: row.idxmax() if row.notna().any() else pd.NA, axis=1
     )
@@ -280,9 +286,11 @@ def build_employment_seasonal_index(emp_excess_df: pd.DataFrame) -> pd.DataFrame
         .str.replace("Q", "", regex=False)
         .astype("Int64")
     )
+    df.loc[~enough_quarters, "peak_quarter_emp"] = pd.NA
 
     # peak_excess_emp: excess employment share at the industry's peak quarter
     df["peak_excess_emp"] = df[available].max(axis=1)
+    df.loc[~enough_quarters, "peak_excess_emp"] = np.nan
 
     # n_emp_excess_obs: years contributing to the peak-quarter excess estimate
     # (the analog of n_excess_obs on the flow side — flags thin cells)
@@ -414,7 +422,17 @@ def build_seasonal_index(excess_df: pd.DataFrame) -> pd.DataFrame:
     excess_cols = ["excessQ1", "excessQ2", "excessQ3", "excessQ4"]
     available   = [c for c in excess_cols if c in df.columns]
 
+    # A meaningful amplitude needs at least 2 non-missing quarters: with only
+    # 1 (or 0), max-min collapses to exactly 0, producing a false
+    # seasonal_index=0 for industries that are actually just data-thin
+    # (verified: ~6 of 1,011 national industries have data in only one
+    # quarter), not genuinely non-seasonal. NaN out amplitude/peak/index
+    # for those rather than silently reporting a spurious zero.
+    enough_quarters = df[available].notna().sum(axis=1) >= 2
+
     df["seasonal_amplitude"] = df[available].max(axis=1) - df[available].min(axis=1)
+    df.loc[~enough_quarters, "seasonal_amplitude"] = np.nan
+
     _peak = df[available].apply(
         lambda row: row.idxmax() if row.notna().any() else pd.NA, axis=1
     )
@@ -424,9 +442,11 @@ def build_seasonal_index(excess_df: pd.DataFrame) -> pd.DataFrame:
         .str.replace("Q", "", regex=False)
         .astype("Int64")
     )
+    df.loc[~enough_quarters, "peak_quarter"] = pd.NA
 
     # peak_excess: excess separation rate at the peak quarter
     df["peak_excess"] = df[available].max(axis=1)
+    df.loc[~enough_quarters, "peak_excess"] = np.nan
 
     # n_excess_obs: years contributing to the peak-quarter excess estimate
     n_cols = {c.replace("excessQ", "n_excessQ"): c.replace("excessQ", "Q")
