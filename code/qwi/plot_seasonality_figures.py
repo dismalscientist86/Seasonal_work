@@ -85,12 +85,25 @@ def load_employment(qwi_file: Path) -> pd.DataFrame:
 
     return agg
 
+
+# Industries excluded from the illustrative "least seasonal" examples below
+# despite passing all coverage filters: their flat-looking employment series
+# has a real story behind it (e.g. a merger/reclassification-driven level
+# shift) that has nothing to do with seasonality, and would be a distracting
+# tangent on a figure meant to just contrast seasonal vs. non-seasonal
+# profiles. Not a data-quality problem -- just not a clean illustration.
+DEFAULT_EXCLUDE_CODES = [
+    "621491",  # HMO Medical Centers: sharp 2015-2019 level shift, unrelated to seasonality
+]
+
+
 def select_industries_for_plot(seasonal_index: pd.DataFrame,
                                n_seasonal: int = 3,
                                n_nonseasonal: int = 3,
                                min_years: int = 8,
                                min_excess_obs: int = 10,
-                               naics_digits: int = 6):
+                               naics_digits: int = 6,
+                               exclude_codes: list[str] | None = None):
     """
     Return lists of NAICS codes (strings) for most- and least-seasonal industries,
     filtered to a specific NAICS digit length and minimum coverage.
@@ -105,6 +118,8 @@ def select_industries_for_plot(seasonal_index: pd.DataFrame,
     min_years : minimum distinct years required
     min_excess_obs : minimum year-adjacent comparisons contributing to excessQ
     naics_digits : enforce code length (6 for 6-digit NAICS)
+    exclude_codes : NAICS codes to drop from consideration regardless of fit
+                    (default: DEFAULT_EXCLUDE_CODES); pass [] to disable
 
     Returns
     -------
@@ -117,6 +132,10 @@ def select_industries_for_plot(seasonal_index: pd.DataFrame,
 
     # Filter to exact NAICS length
     df = df[df["naics_code"].str.len() == naics_digits]
+
+    exclude_codes = DEFAULT_EXCLUDE_CODES if exclude_codes is None else exclude_codes
+    if exclude_codes:
+        df = df[~df["naics_code"].isin(exclude_codes)]
 
     # Coverage filters (use columns if present; otherwise skip)
     if "n_years" in df.columns:
@@ -178,7 +197,8 @@ def plot_employment_timeseries(emp: pd.DataFrame,
                                seasonal_index: pd.DataFrame,
                                n_seasonal: int = 3,
                                n_nonseasonal: int = 3,
-                               naics_titles_path: Path | None = None):
+                               naics_titles_path: Path | None = None,
+                               exclude_codes: list[str] | None = None):
     """
     Plot normalized employment time series for seasonal vs non-seasonal industries,
     strictly using 6-digit NAICS and reasonable coverage thresholds.
@@ -204,6 +224,7 @@ def plot_employment_timeseries(emp: pd.DataFrame,
         n_nonseasonal=n_nonseasonal,
         min_years=8,
         min_excess_obs=10,
+        exclude_codes=exclude_codes,
         naics_digits=6,
     )
 
