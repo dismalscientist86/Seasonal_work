@@ -230,6 +230,71 @@
 \end{frame}
 
 % ══════════════════════════════════════════════════════════════════════════════
+\section{Has Seasonality Changed Over Time?}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Seasonality Over Time: 2000--2010 vs.\ 2011--2023}
+  \begin{itemize}
+    \item The national index pools all 24 years. Has seasonality actually been
+          stable, or has it drifted over two decades?
+    \item \textbf{Test:} split the sample in two and recompute independently.
+          The 5-year $n\_excess\_obs$ minimum is what makes a clean two-way
+          split possible --- both halves (11 and 13 years) keep near-full
+          coverage, so a three- or four-way split isn't advisable
+    \bigskip
+    \item \textbf{Result: correlated, with real drift.}
+    \begin{itemize}
+      \item Pearson $r = 0.869$, Spearman $r = 0.795$ (both notably lower
+            than the COVID check's 0.997/0.986 --- an 11-year gap between
+            period midpoints is a much bigger ask than excluding 2 years)
+      \item Economy-wide mean seasonal index is essentially flat:
+            $0.130 \to 0.126$
+    \end{itemize}
+    \bigskip
+    \item \textbf{But the flat average hides a real reshuffling} beneath it
+          (next slide)
+    \item[$\to$] 30.5\% of industries have a different peak quarter, but this
+          concentrates in weakly-seasonal industries (44\% of the bottom
+          quartile vs.\ 15\% of the top) --- ordinary noise, not genuine
+          timing instability among strongly seasonal industries
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Which Sectors Got More or Less Seasonal?}
+  \begin{columns}
+    \begin{column}{0.55\textwidth}
+      \begin{center}
+        \includegraphics[width=\textwidth,height=0.8\textheight,keepaspectratio]%
+          {seasonality_trend_by_sector.pdf}
+      \end{center}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \scriptsize
+      \textbf{Agriculture: more seasonal}
+      \begin{itemize}
+        \item $+0.044$, the largest sector increase (0.418 $\to$ 0.462)
+        \item Plausibly consistent with growth in H-2A seasonal
+              guest-worker visa usage over the 2010s (workers who leave
+              every season, not year-round staff) --- a hypothesis, not
+              independently verified here
+      \end{itemize}
+      \smallskip
+      \textbf{Construction: less seasonal}
+      \begin{itemize}
+        \item $-0.046$, the largest sector decrease (0.216 $\to$ 0.170) ---
+              the single biggest shift either direction
+      \end{itemize}
+      \smallskip
+      \textbf{Most others: mild decline}
+      \begin{itemize}
+        \item Accommodation/food, transportation, professional services,
+              arts/entertainment all $-0.01$ to $-0.03$
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
 \section{Geographic Variation}
 % ══════════════════════════════════════════════════════════════════════════════
 
@@ -328,6 +393,67 @@
 \end{frame}
 
 % ══════════════════════════════════════════════════════════════════════════════
+\section{County-Level Exposure (California Pilot)}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{County-Level Seasonal Exposure: Methodology}
+  \begin{itemize}
+    \item \textbf{Goal:} how seasonal is the average job in a given county,
+          given the industries actually located there?
+    \[
+      \text{Exposure}_c = \frac{\sum_j \text{EMP}_{c,j} \times \text{seasonal\_index}_j}
+                               {\sum_j \text{EMP}_{c,j}}
+    \]
+    \item \textbf{Data:} County Business Patterns (CBP) establishment/employment
+          counts by county $\times$ NAICS, merged onto the state $\times$
+          NAICS6 seasonal index
+    \bigskip
+    \item \textbf{Problem:} CBP suppresses most county $\times$ NAICS6 cells
+          (disclosure avoidance) --- a county's genuinely seasonal niche
+          industries are often exactly the small, easily-identified cells
+          that get suppressed
+    \item \textbf{Fix: three-tier fallback} for each industry's seasonal
+          score: (1) state $\times$ NAICS6, (2) national NAICS6, (3) national
+          NAICS4 (also recovers employment CBP suppresses at 6-digit but
+          still reports at 4-digit)
+    \item[$\to$] California pilot: \textbf{100\% employment coverage} in all
+          58 counties --- no county's score rests on a partial industry match
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{California County Ranking}
+  \begin{center}
+    \includegraphics[width=0.85\textwidth,height=0.82\textheight,keepaspectratio]%
+      {county_seasonal_exposure_06.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Case Study: Yolo County}
+  \begin{itemize}
+    \item \textbf{Yolo County ranks 40th of 58} California counties (32nd
+          percentile) --- \emph{less} exposed to seasonal work than roughly
+          two-thirds of the state, despite being an agricultural county
+    \bigskip
+    \item \textbf{Why:} employment-weighting means large, stable
+          service/logistics employers dominate the score:
+    \begin{itemize}
+      \item Limited-service restaurants (3,222 jobs, index 0.10), general
+            warehousing (3,087 jobs, index 0.06), couriers (1,731 jobs,
+            index 0.14) --- all low-seasonality but large employers
+      \item Crop harvesting scores the \emph{maximum} 1.00 --- but employs
+            only 246 people locally
+    \end{itemize}
+    \bigskip
+    \item \textbf{Context:} Central Valley farm counties top the ranking
+          (Madera 0.179, Colusa 0.170 --- roughly 2$\times$ Yolo's 0.088);
+          the rest of the Sacramento metro area (Sacramento, Solano, Placer)
+          clusters near Yolo at the low-seasonality end
+    \item[$\to$] A county can have extreme seasonal niches and still score
+          low overall, if its broader economy has diversified around them
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
 \section{Flow vs.\ Stock: Two Views of Seasonality}
 % ══════════════════════════════════════════════════════════════════════════════
 
@@ -394,6 +520,74 @@
 \end{frame}
 
 % ══════════════════════════════════════════════════════════════════════════════
+\section{Income/Earnings Seasonality}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{A Third Lens: Does Income Dip in the Off-Season?}
+  \begin{itemize}
+    \item Flow and stock both measure separations/headcount. A third QWI
+          measure, \texttt{EarnBeg} (average monthly earnings), tests the
+          paper's title question directly: \textbf{does income dip in an
+          industry's own off-season?}
+    \item \textit{Data note:} the originally-requested \texttt{Payroll}
+          field returns \texttt{null} from the Census API for every cell
+          tested (even huge industries where employment populates fine);
+          \texttt{EarnBeg} is the working substitute
+    \bigskip
+    \item \textbf{A confound has to be fixed first:} 83\% of \emph{all}
+          1,011 industries --- not just seasonal ones --- have their raw
+          earnings index peak in Q4. That's a broad, economy-wide
+          year-end bonus/holiday-pay effect, not industry-specific timing
+    \item Left uncorrected, this swamps the signal: whether an industry's
+          \emph{own} separation-peak quarter happens to land in Q4 (everyone's
+          bonus quarter) almost entirely determines whether it looks like
+          income "dips" there
+    \item[$\to$] \textbf{Fix:} compute the common cross-industry calendar
+          effect (Q1 $-0.031$, Q2 $-0.005$, Q3 $-0.048$, Q4 $+0.085$) and net
+          it out before testing --- the \emph{idiosyncratic} index isolates
+          industry-specific timing
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Does Income Dip in the Off-Season? The Answer}
+  \begin{columns}
+    \begin{column}{0.52\textwidth}
+      \begin{center}
+        \includegraphics[width=\textwidth,height=0.72\textheight,keepaspectratio]%
+          {earnings_at_separation_peak_hist.pdf}
+      \end{center}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \scriptsize
+      \textbf{Naive test: 51.9\% "dip"} --- but almost entirely mechanical:
+      \begin{itemize}
+        \item Only 8.3\% dip when the separation peak falls in Q4 (everyone's
+              earnings peak)
+        \item 93.6\% "dip" when it falls in Q3 (rarely anyone's earnings peak)
+      \end{itemize}
+      \smallskip
+      \textbf{De-confounded (credible) test:}
+      \begin{itemize}
+        \item \textbf{43.9\% dip}, mean excess $+0.0065$ --- essentially
+              flat, not clearly negative
+        \item No strong evidence of industry-average income dipping in the
+              off-season
+      \end{itemize}
+      \smallskip
+      \textbf{Construction: the sharp counter-example}
+      \begin{itemize}
+        \item Dip rate only 3.2\%, mean excess $+0.044$ --- earnings
+              \emph{higher}, plausibly overtime pay before winter layoffs
+      \end{itemize}
+      \smallskip
+      \textit{Doesn't contradict CP: their effect is the separating worker's
+      own income loss (micro); this tests the industry-wide average (macro)
+      --- a different, complementary question.}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
 \section{Discussion}
 % ══════════════════════════════════════════════════════════════════════════════
 
@@ -429,29 +623,34 @@
 \end{frame}
 
 \begin{frame}{Summary}
+  \scriptsize
   \begin{enumerate}
     \item \textbf{Replication:} Python replication of CP (2025) excess recurrence
           matches all four published estimates within rounding
-    \bigskip
+    \smallskip
     \item \textbf{National index:} QWI-based ExcessPeak at 6-digit NAICS correlates
-          strongly with CP's 1-digit rankings ($\rho = 0.835$); agriculture and
-          entertainment top the seasonal hierarchy; robust to excluding
-          2020--2021 (Pearson $0.997$)
-    \medskip
-    \item \textbf{Geographic variation:} large and systematic state heterogeneity
-          --- a 2.4$\times$ gap between most and least seasonal states (Alaska
-          vs.\ Texas); state-specific top/bottom 1\% NAICS lists differ sharply
-          from each other and from the national tails ($\sim$11\% overlap)
-    \medskip
+          strongly with CP's 1-digit rankings ($\rho = 0.835$); robust to
+          excluding 2020--2021 (Pearson $0.997$). Economy-wide seasonality is
+          roughly flat 2000--10 to 2011--23, but Agriculture rose ($+0.044$)
+          and Construction fell ($-0.046$) beneath that average
+    \smallskip
+    \item \textbf{Geographic variation:} large state heterogeneity (2.4$\times$
+          gap, Alaska vs.\ Texas); a California county-level pilot applies the
+          same logic down to counties --- Yolo County ranks 40th of 58 CA
+          counties, less seasonal than most despite its agricultural economy
+    \smallskip
     \item \textbf{Flow vs.\ stock:} separations-based and employment-based
           seasonality are correlated but distinct ($r \approx 0.65$ national);
-          peak-quarter concordance only $\sim$15\%, with sharp sector
-          heterogeneity (Construction: near-identical; Agriculture: not)
-    \medskip
-    \item \textbf{Next steps:} apply state $\times$ NAICS index to UI wage
-          records for firm-level classification; county-level extension via
-          CBP (validated, full run pending); income/earnings companion index
-          (QWI refetch in progress)
+          sharp sector heterogeneity (Construction: near-identical; Agriculture: not)
+    \smallskip
+    \item \textbf{Income/earnings:} a third lens (\texttt{EarnBeg}) finds no
+          strong evidence of industry-average income dipping in the off-season
+          once a common Q4-bonus effect is removed; Construction again the
+          outlier (earnings \emph{higher}, not lower)
+    \smallskip
+    \item \textbf{Next steps:} national CBP rollout for a full county-level
+          index; apply the state $\times$ NAICS index to UI wage records for
+          firm-level classification
   \end{enumerate}
 \end{frame}
 
