@@ -119,6 +119,49 @@ bug described above — the three thin-cell artifacts it originally flagged as
 the biggest "movers" turned out to be a min-obs threshold bug, not a COVID
 effect, and are now fixed at the source.
 
+### Has Seasonality Changed Over Time?
+
+`code/qwi/seasonality_trend_check.py` splits the sample into an early period
+(2000–2010, 11 years) and a late period (2011–2023, 13 years) and recomputes
+the index separately for each — the same reused-pipeline approach as the
+COVID check, but testing for a genuine secular trend rather than robustness
+to a single disruptive event. The 5-year `MIN_EXCESS_OBS` floor is what makes
+a clean two-way split possible (a three- or four-way split would push many
+industries below it); both halves here have full or near-full coverage
+(median 11/11 years early, 13/13 late), so the biggest movers below aren't
+thin-cell artifacts. Outputs: `output/tables/seasonality_trend_naics6.csv`,
+`seasonality_trend_by_sector.csv`, `output/figures/seasonality_trend_scatter.pdf`,
+`seasonality_trend_by_sector.pdf`.
+
+**Result: correlated but with real drift — a moderate, not extreme, amount of
+change.** Pearson correlation between the two periods = 0.869, Spearman rank
+correlation = 0.795 (both meaningfully lower than the COVID check's
+0.997/0.986, as expected — an 11-year gap between period midpoints is a much
+bigger ask than excluding 2 pandemic years). The economy-wide mean
+`seasonal_index` is essentially flat (0.130 → 0.126), but that average masks
+a real reshuffling underneath:
+- **Agriculture got more seasonal** (+0.044, the largest sector-level
+  increase, 0.418 → 0.462) — plausibly consistent with the well-documented
+  growth of H-2A seasonal guest-worker visa usage over the 2010s, which
+  would make farm employment more sharply cyclical (temporary workers who
+  leave every season) rather than year-round. Not independently verified
+  against H-2A program data here — a plausible hypothesis, not a confirmed
+  mechanism.
+- **Construction got less seasonal** (−0.046, the largest decrease,
+  0.216 → 0.170) — the opposite direction, and the single biggest sector
+  shift either way.
+- Most other sectors show small declines (Accommodation/food, Manufacturing,
+  Transportation, Professional services, Arts/entertainment all −0.01 to
+  −0.03); a few besides Agriculture increased (Public administration +0.032,
+  Finance & insurance +0.028).
+- 30.5% of industries have a different peak quarter between periods — much
+  higher than the COVID check's 6.3%, but this concentrates almost entirely
+  in weakly-seasonal industries (43.8% for the bottom quartile by
+  `seasonal_index` vs. 15.1% for the top quartile), consistent with ordinary
+  noise in picking a "peak" when the underlying seasonal signal is weak to
+  begin with, not genuine timing instability among strongly seasonal
+  industries.
+
 ### Flow vs. Stock Seasonal Index Comparison
 
 The seasonal index has always been built two ways in parallel: **flow**
@@ -366,6 +409,7 @@ code/
 │   ├── geographic_analysis.py       # State-level variation (flow + stock): figures + tables
 │   ├── state_index_percentiles.py   # Within-state top/bottom-1% seasonality + national/cross-state overlap
 │   ├── covid_robustness_check.py    # Pre-COVID (2000-19) vs. full-sample index comparison
+│   ├── seasonality_trend_check.py   # 2000-10 vs. 2011-23: has seasonality changed over time?
 │   ├── earnings_index.py            # Income seasonality (EarnBeg): does income dip in the off-season?
 │   ├── clean_naics_xwalk.py         # Census NAICS structure workbook -> naics6 title lookup
 │   ├── national_state_scatterplot.py  # diagnostic: state vs. national seasonal index scatter
@@ -423,6 +467,7 @@ python code/qwi/geographic_analysis.py     # state-level variation + figures
 python code/qwi/clean_naics_xwalk.py       # (optional) build NAICS6 title lookup for labeling
 python code/qwi/state_index_percentiles.py # within-state top/bottom-1% seasonality + overlap
 python code/qwi/covid_robustness_check.py  # pre-COVID vs. full-sample index comparison
+python code/qwi/seasonality_trend_check.py # 2000-10 vs. 2011-23: has seasonality changed over time?
 python code/qwi/seasonal_index.py --compare-flow-stock both  # flow vs. stock index comparison
 python code/qwi/earnings_index.py          # income/earnings seasonality + off-season income-dip test
 python code/fetch_cbp.py --state 06 --naics-level 6  # county x NAICS establishment counts (CA done; other states in progress)
@@ -458,6 +503,7 @@ python code/county_seasonal_index.py --state 06 --highlight 06113  # county-leve
 - [x] Income/earnings seasonality index (`earnings_index.py`) — found the raw index is ~83% dominated by a common Q4-bonus effect (not industry-specific), added a de-confounding step (`compute_common_calendar_effect`/`add_idiosyncratic_excess`). Credible test: only 43.9% of industries show an income dip at their own separation-peak quarter once de-confounded (mean excess ≈ 0, not clearly negative); Construction shows the opposite (earnings *higher*, not lower, likely overtime pay before layoffs). No strong evidence of industry-average income dipping in the off-season — consistent with CP's effect being about the separating worker specifically, not the industry-wide average
 - [x] County-level seasonal exposure index (`county_seasonal_index.py`) — fetched CBP NAICS-6 and NAICS-4 for California, built a 3-tier fallback (state NAICS6 -> national NAICS6 -> national NAICS4) reaching 100% employment coverage in all 58 CA counties. Case study: Yolo County ranks 40th of 58 (32nd percentile) -- less seasonal than ~2/3 of CA counties despite being an ag county, because its employment is dominated by large stable service/logistics employers, not its small-but-extreme agricultural niches
 - [ ] Fetch and merge County Business Patterns (CBP) data nationally for a 51-state county-level index (California pilot validated; full run not yet launched, ~21-22hrs)
+- [x] Seasonality-over-time trend check (`seasonality_trend_check.py`) — 2000-2010 vs. 2011-2023. Economy-wide mean is essentially flat (0.130 -> 0.126), but masks real reshuffling: Agriculture got notably more seasonal (+0.044, plausibly H-2A guest-worker growth, not verified), Construction notably less (-0.046). Correlation (Pearson 0.869/Spearman 0.795) is meaningfully lower than the COVID check's, as expected for an 11-year period gap vs. excluding 2 years; the elevated peak-quarter-change rate (30.5%) concentrates in weakly-seasonal industries (noise), not strongly-seasonal ones
 - [ ] Apply firm-level code on other machine
 
 ---
