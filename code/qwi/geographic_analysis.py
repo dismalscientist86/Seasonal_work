@@ -24,7 +24,7 @@ warnings.filterwarnings("ignore")
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from config import QWI_RAW, QWI_CLEAN, FIGURES_DIR, TABLES_DIR, MIN_EXCESS_OBS, STATE_NAMES
+from config import QWI_RAW, QWI_CLEAN, FIGURES_DIR, TABLES_DIR, MIN_EXCESS_OBS, STATE_NAMES, XWALK
 
 STATE_ABBR = {
     "Alabama":"AL","Alaska":"AK","Arizona":"AZ","Arkansas":"AR","California":"CA",
@@ -209,10 +209,33 @@ def load_and_compute(min_obs: int = MIN_EXCESS_OBS) -> pd.DataFrame:
     return si
 
 
-def save_state_naics_index(si: pd.DataFrame) -> Path:
+def load_naics_titles(path: Path | None) -> pd.DataFrame | None:
+    """Load the optional cleaned NAICS6 title lookup (clean_naics_xwalk.py's output)."""
+    if path is None or not path.exists():
+        return None
+    titles = pd.read_csv(path, dtype={"naics_code": str, "sector_2d": str})
+    keep_cols = [
+        "naics_code", "national_industry_title", "sector_title",
+        "subsector_title", "industry_group_title", "naics_industry_title",
+    ]
+    keep_cols = [c for c in keep_cols if c in titles.columns]
+    return titles[keep_cols].drop_duplicates("naics_code")
+
+
+def add_naics_titles(df: pd.DataFrame, titles: pd.DataFrame | None) -> pd.DataFrame:
+    """Attach NAICS title fields when a cleaned lookup is available; no-op otherwise."""
+    if titles is None:
+        return df
+    return df.merge(titles, on="naics_code", how="left")
+
+
+def save_state_naics_index(si: pd.DataFrame, naics_titles_path: Path | None = None) -> Path:
     """Save the reusable state x NAICS6 seasonal index for firm lookup."""
     QWI_CLEAN.mkdir(parents=True, exist_ok=True)
     out_path = QWI_CLEAN / "seasonal_index_naics6_by_state.csv"
+
+    naics_titles_path = naics_titles_path or (XWALK / "naics6_2022_titles.csv")
+    si = add_naics_titles(si, load_naics_titles(naics_titles_path))
 
     cols = [
         "state", "state_name", "naics_code", "naics_level", "sector_2d", "sector_label",
@@ -227,7 +250,10 @@ def save_state_naics_index(si: pd.DataFrame) -> Path:
         "emp_share_Q1", "emp_share_Q2", "emp_share_Q3", "emp_share_Q4",
         "emp_seasonal_amplitude", "peak_quarter_emp", "peak_excess_emp", "n_emp_excess_obs",
         "seasonal_index_emp",
+        "national_industry_title", "sector_title", "subsector_title",
+        "industry_group_title", "naics_industry_title",
     ]
+    cols = [c for c in cols if c in si.columns]
     si[cols].to_csv(out_path, index=False)
     print(f"Saved: {out_path}")
     return out_path
@@ -395,7 +421,17 @@ def print_key_numbers(si: pd.DataFrame, state_avg: pd.Series):
 
 
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="State-level geographic variation in the QWI seasonal index")
+    parser.add_argument(
+        "--naics-titles", type=Path, default=None,
+        help="Optional cleaned NAICS6 title lookup created by clean_naics_xwalk.py "
+             f"(default: {XWALK / 'naics6_2022_titles.csv'}).",
+    )
+    args = parser.parse_args()
+
     si = load_and_compute()
-    save_state_naics_index(si)
+    save_state_naics_index(si, naics_titles_path=args.naics_titles)
     state_avg, sector_var = make_figures(si)
     print_key_numbers(si, state_avg)

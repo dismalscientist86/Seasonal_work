@@ -285,6 +285,11 @@ Outputs: `data/qwi_clean/earnings_index_naics6.csv`,
 - `geo_construction_agriculture_by_state.pdf`: construction and agriculture by state
 - `geo_heatmap_state_sector.pdf`: state × sector heatmap
 
+`seasonal_index_naics6_by_state.csv` also carries `national_industry_title`
+and the sector/subsector/industry-group title hierarchy now (same crosswalk
+merge as the national index), 100% matched across all 42,344 state × industry
+rows.
+
 Key finding: 2.4× gap between most seasonal (Alaska, 8.0 p.p.) and least seasonal
 (Texas, 3.3 p.p.) states. Construction: MN 19.7 p.p. vs FL 2.6 p.p. (8× gap).
 Implication: use state × NAICS index for firm classification when state is known.
