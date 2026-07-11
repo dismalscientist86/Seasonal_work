@@ -486,6 +486,20 @@ code/
 - Census API key (free: https://api.census.gov/data/key_signup.html)
 - Set `CENSUS_API_KEY` in a `.env` file at the repo root (see `.env.example`)
 
+### Public Index Files (`data/qwi_clean/`, committed to the repo)
+Unlike the rest of `data/` (raw QWI/CBP/replication inputs, all gitignored due
+to size), the three **derived** index CSVs in `data/qwi_clean/` are tracked
+and shipped in the public repo, each with its own codebook markdown file
+alongside it:
+- `seasonal_index_naics6.csv` — national flow + stock index ([codebook](data/qwi_clean/seasonal_index_naics6_codebook.md))
+- `seasonal_index_naics6_by_state.csv` — state x NAICS6 flow + stock index ([codebook](data/qwi_clean/seasonal_index_naics6_by_state_codebook.md))
+- `earnings_index_naics6.csv` — income/earnings seasonality index, raw + idiosyncratic ([codebook](data/qwi_clean/earnings_index_naics6_codebook.md))
+
+The `.gitignore` pattern is `data/*` + `!data/qwi_clean/` (a carve-out, same
+pattern as `output/*` + `!output/figures/` etc.) — raw inputs under
+`data/qwi_raw/`, `data/replication/`, `data/cbp_raw/`, and the NAICS
+crosswalk source workbook stay untracked.
+
 ### NAICS Title Crosswalk (optional)
 - `data/naics_xwalk/2022_NAICS_Structure.xlsx` — Census 2022 NAICS structure workbook
   (not in repo; download from census.gov and place here to run `clean_naics_xwalk.py`)
@@ -560,6 +574,7 @@ python code/county_seasonal_index.py --state 06 --highlight 06113  # county-leve
 - [ ] Fetch and merge County Business Patterns (CBP) data nationally for a 51-state county-level index (California pilot validated; full run not yet launched, ~21-22hrs)
 - [x] Seasonality-over-time trend check (`seasonality_trend_check.py`) — 2000-2010 vs. 2011-2023. Economy-wide mean is essentially flat (0.130 -> 0.126), but masks real reshuffling: Agriculture got notably more seasonal (+0.044, plausibly H-2A guest-worker growth, not verified), Construction notably less (-0.046). Correlation (Pearson 0.869/Spearman 0.795) is meaningfully lower than the COVID check's, as expected for an 11-year period gap vs. excluding 2 years; the elevated peak-quarter-change rate (30.5%) concentrates in weakly-seasonal industries (noise), not strongly-seasonal ones
 - [ ] Apply firm-level code on other machine
+- [x] Published the derived index CSVs in `data/qwi_clean/` (national, state x NAICS6, earnings) to the public repo with a codebook per file; `.gitignore` carved out `data/*` + `!data/qwi_clean/` so raw inputs stay untracked
 
 ---
 
