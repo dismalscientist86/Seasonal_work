@@ -334,8 +334,7 @@ def run_gbt_pipeline(
     print("\n=== Loading SIPP full sample for predictions ===")
     sipp_cols = ["pid", "tm", "month", "wtfnl", "jan_max_temp",
                  "sep", "job1_ind15", "job1_occ14"]
-    if "sep_week" in pd.read_parquet.__doc__ or True:  # always try sep_week
-        sipp_cols_try = sipp_cols + ["sep_week"]
+    sipp_cols_try = sipp_cols + ["sep_week"]
     sipp = load_sipp_fullsample(usecols=sipp_cols_try)
 
     sipp_pred_df = prepare_sipp_prediction_data(sipp)

@@ -188,14 +188,23 @@ def estimate_firm_excess_q4(
 
             excess_q4 = b4 - (b1 + b3) / 2
 
-            # Delta method SE
+            # Delta method SE for excess_q4 = q4 - (q1 + q3)/2:
+            # Var = Var(q4) + 0.25*Var(q1) + 0.25*Var(q3)
+            #       - Cov(q4,q1) - Cov(q4,q3) + 0.5*Cov(q1,q3)
             cov = mod.cov_params()
+
+            def _cov(k1, k2):
+                if k1 not in cov.index or k2 not in cov.index:
+                    return 0.0
+                return cov.loc[k1, k2]
+
             var_e = (
-                  cov.loc["q4", "q4"]
-                + 0.25 * cov.get("q1", pd.Series({"q1": 0})).get("q1", 0)
-                + 0.25 * cov.get("q3", pd.Series({"q3": 0})).get("q3", 0)
-                - cov.loc["q4", "q1"] if "q1" in cov.index else 0
-                - cov.loc["q4", "q3"] if "q3" in cov.index else 0
+                  _cov("q4", "q4")
+                + 0.25 * _cov("q1", "q1")
+                + 0.25 * _cov("q3", "q3")
+                - _cov("q4", "q1")
+                - _cov("q4", "q3")
+                + 0.5 * _cov("q1", "q3")
             )
             se_e = np.sqrt(max(var_e, 0))
 
