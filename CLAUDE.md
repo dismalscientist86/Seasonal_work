@@ -144,16 +144,21 @@ and `output/figures/covid_robustness_scatter.pdf`.
 
 **Result: rankings are robust.** Pearson correlation between full-sample and
 pre-COVID `seasonal_index` = 0.997; Spearman rank correlation = 0.986; only
-6.3% of industries have a different peak quarter. The "watch sectors" most
+6.7% of industries have a different peak quarter. The "watch sectors" most
 exposed to pandemic shutdowns (agriculture, construction, education, arts/
 entertainment, accommodation/food) all shift by ≤0.017 in `seasonal_index`.
 The single largest mover is a transportation industry (likely transit —
-NAICS 485111) whose seasonal_index roughly quintuples in the full sample
+NAICS 485111) whose seasonal_index is roughly 4.7x higher in the full sample
 versus pre-COVID, plausibly a genuine ridership-collapse effect rather than
 a data artifact. Running this check is what surfaced the stale national-index
 bug described above — the three thin-cell artifacts it originally flagged as
 the biggest "movers" turned out to be a min-obs threshold bug, not a COVID
 effect, and are now fixed at the source.
+
+(Numbers refreshed 2026-09 after a full pipeline re-run; the 2020-2021
+QWI data has apparently been revised slightly since this check was first
+run, nudging the peak-quarter-changed share from 6.3% to 6.7% and the transit
+ratio from ~5x to ~4.7x — same substantive conclusion, not a code change.)
 
 ### Has Seasonality Changed Over Time?
 
@@ -169,34 +174,48 @@ thin-cell artifacts. Outputs: `output/tables/seasonality_trend_naics6.csv`,
 `seasonality_trend_by_sector.csv`, `output/figures/seasonality_trend_scatter.pdf`,
 `seasonality_trend_by_sector.pdf`.
 
-**Result: correlated but with real drift — a moderate, not extreme, amount of
-change.** Pearson correlation between the two periods = 0.869, Spearman rank
-correlation = 0.795 (both meaningfully lower than the COVID check's
+**Result (revised 2026-09 — see correction note below): correlated but with
+real drift.** Pearson correlation between the two periods = 0.931, Spearman
+rank correlation = 0.826 (both meaningfully lower than the COVID check's
 0.997/0.986, as expected — an 11-year gap between period midpoints is a much
 bigger ask than excluding 2 pandemic years). The economy-wide mean
-`seasonal_index` is essentially flat (0.130 → 0.126), but that average masks
+`seasonal_index` is essentially flat (0.131 → 0.122), but that average masks
 a real reshuffling underneath:
-- **Agriculture got more seasonal** (+0.044, the largest sector-level
-  increase, 0.418 → 0.462) — plausibly consistent with the well-documented
-  growth of H-2A seasonal guest-worker visa usage over the 2010s, which
-  would make farm employment more sharply cyclical (temporary workers who
-  leave every season) rather than year-round. Not independently verified
-  against H-2A program data here — a plausible hypothesis, not a confirmed
-  mechanism.
-- **Construction got less seasonal** (−0.046, the largest decrease,
-  0.216 → 0.170) — the opposite direction, and the single biggest sector
-  shift either way.
+- **Educational services fell most** (−0.053, 0.272 → 0.219) — now the
+  single largest sector-level shift in either direction.
+- **Construction kept falling** (−0.047, 0.216 → 0.169) — essentially
+  unchanged from the original run of this check.
+- **Agriculture also fell** (−0.037, 0.504 → 0.466) — see correction note.
 - Most other sectors show small declines (Accommodation/food, Manufacturing,
   Transportation, Professional services, Arts/entertainment all −0.01 to
-  −0.03); a few besides Agriculture increased (Public administration +0.032,
-  Finance & insurance +0.028).
-- 30.5% of industries have a different peak quarter between periods — much
-  higher than the COVID check's 6.3%, but this concentrates almost entirely
-  in weakly-seasonal industries (43.8% for the bottom quartile by
-  `seasonal_index` vs. 15.1% for the top quartile), consistent with ordinary
+  −0.03); **Finance & insurance (+0.028) and Public administration (+0.032)**
+  are the two sectors that rose the most — unchanged from the original run.
+- 30.2% of industries have a different peak quarter between periods — much
+  higher than the COVID check's 6.7%, but this concentrates almost entirely
+  in weakly-seasonal industries (42.9% for the bottom quartile by
+  `seasonal_index` vs. 15.0% for the top quartile), consistent with ordinary
   noise in picking a "peak" when the underlying seasonal signal is weak to
   begin with, not genuine timing instability among strongly seasonal
   industries.
+
+**Correction (2026-09):** a full pipeline re-run (prompted by a request to
+refresh all results and the slide deck) turned up a real, not cosmetic,
+change here: this check had originally reported **Agriculture as the largest
+increaser** (+0.044, 0.418 → 0.462), with a floated hypothesis that H-2A
+guest-worker growth was driving it. Re-running against the current QWI raw
+data (unchanged code) now shows Agriculture's *early*-period mean at 0.504 —
+not 0.418 — meaning the underlying 2000-2010 QWI data for agricultural
+industries has evidently been revised/expanded since that original run (most
+likely as a side effect of the full 51-state EarnBeg refetch documented
+below, which wasn't followed by a rebuild of this specific check — unlike
+the national/state indices, flow-vs-stock, and state percentiles, which
+*were* explicitly rebuilt post-refetch). The Finance/insurance and Public
+administration numbers were unaffected (unchanged to 3 decimals), suggesting
+the revision was concentrated in agriculture- and education-adjacent QWI
+cells specifically. **Retract the H-2A hypothesis** — Agriculture now reads
+as *less* seasonal in the later period, the opposite direction — and treat
+any seasonality-trend finding as good only as of its last actual run against
+current data.
 
 ### Flow vs. Stock Seasonal Index Comparison
 
@@ -362,8 +381,8 @@ Outputs (`output/tables/`): `state_top1pct_naics6.csv`, `state_bottom1pct_naics6
 Key findings:
 - **Most-seasonal tail is sector-concentrated but state-specific**: Agriculture
   appears in the top 1% of 96% of states, Arts/entertainment in 86%, Accommodation/food
-  in 41%, Construction in 33% — but only **133 unique NAICS6 codes** ever make a
-  state's top-1% tail, and just 6 of those appear in 10+ states.
+  in 41%, Construction in 33% — but only **137 unique NAICS6 codes** ever make a
+  state's top-1% tail, and just 7 of those appear in 10+ states.
 - **Least-seasonal tail**: dominated by Mfg-metals (84% of states), Wholesale (67%),
   Mfg-chemicals (57%), Finance (55%).
 - **Only ~11% overlap with the national ranking** (47 of 413 state top-tail slots
@@ -415,15 +434,15 @@ suppresses entirely but which still report at the NAICS4 level. In the
 California run this reached **100% employment coverage in every one of the
 58 counties** — no county's score rests on a partial industry match.
 
-**Case study result (Yolo County, FIPS 06113)**: ranks **40th of 58** CA
-counties (32nd percentile) — *less* exposed to seasonal work than roughly
+**Case study result (Yolo County, FIPS 06113)**: ranks **41st of 58** CA
+counties (30th percentile) — *less* exposed to seasonal work than roughly
 two-thirds of California counties, despite being an agricultural county.
 Driver: employment-weighting means the county's large, stable
 service/logistics employers (limited-service restaurants, general
 warehousing, couriers — all with low seasonal_index) outweigh its genuinely
 extreme agricultural niches (crop harvesting scores the maximum 1.0, but
 employs only ~250 people locally vs. thousands in restaurants/warehousing).
-Central Valley farm counties top the ranking (Madera 0.179, Colusa 0.170 —
+Central Valley farm counties top the ranking (Madera 0.180, Colusa 0.169 —
 roughly 2× Yolo's 0.088); the rest of the Sacramento metro area (Sacramento,
 Solano, Placer) clusters near Yolo at the low-seasonality end.
 
@@ -569,10 +588,10 @@ python code/county_seasonal_index.py --state 06 --highlight 06113  # county-leve
 - [x] Flow (separations) vs. stock (employment) seasonal index comparison — `compare_flow_vs_stock()`/`plot_flow_vs_stock()`/`--compare-flow-stock` in seasonal_index.py, stock-side state x NAICS computation added to geographic_analysis.py. Also fixed: fetch_qwi.py missing sys.path bootstrap (broke the script entirely), a partial/test fetch silently overwriting the shared all-states combined parquet (now only writes there when every state was actually fetched), and load_qwi()'s per-state fallback missing year/quarter parsing. **Numbers revised after the degenerate-quarter fix below**: national Pearson 0.784 (was 0.653), peak-quarter concordance still only ~15%; Construction still near-perfectly aligned (r=0.966), Agriculture revised from "near-zero" (r=0.207) to moderate (r=0.642) — the original "rapid worker replacement" hypothesis is retracted, it was largely a thin-cell artifact
 - [x] **Degenerate single-quarter amplitude bug fixed at the source** — `build_seasonal_index()` and its stock/state/earnings analogs required only 1 non-missing quarter to compute `seasonal_amplitude`, which trivially collapses to 0 in that case (a data-thinness artifact, not genuine flatness). Affected only 6/1,011 industries nationally but **2,898/42,344 (6.8%) state x industry cells** — enough to move real headline numbers: Alaska's exposure 8.0->9.6 p.p., max/min ratio 2.4x->2.8x, and the flow-vs-stock correlations above. Surfaced while investigating thin cells for `plot_seasonality_figures.py`'s example industries, which now also carry NAICS titles and a stricter "all 4 quarters populated" check
 - [x] Refetched QWI data with EarnBeg (earnings) in place of the broken Payroll field — complete 51-state run; rebuilt the national/state indices, flow-vs-stock comparison, and state percentiles on the final complete data (all numbers stable vs. the interim 50-state validation runs)
-- [x] Income/earnings seasonality index (`earnings_index.py`) — found the raw index is ~83% dominated by a common Q4-bonus effect (not industry-specific), added a de-confounding step (`compute_common_calendar_effect`/`add_idiosyncratic_excess`). Credible test: only 43.9% of industries show an income dip at their own separation-peak quarter once de-confounded (mean excess ≈ 0, not clearly negative); Construction shows the opposite (earnings *higher*, not lower, likely overtime pay before layoffs). No strong evidence of industry-average income dipping in the off-season — consistent with CP's effect being about the separating worker specifically, not the industry-wide average
-- [x] County-level seasonal exposure index (`county_seasonal_index.py`) — fetched CBP NAICS-6 and NAICS-4 for California, built a 3-tier fallback (state NAICS6 -> national NAICS6 -> national NAICS4) reaching 100% employment coverage in all 58 CA counties. Case study: Yolo County ranks 40th of 58 (32nd percentile) -- less seasonal than ~2/3 of CA counties despite being an ag county, because its employment is dominated by large stable service/logistics employers, not its small-but-extreme agricultural niches
+- [x] Income/earnings seasonality index (`earnings_index.py`) — found the raw index is ~83% dominated by a common Q4-bonus effect (not industry-specific), added a de-confounding step (`compute_common_calendar_effect`/`add_idiosyncratic_excess`). Credible test: only 44.2% of industries show an income dip at their own separation-peak quarter once de-confounded (mean excess +0.0055, not clearly negative); Construction shows the opposite (earnings *higher*, not lower, likely overtime pay before layoffs). No strong evidence of industry-average income dipping in the off-season — consistent with CP's effect being about the separating worker specifically, not the industry-wide average
+- [x] County-level seasonal exposure index (`county_seasonal_index.py`) — fetched CBP NAICS-6 and NAICS-4 for California, built a 3-tier fallback (state NAICS6 -> national NAICS6 -> national NAICS4) reaching 100% employment coverage in all 58 CA counties. Case study: Yolo County ranks 41st of 58 (30th percentile) -- less seasonal than ~2/3 of CA counties despite being an ag county, because its employment is dominated by large stable service/logistics employers, not its small-but-extreme agricultural niches
 - [ ] Fetch and merge County Business Patterns (CBP) data nationally for a 51-state county-level index (California pilot validated; full run not yet launched, ~21-22hrs)
-- [x] Seasonality-over-time trend check (`seasonality_trend_check.py`) — 2000-2010 vs. 2011-2023. Economy-wide mean is essentially flat (0.130 -> 0.126), but masks real reshuffling: Agriculture got notably more seasonal (+0.044, plausibly H-2A guest-worker growth, not verified), Construction notably less (-0.046). Correlation (Pearson 0.869/Spearman 0.795) is meaningfully lower than the COVID check's, as expected for an 11-year period gap vs. excluding 2 years; the elevated peak-quarter-change rate (30.5%) concentrates in weakly-seasonal industries (noise), not strongly-seasonal ones
+- [x] Seasonality-over-time trend check (`seasonality_trend_check.py`) — 2000-2010 vs. 2011-2023. Economy-wide mean is essentially flat (0.131 -> 0.122), but masks real reshuffling: **as of a 2026-09 pipeline re-run, Educational services fell most (-0.053) and Construction kept falling (-0.047); Agriculture also fell (-0.037), reversing an earlier read of this same check that had reported Agriculture as the largest increaser off older QWI data (see correction note under "Has Seasonality Changed Over Time?" above) — the H-2A guest-worker hypothesis floated there is retracted**. Correlation (Pearson 0.931/Spearman 0.826) is meaningfully lower than the COVID check's, as expected for an 11-year period gap vs. excluding 2 years; the elevated peak-quarter-change rate (30.2%) concentrates in weakly-seasonal industries (noise), not strongly-seasonal ones
 - [ ] Apply firm-level code on other machine
 - [x] Published the derived index CSVs in `data/qwi_clean/` (national, state x NAICS6, earnings) to the public repo with a codebook per file; `.gitignore` carved out `data/*` + `!data/qwi_clean/` so raw inputs stay untracked
 
@@ -596,7 +615,14 @@ The paper presents TWO sets of recurrence estimates:
 | SIPP raw excess recurrence | 2.0 p.p. (SE 0.11) | 2.04 p.p. (SE 0.11) ✓ |
 | SIPP preferred (seam+five) | 1.6 p.p. (SE 0.11) | 1.62 p.p. (SE 0.11) ✓ |
 
-**Industry rankings** (both datasets): Agriculture > Education > Entertainment > Construction at top; Healthcare and FIRE at bottom.
+**Industry rankings** (both datasets): Agriculture, Educational services, and
+Entertainment/recreation are the top three by excess recurrence in both CPS
+and SIPP (order varies slightly by dataset). Healthcare is near the bottom in
+both (14th/15 CPS, 13th/15 SIPP). Construction is solidly mid-pack in both
+(8th/15 CPS, 7th/15 SIPP) — not top-tier, despite common intuition that it's
+an archetypally seasonal industry. Mining's estimate is unstable (small
+samples, n≈1,600–11,100 vs. tens of thousands for most other industries) and
+flips sign between datasets, so it's excluded from ranking claims.
 
 **Seam coding note**: `srefmon` in the pre-cleaned data cycles 1→4 within each 4-month wave. srefmon=1 marks the first month of each wave (right after the seam boundary). Seam variables: `first_seam = (srefmon==1) & (k<=4)`, `later_seam = (srefmon==1) & (k>=5)`.
 
@@ -610,8 +636,9 @@ The paper presents TWO sets of recurrence estimates:
 | SIPP raw (Figure 2) | 2.0 p.p. (SE 0.11) | 2.04 ✓ |
 | CPS preferred (App. F.1) | 1.5 p.p. (SE 0.14) | 1.42 ✓ |
 | SIPP preferred (App. F.1) | 1.6 p.p. (SE 0.11) | 1.62 ✓ |
-| Construction excess recurrence | highest industry | Confirmed ✓ |
-| Education excess recurrence | high | Confirmed ✓ |
+| Agriculture excess recurrence | highest industry | Confirmed ✓ |
+| Education excess recurrence | high (top 3) | Confirmed ✓ |
+| Construction excess recurrence | mid-pack, not highest (8th/15 CPS, 7th/15 SIPP) | Corrected 2026-09 — an earlier version of this table wrongly claimed Construction ranked highest |
 
 ---
 
