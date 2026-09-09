@@ -33,6 +33,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 from pathlib import Path
 
@@ -43,7 +44,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from config import QWI_CLEAN, FIGURES_DIR, TABLES_DIR, CBP_RAW, REPO_ROOT
+from config import QWI_CLEAN, FIGURES_DIR, TABLES_DIR, CBP_RAW, REPO_ROOT, STATE_NAMES
 
 
 def load_cbp(state: str, naics_level: int) -> pd.DataFrame:
@@ -123,7 +124,8 @@ def match_seasonal_index(
     naics4_covered_by_6 = {
         (county, code[:4]) for county, code in covered_naics6
     }
-    d4 = d4[~d4.apply(lambda r: (r["county"], r["naics_code"]) in naics4_covered_by_6, axis=1)]
+    is_covered = pd.MultiIndex.from_frame(d4[["county", "naics_code"]]).isin(naics4_covered_by_6)
+    d4 = d4[~is_covered]
 
     combined = pd.concat([d6, d4], ignore_index=True, sort=False)
     return combined
@@ -182,7 +184,14 @@ def run(state: str = "06", highlight: str | None = None) -> pd.DataFrame:
     cbp4 = load_cbp(state, 4)
 
     county_names = cbp6[["county", "NAME"]].drop_duplicates().rename(columns={"NAME": "county_name"})
-    county_names["county_name"] = county_names["county_name"].str.replace(r", California$", "", regex=True)
+    # CBP's NAME field is "<county>, <state>" (e.g. "Yolo County, California") —
+    # strip the state suffix using this state's actual name, so this works for
+    # any state once CBP is fetched nationally, not just the California pilot.
+    state_name = STATE_NAMES.get(state)
+    if state_name:
+        county_names["county_name"] = county_names["county_name"].str.replace(
+            rf", {re.escape(state_name)}$", "", regex=True
+        )
 
     national_index = pd.read_csv(QWI_CLEAN / "seasonal_index_naics6.csv", dtype={"naics_code": str})
     state_index_all = pd.read_csv(

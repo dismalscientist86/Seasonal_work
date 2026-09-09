@@ -243,7 +243,6 @@ def compute_employment_excess_by_quarter(
 
             excess[f"emp_excessQ{q}"]        = exr_series.mean() if len(exr_series) >= min_obs else np.nan
             excess[f"n_emp_excessQ{q}"]      = len(exr_series)
-            mean_shares[f"emp_share_Q{q}"]   = pivot[q].mean()
 
         records.append({
             "industry": ind,
@@ -388,7 +387,6 @@ def compute_excess_recurrence_by_quarter(
 
             excess[f"excessQ{q}"]        = exr_series.mean() if len(exr_series) >= min_obs else np.nan
             excess[f"n_excessQ{q}"]      = len(exr_series)
-            mean_rates[f"sep_rate_Q{q}"] = pivot[q].mean()
 
         # Data coverage: how many state × year cells contributed
         n_years = len(grp["year"].unique())
@@ -722,7 +720,7 @@ def plot_flow_vs_stock(
     fig, ax = plt.subplots(figsize=(7, 7))
     if group_col in d.columns:
         groups = sorted(d[group_col].astype(str).unique())
-        cmap = plt.cm.get_cmap("tab20", max(len(groups), 1))
+        cmap = plt.colormaps["tab20"].resampled(max(len(groups), 1))
         color_map = {g: cmap(i) for i, g in enumerate(groups)}
         ax.scatter(
             d["seasonal_index"], d["seasonal_index_emp"],

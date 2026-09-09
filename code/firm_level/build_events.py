@@ -124,18 +124,21 @@ def build_quarterly_employment(
     pairs.columns = ["worker_id", "employer_id", "yq_min", "yq_max", "n_qtrs"]
     pairs = pairs[pairs["n_qtrs"] >= min_quarters]
 
-    # Expand to full quarterly panel for each pair
-    expanded_rows = []
-    for _, row in tqdm(pairs.iterrows(), total=len(pairs), desc="Building panel"):
-        qrange = range(int(row["yq_min"]), int(row["yq_max"]) + 1)
-        for yq in qrange:
-            expanded_rows.append({
-                "worker_id":   row["worker_id"],
-                "employer_id": row["employer_id"],
-                "yq":          yq,
-            })
+    # Expand to full quarterly panel for each pair. Vectorized "repeat a range
+    # per row" trick (avoids a Python-level loop over pairs, which doesn't
+    # scale to real UI data with many worker x employer pairs): repeat each
+    # pair's worker/employer id by its span length, then reconstruct 0..n-1
+    # offsets within each pair via a cumulative-count trick and add yq_min.
+    counts = (pairs["yq_max"] - pairs["yq_min"] + 1).to_numpy()
+    total = int(counts.sum())
+    group_start = np.repeat(np.cumsum(counts) - counts, counts)
+    offsets = np.arange(total) - group_start
 
-    panel = pd.DataFrame(expanded_rows)
+    panel = pd.DataFrame({
+        "worker_id":   np.repeat(pairs["worker_id"].to_numpy(), counts),
+        "employer_id": np.repeat(pairs["employer_id"].to_numpy(), counts),
+        "yq":          np.repeat(pairs["yq_min"].to_numpy(), counts) + offsets,
+    })
     panel["employed"] = 0
 
     # Merge in actual employment records
@@ -348,5 +351,12 @@ if __name__ == "__main__":
     })
     synthetic = synthetic.drop_duplicates(["worker_id", "employer_id", "year", "quarter"])
 
-    ui = load_ui_records(synthetic if isinstance(synthetic, Path) else synthetic)
+    # load_ui_records() reads from a file path, not a DataFrame directly, so
+    # round-trip the synthetic data through a temp parquet file first.
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        tmp_path = Path(tmp_dir) / "synthetic_ui_records.parquet"
+        synthetic.to_parquet(tmp_path, index=False)
+        ui = load_ui_records(tmp_path)
+
     print("Done loading synthetic data.")
