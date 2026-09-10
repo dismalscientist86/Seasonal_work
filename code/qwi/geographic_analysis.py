@@ -25,6 +25,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from config import QWI_RAW, QWI_CLEAN, FIGURES_DIR, TABLES_DIR, MIN_EXCESS_OBS, STATE_NAMES, XWALK
+from excess_utils import cyclical_excess_by_quarter
 
 STATE_ABBR = {
     "Alabama":"AL","Alaska":"AK","Arizona":"AZ","Arkansas":"AR","California":"CA",
@@ -72,32 +73,13 @@ def _excess_by_quarter(pivot: pd.DataFrame, min_obs: int, prefix: str) -> tuple[
     pivot table (year x quarter). Used for both the flow (sep_rate) and
     stock (emp_share) measures so the two are computed identically.
 
-    Returns (record_fields, {quarter: (mean_excess, n_obs)} for quarters
-    meeting min_obs).
+    Thin wrapper: the actual computation now lives in excess_utils.py, shared
+    with seasonal_index.py and earnings_index.py (this was the first, most
+    general implementation, so the others were consolidated onto it rather
+    than the reverse). Kept as a local wrapper so call sites below don't
+    need to change.
     """
-    record = {}
-    excesses = {}
-    for q in [1, 2, 3, 4]:
-        q_prev = 4 if q == 1 else q - 1
-        q_next = 1 if q == 4 else q + 1
-
-        if q not in pivot.columns or q_prev not in pivot.columns or q_next not in pivot.columns:
-            record[f"{prefix}Q{q}"] = np.nan
-            record[f"n_{prefix}Q{q}"] = 0
-            continue
-        if q == 1:
-            exr = (pivot[1] - (pivot[4].shift(1) + pivot[2]) / 2).dropna()
-        elif q == 4:
-            exr = (pivot[4] - (pivot[3] + pivot[1].shift(-1)) / 2).dropna()
-        else:
-            exr = (pivot[q] - (pivot[q - 1] + pivot[q + 1]) / 2).dropna()
-
-        record[f"{prefix}Q{q}"] = exr.mean() if len(exr) >= min_obs else np.nan
-        record[f"n_{prefix}Q{q}"] = len(exr)
-        if len(exr) >= min_obs:
-            excesses[q] = (exr.mean(), len(exr))
-
-    return record, excesses
+    return cyclical_excess_by_quarter(pivot, min_obs, prefix)
 
 
 def load_and_compute(min_obs: int = MIN_EXCESS_OBS) -> pd.DataFrame:

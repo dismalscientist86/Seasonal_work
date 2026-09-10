@@ -43,6 +43,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from config import QWI_RAW, QWI_CLEAN, FIGURES_DIR, TABLES_DIR, MIN_EXCESS_OBS
 
 from seasonal_index import load_qwi, NAICS_SECTOR_LABELS
+from excess_utils import cyclical_excess_by_quarter
 
 
 #  Earnings share / excess computation (mirrors compute_employment_shares /
@@ -86,44 +87,12 @@ def compute_earnings_excess_by_quarter(
 
     for ind, grp in earnings_shares.groupby("industry"):
         pivot = grp.pivot(index="year", columns="quarter", values="earnings_share")
-        excess = {}
-        mean_shares = {}
 
-        for q in [1, 2, 3, 4]:
-            q_prev = 4 if q == 1 else q - 1
-            q_next = 1 if q == 4 else q + 1
-
-            if q not in pivot.columns:
-                excess[f"earnings_excessQ{q}"] = np.nan
-                excess[f"n_earnings_excessQ{q}"] = 0
-                mean_shares[f"earnings_share_Q{q}"] = np.nan
-                continue
-
-            mean_shares[f"earnings_share_Q{q}"] = pivot[q].mean()
-
-            if q_prev not in pivot.columns or q_next not in pivot.columns:
-                excess[f"earnings_excessQ{q}"] = np.nan
-                excess[f"n_earnings_excessQ{q}"] = 0
-                continue
-
-            if q == 1:
-                s_curr = pivot[1]
-                s_prev = pivot[4].shift(1)
-                s_next = pivot[2]
-            elif q == 4:
-                s_curr = pivot[4]
-                s_prev = pivot[3]
-                s_next = pivot[1].shift(-1)
-            else:
-                s_curr = pivot[q]
-                s_prev = pivot[q - 1]
-                s_next = pivot[q + 1]
-
-            cf = (s_prev + s_next) / 2
-            exr_series = (s_curr - cf).dropna()
-
-            excess[f"earnings_excessQ{q}"] = exr_series.mean() if len(exr_series) >= min_obs else np.nan
-            excess[f"n_earnings_excessQ{q}"] = len(exr_series)
+        mean_shares = {
+            f"earnings_share_Q{q}": (pivot[q].mean() if q in pivot.columns else np.nan)
+            for q in [1, 2, 3, 4]
+        }
+        excess, _ = cyclical_excess_by_quarter(pivot, min_obs, "earnings_excess")
 
         records.append({
             "industry": ind,

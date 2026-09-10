@@ -49,6 +49,7 @@ from config import (
     CBP_YEAR,
     CBP_NAICS_LEVELS,
     CBP_LFO_TOTAL,
+    CBP_EMPSZES_TOTAL,
     STATE_FIPS,
     STATE_NAMES,
 )
@@ -263,7 +264,159 @@ def fetch_cbp_counties(
     return combined_path
 
 
-#  Entry point 
+#  National-by-establishment-size fetch
+
+# Variables for the national-by-size fetch. EMPSZES / EMPSZES_LABEL are what
+# distinguish the size-bucket rows from each other and from the "001" total;
+# without them in `get=` the API would just return the single total row.
+CBP_SIZE_VARS = [
+    "ESTAB", "ESTAB_F",
+    "EMP", "EMP_F",
+    "PAYANN", "PAYANN_F",
+    "EMPSZES", "EMPSZES_LABEL",
+    "NAICS2017_LABEL",
+]
+
+
+def _fetch_national_industry_by_size(
+    naics_code: str,
+    year: int,
+    api_key: str,
+    lfo: str = CBP_LFO_TOTAL,
+    max_retries: int = 3,
+    retry_delay: float = 1.0,
+) -> pd.DataFrame | None:
+    """
+    Fetch the national establishment-size distribution for one NAICS2017 code
+    (one API call — every EMPSZES bucket comes back as a separate row,
+    including the "001" all-establishments total).
+
+    Returns a DataFrame or None if the code has no national CBP data (HTTP
+    204 — notably all of NAICS 111/112 crop & animal production, which CBP
+    does not cover) or the request failed after retries.
+    """
+    url = CBP_BASE.format(year=year)
+    params = {
+        "get": ",".join(CBP_SIZE_VARS),
+        "for": "us:*",
+        "NAICS2017": naics_code,
+        "LFO": lfo,
+    }
+    if api_key:
+        params["key"] = api_key
+
+    for attempt in range(max_retries):
+        try:
+            r = requests.get(url, params=params, timeout=30)
+            if r.status_code == 204:
+                return None
+            r.raise_for_status()
+            data = r.json()
+            if len(data) < 2:
+                return None
+            cols, rows = data[0], data[1:]
+            df = pd.DataFrame(rows, columns=cols)
+            for c in NUMERIC_VARS:
+                if c in df.columns:
+                    df[c] = pd.to_numeric(df[c], errors="coerce")
+            df["naics_code"] = naics_code
+            df["naics_level"] = len(naics_code)
+            df["year"] = year
+            return df
+
+        except requests.exceptions.HTTPError as e:
+            if e.response is not None and e.response.status_code == 204:
+                return None
+            if attempt < max_retries - 1:
+                time.sleep(retry_delay * (attempt + 1))
+            else:
+                print(f"    HTTP error for naics={naics_code}: {e}")
+                return None
+        except Exception as e:
+            if attempt < max_retries - 1:
+                time.sleep(retry_delay)
+            else:
+                print(f"    Error for naics={naics_code}: {e}")
+                return None
+
+    return None
+
+
+def fetch_cbp_national_by_size(
+    naics_codes: list[str] | None = None,
+    naics_level: int = 6,
+    year: int = CBP_YEAR,
+    lfo: str = CBP_LFO_TOTAL,
+    api_key: str | None = None,
+    output_dir: Path | None = None,
+) -> Path:
+    """
+    Fetch national CBP establishment counts + employment by NAICS x
+    establishment-employment-size class, for the establishment-size vs.
+    seasonality analysis (code/establishment_size_analysis.py).
+
+    National (not county) because (a) the question — do seasonal industries
+    skew toward small establishments? — is industry-level, and (b) county x
+    NAICS6 x size cells are almost entirely EMP-suppressed, whereas national
+    x NAICS6 x size has EMP fully populated.
+
+    ~1 API call per NAICS code (~1,000 calls, ~20 min) — cheap enough that
+    this isn't split into resumable chunks the way the ~17-21 hr county /
+    QWI fetches are, but it does skip codes already present if the output
+    parquet exists, so an interrupted run can just be re-launched.
+
+    Returns the path to the combined parquet.
+    """
+    api_key = api_key or CENSUS_API_KEY
+    output_dir = output_dir or CBP_RAW
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    if not api_key:
+        print(
+            "WARNING: No Census API key set. Requests will be rate-limited to "
+            "500/day without a key. Set CENSUS_API_KEY in your .env file.\n"
+            "Get a free key at https://api.census.gov/data/key_signup.html"
+        )
+
+    if naics_codes is None:
+        naics_codes = load_naics_codes(naics_level)
+
+    out_path = output_dir / f"cbp_national_naics{naics_level}_by_size.parquet"
+
+    existing = pd.DataFrame()
+    already = set()
+    if out_path.exists():
+        existing = pd.read_parquet(out_path)
+        already = set(existing["naics_code"].astype(str).unique())
+        print(f"Resuming: {len(already):,} NAICS codes already in {out_path.name}")
+
+    todo = [c for c in naics_codes if c not in already]
+    print(f"\nFetching national CBP {year} by establishment size: "
+          f"{len(todo):,} NAICS-{naics_level} codes to go (LFO={lfo})")
+
+    frames = [existing] if len(existing) else []
+    new_since_save = 0
+    with tqdm(total=len(todo), desc="API calls") as pbar:
+        for naics_code in todo:
+            df = _fetch_national_industry_by_size(naics_code, year, api_key, lfo=lfo)
+            if df is not None and len(df) > 0:
+                frames.append(df)
+                new_since_save += 1
+            pbar.update(1)
+            time.sleep(0.05)
+            # Checkpoint every 200 codes so an interrupted run loses little.
+            if new_since_save >= 200:
+                pd.concat(frames, ignore_index=True).to_parquet(out_path, index=False)
+                new_since_save = 0
+
+    combined = pd.concat(frames, ignore_index=True) if frames else pd.DataFrame(columns=CBP_SIZE_VARS)
+    combined.to_parquet(out_path, index=False)
+    print(f"\nSaved {len(combined):,} naics x size rows "
+          f"({combined['naics_code'].nunique():,} industries) to {out_path}")
+    return out_path
+
+
+#  Entry point
 
 if __name__ == "__main__":
     import argparse
@@ -287,7 +440,21 @@ if __name__ == "__main__":
         "--naics-file", type=Path, default=None,
         help="Optional override for the NAICS code list CSV (default: code/qwi/naics_codes.csv).",
     )
+    parser.add_argument(
+        "--by-size", action="store_true",
+        help="Instead of the county fetch, fetch NATIONAL CBP by NAICS x "
+             "establishment-employment-size class (~1,000 calls, ~20 min) for "
+             "code/establishment_size_analysis.py. Uses --naics-level 6 only.",
+    )
     args = parser.parse_args()
+
+    if args.by_size:
+        codes = load_naics_codes(6, naics_file=args.naics_file) if args.naics_file else None
+        out = fetch_cbp_national_by_size(
+            naics_codes=codes, naics_level=6, year=args.year, lfo=args.lfo,
+        )
+        print(f"National-by-size output: {out}")
+        sys.exit(0)
 
     for level in args.naics_level:
         codes = load_naics_codes(level, naics_file=args.naics_file) if args.naics_file else None

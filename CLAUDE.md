@@ -267,6 +267,44 @@ flow=0 or stock=0 in either measure mechanically drags down their correlation):
   hiring/staffing surge (harvest-time ginning; election-cycle staffing) not
   matched by a comparable separation-rate spike.
 
+### Hire (Accessions) Seasonal Index — code ready, awaiting refetch
+
+`code/qwi/hire_index.py` builds a third gross-flow measure — **hiring**, from
+QWI's `HirA` ("Hires All: Counts (Accessions)") — as the direct in-flow
+counterpart to the separations-based flow index. `hire_rate = HirA / EmpEnd`,
+then the same shared cyclical excess-by-quarter calc, then a 0-1
+`hire_seasonal_index`. Unlike `sep_rate`, `hire_rate` is *not* truncated at
+>=1 (a quarter's hires can legitimately exceed end-of-quarter headcount for a
+ramping-up seasonal operation), so extreme values are left to the 99th-pct
+winsorization instead.
+
+The point is the **timing** vs. separations: `compare_hire_vs_separation_timing()`
+computes `hire_to_sep_lag_quarters = (peak_quarter - peak_quarter_hire) % 4`
+(0 = same quarter → likely high churn, same jobs different workers each cycle;
+1-3 = separation follows the hiring peak by that many quarters — e.g. retail's
+hire-Q4/separate-Q1) and a `likely_churn` flag (seasonal hiring AND
+separations, but flat seasonal headcount).
+
+`HirA` was **verified live** against the Census API (2026-09): populates with
+sensible magnitudes and a "good" status flag on both a large and a thin cell,
+unlike the broken Payroll field. It has been added to `QWI_VARS` in
+`fetch_qwi.py`, but the existing `qwi_state_*.parquet` files predate it —
+**`hire_index.py` needs a fresh full 51-state refetch (~17 hrs) before it can
+run for real**, and raises a clear error otherwise. The full pipeline (rates →
+excess → index → timing comparison → 3 figures) was dry-run-tested end to end
+on real-scale data by standing in `Sep` for the not-yet-fetched `HirA`.
+
+**Shared refactor (2026-09):** the cyclical excess-by-quarter calculation was
+copy-pasted four times (separations, employment/stock, earnings, and
+`geographic_analysis.py`'s state-level version). It now lives once in
+`code/qwi/excess_utils.py::cyclical_excess_by_quarter()`; `seasonal_index.py`
+(both functions), `earnings_index.py`, `geographic_analysis.py`, and
+`hire_index.py` all call it. Verified byte-identical output on full reruns of
+the first three against the pre-refactor committed CSVs. The per-caller
+groupby-loop wrappers and "build a 0-1 index from the excess table" steps stay
+separate (their output column names and, for earnings, extra trough columns,
+differ enough that one generic function would cost more than it saves).
+
 ### Income/Earnings Seasonality Index
 
 `code/qwi/earnings_index.py` builds a third seasonal measure — **income**, not
@@ -454,6 +492,53 @@ any county's score), `output/figures/county_seasonal_exposure_06.pdf`.
 Usage: `python code/county_seasonal_index.py --state 06 --highlight 06113`
 (any state/county FIPS works once that state's CBP data is fetched).
 
+### Establishment Size vs. Seasonality
+
+`code/establishment_size_analysis.py` asks: do seasonal jobs concentrate in
+small, independent businesses or large ones? It merges the **national** CBP
+establishment-size distribution (NAICS6 × `EMPSZES` employment-size class,
+fetched by `fetch_cbp.py --by-size` — ~1,000 calls, ~20 min, national not
+county because county × NAICS6 × size is almost entirely EMP-suppressed while
+national is fully populated) onto the QWI separation-based `seasonal_index`.
+
+**Coverage caveat:** CBP does not cover NAICS 111/112 (crop & animal farm
+production) — every farming code returns HTTP 204. So the single most seasonal
+part of the QWI index drops out of this merge entirely; the analysis is
+*conditional on the CBP universe* (construction, tourism/lodging, food
+service, agricultural *support* services NAICS 115, seasonal retail, seasonal
+manufacturing, etc.). 826 industries survive the CBP × QWI merge.
+
+**Result: more seasonal industries do skew toward smaller establishments —
+a real but concave relationship, and strongly sector-dependent.**
+- Spearman correlation of `seasonal_index` with: employment share in
+  <20-employee establishments +0.50; establishment-count share <20 emp +0.53;
+  average establishment size **−0.52** (Pearson only −0.14 — the size
+  relationship is monotone but very non-linear).
+- By seasonality quartile, median average establishment size falls
+  **51 → 33 → 15 → 10 employees**; small-establishment employment share rises
+  **13% → 20% → 30% → 40%**; large-establishment (≥100 emp) share falls
+  **59% → 50% → 41% → 31%**. The decile-mean curve rises steeply up to
+  `seasonal_index ≈ 0.15` then plateaus near 40% — i.e. "very non-seasonal
+  industries are large-establishment; anything with meaningful seasonality is
+  ~40% small-establishment employment."
+- **Sector split is the real story.** Seasonal *services / construction /
+  ag-support* are small-establishment-heavy: mobile food services (80% of
+  employment in <20-emp establishments), recreational goods rental (59%),
+  drive-in theaters (64%), soil prep & planting (55%), RV parks (67%),
+  specialty-trade contractors (~48%). Seasonal *manufacturing and large
+  recreation venues* are the opposite: fruit & vegetable canning (6%,
+  avg 56 employees/establishment), frozen fruit/juice/veg mfg (2%, avg 126),
+  racetracks (4%, avg 60), golf courses (11%, avg 32). Manufacturing as a
+  whole (329 CBP industries) averages just 10% small-establishment employment.
+
+Outputs: `output/tables/establishment_size_naics6.csv` (per-industry size
+metrics + merged seasonal_index), `output/tables/size_vs_seasonality_summary.csv`
+(correlations + quartile + by-sector tables), `output/figures/size_vs_seasonality_scatter.pdf`
+(with a decile-mean overlay), `output/figures/size_by_seasonality_quartile.pdf`.
+
+Usage: `python code/fetch_cbp.py --by-size` then
+`python code/establishment_size_analysis.py`.
+
 ### Firm-Level Module
 
 Input: UI wage records (worker_id, employer_id, quarter, earnings)
@@ -470,15 +555,18 @@ Two approaches:
 ```
 code/
 ├── config.py                        # Paths and parameters (REPO_ROOT auto-detected)
-├── fetch_cbp.py                     # County Business Patterns fetcher (county x NAICS); CA done, other states [in progress]
+├── fetch_cbp.py                     # County Business Patterns fetcher: county x NAICS (CA done); --by-size = national NAICS x establishment-size
 ├── county_seasonal_index.py         # County-level seasonal exposure (CBP industry mix x QWI seasonal index)
+├── establishment_size_analysis.py   # Do seasonal industries skew small? (national CBP-by-size x QWI seasonal index)
 ├── replication/
 │   ├── load_data.py                 # Extract zip; load .dta.gz files
 │   ├── recurrence.py                # Core excess recurrence estimation (main replication)
 │   └── gbt_classifier.py           # LightGBM classifier: train on CPS, apply to SIPP
 ├── qwi/
-│   ├── fetch_qwi.py                 # Download QWI data via Census API
+│   ├── fetch_qwi.py                 # Download QWI data via Census API (QWI_VARS now includes HirA)
+│   ├── excess_utils.py              # Shared cyclical-excess-by-quarter calc (used by all four seasonal measures)
 │   ├── seasonal_index.py            # Build 6-digit NAICS seasonal index (flow + stock, peak-flexible); flow-vs-stock comparison
+│   ├── hire_index.py                # Hiring (accessions) seasonal index + hire-vs-separation timing lag [needs HirA refetch]
 │   ├── geographic_analysis.py       # State-level variation (flow + stock): figures + tables
 │   ├── state_index_percentiles.py   # Within-state top/bottom-1% seasonality + national/cross-state overlap
 │   ├── covid_robustness_check.py    # Pre-COVID (2000-19) vs. full-sample index comparison
@@ -523,9 +611,12 @@ crosswalk source workbook stay untracked.
 - `data/naics_xwalk/2022_NAICS_Structure.xlsx` — Census 2022 NAICS structure workbook
   (not in repo; download from census.gov and place here to run `clean_naics_xwalk.py`)
 
-### County-Level Extension (CBP, in progress)
+### CBP Extensions (County-level in progress; national-by-size done)
 - Same Census API key as the QWI extension
 - `code/qwi/naics_codes.csv` (reused for the CBP NAICS code list)
+- `fetch_cbp.py --by-size` (national NAICS x establishment-size, ~20 min) is
+  done; the national county-level run (`fetch_cbp.py` with no `--by-size`,
+  all 51 states, ~21-22 hrs) is still not launched
 
 ### Firm-level Module
 - UI wage records in parquet or CSV format (see `code/firm_level/build_events.py`)
@@ -557,9 +648,12 @@ python code/qwi/covid_robustness_check.py  # pre-COVID vs. full-sample index com
 python code/qwi/seasonality_trend_check.py # 2000-10 vs. 2011-23: has seasonality changed over time?
 python code/qwi/seasonal_index.py --compare-flow-stock both  # flow vs. stock index comparison
 python code/qwi/earnings_index.py          # income/earnings seasonality + off-season income-dip test
+python code/qwi/hire_index.py              # hiring seasonality + hire-vs-separation timing [needs fetch_qwi.py rerun for HirA]
 python code/fetch_cbp.py --state 06 --naics-level 6  # county x NAICS establishment counts (CA done; other states in progress)
 python code/fetch_cbp.py --state 06 --naics-level 4  # NAICS-4 fallback for suppressed county cells
 python code/county_seasonal_index.py --state 06 --highlight 06113  # county-level seasonal exposure (example: Yolo, CA)
+python code/fetch_cbp.py --by-size         # national CBP by NAICS x establishment-size class (~20 min)
+python code/establishment_size_analysis.py # do seasonal industries skew toward small establishments?
 ```
 
 ---
@@ -594,6 +688,10 @@ python code/county_seasonal_index.py --state 06 --highlight 06113  # county-leve
 - [x] Seasonality-over-time trend check (`seasonality_trend_check.py`) — 2000-2010 vs. 2011-2023. Economy-wide mean is essentially flat (0.131 -> 0.122), but masks real reshuffling: **as of a 2026-09 pipeline re-run, Educational services fell most (-0.053) and Construction kept falling (-0.047); Agriculture also fell (-0.037), reversing an earlier read of this same check that had reported Agriculture as the largest increaser off older QWI data (see correction note under "Has Seasonality Changed Over Time?" above) — the H-2A guest-worker hypothesis floated there is retracted**. Correlation (Pearson 0.931/Spearman 0.826) is meaningfully lower than the COVID check's, as expected for an 11-year period gap vs. excluding 2 years; the elevated peak-quarter-change rate (30.2%) concentrates in weakly-seasonal industries (noise), not strongly-seasonal ones
 - [ ] Apply firm-level code on other machine
 - [x] Published the derived index CSVs in `data/qwi_clean/` (national, state x NAICS6, earnings) to the public repo with a codebook per file; `.gitignore` carved out `data/*` + `!data/qwi_clean/` so raw inputs stay untracked
+- [x] Deduplicated the cyclical excess-by-quarter calc into `code/qwi/excess_utils.py` — was copy-pasted 4x (separations, employment/stock, earnings, state-level); all callers verified byte-identical after the refactor
+- [x] Hiring (accessions) seasonal index (`hire_index.py`) — code + dry-run test complete; `HirA` verified live and added to `QWI_VARS`. Blocked on a fresh ~17hr QWI refetch before it produces real numbers. The analysis it enables: hire-vs-separation *timing lag* per industry (0 quarters = churn; 1-3 = separation follows the hiring peak) and a `likely_churn` flag
+- [x] Establishment size vs. seasonality (`establishment_size_analysis.py`) — fetched national CBP by NAICS x establishment-size class (`fetch_cbp.py --by-size`, 831 industries). More seasonal industries skew toward smaller establishments (Spearman ~0.5 for small-establishment employment share, -0.52 for average establishment size; median establishment size 51 emp in the least-seasonal quartile -> 10 emp in the most). But it's concave (plateaus at ~40% small-establishment employment above seasonal_index ~0.15) and sector-driven: seasonal services/construction/ag-support are small-establishment-heavy, seasonal manufacturing (canning, frozen foods) and big recreation venues (racetracks, golf courses) are the opposite. Conditional on the CBP universe — NAICS 111/112 farm production is not in CBP at all
+- [ ] National CBP-by-*size* is done, but the national CBP-by-*county* run (for a 51-state county-level exposure index) is still not launched (~21-22hrs)
 
 ---
 

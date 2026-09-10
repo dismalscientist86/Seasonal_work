@@ -115,6 +115,14 @@ CBP_NAICS_LEVELS = [6, 4]
 # LFO breakdown rather than just the total.
 CBP_LFO_TOTAL = "001"
 
+# CBP: establishment-employment-size code for "all establishments" (the total
+# row). EMPSZES behaves exactly like LFO — "default displayed", so a request
+# that puts EMPSZES in `get=` without also filtering it returns one row per
+# size bucket. The county fetch (fetch_cbp_counties) never puts EMPSZES in
+# `get=` at all, so it is unaffected; the national-by-size fetch
+# (fetch_cbp_national_by_size) deliberately does, to get the breakdown.
+CBP_EMPSZES_TOTAL = "001"
+
 # State FIPS codes (50 states + DC), shared across QWI and CBP fetchers.
 STATE_FIPS = [
     "01","02","04","05","06","08","09","10","11","12","13","15","16","17","18",

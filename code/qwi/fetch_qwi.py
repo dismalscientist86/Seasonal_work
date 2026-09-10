@@ -51,7 +51,16 @@ QWI_BASE = "https://api.census.gov/data/timeseries/qwi/se"
 # always 5, unlike EarnBeg/EarnS which return flag 1 = good). "EarnBeg"
 # (End-of-Quarter Employment: Average Monthly Earnings) is the working
 # equivalent and is what code/qwi/earnings_index.py is built on.
-QWI_VARS = ["Emp", "EmpEnd", "Sep", "SepBeg", "EmpS", "EarnBeg"]
+#
+# "HirA" (Hires All: Counts (Accessions)) was added 2026-09 for
+# code/qwi/hire_index.py — verified live against the Census API on both a
+# large (722511, full-service restaurants) and thin (111336, fruit/tree nut
+# farming) cell: populates with sensible magnitudes (same order as Sep) and
+# a "good" status flag (sHirA=1), unlike Payroll's silent null. Adding it
+# here requires a fresh full 51-state refetch before hire_index.py has real
+# data to run on — the existing qwi_state_*.parquet files predate this
+# variable and don't have the column.
+QWI_VARS = ["Emp", "EmpEnd", "Sep", "SepBeg", "EmpS", "EarnBeg", "HirA"]
 
 
 #  API helpers 

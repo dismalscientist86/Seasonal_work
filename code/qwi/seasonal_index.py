@@ -45,6 +45,7 @@ from config import (
     MIN_EXCESS_OBS,
     XWALK,
 )
+from excess_utils import cyclical_excess_by_quarter
 
 warnings.filterwarnings("ignore")
 
@@ -203,46 +204,12 @@ def compute_employment_excess_by_quarter(
 
     for ind, grp in emp_shares.groupby("industry"):
         pivot = grp.pivot(index="year", columns="quarter", values="emp_share")
-        excess = {}
-        mean_shares = {}
 
-        for q in [1, 2, 3, 4]:
-            q_prev = 4 if q == 1 else q - 1
-            q_next = 1 if q == 4 else q + 1
-
-            if q not in pivot.columns:
-                excess[f"emp_excessQ{q}"]   = np.nan
-                excess[f"n_emp_excessQ{q}"] = 0
-                mean_shares[f"emp_share_Q{q}"] = np.nan
-                continue
-
-            mean_shares[f"emp_share_Q{q}"] = pivot[q].mean()
-
-            # Need both adjacent quarters for the counterfactual
-            if q_prev not in pivot.columns or q_next not in pivot.columns:
-                excess[f"emp_excessQ{q}"]   = np.nan
-                excess[f"n_emp_excessQ{q}"] = 0
-                continue
-
-            # Handle year wrap for Q1/Q4 neighbors
-            if q == 1:
-                s_curr = pivot[1]
-                s_prev = pivot[4].shift(1)   # previous year's Q4
-                s_next = pivot[2]
-            elif q == 4:
-                s_curr = pivot[4]
-                s_prev = pivot[3]
-                s_next = pivot[1].shift(-1)  # next year's Q1
-            else:
-                s_curr = pivot[q]
-                s_prev = pivot[q_prev]
-                s_next = pivot[q_next]
-
-            cf = (s_prev + s_next) / 2
-            exr_series = (s_curr - cf).dropna()
-
-            excess[f"emp_excessQ{q}"]        = exr_series.mean() if len(exr_series) >= min_obs else np.nan
-            excess[f"n_emp_excessQ{q}"]      = len(exr_series)
+        mean_shares = {
+            f"emp_share_Q{q}": (pivot[q].mean() if q in pivot.columns else np.nan)
+            for q in [1, 2, 3, 4]
+        }
+        excess, _ = cyclical_excess_by_quarter(pivot, min_obs, "emp_excess")
 
         records.append({
             "industry": ind,
@@ -345,48 +312,11 @@ def compute_excess_recurrence_by_quarter(
         # Pivot to (year × quarter) matrix
         pivot = grp.pivot(index="year", columns="quarter", values="sep_rate")
 
-        excess = {}
-        mean_rates = {}
-
-        for q in [1, 2, 3, 4]:
-            q_prev = 4 if q == 1 else q - 1
-            q_next = 1 if q == 4 else q + 1
-
-            if q not in pivot.columns:
-                excess[f"excessQ{q}"]   = np.nan
-                excess[f"n_excessQ{q}"] = 0
-                mean_rates[f"sep_rate_Q{q}"] = np.nan
-                continue
-
-            mean_rates[f"sep_rate_Q{q}"] = pivot[q].mean()
-
-            # Need both adjacent quarters to compute the counterfactual
-            if q_prev not in pivot.columns or q_next not in pivot.columns:
-                excess[f"excessQ{q}"]   = np.nan
-                excess[f"n_excessQ{q}"] = 0
-                continue
-
-            # For cyclical neighbors, we need to handle year wrap
-            if q == 1:
-                # Q1(t)'s neighbors: Q4(t-1) and Q2(t)
-                s_curr = pivot[1]
-                s_prev = pivot[4].shift(1)   # previous year's Q4
-                s_next = pivot[2]
-            elif q == 4:
-                # Q4(t)'s neighbors: Q3(t) and Q1(t+1)
-                s_curr = pivot[4]
-                s_prev = pivot[3]
-                s_next = pivot[1].shift(-1)  # next year's Q1
-            else:
-                s_curr = pivot[q]
-                s_prev = pivot[q_prev]
-                s_next = pivot[q_next]
-
-            cf = (s_prev + s_next) / 2
-            exr_series = (s_curr - cf).dropna()
-
-            excess[f"excessQ{q}"]        = exr_series.mean() if len(exr_series) >= min_obs else np.nan
-            excess[f"n_excessQ{q}"]      = len(exr_series)
+        mean_rates = {
+            f"sep_rate_Q{q}": (pivot[q].mean() if q in pivot.columns else np.nan)
+            for q in [1, 2, 3, 4]
+        }
+        excess, _ = cyclical_excess_by_quarter(pivot, min_obs, "excess")
 
         # Data coverage: how many state × year cells contributed
         n_years = len(grp["year"].unique())
