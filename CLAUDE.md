@@ -539,6 +539,80 @@ metrics + merged seasonal_index), `output/tables/size_vs_seasonality_summary.csv
 Usage: `python code/fetch_cbp.py --by-size` then
 `python code/establishment_size_analysis.py`.
 
+### Industry Pay, Gender, and Seasonality Profile (ACS PUMS)
+
+Motivating question: find a pair of industries with ~equal pay, opposite
+seasonality, and a female-dominated workforce, to illustrate whether
+seasonal work leaves otherwise-comparable (mostly female) workers more
+rent-burdened. An initial ad hoc pass at this used QWI's `EarnBeg` (average
+monthly pay *rate* among people employed that quarter) annualized by x12 as
+"annual pay," and pulled gender composition from a coarser BLS table than
+the NAICS6-level seasonality figure it was compared against. Both were
+wrong in the same direction: annualizing a rate assumes year-round work,
+which overstates realized income for exactly the seasonal population this
+project studies, and mixing resolutions is an apples-to-oranges comparison.
+This four-script pipeline fixes both:
+
+- `code/build_indp_naics_crosswalk.py` — downloads and parses Census's
+  official "2022 Census Industry Code List with Crosswalk" into a NAICS6 <->
+  Census-industry-code (`INDP`, the ACS/CPS microdata classification) lookup,
+  251 of 268 leaf codes resolved (17 dropped: military/government "Part of
+  ..." references with no clean NAICS mapping). This classification is
+  *coarser than 6-digit NAICS* for many service industries — e.g. NAICS
+  611710 (Educational Support Services) is bundled with five sibling "other
+  schools and instruction" codes into one Census industry code — a real
+  resolution ceiling in the source data, not a tooling gap.
+- `code/fetch_acs_pums.py` — fetches ACS 1-year PUMS person records (all 51
+  states + DC, ~3.4M people, ~20 min): `WAGP` (wage/salary income actually
+  received in the past 12 months — captures partial-year work, unlike a QWI
+  rate), `SEX`, `WKWN` (weeks worked), `INDP`, `PWGTP` (person weight).
+- `code/industry_pay_gender_profile.py` — per Census industry code: weighted
+  median `WAGP`, weighted %female, weighted mean weeks worked; separately,
+  aggregates QWI's NAICS6-level `excessQ1-4` up to the same industry-code
+  level (weighted by each NAICS6's average QWI employment) and rebuilds
+  amplitude/peak-quarter/seasonal_index from the aggregate, the same
+  construction `seasonal_index.py` uses at the NAICS6 level. Merges both on
+  the industry code. Output: `output/tables/industry_pay_gender_seasonality_profile.csv`
+  (250 industry codes).
+- `code/find_seasonal_pairs.py` — screens for pairs with similar realized pay
+  (default: within 15%), a large seasonality gap (default: >=0.25), and a
+  female-dominated workforce (default: >=55%), then reports rent burden at a
+  configurable monthly rent (default: the Census ACS 2020-2024 national
+  median gross rent, $1,413/mo). Output: `output/tables/seasonal_pair_candidates.csv`.
+
+**Result: the fix changed the answer, not just its precision.** The initial
+ad hoc estimate had Educational Support Services (and its bundled siblings)
+at ~$52,000/year (QWI rate x 12); the realized PUMS figure is **$20,000** —
+2.6x lower. At default thresholds, only 9 of 250 industry codes clear the
+female-share and PUMS-sample-size bars, yielding 3 candidate pairs. The
+standout: **"Other schools and instruction, and educational support
+services"** (seasonal_index 0.51, peaks Q2/spring) vs. **"Other personal
+services"** (seasonal_index 0.13, flat) — both at **exactly $20,000**
+realized median annual pay, 65% and 68% female, and both **84.8%** rent-
+burdened at the national median rent.
+
+**But weeks-worked does not explain the pay level, in any of the 3 pairs**
+(all three pairs show <1 week difference between their seasonal and flat
+member, ~46-49 weeks/year either way) — undercutting the "seasonal workers
+have fewer working weeks, hence lower realized pay" mechanism the whole
+exercise set out to test. `WKWN` counts weeks worked *at any job in the past
+year*, not specifically within the profiled industry, so a worker cycled out
+of a seasonal role can still show a full work-year via other employment —
+arguably a better fit to Coglianese & Price's own household-adaptation
+framing than the mechanism this analysis was built to find: the income hit
+from seasonality doesn't show up as fewer annual weeks worked, it shows up
+in the underlying wage level of these low-wage service/education-support
+categories, largely independent of whether that category happens to be
+seasonal. The rent-burden finding stands; the mechanism guessed at going in
+does not.
+
+**Caveats:** `WAGP` is a *personal* wage — many workers in a $20k-median
+category are secondary earners, students, or part-time workers, not
+necessarily sole rent-payers, so comparing an individual wage to a full
+apartment's rent can overstate personal burden. PUMS is a ~1% sample, so the
+9-industry screening universe is real but small. The rent benchmark is
+national, not localized to where these industries concentrate.
+
 ### Firm-Level Module
 
 Input: UI wage records (worker_id, employer_id, quarter, earnings)
@@ -558,6 +632,10 @@ code/
 ├── fetch_cbp.py                     # County Business Patterns fetcher: county x NAICS (CA done); --by-size = national NAICS x establishment-size
 ├── county_seasonal_index.py         # County-level seasonal exposure (CBP industry mix x QWI seasonal index)
 ├── establishment_size_analysis.py   # Do seasonal industries skew small? (national CBP-by-size x QWI seasonal index)
+├── build_indp_naics_crosswalk.py    # Census industry code (ACS PUMS INDP) <-> NAICS6 crosswalk
+├── fetch_acs_pums.py                # Download ACS 1-year PUMS person records (realized annual pay, sex, weeks worked)
+├── industry_pay_gender_profile.py   # Per-industry-code: realized pay (PUMS) + %female + QWI seasonality, one resolution
+├── find_seasonal_pairs.py           # Screen for close-pay/opposite-seasonality/female-dominated industry pairs + rent burden
 ├── replication/
 │   ├── load_data.py                 # Extract zip; load .dta.gz files
 │   ├── recurrence.py                # Core excess recurrence estimation (main replication)
@@ -618,6 +696,12 @@ crosswalk source workbook stay untracked.
   done; the national county-level run (`fetch_cbp.py` with no `--by-size`,
   all 51 states, ~21-22 hrs) is still not launched
 
+### Industry Pay/Gender/Seasonality Profile (ACS PUMS)
+- Same Census API key as the QWI/CBP extensions
+- `fetch_acs_pums.py` downloads ~3.4M ACS 1-year PUMS person records (~20 min);
+  `build_indp_naics_crosswalk.py` downloads a small (~100KB) Census crosswalk
+  workbook — both cache to `data/acs_raw/` (gitignored, like other raw inputs)
+
 ### Firm-level Module
 - UI wage records in parquet or CSV format (see `code/firm_level/build_events.py`)
 - QWI seasonal index CSV (generated by `code/qwi/seasonal_index.py`, shareable)
@@ -652,6 +736,10 @@ python code/qwi/hire_index.py              # hiring seasonality + hire-vs-separa
 python code/fetch_cbp.py --state 06 --naics-level 6  # county x NAICS establishment counts (CA done; other states in progress)
 python code/fetch_cbp.py --state 06 --naics-level 4  # NAICS-4 fallback for suppressed county cells
 python code/county_seasonal_index.py --state 06 --highlight 06113  # county-level seasonal exposure (example: Yolo, CA)
+python code/build_indp_naics_crosswalk.py  # Census industry code <-> NAICS6 crosswalk (for the ACS PUMS profile below)
+python code/fetch_acs_pums.py              # download ACS 1-year PUMS person records (~20 min)
+python code/industry_pay_gender_profile.py # realized pay (PUMS) + %female + QWI seasonality, one consistent resolution
+python code/find_seasonal_pairs.py         # find close-pay/opposite-seasonality/female-dominated pairs + rent burden
 python code/fetch_cbp.py --by-size         # national CBP by NAICS x establishment-size class (~20 min)
 python code/establishment_size_analysis.py # do seasonal industries skew toward small establishments?
 ```
@@ -692,6 +780,7 @@ python code/establishment_size_analysis.py # do seasonal industries skew toward 
 - [x] Hiring (accessions) seasonal index (`hire_index.py`) — code + dry-run test complete; `HirA` verified live and added to `QWI_VARS`. Blocked on a fresh ~17hr QWI refetch before it produces real numbers. The analysis it enables: hire-vs-separation *timing lag* per industry (0 quarters = churn; 1-3 = separation follows the hiring peak) and a `likely_churn` flag
 - [x] Establishment size vs. seasonality (`establishment_size_analysis.py`) — fetched national CBP by NAICS x establishment-size class (`fetch_cbp.py --by-size`, 831 industries). More seasonal industries skew toward smaller establishments (Spearman ~0.5 for small-establishment employment share, -0.52 for average establishment size; median establishment size 51 emp in the least-seasonal quartile -> 10 emp in the most). But it's concave (plateaus at ~40% small-establishment employment above seasonal_index ~0.15) and sector-driven: seasonal services/construction/ag-support are small-establishment-heavy, seasonal manufacturing (canning, frozen foods) and big recreation venues (racetracks, golf courses) are the opposite. Conditional on the CBP universe — NAICS 111/112 farm production is not in CBP at all
 - [ ] National CBP-by-*size* is done, but the national CBP-by-*county* run (for a 51-state county-level exposure index) is still not launched (~21-22hrs)
+- [x] Industry pay/gender/seasonality profile (`industry_pay_gender_profile.py`, `find_seasonal_pairs.py`) — built to find a same-pay/opposite-seasonality/female-dominated industry pair for a rent-burden illustration. Fetched ACS 1-year PUMS (3.4M people, all states) and built a Census-industry-code <-> NAICS6 crosswalk (`build_indp_naics_crosswalk.py`) so pay (realized `WAGP`, not a QWI rate annualized x12), gender, and seasonality are all computed at one consistent resolution. Found 3 candidate pairs; best: "Other schools and instruction, and educational support services" (seasonal_index 0.51) vs. "Other personal services" (0.13) — both exactly $20,000 realized median annual pay, 65%/68% female, both 84.8% rent-burdened at the national median rent. Notably, weeks-worked is nearly identical in every pair, so the pay gap between seasonal and non-seasonal categories isn't explained by seasonal workers logging fewer annual weeks — it's a wage-level difference between these industry categories, independent of seasonality
 
 ---
 
