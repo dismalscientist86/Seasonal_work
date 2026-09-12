@@ -5,6 +5,9 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{microtype}
+\microtypesetup{expansion=false} % font expansion needs scalable outlines;
+  % crashes on some Computer Modern sans variants at small sizes with MiKTeX.
+  % Protrusion (the more visually significant feature) stays enabled.
 
 % Suppress navigation bar
 \setbeamertemplate{navigation symbols}{}
@@ -587,6 +590,71 @@
 \end{frame}
 
 % ══════════════════════════════════════════════════════════════════════════════
+\section{Pay, Gender, and Rent Burden}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Same Pay, Opposite Seasonality: Does It Matter?}
+  \begin{itemize}
+    \item \textbf{Question:} among female-dominated industries, does seasonal
+          work leave otherwise-comparable workers more rent-burdened?
+    \bigskip
+    \item \textbf{Pay:} ACS PUMS \texttt{WAGP} --- wage/salary income a person
+          \emph{actually received} in the past 12 months, not a QWI pay
+          \emph{rate} annualized $\times 12$. This matters specifically for
+          seasonal work: someone who doesn't work all four quarters reports
+          their true (lower) realized income, not a year-round-equivalent rate
+    \item \textbf{Gender \& pay \& seasonality, one resolution:} ACS/CPS survey
+          data classifies industries more coarsely than 6-digit NAICS (e.g.\
+          Educational Support Services is grouped with five sibling ``other
+          schools and instruction'' codes). Pay, \%female, and QWI
+          seasonality (aggregated up from NAICS6, employment-weighted) are all
+          computed at that same resolution, so the three are directly comparable
+    \item \textbf{Rent benchmark:} Census ACS national median gross rent,
+          \$1,413/month
+    \bigskip
+    \item \textbf{Screen:} female-dominated ($\geq 55\%$), within 15\% on pay,
+          seasonal-index gap $\geq 0.25$ --- only 9 of 250 industry codes clear
+          the female-share and sample-size bars
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Matched Pairs: Same Pay, Opposite Seasonality}
+  \begin{table}
+    \centering
+    \footnotesize
+    \setlength{\tabcolsep}{5pt}
+    \renewcommand{\arraystretch}{0.85}
+    \caption{Same-pay pairs, one seasonal and one flat (both female-dominated)}
+    \begin{tabular}{lccc}
+      \toprule
+      Industry (Census industry code) & Seasonal idx.\ & Pay & Rent burden \\
+      \midrule
+      Ed.\ support \& other schools (peak Q2) & 0.51 & \$20,000 & 84.8\% \\
+      Other personal services (flat)          & 0.13 & \$20,000 & 84.8\% \\
+      \addlinespace[2pt]
+      Civic/social/advocacy orgs (peak Q3)    & 0.43 & \$50,000 & 33.9\% \\
+      Outpatient care centers (flat)          & 0.04 & \$48,000 & 35.3\% \\
+      \addlinespace[2pt]
+      Civic/social/advocacy orgs (peak Q3)    & 0.43 & \$50,000 & 33.9\% \\
+      Other health care services (flat)       & 0.06 & \$50,000 & 33.9\% \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  \footnotesize
+  \begin{itemize}
+    \item \textbf{Top pair:} both sides \emph{exactly} \$20,000 realized
+          median pay, 65\%/68\% female --- both \textbf{84.8\% rent-burdened}
+    \item[$\to$] \textbf{Weeks worked doesn't explain the pay level:} every
+          pair differs by $<$1 week/year ($\sim$46--49 either way). The pay
+          gap tracks each industry's wage level, not annual weeks logged ---
+          closer to CP's household-adaptation story (workers find other work
+          around a seasonal separation) than ``seasonal $\to$ fewer weeks''
+    \item \textbf{Caveat:} \texttt{WAGP} is a personal wage --- many \$20,000
+          earners are secondary earners or part-time, not sole rent-payers
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
 \section{Discussion}
 % ══════════════════════════════════════════════════════════════════════════════
 
@@ -649,6 +717,13 @@
           strong evidence of industry-average income dipping in the off-season
           once a common Q4-bonus effect is removed; Construction again the
           outlier (earnings \emph{higher}, not lower)
+    \smallskip
+    \item \textbf{Pay, gender, and rent burden:} matching female-dominated
+          industries on realized annual pay (ACS PUMS), the most seasonal vs.\
+          flattest pair --- both at exactly \$20,000/year, 65--68\% female ---
+          are \emph{equally} rent-burdened (84.8\% each) at the national
+          median rent; weeks worked is nearly identical across every matched
+          pair, so the pay level tracks the industry, not seasonality itself
     \smallskip
     \item \textbf{Next steps:} national CBP rollout for a full county-level
           index; apply the state $\times$ NAICS index to UI wage records for
