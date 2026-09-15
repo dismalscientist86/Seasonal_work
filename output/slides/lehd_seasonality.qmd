@@ -136,6 +136,15 @@ $$
 :::
 :::
 
+## What Seasonality Looks Like
+
+![](../figures/employment_timeseries_examples.png){fig-align="center" height="500"}
+
+- Employment normalized to 100 in each industry's first quarter
+- Seasonal industries (blue/orange/green) swing 20--40% above and below
+  trend every year; non-seasonal industries (red/purple/brown) barely move
+  quarter to quarter
+
 ## State-Specific Seasonality
 
 - Suppression is much more binding at the state $\times$ 6-digit level
