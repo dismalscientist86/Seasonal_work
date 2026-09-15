@@ -99,8 +99,46 @@ $$
 
 : Most seasonal 6-digit NAICS industries (national)
 
-- Aggregated to 2-digit sectors, our ranking **matches Coglianese &
-  Price's** ($\rho = 0.829$)
+## Seasonality by Sector
+
+::: {.columns}
+::: {.column width="48%"}
+
+| Sector | Mean seasonal index |
+|---|---|
+| Agriculture, forestry, fishing | 0.504 |
+| Arts, entertainment & recreation | 0.461 |
+| Accommodation & food services | 0.345 |
+| Educational services | 0.272 |
+| Construction | 0.193 |
+| Real estate | 0.166 |
+| Warehousing & couriers | 0.135 |
+| Other services | 0.134 |
+| Professional & technical services | 0.129 |
+| Retail trade - specialty | 0.126 |
+| Information | 0.119 |
+| Retail trade - general | 0.118 |
+
+:::
+::: {.column width="48%"}
+
+| Sector | Mean seasonal index |
+|---|---|
+| Public administration | 0.117 |
+| Administrative & waste services | 0.115 |
+| Manufacturing - food/textiles | 0.110 |
+| Transportation | 0.107 |
+| Finance & insurance | 0.101 |
+| Mining, quarrying, oil & gas | 0.088 |
+| Health care & social assistance | 0.066 |
+| Wholesale trade | 0.063 |
+| Management of companies | 0.061 |
+| Utilities | 0.049 |
+| Manufacturing - paper/chemicals | 0.046 |
+| Manufacturing - metals/machinery | 0.036 |
+
+:::
+:::
 
 ## State-Specific Seasonality
 
