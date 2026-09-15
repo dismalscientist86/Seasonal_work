@@ -396,6 +396,19 @@ Arts/entertainment (13.4 p.p.); Construction (9.6 p.p.) drops behind
 Accommodation/food (10.8 p.p.) into 4th, from 3rd pre-fix.
 Implication: use state × NAICS index for firm classification when state is known.
 
+**Data-coverage caveat (2026-09)**: per-state QWI year coverage is uneven.
+40 of 51 states have the full 2000–2023 window, but 11 have a partial
+range — most notably **Alaska (2000–2016 only, missing 2017–2023)** and
+**Massachusetts (2010–2023 only, missing 2000–2009)**; the other 9 (AL, AZ,
+AR, DC, KY, MI, MS, NH, WY) are missing 1–4 years each, mostly at the start
+of the series. Verified live against the Census API (not a local fetch bug):
+QWI returns `204 No Data` for Alaska/Massachusetts in these missing windows
+for every industry tested, consistent with each state's own QWI/LEHD
+data-sharing participation history rather than a gap in our pipeline. This
+matters most for Alaska, since its 9.6 p.p. figure above — the headline
+"most seasonal state" — reflects only 2000–2016 and includes nothing from
+2017 onward.
+
 ### NAICS Title Crosswalk
 
 `code/qwi/clean_naics_xwalk.py` cleans the Census 2022 NAICS structure workbook

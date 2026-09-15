@@ -168,6 +168,10 @@ $$
   least seasonal (Texas, 3.4 p.p.) states
 - Northern/Great Plains states consistently more seasonal; Sun Belt
   states consistently less so
+- **Caveat:** per-state QWI coverage years are uneven --- 40 of 51 states
+  span the full 2000--2023 window, but 11 have partial coverage.
+  **Alaska only has data through 2016** (missing 2017--2023); Massachusetts
+  only starts in 2010
 
 ## Where This Goes Next
 
