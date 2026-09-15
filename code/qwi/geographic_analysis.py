@@ -257,18 +257,29 @@ def make_figures(si: pd.DataFrame):
     )
 
     # ── Fig 1: Mean state seasonality ─────────────────────────────────────────
-    fig, ax = plt.subplots(figsize=(6, 10))
-    med = state_avg.median()
-    colors = ["#d62728" if v > med else "#1f77b4" for v in state_avg]
-    ax.barh(state_avg.index, state_avg.values * 100, color=colors)
-    ax.axvline(med * 100, color="black", lw=0.8, ls="--", label=f"Median ({med*100:.2f} p.p.)")
-    ax.set_xlabel("Mean peak quarter excess separation rate (p.p.)")
+    # Vertical bars, most-to-least seasonal left to right -- 51 states read
+    # more easily this way than as a very tall horizontal ranking.
+    state_avg_desc = state_avg.sort_values(ascending=False)
+    fig, ax = plt.subplots(figsize=(16, 6))
+    med = state_avg_desc.median()
+    colors = ["#d62728" if v > med else "#1f77b4" for v in state_avg_desc]
+    ax.bar(state_avg_desc.index, state_avg_desc.values * 100, color=colors)
+    ax.axhline(med * 100, color="black", lw=0.8, ls="--", label=f"Median ({med*100:.2f} p.p.)")
+    ax.set_ylabel("Mean peak quarter excess separation rate (p.p.)")
     ax.set_title("State-level seasonality\n(mean peak excess across 6-digit NAICS industries)")
+    ax.set_xticks(range(len(state_avg_desc)))
+    ax.set_xticklabels(state_avg_desc.index, rotation=90, fontsize=7)
+    ax.set_xlim(-0.7, len(state_avg_desc) - 0.3)
     ax.legend(fontsize=8)
     fig.tight_layout()
     fig.savefig(FIGURES_DIR / "geo_state_mean_seasonality.pdf", bbox_inches="tight")
+    # Also save a .png -- used directly by output/slides/lehd_seasonality.qmd
+    # (revealjs needs a raster image, unlike LaTeX). Saving it here, not just
+    # the .pdf, means it can't go stale the way an unreproduced manual export
+    # would the next time this script's numbers change.
+    fig.savefig(FIGURES_DIR / "geo_state_mean_seasonality.png", dpi=200, bbox_inches="tight")
     plt.close(fig)
-    print("Saved: geo_state_mean_seasonality.pdf")
+    print("Saved: geo_state_mean_seasonality.pdf/png")
 
     # Fig 1b: State tile map
     tile = state_avg.rename_axis("state_name").reset_index(name="mean_peak_excess")
