@@ -87,9 +87,6 @@ $$
 
 ## National Seasonality
 
-::: {.columns}
-::: {.column width="62%"}
-
 | NAICS & description | Seasonal index | Excess recurrence | Peak quarter |
 |---|---|---|---|
 | 111336 Fruit/tree nut combo farm. | 1.00 | 0.333 | Q4 |
@@ -102,24 +99,8 @@ $$
 
 : Most seasonal 6-digit NAICS industries (national)
 
-:::
-::: {.column width="36%"}
-
-| Sector | Mean seasonal index |
-|---|---|
-| Agriculture, forestry, fishing | 0.504 |
-| Arts, entertainment & recreation | 0.461 |
-| Accommodation & food services | 0.345 |
-| Educational services | 0.272 |
-| Construction | 0.193 |
-| Health care & social assistance | 0.067 |
-| Manufacturing (metals/machinery) | 0.036 |
-
-: By 2-digit NAICS sector --- matches Coglianese & Price's ranking
-($\rho = 0.829$)
-
-:::
-:::
+- Aggregated to 2-digit sectors, our ranking **matches Coglianese &
+  Price's** ($\rho = 0.829$)
 
 ## State-Specific Seasonality
 
