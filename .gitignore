@@ -34,8 +34,8 @@ output/*
 output/slides/*
 !output/slides/slides.tex
 !output/slides/slides.pdf
-!output/slides/slides.qmd
-!output/slides/slides.html
+!output/slides/*.qmd
+!output/slides/*.html
 models/
 logs/
 
