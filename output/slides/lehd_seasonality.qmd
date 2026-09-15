@@ -88,22 +88,22 @@ $$
 ## National Seasonality
 
 ::: {.columns}
-::: {.column width="55%"}
+::: {.column width="62%"}
 
-| NAICS & description | ExcessPeak | $n$ |
-|---|---|---|
-| 111336 Fruit/tree nut combo farm. | 0.333 | 18 |
-| 722330 Mobile food services | 0.316 | 18 |
-| 111160 Rice farming | 0.563 | 22 |
-| 111199 Other grain farming | 0.398 | 23 |
-| 115113 Crop harvesting (machine) | 0.398 | 10 |
-| 512132 Drive-in motion picture theaters | 0.363 | 21 |
-| 532284 Recreational goods rental | 0.485 | 22 |
+| NAICS & description | Seasonal index | Excess recurrence | Peak quarter |
+|---|---|---|---|
+| 111336 Fruit/tree nut combo farm. | 1.00 | 0.333 | Q4 |
+| 722330 Mobile food services | 1.00 | 0.316 | Q3 |
+| 111160 Rice farming | 1.00 | 0.563 | Q4 |
+| 111199 Other grain farming | 1.00 | 0.398 | Q4 |
+| 115113 Crop harvesting (machine) | 1.00 | 0.398 | Q4 |
+| 512132 Drive-in motion picture theaters | 1.00 | 0.363 | Q3 |
+| 532284 Recreational goods rental | 1.00 | 0.485 | Q3 |
 
 : Most seasonal 6-digit NAICS industries (national)
 
 :::
-::: {.column width="43%"}
+::: {.column width="36%"}
 
 | Sector | Mean seasonal index |
 |---|---|
