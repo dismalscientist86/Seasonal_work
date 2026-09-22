@@ -81,6 +81,13 @@ $$
   the industry's peak-quarter excess separation rate
 - **Seasonal index:** $\max_q - \min_q$, normalized to $[0,1]$ --- doesn't
   assume any particular quarter is "the" seasonal quarter
+  - Raw amplitude is heavily right-skewed (median 0.03, but max 0.96 ---
+    Rice Farming); dividing by the true max would compress almost every
+    other industry near 0, so we normalize by the **99th percentile**
+    (0.56) and clip at 1 instead
+  - Cost: the ~10 most extreme industries (incl.\ several in the table
+    below) all tie at exactly 1.00, even though their raw amplitudes
+    still differ --- use excess recurrence to rank *within* that group
 - **Peak quarter:** which quarter drives the seasonality
 - We also build a **stock** (employment-level) version as a cross-check;
   results here use the **flow** (separations-based) version

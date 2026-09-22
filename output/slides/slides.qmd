@@ -129,7 +129,10 @@ $$
   extreme seasonality
 - Non-agriculture entries are intuitive once named: mobile food services
   (food trucks), drive-in theaters, recreational goods rental
-- Seasonal index normalized to [0,1] via 99th-pct winsorization
+- Seasonal index normalized to [0,1] via 99th-pct winsorization ---
+  raw amplitude is right-skewed (median 0.03, max 0.96), so dividing
+  by the true max would compress everyone else near 0; cost is that
+  the top ~10 industries all tie at exactly 1.00
 - Correlation with CP 1-digit rankings: $\rho = 0.829$
 
 :::
