@@ -9,6 +9,13 @@ all four quarterly excess estimates to be non-missing. The complete-quarter
 restriction avoids treating thin cells with mechanically zero amplitude as
 "least seasonal."
 
+Excludes agriculture (NAICS sector 11) by default, both from the within-state
+tail selection and from the national top/bottom-percentile flagging -- QWI's
+UI-based coverage of agricultural employment is historically weaker/partial,
+so it may look more seasonal than it truly is (see agriculture_exclusion_check.py
+and CLAUDE.md's "Agriculture Exclusion Check"). Pass --include-agriculture to
+reproduce the full-sample version instead.
+
 The script also reads the national NAICS6 seasonal index and flags state-tail
 industries that are also in the national top or bottom tail.
 If a cleaned NAICS title lookup exists, names are added to output tables.
@@ -48,6 +55,8 @@ TAIL_LABELS = {
     "bottom": "bottom",
 }
 
+AGRICULTURE_SECTOR = "11"
+
 
 def percentile_to_label(percentile: float) -> str:
     """Convert a percentile share to a filename-safe label."""
@@ -79,6 +88,7 @@ def load_national_flags(
     path: Path,
     percentile: float,
     require_complete_quarters: bool = True,
+    exclude_agriculture: bool = True,
 ) -> pd.DataFrame:
     """Load national index and flag NAICS codes in national top/bottom tails."""
     df = pd.read_csv(path, dtype={"naics_code": str, "sector_2d": str})
@@ -93,6 +103,9 @@ def load_national_flags(
 
     if require_complete_quarters:
         df = df.dropna(subset=["excessQ1", "excessQ2", "excessQ3", "excessQ4"])
+
+    if exclude_agriculture:
+        df = df[df["sector_2d"] != AGRICULTURE_SECTOR]
 
     df = df.dropna(subset=["naics_code", "seasonal_index"]).copy()
     k = max(1, int(np.ceil(len(df) * percentile)))
@@ -140,10 +153,20 @@ def load_naics_titles(path: Path | None) -> pd.DataFrame | None:
 
 
 def add_naics_titles(df: pd.DataFrame, titles: pd.DataFrame | None) -> pd.DataFrame:
-    """Attach NAICS title fields when a cleaned lookup is available."""
+    """Attach NAICS title fields when a cleaned lookup is available.
+
+    The state x NAICS6 index already carries these same title columns
+    (geographic_analysis.py merges them in when building that file), so
+    merging titles again unconditionally would collide and get silently
+    suffixed (_x/_y) by pandas rather than raise -- guard against that by
+    only merging in columns not already present.
+    """
     if titles is None:
         return df
-    return df.merge(titles, on="naics_code", how="left")
+    new_cols = [c for c in titles.columns if c == "naics_code" or c not in df.columns]
+    if new_cols == ["naics_code"]:
+        return df
+    return df.merge(titles[new_cols], on="naics_code", how="left")
 
 
 def select_state_tail(
@@ -312,14 +335,18 @@ def run_analysis(
     naics_titles_path: Path | None,
     percentile: float = 0.01,
     require_complete_quarters: bool = True,
+    exclude_agriculture: bool = True,
     out_dir: Path = TABLES_DIR,
 ) -> pd.DataFrame:
     """Run top and bottom percentile overlap analysis and write CSV outputs."""
     df = load_state_index(input_path, require_complete_quarters=require_complete_quarters)
+    if exclude_agriculture:
+        df = df[df["sector_2d"] != AGRICULTURE_SECTOR]
     national_flags = load_national_flags(
         national_input_path,
         percentile=percentile,
         require_complete_quarters=require_complete_quarters,
+        exclude_agriculture=exclude_agriculture,
     )
     df = add_national_flags(df, national_flags)
     df = add_naics_titles(df, load_naics_titles(naics_titles_path))
@@ -344,6 +371,7 @@ def run_analysis(
     summary = pd.DataFrame(summaries)
     summary["percentile"] = percentile
     summary["require_complete_quarters"] = require_complete_quarters
+    summary["exclude_agriculture"] = exclude_agriculture
     summary.to_csv(out_dir / "state_percentile_overlap_summary.csv", index=False)
     pd.concat(all_jaccard, ignore_index=True).to_csv(
         out_dir / "state_percentile_pairwise_jaccard.csv",
@@ -392,6 +420,12 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Allow cells with missing quarter-specific excess estimates.",
     )
+    parser.add_argument(
+        "--include-agriculture",
+        action="store_true",
+        help="Include agriculture (NAICS 11) instead of excluding it (the default) "
+             "-- reproduces the full-sample version for comparison.",
+    )
     return parser.parse_args()
 
 
@@ -403,6 +437,7 @@ if __name__ == "__main__":
         naics_titles_path=args.naics_titles,
         percentile=args.percentile,
         require_complete_quarters=not args.no_require_complete_quarters,
+        exclude_agriculture=not args.include_agriculture,
         out_dir=args.out_dir,
     )
     print(result.to_string(index=False))

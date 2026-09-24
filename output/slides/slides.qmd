@@ -317,14 +317,14 @@ exclude it as the more defensible choice.
 
 | Statistic | Top 1% | Bottom 1% |
 |---|---|---|
-| State-industry slots | 413 | 413 |
-| Unique NAICS6 codes | 137 | 253 |
-| Codes appearing once | 59 | 156 |
-| Codes in 10+ states | 7 | 0 |
-| Pairwise Jaccard | 0.053 | 0.014 |
-| Also national same tail | 11.4% | 1.9% |
+| State-industry slots | 397 | 397 |
+| Unique NAICS6 codes | 124 | 245 |
+| Codes appearing once | 54 | 151 |
+| Codes in 10+ states | 8 | 0 |
+| Pairwise Jaccard | 0.059 | 0.013 |
+| Also national same tail | 15.9% | 1.8% |
 
-: Within-state NAICS6 tails
+: Within-state NAICS6 tails (excl. agriculture)
 
 Interpretation: the state-specific tails are related to the national
 index, but most state-tail industries are not simply the national top or
@@ -335,17 +335,17 @@ bottom 1% repeated everywhere.
 
 **Recurring top-1% industries**
 
-- Nursery/tree production: 15 states
-- Marinas: 14 states
+- Marinas: 16 states
+- Ice manufacturing: 14 states
 - Specialty trade contractors: 12 states
+- Racetracks: 12 states
 - Golf courses/country clubs: 11 states
-- Miscellaneous crop farming: 11 states
 
 **Bottom-1% pattern**
 
 - More diffuse than the top tail
 - Concentrated in metals manufacturing, wholesale, chemicals, finance, and
-  transportation
+  food manufacturing
 
 :::
 :::

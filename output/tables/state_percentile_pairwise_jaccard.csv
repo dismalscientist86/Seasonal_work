@@ -1,73 +1,73 @@
 tail,state_a,state_b,n_a,n_b,n_intersection,n_union,jaccard
 top,Alabama,Alaska,9,5,0,14,0.0
-top,Alabama,Arizona,9,9,1,17,0.058823529411764705
+top,Alabama,Arizona,9,9,0,18,0.0
 top,Alabama,Arkansas,9,8,2,15,0.13333333333333333
 top,Alabama,California,9,10,2,17,0.11764705882352941
-top,Alabama,Colorado,9,9,1,17,0.058823529411764705
+top,Alabama,Colorado,9,8,2,15,0.13333333333333333
 top,Alabama,Connecticut,9,8,0,17,0.0
 top,Alabama,DC,9,4,0,13,0.0
-top,Alabama,Delaware,9,6,0,15,0.0
+top,Alabama,Delaware,9,5,0,14,0.0
 top,Alabama,Florida,9,10,1,18,0.05555555555555555
-top,Alabama,Georgia,9,10,4,15,0.26666666666666666
+top,Alabama,Georgia,9,9,2,16,0.125
 top,Alabama,Hawaii,9,6,1,14,0.07142857142857142
 top,Alabama,Idaho,9,7,0,16,0.0
-top,Alabama,Illinois,9,10,0,19,0.0
+top,Alabama,Illinois,9,9,0,18,0.0
 top,Alabama,Indiana,9,9,0,18,0.0
 top,Alabama,Iowa,9,8,0,17,0.0
 top,Alabama,Kansas,9,8,0,17,0.0
-top,Alabama,Kentucky,9,9,4,14,0.2857142857142857
+top,Alabama,Kentucky,9,8,3,14,0.21428571428571427
 top,Alabama,Louisiana,9,8,0,17,0.0
-top,Alabama,Maine,9,7,0,16,0.0
-top,Alabama,Maryland,9,9,3,15,0.2
+top,Alabama,Maine,9,6,0,15,0.0
+top,Alabama,Maryland,9,8,2,15,0.13333333333333333
 top,Alabama,Massachusetts,9,8,1,16,0.0625
 top,Alabama,Michigan,9,9,0,18,0.0
-top,Alabama,Minnesota,9,9,0,18,0.0
+top,Alabama,Minnesota,9,9,1,17,0.058823529411764705
 top,Alabama,Mississippi,9,7,1,15,0.06666666666666667
-top,Alabama,Missouri,9,9,3,15,0.2
+top,Alabama,Missouri,9,9,2,16,0.125
 top,Alabama,Montana,9,6,0,15,0.0
 top,Alabama,Nebraska,9,7,0,16,0.0
 top,Alabama,Nevada,9,7,2,14,0.14285714285714285
-top,Alabama,New Hampshire,9,7,0,16,0.0
+top,Alabama,New Hampshire,9,7,1,15,0.06666666666666667
 top,Alabama,New Jersey,9,9,0,18,0.0
 top,Alabama,New Mexico,9,7,1,15,0.06666666666666667
-top,Alabama,New York,9,10,0,19,0.0
-top,Alabama,North Carolina,9,10,1,18,0.05555555555555555
+top,Alabama,New York,9,9,0,18,0.0
+top,Alabama,North Carolina,9,9,1,17,0.058823529411764705
 top,Alabama,North Dakota,9,6,0,15,0.0
-top,Alabama,Ohio,9,10,1,18,0.05555555555555555
-top,Alabama,Oklahoma,9,9,4,14,0.2857142857142857
-top,Alabama,Oregon,9,9,1,17,0.058823529411764705
-top,Alabama,Pennsylvania,9,10,1,18,0.05555555555555555
-top,Alabama,Rhode Island,9,7,0,16,0.0
-top,Alabama,South Carolina,9,9,3,15,0.2
+top,Alabama,Ohio,9,9,1,17,0.058823529411764705
+top,Alabama,Oklahoma,9,8,2,15,0.13333333333333333
+top,Alabama,Oregon,9,8,0,17,0.0
+top,Alabama,Pennsylvania,9,9,1,17,0.058823529411764705
+top,Alabama,Rhode Island,9,6,0,15,0.0
+top,Alabama,South Carolina,9,9,2,16,0.125
 top,Alabama,South Dakota,9,6,0,15,0.0
-top,Alabama,Tennessee,9,9,1,17,0.058823529411764705
-top,Alabama,Texas,9,10,4,15,0.26666666666666666
-top,Alabama,Utah,9,9,1,17,0.058823529411764705
+top,Alabama,Tennessee,9,9,0,18,0.0
+top,Alabama,Texas,9,10,2,17,0.11764705882352941
+top,Alabama,Utah,9,8,1,16,0.0625
 top,Alabama,Vermont,9,6,0,15,0.0
-top,Alabama,Virginia,9,9,2,16,0.125
-top,Alabama,Washington,9,9,2,16,0.125
-top,Alabama,West Virginia,9,7,1,15,0.06666666666666667
+top,Alabama,Virginia,9,9,1,17,0.058823529411764705
+top,Alabama,Washington,9,9,1,17,0.058823529411764705
+top,Alabama,West Virginia,9,6,0,15,0.0
 top,Alabama,Wisconsin,9,9,0,18,0.0
-top,Alabama,Wyoming,9,5,0,14,0.0
+top,Alabama,Wyoming,9,5,1,13,0.07692307692307693
 top,Alaska,Arizona,5,9,0,14,0.0
 top,Alaska,Arkansas,5,8,0,13,0.0
-top,Alaska,California,5,10,1,14,0.07142857142857142
-top,Alaska,Colorado,5,9,0,14,0.0
+top,Alaska,California,5,10,0,15,0.0
+top,Alaska,Colorado,5,8,0,13,0.0
 top,Alaska,Connecticut,5,8,0,13,0.0
 top,Alaska,DC,5,4,0,9,0.0
-top,Alaska,Delaware,5,6,0,11,0.0
+top,Alaska,Delaware,5,5,0,10,0.0
 top,Alaska,Florida,5,10,0,15,0.0
-top,Alaska,Georgia,5,10,0,15,0.0
+top,Alaska,Georgia,5,9,0,14,0.0
 top,Alaska,Hawaii,5,6,0,11,0.0
 top,Alaska,Idaho,5,7,0,12,0.0
-top,Alaska,Illinois,5,10,0,15,0.0
+top,Alaska,Illinois,5,9,0,14,0.0
 top,Alaska,Indiana,5,9,0,14,0.0
 top,Alaska,Iowa,5,8,0,13,0.0
 top,Alaska,Kansas,5,8,0,13,0.0
-top,Alaska,Kentucky,5,9,0,14,0.0
+top,Alaska,Kentucky,5,8,0,13,0.0
 top,Alaska,Louisiana,5,8,0,13,0.0
-top,Alaska,Maine,5,7,0,12,0.0
-top,Alaska,Maryland,5,9,0,14,0.0
+top,Alaska,Maine,5,6,0,11,0.0
+top,Alaska,Maryland,5,8,0,13,0.0
 top,Alaska,Massachusetts,5,8,0,13,0.0
 top,Alaska,Michigan,5,9,0,14,0.0
 top,Alaska,Minnesota,5,9,0,14,0.0
@@ -79,268 +79,268 @@ top,Alaska,Nevada,5,7,0,12,0.0
 top,Alaska,New Hampshire,5,7,1,11,0.09090909090909091
 top,Alaska,New Jersey,5,9,0,14,0.0
 top,Alaska,New Mexico,5,7,0,12,0.0
-top,Alaska,New York,5,10,0,15,0.0
-top,Alaska,North Carolina,5,10,0,15,0.0
+top,Alaska,New York,5,9,0,14,0.0
+top,Alaska,North Carolina,5,9,0,14,0.0
 top,Alaska,North Dakota,5,6,0,11,0.0
-top,Alaska,Ohio,5,10,0,15,0.0
-top,Alaska,Oklahoma,5,9,0,14,0.0
-top,Alaska,Oregon,5,9,0,14,0.0
-top,Alaska,Pennsylvania,5,10,0,15,0.0
-top,Alaska,Rhode Island,5,7,0,12,0.0
+top,Alaska,Ohio,5,9,0,14,0.0
+top,Alaska,Oklahoma,5,8,0,13,0.0
+top,Alaska,Oregon,5,8,0,13,0.0
+top,Alaska,Pennsylvania,5,9,0,14,0.0
+top,Alaska,Rhode Island,5,6,0,11,0.0
 top,Alaska,South Carolina,5,9,0,14,0.0
 top,Alaska,South Dakota,5,6,0,11,0.0
 top,Alaska,Tennessee,5,9,0,14,0.0
 top,Alaska,Texas,5,10,0,15,0.0
-top,Alaska,Utah,5,9,0,14,0.0
+top,Alaska,Utah,5,8,0,13,0.0
 top,Alaska,Vermont,5,6,0,11,0.0
 top,Alaska,Virginia,5,9,0,14,0.0
 top,Alaska,Washington,5,9,0,14,0.0
-top,Alaska,West Virginia,5,7,0,12,0.0
+top,Alaska,West Virginia,5,6,0,11,0.0
 top,Alaska,Wisconsin,5,9,0,14,0.0
 top,Alaska,Wyoming,5,5,0,10,0.0
 top,Arizona,Arkansas,9,8,0,17,0.0
-top,Arizona,California,9,10,0,19,0.0
-top,Arizona,Colorado,9,9,0,18,0.0
-top,Arizona,Connecticut,9,8,0,17,0.0
+top,Arizona,California,9,10,1,18,0.05555555555555555
+top,Arizona,Colorado,9,8,0,17,0.0
+top,Arizona,Connecticut,9,8,1,16,0.0625
 top,Arizona,DC,9,4,0,13,0.0
-top,Arizona,Delaware,9,6,0,15,0.0
+top,Arizona,Delaware,9,5,0,14,0.0
 top,Arizona,Florida,9,10,2,17,0.11764705882352941
-top,Arizona,Georgia,9,10,2,17,0.11764705882352941
+top,Arizona,Georgia,9,9,1,17,0.058823529411764705
 top,Arizona,Hawaii,9,6,1,14,0.07142857142857142
-top,Arizona,Idaho,9,7,0,16,0.0
-top,Arizona,Illinois,9,10,0,19,0.0
+top,Arizona,Idaho,9,7,1,15,0.06666666666666667
+top,Arizona,Illinois,9,9,0,18,0.0
 top,Arizona,Indiana,9,9,0,18,0.0
 top,Arizona,Iowa,9,8,0,17,0.0
 top,Arizona,Kansas,9,8,2,15,0.13333333333333333
-top,Arizona,Kentucky,9,9,0,18,0.0
-top,Arizona,Louisiana,9,8,1,16,0.0625
-top,Arizona,Maine,9,7,0,16,0.0
-top,Arizona,Maryland,9,9,0,18,0.0
+top,Arizona,Kentucky,9,8,0,17,0.0
+top,Arizona,Louisiana,9,8,2,15,0.13333333333333333
+top,Arizona,Maine,9,6,0,15,0.0
+top,Arizona,Maryland,9,8,0,17,0.0
 top,Arizona,Massachusetts,9,8,0,17,0.0
 top,Arizona,Michigan,9,9,0,18,0.0
 top,Arizona,Minnesota,9,9,0,18,0.0
 top,Arizona,Mississippi,9,7,1,15,0.06666666666666667
-top,Arizona,Missouri,9,9,0,18,0.0
+top,Arizona,Missouri,9,9,2,16,0.125
 top,Arizona,Montana,9,6,1,14,0.07142857142857142
 top,Arizona,Nebraska,9,7,1,15,0.06666666666666667
 top,Arizona,Nevada,9,7,0,16,0.0
 top,Arizona,New Hampshire,9,7,0,16,0.0
 top,Arizona,New Jersey,9,9,0,18,0.0
-top,Arizona,New Mexico,9,7,0,16,0.0
-top,Arizona,New York,9,10,0,19,0.0
-top,Arizona,North Carolina,9,10,1,18,0.05555555555555555
+top,Arizona,New Mexico,9,7,1,15,0.06666666666666667
+top,Arizona,New York,9,9,0,18,0.0
+top,Arizona,North Carolina,9,9,1,17,0.058823529411764705
 top,Arizona,North Dakota,9,6,0,15,0.0
-top,Arizona,Ohio,9,10,1,18,0.05555555555555555
-top,Arizona,Oklahoma,9,9,1,17,0.058823529411764705
-top,Arizona,Oregon,9,9,1,17,0.058823529411764705
-top,Arizona,Pennsylvania,9,10,1,18,0.05555555555555555
-top,Arizona,Rhode Island,9,7,0,16,0.0
+top,Arizona,Ohio,9,9,1,17,0.058823529411764705
+top,Arizona,Oklahoma,9,8,0,17,0.0
+top,Arizona,Oregon,9,8,1,16,0.0625
+top,Arizona,Pennsylvania,9,9,1,17,0.058823529411764705
+top,Arizona,Rhode Island,9,6,1,14,0.07142857142857142
 top,Arizona,South Carolina,9,9,2,16,0.125
 top,Arizona,South Dakota,9,6,0,15,0.0
 top,Arizona,Tennessee,9,9,2,16,0.125
-top,Arizona,Texas,9,10,0,19,0.0
-top,Arizona,Utah,9,9,0,18,0.0
+top,Arizona,Texas,9,10,1,18,0.05555555555555555
+top,Arizona,Utah,9,8,0,17,0.0
 top,Arizona,Vermont,9,6,0,15,0.0
-top,Arizona,Virginia,9,9,1,17,0.058823529411764705
+top,Arizona,Virginia,9,9,2,16,0.125
 top,Arizona,Washington,9,9,0,18,0.0
-top,Arizona,West Virginia,9,7,0,16,0.0
-top,Arizona,Wisconsin,9,9,0,18,0.0
+top,Arizona,West Virginia,9,6,0,15,0.0
+top,Arizona,Wisconsin,9,9,1,17,0.058823529411764705
 top,Arizona,Wyoming,9,5,0,14,0.0
-top,Arkansas,California,8,10,0,18,0.0
-top,Arkansas,Colorado,8,9,1,16,0.0625
+top,Arkansas,California,8,10,2,16,0.125
+top,Arkansas,Colorado,8,8,2,14,0.14285714285714285
 top,Arkansas,Connecticut,8,8,1,15,0.06666666666666667
 top,Arkansas,DC,8,4,0,12,0.0
-top,Arkansas,Delaware,8,6,2,12,0.16666666666666666
+top,Arkansas,Delaware,8,5,2,11,0.18181818181818182
 top,Arkansas,Florida,8,10,1,17,0.058823529411764705
-top,Arkansas,Georgia,8,10,2,16,0.125
+top,Arkansas,Georgia,8,9,3,14,0.21428571428571427
 top,Arkansas,Hawaii,8,6,0,14,0.0
-top,Arkansas,Idaho,8,7,0,15,0.0
-top,Arkansas,Illinois,8,10,0,18,0.0
+top,Arkansas,Idaho,8,7,1,14,0.07142857142857142
+top,Arkansas,Illinois,8,9,0,17,0.0
 top,Arkansas,Indiana,8,9,1,16,0.0625
-top,Arkansas,Iowa,8,8,2,14,0.14285714285714285
-top,Arkansas,Kansas,8,8,2,14,0.14285714285714285
-top,Arkansas,Kentucky,8,9,5,12,0.4166666666666667
+top,Arkansas,Iowa,8,8,1,15,0.06666666666666667
+top,Arkansas,Kansas,8,8,1,15,0.06666666666666667
+top,Arkansas,Kentucky,8,8,4,12,0.3333333333333333
 top,Arkansas,Louisiana,8,8,1,15,0.06666666666666667
-top,Arkansas,Maine,8,7,0,15,0.0
-top,Arkansas,Maryland,8,9,2,15,0.13333333333333333
+top,Arkansas,Maine,8,6,0,14,0.0
+top,Arkansas,Maryland,8,8,3,13,0.23076923076923078
 top,Arkansas,Massachusetts,8,8,2,14,0.14285714285714285
-top,Arkansas,Michigan,8,9,1,16,0.0625
-top,Arkansas,Minnesota,8,9,1,16,0.0625
+top,Arkansas,Michigan,8,9,0,17,0.0
+top,Arkansas,Minnesota,8,9,2,15,0.13333333333333333
 top,Arkansas,Mississippi,8,7,2,13,0.15384615384615385
-top,Arkansas,Missouri,8,9,3,14,0.21428571428571427
+top,Arkansas,Missouri,8,9,2,15,0.13333333333333333
 top,Arkansas,Montana,8,6,0,14,0.0
-top,Arkansas,Nebraska,8,7,0,15,0.0
+top,Arkansas,Nebraska,8,7,1,14,0.07142857142857142
 top,Arkansas,Nevada,8,7,1,14,0.07142857142857142
 top,Arkansas,New Hampshire,8,7,0,15,0.0
 top,Arkansas,New Jersey,8,9,0,17,0.0
 top,Arkansas,New Mexico,8,7,0,15,0.0
-top,Arkansas,New York,8,10,0,18,0.0
-top,Arkansas,North Carolina,8,10,3,15,0.2
+top,Arkansas,New York,8,9,0,17,0.0
+top,Arkansas,North Carolina,8,9,3,14,0.21428571428571427
 top,Arkansas,North Dakota,8,6,0,14,0.0
-top,Arkansas,Ohio,8,10,3,15,0.2
-top,Arkansas,Oklahoma,8,9,3,14,0.21428571428571427
-top,Arkansas,Oregon,8,9,1,16,0.0625
-top,Arkansas,Pennsylvania,8,10,1,17,0.058823529411764705
-top,Arkansas,Rhode Island,8,7,1,14,0.07142857142857142
-top,Arkansas,South Carolina,8,9,1,16,0.0625
-top,Arkansas,South Dakota,8,6,0,14,0.0
+top,Arkansas,Ohio,8,9,3,14,0.21428571428571427
+top,Arkansas,Oklahoma,8,8,3,13,0.23076923076923078
+top,Arkansas,Oregon,8,8,0,16,0.0
+top,Arkansas,Pennsylvania,8,9,1,16,0.0625
+top,Arkansas,Rhode Island,8,6,1,13,0.07692307692307693
+top,Arkansas,South Carolina,8,9,2,15,0.13333333333333333
+top,Arkansas,South Dakota,8,6,1,13,0.07692307692307693
 top,Arkansas,Tennessee,8,9,1,16,0.0625
 top,Arkansas,Texas,8,10,2,16,0.125
-top,Arkansas,Utah,8,9,3,14,0.21428571428571427
+top,Arkansas,Utah,8,8,2,14,0.14285714285714285
 top,Arkansas,Vermont,8,6,1,13,0.07692307692307693
 top,Arkansas,Virginia,8,9,0,17,0.0
 top,Arkansas,Washington,8,9,1,16,0.0625
-top,Arkansas,West Virginia,8,7,0,15,0.0
-top,Arkansas,Wisconsin,8,9,0,17,0.0
+top,Arkansas,West Virginia,8,6,0,14,0.0
+top,Arkansas,Wisconsin,8,9,1,16,0.0625
 top,Arkansas,Wyoming,8,5,0,13,0.0
-top,California,Colorado,10,9,0,19,0.0
-top,California,Connecticut,10,8,0,18,0.0
-top,California,DC,10,4,0,14,0.0
-top,California,Delaware,10,6,0,16,0.0
-top,California,Florida,10,10,1,19,0.05263157894736842
-top,California,Georgia,10,10,2,18,0.1111111111111111
-top,California,Hawaii,10,6,1,15,0.06666666666666667
+top,California,Colorado,10,8,1,17,0.058823529411764705
+top,California,Connecticut,10,8,1,17,0.058823529411764705
+top,California,DC,10,4,1,13,0.07692307692307693
+top,California,Delaware,10,5,0,15,0.0
+top,California,Florida,10,10,0,20,0.0
+top,California,Georgia,10,9,0,19,0.0
+top,California,Hawaii,10,6,2,14,0.14285714285714285
 top,California,Idaho,10,7,1,16,0.0625
-top,California,Illinois,10,10,1,19,0.05263157894736842
-top,California,Indiana,10,9,0,19,0.0
+top,California,Illinois,10,9,0,19,0.0
+top,California,Indiana,10,9,1,18,0.05555555555555555
 top,California,Iowa,10,8,0,18,0.0
 top,California,Kansas,10,8,0,18,0.0
-top,California,Kentucky,10,9,1,18,0.05555555555555555
-top,California,Louisiana,10,8,0,18,0.0
-top,California,Maine,10,7,0,17,0.0
-top,California,Maryland,10,9,1,18,0.05555555555555555
-top,California,Massachusetts,10,8,0,18,0.0
+top,California,Kentucky,10,8,1,17,0.058823529411764705
+top,California,Louisiana,10,8,1,17,0.058823529411764705
+top,California,Maine,10,6,1,15,0.06666666666666667
+top,California,Maryland,10,8,2,16,0.125
+top,California,Massachusetts,10,8,1,17,0.058823529411764705
 top,California,Michigan,10,9,1,18,0.05555555555555555
-top,California,Minnesota,10,9,0,19,0.0
+top,California,Minnesota,10,9,1,18,0.05555555555555555
 top,California,Mississippi,10,7,0,17,0.0
 top,California,Missouri,10,9,2,17,0.11764705882352941
-top,California,Montana,10,6,1,15,0.06666666666666667
-top,California,Nebraska,10,7,2,15,0.13333333333333333
+top,California,Montana,10,6,0,16,0.0
+top,California,Nebraska,10,7,0,17,0.0
 top,California,Nevada,10,7,1,16,0.0625
-top,California,New Hampshire,10,7,0,17,0.0
-top,California,New Jersey,10,9,1,18,0.05555555555555555
-top,California,New Mexico,10,7,1,16,0.0625
-top,California,New York,10,10,2,18,0.1111111111111111
-top,California,North Carolina,10,10,0,20,0.0
+top,California,New Hampshire,10,7,1,16,0.0625
+top,California,New Jersey,10,9,2,17,0.11764705882352941
+top,California,New Mexico,10,7,2,15,0.13333333333333333
+top,California,New York,10,9,2,17,0.11764705882352941
+top,California,North Carolina,10,9,3,16,0.1875
 top,California,North Dakota,10,6,0,16,0.0
-top,California,Ohio,10,10,0,20,0.0
-top,California,Oklahoma,10,9,1,18,0.05555555555555555
-top,California,Oregon,10,9,2,17,0.11764705882352941
-top,California,Pennsylvania,10,10,1,19,0.05263157894736842
-top,California,Rhode Island,10,7,0,17,0.0
-top,California,South Carolina,10,9,0,19,0.0
-top,California,South Dakota,10,6,0,16,0.0
+top,California,Ohio,10,9,1,18,0.05555555555555555
+top,California,Oklahoma,10,8,1,17,0.058823529411764705
+top,California,Oregon,10,8,2,16,0.125
+top,California,Pennsylvania,10,9,2,17,0.11764705882352941
+top,California,Rhode Island,10,6,0,16,0.0
+top,California,South Carolina,10,9,2,17,0.11764705882352941
+top,California,South Dakota,10,6,1,15,0.06666666666666667
 top,California,Tennessee,10,9,0,19,0.0
-top,California,Texas,10,10,5,15,0.3333333333333333
-top,California,Utah,10,9,0,19,0.0
+top,California,Texas,10,10,3,17,0.17647058823529413
+top,California,Utah,10,8,1,17,0.058823529411764705
 top,California,Vermont,10,6,1,15,0.06666666666666667
-top,California,Virginia,10,9,0,19,0.0
-top,California,Washington,10,9,2,17,0.11764705882352941
-top,California,West Virginia,10,7,1,16,0.0625
-top,California,Wisconsin,10,9,3,16,0.1875
+top,California,Virginia,10,9,1,18,0.05555555555555555
+top,California,Washington,10,9,4,15,0.26666666666666666
+top,California,West Virginia,10,6,0,16,0.0
+top,California,Wisconsin,10,9,1,18,0.05555555555555555
 top,California,Wyoming,10,5,0,15,0.0
-top,Colorado,Connecticut,9,8,1,16,0.0625
-top,Colorado,DC,9,4,0,13,0.0
-top,Colorado,Delaware,9,6,0,15,0.0
-top,Colorado,Florida,9,10,0,19,0.0
-top,Colorado,Georgia,9,10,0,19,0.0
-top,Colorado,Hawaii,9,6,0,15,0.0
-top,Colorado,Idaho,9,7,1,15,0.06666666666666667
-top,Colorado,Illinois,9,10,1,18,0.05555555555555555
-top,Colorado,Indiana,9,9,1,17,0.058823529411764705
-top,Colorado,Iowa,9,8,1,16,0.0625
-top,Colorado,Kansas,9,8,1,16,0.0625
-top,Colorado,Kentucky,9,9,1,17,0.058823529411764705
-top,Colorado,Louisiana,9,8,0,17,0.0
-top,Colorado,Maine,9,7,1,15,0.06666666666666667
-top,Colorado,Maryland,9,9,1,17,0.058823529411764705
-top,Colorado,Massachusetts,9,8,1,16,0.0625
-top,Colorado,Michigan,9,9,0,18,0.0
-top,Colorado,Minnesota,9,9,0,18,0.0
-top,Colorado,Mississippi,9,7,0,16,0.0
-top,Colorado,Missouri,9,9,0,18,0.0
-top,Colorado,Montana,9,6,1,14,0.07142857142857142
-top,Colorado,Nebraska,9,7,1,15,0.06666666666666667
-top,Colorado,Nevada,9,7,0,16,0.0
-top,Colorado,New Hampshire,9,7,0,16,0.0
-top,Colorado,New Jersey,9,9,0,18,0.0
-top,Colorado,New Mexico,9,7,0,16,0.0
-top,Colorado,New York,9,10,0,19,0.0
-top,Colorado,North Carolina,9,10,1,18,0.05555555555555555
-top,Colorado,North Dakota,9,6,0,15,0.0
-top,Colorado,Ohio,9,10,3,16,0.1875
-top,Colorado,Oklahoma,9,9,0,18,0.0
-top,Colorado,Oregon,9,9,1,17,0.058823529411764705
-top,Colorado,Pennsylvania,9,10,2,17,0.11764705882352941
-top,Colorado,Rhode Island,9,7,0,16,0.0
-top,Colorado,South Carolina,9,9,1,17,0.058823529411764705
-top,Colorado,South Dakota,9,6,0,15,0.0
-top,Colorado,Tennessee,9,9,2,16,0.125
-top,Colorado,Texas,9,10,2,17,0.11764705882352941
-top,Colorado,Utah,9,9,0,18,0.0
-top,Colorado,Vermont,9,6,0,15,0.0
-top,Colorado,Virginia,9,9,0,18,0.0
-top,Colorado,Washington,9,9,1,17,0.058823529411764705
-top,Colorado,West Virginia,9,7,0,16,0.0
-top,Colorado,Wisconsin,9,9,0,18,0.0
-top,Colorado,Wyoming,9,5,2,12,0.16666666666666666
+top,Colorado,Connecticut,8,8,1,15,0.06666666666666667
+top,Colorado,DC,8,4,0,12,0.0
+top,Colorado,Delaware,8,5,1,12,0.08333333333333333
+top,Colorado,Florida,8,10,1,17,0.058823529411764705
+top,Colorado,Georgia,8,9,1,16,0.0625
+top,Colorado,Hawaii,8,6,0,14,0.0
+top,Colorado,Idaho,8,7,2,13,0.15384615384615385
+top,Colorado,Illinois,8,9,2,15,0.13333333333333333
+top,Colorado,Indiana,8,9,1,16,0.0625
+top,Colorado,Iowa,8,8,1,15,0.06666666666666667
+top,Colorado,Kansas,8,8,1,15,0.06666666666666667
+top,Colorado,Kentucky,8,8,2,14,0.14285714285714285
+top,Colorado,Louisiana,8,8,0,16,0.0
+top,Colorado,Maine,8,6,1,13,0.07692307692307693
+top,Colorado,Maryland,8,8,1,15,0.06666666666666667
+top,Colorado,Massachusetts,8,8,1,15,0.06666666666666667
+top,Colorado,Michigan,8,9,1,16,0.0625
+top,Colorado,Minnesota,8,9,1,16,0.0625
+top,Colorado,Mississippi,8,7,0,15,0.0
+top,Colorado,Missouri,8,9,0,17,0.0
+top,Colorado,Montana,8,6,1,13,0.07692307692307693
+top,Colorado,Nebraska,8,7,1,14,0.07142857142857142
+top,Colorado,Nevada,8,7,0,15,0.0
+top,Colorado,New Hampshire,8,7,0,15,0.0
+top,Colorado,New Jersey,8,9,0,17,0.0
+top,Colorado,New Mexico,8,7,0,15,0.0
+top,Colorado,New York,8,9,0,17,0.0
+top,Colorado,North Carolina,8,9,1,16,0.0625
+top,Colorado,North Dakota,8,6,0,14,0.0
+top,Colorado,Ohio,8,9,2,15,0.13333333333333333
+top,Colorado,Oklahoma,8,8,1,15,0.06666666666666667
+top,Colorado,Oregon,8,8,1,15,0.06666666666666667
+top,Colorado,Pennsylvania,8,9,2,15,0.13333333333333333
+top,Colorado,Rhode Island,8,6,0,14,0.0
+top,Colorado,South Carolina,8,9,1,16,0.0625
+top,Colorado,South Dakota,8,6,0,14,0.0
+top,Colorado,Tennessee,8,9,1,16,0.0625
+top,Colorado,Texas,8,10,1,17,0.058823529411764705
+top,Colorado,Utah,8,8,0,16,0.0
+top,Colorado,Vermont,8,6,0,14,0.0
+top,Colorado,Virginia,8,9,0,17,0.0
+top,Colorado,Washington,8,9,1,16,0.0625
+top,Colorado,West Virginia,8,6,0,14,0.0
+top,Colorado,Wisconsin,8,9,1,16,0.0625
+top,Colorado,Wyoming,8,5,2,11,0.18181818181818182
 top,Connecticut,DC,8,4,1,11,0.09090909090909091
-top,Connecticut,Delaware,8,6,1,13,0.07692307692307693
+top,Connecticut,Delaware,8,5,1,12,0.08333333333333333
 top,Connecticut,Florida,8,10,0,18,0.0
-top,Connecticut,Georgia,8,10,1,17,0.058823529411764705
+top,Connecticut,Georgia,8,9,1,16,0.0625
 top,Connecticut,Hawaii,8,6,0,14,0.0
 top,Connecticut,Idaho,8,7,1,14,0.07142857142857142
-top,Connecticut,Illinois,8,10,3,15,0.2
-top,Connecticut,Indiana,8,9,1,16,0.0625
+top,Connecticut,Illinois,8,9,3,14,0.21428571428571427
+top,Connecticut,Indiana,8,9,2,15,0.13333333333333333
 top,Connecticut,Iowa,8,8,3,13,0.23076923076923078
 top,Connecticut,Kansas,8,8,0,16,0.0
-top,Connecticut,Kentucky,8,9,0,17,0.0
-top,Connecticut,Louisiana,8,8,1,15,0.06666666666666667
-top,Connecticut,Maine,8,7,1,14,0.07142857142857142
-top,Connecticut,Maryland,8,9,0,17,0.0
+top,Connecticut,Kentucky,8,8,0,16,0.0
+top,Connecticut,Louisiana,8,8,0,16,0.0
+top,Connecticut,Maine,8,6,1,13,0.07692307692307693
+top,Connecticut,Maryland,8,8,0,16,0.0
 top,Connecticut,Massachusetts,8,8,1,15,0.06666666666666667
 top,Connecticut,Michigan,8,9,1,16,0.0625
-top,Connecticut,Minnesota,8,9,2,15,0.13333333333333333
+top,Connecticut,Minnesota,8,9,1,16,0.0625
 top,Connecticut,Mississippi,8,7,0,15,0.0
 top,Connecticut,Missouri,8,9,0,17,0.0
-top,Connecticut,Montana,8,6,3,11,0.2727272727272727
-top,Connecticut,Nebraska,8,7,1,14,0.07142857142857142
+top,Connecticut,Montana,8,6,2,12,0.16666666666666666
+top,Connecticut,Nebraska,8,7,3,12,0.25
 top,Connecticut,Nevada,8,7,0,15,0.0
-top,Connecticut,New Hampshire,8,7,2,13,0.15384615384615385
-top,Connecticut,New Jersey,8,9,2,15,0.13333333333333333
+top,Connecticut,New Hampshire,8,7,3,12,0.25
+top,Connecticut,New Jersey,8,9,1,16,0.0625
 top,Connecticut,New Mexico,8,7,0,15,0.0
-top,Connecticut,New York,8,10,2,16,0.125
-top,Connecticut,North Carolina,8,10,0,18,0.0
+top,Connecticut,New York,8,9,3,14,0.21428571428571427
+top,Connecticut,North Carolina,8,9,1,16,0.0625
 top,Connecticut,North Dakota,8,6,0,14,0.0
-top,Connecticut,Ohio,8,10,4,14,0.2857142857142857
-top,Connecticut,Oklahoma,8,9,0,17,0.0
-top,Connecticut,Oregon,8,9,1,16,0.0625
-top,Connecticut,Pennsylvania,8,10,3,15,0.2
-top,Connecticut,Rhode Island,8,7,2,13,0.15384615384615385
+top,Connecticut,Ohio,8,9,3,14,0.21428571428571427
+top,Connecticut,Oklahoma,8,8,0,16,0.0
+top,Connecticut,Oregon,8,8,1,15,0.06666666666666667
+top,Connecticut,Pennsylvania,8,9,3,14,0.21428571428571427
+top,Connecticut,Rhode Island,8,6,2,12,0.16666666666666666
 top,Connecticut,South Carolina,8,9,0,17,0.0
 top,Connecticut,South Dakota,8,6,0,14,0.0
-top,Connecticut,Tennessee,8,9,1,16,0.0625
-top,Connecticut,Texas,8,10,0,18,0.0
-top,Connecticut,Utah,8,9,0,17,0.0
-top,Connecticut,Vermont,8,6,2,12,0.16666666666666666
-top,Connecticut,Virginia,8,9,1,16,0.0625
+top,Connecticut,Tennessee,8,9,0,17,0.0
+top,Connecticut,Texas,8,10,1,17,0.058823529411764705
+top,Connecticut,Utah,8,8,0,16,0.0
+top,Connecticut,Vermont,8,6,1,13,0.07692307692307693
+top,Connecticut,Virginia,8,9,0,17,0.0
 top,Connecticut,Washington,8,9,2,15,0.13333333333333333
-top,Connecticut,West Virginia,8,7,0,15,0.0
+top,Connecticut,West Virginia,8,6,0,14,0.0
 top,Connecticut,Wisconsin,8,9,2,15,0.13333333333333333
-top,Connecticut,Wyoming,8,5,2,11,0.18181818181818182
-top,DC,Delaware,4,6,0,10,0.0
+top,Connecticut,Wyoming,8,5,1,12,0.08333333333333333
+top,DC,Delaware,4,5,0,9,0.0
 top,DC,Florida,4,10,0,14,0.0
-top,DC,Georgia,4,10,1,13,0.07692307692307693
+top,DC,Georgia,4,9,1,12,0.08333333333333333
 top,DC,Hawaii,4,6,0,10,0.0
 top,DC,Idaho,4,7,0,11,0.0
-top,DC,Illinois,4,10,0,14,0.0
+top,DC,Illinois,4,9,0,13,0.0
 top,DC,Indiana,4,9,0,13,0.0
 top,DC,Iowa,4,8,0,12,0.0
 top,DC,Kansas,4,8,0,12,0.0
-top,DC,Kentucky,4,9,0,13,0.0
+top,DC,Kentucky,4,8,0,12,0.0
 top,DC,Louisiana,4,8,1,11,0.09090909090909091
-top,DC,Maine,4,7,0,11,0.0
-top,DC,Maryland,4,9,0,13,0.0
+top,DC,Maine,4,6,0,10,0.0
+top,DC,Maryland,4,8,0,12,0.0
 top,DC,Massachusetts,4,8,0,12,0.0
 top,DC,Michigan,4,9,0,13,0.0
 top,DC,Minnesota,4,9,0,13,0.0
@@ -349,496 +349,496 @@ top,DC,Missouri,4,9,0,13,0.0
 top,DC,Montana,4,6,0,10,0.0
 top,DC,Nebraska,4,7,0,11,0.0
 top,DC,Nevada,4,7,0,11,0.0
-top,DC,New Hampshire,4,7,0,11,0.0
+top,DC,New Hampshire,4,7,1,10,0.1
 top,DC,New Jersey,4,9,1,12,0.08333333333333333
 top,DC,New Mexico,4,7,0,11,0.0
-top,DC,New York,4,10,0,14,0.0
-top,DC,North Carolina,4,10,0,14,0.0
+top,DC,New York,4,9,1,12,0.08333333333333333
+top,DC,North Carolina,4,9,0,13,0.0
 top,DC,North Dakota,4,6,0,10,0.0
-top,DC,Ohio,4,10,0,14,0.0
-top,DC,Oklahoma,4,9,0,13,0.0
-top,DC,Oregon,4,9,0,13,0.0
-top,DC,Pennsylvania,4,10,0,14,0.0
-top,DC,Rhode Island,4,7,0,11,0.0
+top,DC,Ohio,4,9,0,13,0.0
+top,DC,Oklahoma,4,8,0,12,0.0
+top,DC,Oregon,4,8,1,11,0.09090909090909091
+top,DC,Pennsylvania,4,9,1,12,0.08333333333333333
+top,DC,Rhode Island,4,6,0,10,0.0
 top,DC,South Carolina,4,9,0,13,0.0
 top,DC,South Dakota,4,6,0,10,0.0
 top,DC,Tennessee,4,9,0,13,0.0
 top,DC,Texas,4,10,1,13,0.07692307692307693
-top,DC,Utah,4,9,0,13,0.0
+top,DC,Utah,4,8,0,12,0.0
 top,DC,Vermont,4,6,0,10,0.0
 top,DC,Virginia,4,9,0,13,0.0
 top,DC,Washington,4,9,1,12,0.08333333333333333
-top,DC,West Virginia,4,7,0,11,0.0
+top,DC,West Virginia,4,6,0,10,0.0
 top,DC,Wisconsin,4,9,0,13,0.0
 top,DC,Wyoming,4,5,0,9,0.0
-top,Delaware,Florida,6,10,1,15,0.06666666666666667
-top,Delaware,Georgia,6,10,0,16,0.0
-top,Delaware,Hawaii,6,6,0,12,0.0
-top,Delaware,Idaho,6,7,0,13,0.0
-top,Delaware,Illinois,6,10,2,14,0.14285714285714285
-top,Delaware,Indiana,6,9,1,14,0.07142857142857142
-top,Delaware,Iowa,6,8,0,14,0.0
-top,Delaware,Kansas,6,8,0,14,0.0
-top,Delaware,Kentucky,6,9,2,13,0.15384615384615385
-top,Delaware,Louisiana,6,8,0,14,0.0
-top,Delaware,Maine,6,7,0,13,0.0
-top,Delaware,Maryland,6,9,1,14,0.07142857142857142
-top,Delaware,Massachusetts,6,8,2,12,0.16666666666666666
-top,Delaware,Michigan,6,9,1,14,0.07142857142857142
-top,Delaware,Minnesota,6,9,1,14,0.07142857142857142
-top,Delaware,Mississippi,6,7,0,13,0.0
-top,Delaware,Missouri,6,9,1,14,0.07142857142857142
-top,Delaware,Montana,6,6,0,12,0.0
-top,Delaware,Nebraska,6,7,1,12,0.08333333333333333
-top,Delaware,Nevada,6,7,0,13,0.0
-top,Delaware,New Hampshire,6,7,1,12,0.08333333333333333
-top,Delaware,New Jersey,6,9,0,15,0.0
-top,Delaware,New Mexico,6,7,0,13,0.0
-top,Delaware,New York,6,10,1,15,0.06666666666666667
-top,Delaware,North Carolina,6,10,1,15,0.06666666666666667
-top,Delaware,North Dakota,6,6,0,12,0.0
-top,Delaware,Ohio,6,10,1,15,0.06666666666666667
-top,Delaware,Oklahoma,6,9,1,14,0.07142857142857142
-top,Delaware,Oregon,6,9,0,15,0.0
-top,Delaware,Pennsylvania,6,10,2,14,0.14285714285714285
-top,Delaware,Rhode Island,6,7,1,12,0.08333333333333333
-top,Delaware,South Carolina,6,9,0,15,0.0
-top,Delaware,South Dakota,6,6,1,11,0.09090909090909091
-top,Delaware,Tennessee,6,9,0,15,0.0
-top,Delaware,Texas,6,10,0,16,0.0
-top,Delaware,Utah,6,9,2,13,0.15384615384615385
-top,Delaware,Vermont,6,6,0,12,0.0
-top,Delaware,Virginia,6,9,1,14,0.07142857142857142
-top,Delaware,Washington,6,9,0,15,0.0
-top,Delaware,West Virginia,6,7,2,11,0.18181818181818182
-top,Delaware,Wisconsin,6,9,0,15,0.0
-top,Delaware,Wyoming,6,5,0,11,0.0
-top,Florida,Georgia,10,10,1,19,0.05263157894736842
+top,Delaware,Florida,5,10,1,14,0.07142857142857142
+top,Delaware,Georgia,5,9,1,13,0.07692307692307693
+top,Delaware,Hawaii,5,6,0,11,0.0
+top,Delaware,Idaho,5,7,0,12,0.0
+top,Delaware,Illinois,5,9,1,13,0.07692307692307693
+top,Delaware,Indiana,5,9,0,14,0.0
+top,Delaware,Iowa,5,8,0,13,0.0
+top,Delaware,Kansas,5,8,0,13,0.0
+top,Delaware,Kentucky,5,8,2,11,0.18181818181818182
+top,Delaware,Louisiana,5,8,0,13,0.0
+top,Delaware,Maine,5,6,0,11,0.0
+top,Delaware,Maryland,5,8,1,12,0.08333333333333333
+top,Delaware,Massachusetts,5,8,2,11,0.18181818181818182
+top,Delaware,Michigan,5,9,0,14,0.0
+top,Delaware,Minnesota,5,9,0,14,0.0
+top,Delaware,Mississippi,5,7,0,12,0.0
+top,Delaware,Missouri,5,9,1,13,0.07692307692307693
+top,Delaware,Montana,5,6,0,11,0.0
+top,Delaware,Nebraska,5,7,1,11,0.09090909090909091
+top,Delaware,Nevada,5,7,0,12,0.0
+top,Delaware,New Hampshire,5,7,0,12,0.0
+top,Delaware,New Jersey,5,9,1,13,0.07692307692307693
+top,Delaware,New Mexico,5,7,0,12,0.0
+top,Delaware,New York,5,9,0,14,0.0
+top,Delaware,North Carolina,5,9,0,14,0.0
+top,Delaware,North Dakota,5,6,0,11,0.0
+top,Delaware,Ohio,5,9,1,13,0.07692307692307693
+top,Delaware,Oklahoma,5,8,2,11,0.18181818181818182
+top,Delaware,Oregon,5,8,0,13,0.0
+top,Delaware,Pennsylvania,5,9,1,13,0.07692307692307693
+top,Delaware,Rhode Island,5,6,0,11,0.0
+top,Delaware,South Carolina,5,9,0,14,0.0
+top,Delaware,South Dakota,5,6,0,11,0.0
+top,Delaware,Tennessee,5,9,0,14,0.0
+top,Delaware,Texas,5,10,0,15,0.0
+top,Delaware,Utah,5,8,1,12,0.08333333333333333
+top,Delaware,Vermont,5,6,0,11,0.0
+top,Delaware,Virginia,5,9,1,13,0.07692307692307693
+top,Delaware,Washington,5,9,0,14,0.0
+top,Delaware,West Virginia,5,6,1,10,0.1
+top,Delaware,Wisconsin,5,9,0,14,0.0
+top,Delaware,Wyoming,5,5,0,10,0.0
+top,Florida,Georgia,10,9,2,17,0.11764705882352941
 top,Florida,Hawaii,10,6,0,16,0.0
-top,Florida,Idaho,10,7,1,16,0.0625
-top,Florida,Illinois,10,10,0,20,0.0
+top,Florida,Idaho,10,7,0,17,0.0
+top,Florida,Illinois,10,9,0,19,0.0
 top,Florida,Indiana,10,9,0,19,0.0
 top,Florida,Iowa,10,8,0,18,0.0
 top,Florida,Kansas,10,8,1,17,0.058823529411764705
-top,Florida,Kentucky,10,9,3,16,0.1875
+top,Florida,Kentucky,10,8,3,15,0.2
 top,Florida,Louisiana,10,8,0,18,0.0
-top,Florida,Maine,10,7,0,17,0.0
-top,Florida,Maryland,10,9,0,19,0.0
+top,Florida,Maine,10,6,0,16,0.0
+top,Florida,Maryland,10,8,0,18,0.0
 top,Florida,Massachusetts,10,8,0,18,0.0
 top,Florida,Michigan,10,9,0,19,0.0
 top,Florida,Minnesota,10,9,0,19,0.0
 top,Florida,Mississippi,10,7,1,16,0.0625
 top,Florida,Missouri,10,9,1,18,0.05555555555555555
-top,Florida,Montana,10,6,0,16,0.0
-top,Florida,Nebraska,10,7,2,15,0.13333333333333333
-top,Florida,Nevada,10,7,0,17,0.0
+top,Florida,Montana,10,6,1,15,0.06666666666666667
+top,Florida,Nebraska,10,7,1,16,0.0625
+top,Florida,Nevada,10,7,1,16,0.0625
 top,Florida,New Hampshire,10,7,0,17,0.0
 top,Florida,New Jersey,10,9,0,19,0.0
-top,Florida,New Mexico,10,7,0,17,0.0
-top,Florida,New York,10,10,0,20,0.0
-top,Florida,North Carolina,10,10,0,20,0.0
+top,Florida,New Mexico,10,7,1,16,0.0625
+top,Florida,New York,10,9,0,19,0.0
+top,Florida,North Carolina,10,9,0,19,0.0
 top,Florida,North Dakota,10,6,0,16,0.0
-top,Florida,Ohio,10,10,1,19,0.05263157894736842
-top,Florida,Oklahoma,10,9,1,18,0.05555555555555555
-top,Florida,Oregon,10,9,1,18,0.05555555555555555
-top,Florida,Pennsylvania,10,10,1,19,0.05263157894736842
-top,Florida,Rhode Island,10,7,0,17,0.0
-top,Florida,South Carolina,10,9,3,16,0.1875
+top,Florida,Ohio,10,9,1,18,0.05555555555555555
+top,Florida,Oklahoma,10,8,1,17,0.058823529411764705
+top,Florida,Oregon,10,8,1,17,0.058823529411764705
+top,Florida,Pennsylvania,10,9,1,18,0.05555555555555555
+top,Florida,Rhode Island,10,6,0,16,0.0
+top,Florida,South Carolina,10,9,4,15,0.26666666666666666
 top,Florida,South Dakota,10,6,0,16,0.0
-top,Florida,Tennessee,10,9,1,18,0.05555555555555555
-top,Florida,Texas,10,10,1,19,0.05263157894736842
-top,Florida,Utah,10,9,0,19,0.0
+top,Florida,Tennessee,10,9,2,17,0.11764705882352941
+top,Florida,Texas,10,10,2,18,0.1111111111111111
+top,Florida,Utah,10,8,0,18,0.0
 top,Florida,Vermont,10,6,0,16,0.0
 top,Florida,Virginia,10,9,1,18,0.05555555555555555
 top,Florida,Washington,10,9,0,19,0.0
-top,Florida,West Virginia,10,7,0,17,0.0
-top,Florida,Wisconsin,10,9,1,18,0.05555555555555555
+top,Florida,West Virginia,10,6,0,16,0.0
+top,Florida,Wisconsin,10,9,0,19,0.0
 top,Florida,Wyoming,10,5,0,15,0.0
-top,Georgia,Hawaii,10,6,1,15,0.06666666666666667
-top,Georgia,Idaho,10,7,0,17,0.0
-top,Georgia,Illinois,10,10,0,20,0.0
-top,Georgia,Indiana,10,9,0,19,0.0
-top,Georgia,Iowa,10,8,0,18,0.0
-top,Georgia,Kansas,10,8,0,18,0.0
-top,Georgia,Kentucky,10,9,2,17,0.11764705882352941
-top,Georgia,Louisiana,10,8,2,16,0.125
-top,Georgia,Maine,10,7,0,17,0.0
-top,Georgia,Maryland,10,9,2,17,0.11764705882352941
-top,Georgia,Massachusetts,10,8,0,18,0.0
-top,Georgia,Michigan,10,9,0,19,0.0
-top,Georgia,Minnesota,10,9,0,19,0.0
-top,Georgia,Mississippi,10,7,0,17,0.0
-top,Georgia,Missouri,10,9,1,18,0.05555555555555555
-top,Georgia,Montana,10,6,0,16,0.0
-top,Georgia,Nebraska,10,7,0,17,0.0
-top,Georgia,Nevada,10,7,2,15,0.13333333333333333
-top,Georgia,New Hampshire,10,7,0,17,0.0
-top,Georgia,New Jersey,10,9,0,19,0.0
-top,Georgia,New Mexico,10,7,0,17,0.0
-top,Georgia,New York,10,10,0,20,0.0
-top,Georgia,North Carolina,10,10,2,18,0.1111111111111111
-top,Georgia,North Dakota,10,6,0,16,0.0
-top,Georgia,Ohio,10,10,0,20,0.0
-top,Georgia,Oklahoma,10,9,3,16,0.1875
-top,Georgia,Oregon,10,9,2,17,0.11764705882352941
-top,Georgia,Pennsylvania,10,10,1,19,0.05263157894736842
-top,Georgia,Rhode Island,10,7,0,17,0.0
-top,Georgia,South Carolina,10,9,2,17,0.11764705882352941
-top,Georgia,South Dakota,10,6,0,16,0.0
-top,Georgia,Tennessee,10,9,2,17,0.11764705882352941
-top,Georgia,Texas,10,10,4,16,0.25
-top,Georgia,Utah,10,9,1,18,0.05555555555555555
-top,Georgia,Vermont,10,6,1,15,0.06666666666666667
-top,Georgia,Virginia,10,9,2,17,0.11764705882352941
-top,Georgia,Washington,10,9,1,18,0.05555555555555555
-top,Georgia,West Virginia,10,7,1,16,0.0625
-top,Georgia,Wisconsin,10,9,0,19,0.0
-top,Georgia,Wyoming,10,5,0,15,0.0
+top,Georgia,Hawaii,9,6,1,14,0.07142857142857142
+top,Georgia,Idaho,9,7,0,16,0.0
+top,Georgia,Illinois,9,9,0,18,0.0
+top,Georgia,Indiana,9,9,1,17,0.058823529411764705
+top,Georgia,Iowa,9,8,0,17,0.0
+top,Georgia,Kansas,9,8,0,17,0.0
+top,Georgia,Kentucky,9,8,3,14,0.21428571428571427
+top,Georgia,Louisiana,9,8,2,15,0.13333333333333333
+top,Georgia,Maine,9,6,0,15,0.0
+top,Georgia,Maryland,9,8,1,16,0.0625
+top,Georgia,Massachusetts,9,8,0,17,0.0
+top,Georgia,Michigan,9,9,0,18,0.0
+top,Georgia,Minnesota,9,9,0,18,0.0
+top,Georgia,Mississippi,9,7,0,16,0.0
+top,Georgia,Missouri,9,9,2,16,0.125
+top,Georgia,Montana,9,6,0,15,0.0
+top,Georgia,Nebraska,9,7,1,15,0.06666666666666667
+top,Georgia,Nevada,9,7,1,15,0.06666666666666667
+top,Georgia,New Hampshire,9,7,0,16,0.0
+top,Georgia,New Jersey,9,9,0,18,0.0
+top,Georgia,New Mexico,9,7,0,16,0.0
+top,Georgia,New York,9,9,0,18,0.0
+top,Georgia,North Carolina,9,9,3,15,0.2
+top,Georgia,North Dakota,9,6,0,15,0.0
+top,Georgia,Ohio,9,9,0,18,0.0
+top,Georgia,Oklahoma,9,8,2,15,0.13333333333333333
+top,Georgia,Oregon,9,8,0,17,0.0
+top,Georgia,Pennsylvania,9,9,2,16,0.125
+top,Georgia,Rhode Island,9,6,0,15,0.0
+top,Georgia,South Carolina,9,9,2,16,0.125
+top,Georgia,South Dakota,9,6,0,15,0.0
+top,Georgia,Tennessee,9,9,2,16,0.125
+top,Georgia,Texas,9,10,3,16,0.1875
+top,Georgia,Utah,9,8,1,16,0.0625
+top,Georgia,Vermont,9,6,0,15,0.0
+top,Georgia,Virginia,9,9,1,17,0.058823529411764705
+top,Georgia,Washington,9,9,1,17,0.058823529411764705
+top,Georgia,West Virginia,9,6,0,15,0.0
+top,Georgia,Wisconsin,9,9,0,18,0.0
+top,Georgia,Wyoming,9,5,0,14,0.0
 top,Hawaii,Idaho,6,7,0,13,0.0
-top,Hawaii,Illinois,6,10,0,16,0.0
-top,Hawaii,Indiana,6,9,0,15,0.0
+top,Hawaii,Illinois,6,9,0,15,0.0
+top,Hawaii,Indiana,6,9,1,14,0.07142857142857142
 top,Hawaii,Iowa,6,8,1,13,0.07692307692307693
-top,Hawaii,Kansas,6,8,0,14,0.0
-top,Hawaii,Kentucky,6,9,0,15,0.0
+top,Hawaii,Kansas,6,8,1,13,0.07692307692307693
+top,Hawaii,Kentucky,6,8,0,14,0.0
 top,Hawaii,Louisiana,6,8,0,14,0.0
-top,Hawaii,Maine,6,7,0,13,0.0
-top,Hawaii,Maryland,6,9,0,15,0.0
+top,Hawaii,Maine,6,6,0,12,0.0
+top,Hawaii,Maryland,6,8,0,14,0.0
 top,Hawaii,Massachusetts,6,8,0,14,0.0
 top,Hawaii,Michigan,6,9,0,15,0.0
 top,Hawaii,Minnesota,6,9,0,15,0.0
 top,Hawaii,Mississippi,6,7,0,13,0.0
-top,Hawaii,Missouri,6,9,1,14,0.07142857142857142
+top,Hawaii,Missouri,6,9,2,13,0.15384615384615385
 top,Hawaii,Montana,6,6,0,12,0.0
 top,Hawaii,Nebraska,6,7,0,13,0.0
-top,Hawaii,Nevada,6,7,0,13,0.0
+top,Hawaii,Nevada,6,7,1,12,0.08333333333333333
 top,Hawaii,New Hampshire,6,7,0,13,0.0
 top,Hawaii,New Jersey,6,9,1,14,0.07142857142857142
 top,Hawaii,New Mexico,6,7,1,12,0.08333333333333333
-top,Hawaii,New York,6,10,1,15,0.06666666666666667
-top,Hawaii,North Carolina,6,10,1,15,0.06666666666666667
+top,Hawaii,New York,6,9,1,14,0.07142857142857142
+top,Hawaii,North Carolina,6,9,1,14,0.07142857142857142
 top,Hawaii,North Dakota,6,6,0,12,0.0
-top,Hawaii,Ohio,6,10,0,16,0.0
-top,Hawaii,Oklahoma,6,9,2,13,0.15384615384615385
-top,Hawaii,Oregon,6,9,0,15,0.0
-top,Hawaii,Pennsylvania,6,10,2,14,0.14285714285714285
-top,Hawaii,Rhode Island,6,7,0,13,0.0
+top,Hawaii,Ohio,6,9,0,15,0.0
+top,Hawaii,Oklahoma,6,8,2,12,0.16666666666666666
+top,Hawaii,Oregon,6,8,1,13,0.07692307692307693
+top,Hawaii,Pennsylvania,6,9,2,13,0.15384615384615385
+top,Hawaii,Rhode Island,6,6,0,12,0.0
 top,Hawaii,South Carolina,6,9,1,14,0.07142857142857142
 top,Hawaii,South Dakota,6,6,0,12,0.0
 top,Hawaii,Tennessee,6,9,1,14,0.07142857142857142
 top,Hawaii,Texas,6,10,1,15,0.06666666666666667
-top,Hawaii,Utah,6,9,0,15,0.0
+top,Hawaii,Utah,6,8,0,14,0.0
 top,Hawaii,Vermont,6,6,0,12,0.0
-top,Hawaii,Virginia,6,9,1,14,0.07142857142857142
-top,Hawaii,Washington,6,9,0,15,0.0
-top,Hawaii,West Virginia,6,7,0,13,0.0
+top,Hawaii,Virginia,6,9,2,13,0.15384615384615385
+top,Hawaii,Washington,6,9,1,14,0.07142857142857142
+top,Hawaii,West Virginia,6,6,0,12,0.0
 top,Hawaii,Wisconsin,6,9,0,15,0.0
 top,Hawaii,Wyoming,6,5,0,11,0.0
-top,Idaho,Illinois,7,10,1,16,0.0625
-top,Idaho,Indiana,7,9,2,14,0.14285714285714285
-top,Idaho,Iowa,7,8,2,13,0.15384615384615385
-top,Idaho,Kansas,7,8,1,14,0.07142857142857142
-top,Idaho,Kentucky,7,9,0,16,0.0
-top,Idaho,Louisiana,7,8,0,15,0.0
-top,Idaho,Maine,7,7,0,14,0.0
-top,Idaho,Maryland,7,9,0,16,0.0
-top,Idaho,Massachusetts,7,8,0,15,0.0
-top,Idaho,Michigan,7,9,0,16,0.0
-top,Idaho,Minnesota,7,9,1,15,0.06666666666666667
-top,Idaho,Mississippi,7,7,0,14,0.0
-top,Idaho,Missouri,7,9,0,16,0.0
+top,Idaho,Illinois,7,9,3,13,0.23076923076923078
+top,Idaho,Indiana,7,9,3,13,0.23076923076923078
+top,Idaho,Iowa,7,8,3,12,0.25
+top,Idaho,Kansas,7,8,3,12,0.25
+top,Idaho,Kentucky,7,8,1,14,0.07142857142857142
+top,Idaho,Louisiana,7,8,1,14,0.07142857142857142
+top,Idaho,Maine,7,6,1,12,0.08333333333333333
+top,Idaho,Maryland,7,8,0,15,0.0
+top,Idaho,Massachusetts,7,8,1,14,0.07142857142857142
+top,Idaho,Michigan,7,9,3,13,0.23076923076923078
+top,Idaho,Minnesota,7,9,2,14,0.14285714285714285
+top,Idaho,Mississippi,7,7,1,13,0.07692307692307693
+top,Idaho,Missouri,7,9,1,15,0.06666666666666667
 top,Idaho,Montana,7,6,1,12,0.08333333333333333
-top,Idaho,Nebraska,7,7,3,11,0.2727272727272727
+top,Idaho,Nebraska,7,7,2,12,0.16666666666666666
 top,Idaho,Nevada,7,7,0,14,0.0
 top,Idaho,New Hampshire,7,7,0,14,0.0
-top,Idaho,New Jersey,7,9,0,16,0.0
-top,Idaho,New Mexico,7,7,1,13,0.07692307692307693
-top,Idaho,New York,7,10,2,15,0.13333333333333333
-top,Idaho,North Carolina,7,10,0,17,0.0
+top,Idaho,New Jersey,7,9,1,15,0.06666666666666667
+top,Idaho,New Mexico,7,7,0,14,0.0
+top,Idaho,New York,7,9,2,14,0.14285714285714285
+top,Idaho,North Carolina,7,9,0,16,0.0
 top,Idaho,North Dakota,7,6,1,12,0.08333333333333333
-top,Idaho,Ohio,7,10,1,16,0.0625
-top,Idaho,Oklahoma,7,9,1,15,0.06666666666666667
-top,Idaho,Oregon,7,9,0,16,0.0
-top,Idaho,Pennsylvania,7,10,1,16,0.0625
-top,Idaho,Rhode Island,7,7,0,14,0.0
-top,Idaho,South Carolina,7,9,0,16,0.0
-top,Idaho,South Dakota,7,6,1,12,0.08333333333333333
-top,Idaho,Tennessee,7,9,0,16,0.0
-top,Idaho,Texas,7,10,2,15,0.13333333333333333
-top,Idaho,Utah,7,9,0,16,0.0
-top,Idaho,Vermont,7,6,0,13,0.0
+top,Idaho,Ohio,7,9,4,12,0.3333333333333333
+top,Idaho,Oklahoma,7,8,2,13,0.15384615384615385
+top,Idaho,Oregon,7,8,1,14,0.07142857142857142
+top,Idaho,Pennsylvania,7,9,3,13,0.23076923076923078
+top,Idaho,Rhode Island,7,6,2,11,0.18181818181818182
+top,Idaho,South Carolina,7,9,1,15,0.06666666666666667
+top,Idaho,South Dakota,7,6,0,13,0.0
+top,Idaho,Tennessee,7,9,2,14,0.14285714285714285
+top,Idaho,Texas,7,10,1,16,0.0625
+top,Idaho,Utah,7,8,2,13,0.15384615384615385
+top,Idaho,Vermont,7,6,2,11,0.18181818181818182
 top,Idaho,Virginia,7,9,0,16,0.0
 top,Idaho,Washington,7,9,1,15,0.06666666666666667
-top,Idaho,West Virginia,7,7,0,14,0.0
-top,Idaho,Wisconsin,7,9,1,15,0.06666666666666667
-top,Idaho,Wyoming,7,5,1,11,0.09090909090909091
-top,Illinois,Indiana,10,9,3,16,0.1875
-top,Illinois,Iowa,10,8,4,14,0.2857142857142857
-top,Illinois,Kansas,10,8,0,18,0.0
-top,Illinois,Kentucky,10,9,1,18,0.05555555555555555
-top,Illinois,Louisiana,10,8,0,18,0.0
-top,Illinois,Maine,10,7,1,16,0.0625
-top,Illinois,Maryland,10,9,1,18,0.05555555555555555
-top,Illinois,Massachusetts,10,8,2,16,0.125
-top,Illinois,Michigan,10,9,3,16,0.1875
-top,Illinois,Minnesota,10,9,2,17,0.11764705882352941
-top,Illinois,Mississippi,10,7,0,17,0.0
-top,Illinois,Missouri,10,9,1,18,0.05555555555555555
-top,Illinois,Montana,10,6,3,13,0.23076923076923078
-top,Illinois,Nebraska,10,7,4,13,0.3076923076923077
-top,Illinois,Nevada,10,7,0,17,0.0
-top,Illinois,New Hampshire,10,7,3,14,0.21428571428571427
-top,Illinois,New Jersey,10,9,1,18,0.05555555555555555
-top,Illinois,New Mexico,10,7,1,16,0.0625
-top,Illinois,New York,10,10,6,14,0.42857142857142855
-top,Illinois,North Carolina,10,10,1,19,0.05263157894736842
-top,Illinois,North Dakota,10,6,1,15,0.06666666666666667
-top,Illinois,Ohio,10,10,3,17,0.17647058823529413
-top,Illinois,Oklahoma,10,9,0,19,0.0
-top,Illinois,Oregon,10,9,2,17,0.11764705882352941
-top,Illinois,Pennsylvania,10,10,2,18,0.1111111111111111
-top,Illinois,Rhode Island,10,7,4,13,0.3076923076923077
-top,Illinois,South Carolina,10,9,0,19,0.0
-top,Illinois,South Dakota,10,6,1,15,0.06666666666666667
-top,Illinois,Tennessee,10,9,0,19,0.0
-top,Illinois,Texas,10,10,1,19,0.05263157894736842
-top,Illinois,Utah,10,9,2,17,0.11764705882352941
-top,Illinois,Vermont,10,6,1,15,0.06666666666666667
-top,Illinois,Virginia,10,9,1,18,0.05555555555555555
-top,Illinois,Washington,10,9,0,19,0.0
-top,Illinois,West Virginia,10,7,3,14,0.21428571428571427
-top,Illinois,Wisconsin,10,9,3,16,0.1875
-top,Illinois,Wyoming,10,5,1,14,0.07142857142857142
+top,Idaho,West Virginia,7,6,1,12,0.08333333333333333
+top,Idaho,Wisconsin,7,9,2,14,0.14285714285714285
+top,Idaho,Wyoming,7,5,2,10,0.2
+top,Illinois,Indiana,9,9,2,16,0.125
+top,Illinois,Iowa,9,8,4,13,0.3076923076923077
+top,Illinois,Kansas,9,8,1,16,0.0625
+top,Illinois,Kentucky,9,8,1,16,0.0625
+top,Illinois,Louisiana,9,8,0,17,0.0
+top,Illinois,Maine,9,6,2,13,0.15384615384615385
+top,Illinois,Maryland,9,8,1,16,0.0625
+top,Illinois,Massachusetts,9,8,1,16,0.0625
+top,Illinois,Michigan,9,9,4,14,0.2857142857142857
+top,Illinois,Minnesota,9,9,1,17,0.058823529411764705
+top,Illinois,Mississippi,9,7,0,16,0.0
+top,Illinois,Missouri,9,9,1,17,0.058823529411764705
+top,Illinois,Montana,9,6,2,13,0.15384615384615385
+top,Illinois,Nebraska,9,7,3,13,0.23076923076923078
+top,Illinois,Nevada,9,7,0,16,0.0
+top,Illinois,New Hampshire,9,7,2,14,0.14285714285714285
+top,Illinois,New Jersey,9,9,1,17,0.058823529411764705
+top,Illinois,New Mexico,9,7,1,15,0.06666666666666667
+top,Illinois,New York,9,9,4,14,0.2857142857142857
+top,Illinois,North Carolina,9,9,0,18,0.0
+top,Illinois,North Dakota,9,6,1,14,0.07142857142857142
+top,Illinois,Ohio,9,9,3,15,0.2
+top,Illinois,Oklahoma,9,8,1,16,0.0625
+top,Illinois,Oregon,9,8,2,15,0.13333333333333333
+top,Illinois,Pennsylvania,9,9,2,16,0.125
+top,Illinois,Rhode Island,9,6,3,12,0.25
+top,Illinois,South Carolina,9,9,1,17,0.058823529411764705
+top,Illinois,South Dakota,9,6,0,15,0.0
+top,Illinois,Tennessee,9,9,1,17,0.058823529411764705
+top,Illinois,Texas,9,10,0,19,0.0
+top,Illinois,Utah,9,8,2,15,0.13333333333333333
+top,Illinois,Vermont,9,6,2,13,0.15384615384615385
+top,Illinois,Virginia,9,9,2,16,0.125
+top,Illinois,Washington,9,9,0,18,0.0
+top,Illinois,West Virginia,9,6,2,13,0.15384615384615385
+top,Illinois,Wisconsin,9,9,3,15,0.2
+top,Illinois,Wyoming,9,5,1,13,0.07692307692307693
 top,Indiana,Iowa,9,8,4,13,0.3076923076923077
-top,Indiana,Kansas,9,8,2,15,0.13333333333333333
-top,Indiana,Kentucky,9,9,1,17,0.058823529411764705
+top,Indiana,Kansas,9,8,3,14,0.21428571428571427
+top,Indiana,Kentucky,9,8,1,16,0.0625
 top,Indiana,Louisiana,9,8,0,17,0.0
-top,Indiana,Maine,9,7,0,16,0.0
-top,Indiana,Maryland,9,9,0,18,0.0
-top,Indiana,Massachusetts,9,8,2,15,0.13333333333333333
-top,Indiana,Michigan,9,9,1,17,0.058823529411764705
+top,Indiana,Maine,9,6,0,15,0.0
+top,Indiana,Maryland,9,8,0,17,0.0
+top,Indiana,Massachusetts,9,8,1,16,0.0625
+top,Indiana,Michigan,9,9,2,16,0.125
 top,Indiana,Minnesota,9,9,2,16,0.125
 top,Indiana,Mississippi,9,7,1,15,0.06666666666666667
 top,Indiana,Missouri,9,9,1,17,0.058823529411764705
 top,Indiana,Montana,9,6,1,14,0.07142857142857142
 top,Indiana,Nebraska,9,7,4,12,0.3333333333333333
 top,Indiana,Nevada,9,7,0,16,0.0
-top,Indiana,New Hampshire,9,7,1,15,0.06666666666666667
+top,Indiana,New Hampshire,9,7,0,16,0.0
 top,Indiana,New Jersey,9,9,0,18,0.0
-top,Indiana,New Mexico,9,7,0,16,0.0
-top,Indiana,New York,9,10,3,16,0.1875
-top,Indiana,North Carolina,9,10,2,17,0.11764705882352941
-top,Indiana,North Dakota,9,6,2,13,0.15384615384615385
-top,Indiana,Ohio,9,10,2,17,0.11764705882352941
-top,Indiana,Oklahoma,9,9,2,16,0.125
-top,Indiana,Oregon,9,9,1,17,0.058823529411764705
-top,Indiana,Pennsylvania,9,10,2,17,0.11764705882352941
-top,Indiana,Rhode Island,9,7,2,14,0.14285714285714285
+top,Indiana,New Mexico,9,7,1,15,0.06666666666666667
+top,Indiana,New York,9,9,2,16,0.125
+top,Indiana,North Carolina,9,9,1,17,0.058823529411764705
+top,Indiana,North Dakota,9,6,1,14,0.07142857142857142
+top,Indiana,Ohio,9,9,3,15,0.2
+top,Indiana,Oklahoma,9,8,3,14,0.21428571428571427
+top,Indiana,Oregon,9,8,1,16,0.0625
+top,Indiana,Pennsylvania,9,9,2,16,0.125
+top,Indiana,Rhode Island,9,6,1,14,0.07142857142857142
 top,Indiana,South Carolina,9,9,0,18,0.0
-top,Indiana,South Dakota,9,6,1,14,0.07142857142857142
+top,Indiana,South Dakota,9,6,0,15,0.0
 top,Indiana,Tennessee,9,9,1,17,0.058823529411764705
-top,Indiana,Texas,9,10,0,19,0.0
-top,Indiana,Utah,9,9,2,16,0.125
+top,Indiana,Texas,9,10,1,18,0.05555555555555555
+top,Indiana,Utah,9,8,1,16,0.0625
 top,Indiana,Vermont,9,6,1,14,0.07142857142857142
 top,Indiana,Virginia,9,9,0,18,0.0
-top,Indiana,Washington,9,9,1,17,0.058823529411764705
-top,Indiana,West Virginia,9,7,1,15,0.06666666666666667
-top,Indiana,Wisconsin,9,9,1,17,0.058823529411764705
-top,Indiana,Wyoming,9,5,1,13,0.07692307692307693
-top,Iowa,Kansas,8,8,3,13,0.23076923076923078
-top,Iowa,Kentucky,8,9,2,15,0.13333333333333333
+top,Indiana,Washington,9,9,3,15,0.2
+top,Indiana,West Virginia,9,6,1,14,0.07142857142857142
+top,Indiana,Wisconsin,9,9,3,15,0.2
+top,Indiana,Wyoming,9,5,2,12,0.16666666666666666
+top,Iowa,Kansas,8,8,2,14,0.14285714285714285
+top,Iowa,Kentucky,8,8,1,15,0.06666666666666667
 top,Iowa,Louisiana,8,8,0,16,0.0
-top,Iowa,Maine,8,7,1,14,0.07142857142857142
-top,Iowa,Maryland,8,9,0,17,0.0
+top,Iowa,Maine,8,6,1,13,0.07692307692307693
+top,Iowa,Maryland,8,8,0,16,0.0
 top,Iowa,Massachusetts,8,8,0,16,0.0
-top,Iowa,Michigan,8,9,2,15,0.13333333333333333
-top,Iowa,Minnesota,8,9,2,15,0.13333333333333333
+top,Iowa,Michigan,8,9,3,14,0.21428571428571427
+top,Iowa,Minnesota,8,9,4,13,0.3076923076923077
 top,Iowa,Mississippi,8,7,1,14,0.07142857142857142
-top,Iowa,Missouri,8,9,2,15,0.13333333333333333
+top,Iowa,Missouri,8,9,1,16,0.0625
 top,Iowa,Montana,8,6,2,12,0.16666666666666666
 top,Iowa,Nebraska,8,7,3,12,0.25
 top,Iowa,Nevada,8,7,0,15,0.0
 top,Iowa,New Hampshire,8,7,2,13,0.15384615384615385
 top,Iowa,New Jersey,8,9,0,17,0.0
 top,Iowa,New Mexico,8,7,0,15,0.0
-top,Iowa,New York,8,10,4,14,0.2857142857142857
-top,Iowa,North Carolina,8,10,1,17,0.058823529411764705
-top,Iowa,North Dakota,8,6,1,13,0.07692307692307693
-top,Iowa,Ohio,8,10,3,15,0.2
-top,Iowa,Oklahoma,8,9,2,15,0.13333333333333333
-top,Iowa,Oregon,8,9,1,16,0.0625
-top,Iowa,Pennsylvania,8,10,1,17,0.058823529411764705
-top,Iowa,Rhode Island,8,7,3,12,0.25
+top,Iowa,New York,8,9,4,13,0.3076923076923077
+top,Iowa,North Carolina,8,9,0,17,0.0
+top,Iowa,North Dakota,8,6,2,12,0.16666666666666666
+top,Iowa,Ohio,8,9,4,13,0.3076923076923077
+top,Iowa,Oklahoma,8,8,2,14,0.14285714285714285
+top,Iowa,Oregon,8,8,0,16,0.0
+top,Iowa,Pennsylvania,8,9,2,15,0.13333333333333333
+top,Iowa,Rhode Island,8,6,3,11,0.2727272727272727
 top,Iowa,South Carolina,8,9,0,17,0.0
-top,Iowa,South Dakota,8,6,0,14,0.0
+top,Iowa,South Dakota,8,6,1,13,0.07692307692307693
 top,Iowa,Tennessee,8,9,1,16,0.0625
 top,Iowa,Texas,8,10,0,18,0.0
-top,Iowa,Utah,8,9,2,15,0.13333333333333333
+top,Iowa,Utah,8,8,1,15,0.06666666666666667
 top,Iowa,Vermont,8,6,2,12,0.16666666666666666
 top,Iowa,Virginia,8,9,0,17,0.0
 top,Iowa,Washington,8,9,1,16,0.0625
-top,Iowa,West Virginia,8,7,0,15,0.0
-top,Iowa,Wisconsin,8,9,2,15,0.13333333333333333
-top,Iowa,Wyoming,8,5,1,12,0.08333333333333333
-top,Kansas,Kentucky,8,9,2,15,0.13333333333333333
+top,Iowa,West Virginia,8,6,1,13,0.07692307692307693
+top,Iowa,Wisconsin,8,9,3,14,0.21428571428571427
+top,Iowa,Wyoming,8,5,2,11,0.18181818181818182
+top,Kansas,Kentucky,8,8,1,15,0.06666666666666667
 top,Kansas,Louisiana,8,8,0,16,0.0
-top,Kansas,Maine,8,7,1,14,0.07142857142857142
-top,Kansas,Maryland,8,9,0,17,0.0
+top,Kansas,Maine,8,6,1,13,0.07692307692307693
+top,Kansas,Maryland,8,8,0,16,0.0
 top,Kansas,Massachusetts,8,8,0,16,0.0
-top,Kansas,Michigan,8,9,1,16,0.0625
-top,Kansas,Minnesota,8,9,1,16,0.0625
+top,Kansas,Michigan,8,9,2,15,0.13333333333333333
+top,Kansas,Minnesota,8,9,2,15,0.13333333333333333
 top,Kansas,Mississippi,8,7,2,13,0.15384615384615385
-top,Kansas,Missouri,8,9,2,15,0.13333333333333333
+top,Kansas,Missouri,8,9,1,16,0.0625
 top,Kansas,Montana,8,6,0,14,0.0
 top,Kansas,Nebraska,8,7,2,13,0.15384615384615385
 top,Kansas,Nevada,8,7,0,15,0.0
 top,Kansas,New Hampshire,8,7,0,15,0.0
 top,Kansas,New Jersey,8,9,0,17,0.0
-top,Kansas,New Mexico,8,7,0,15,0.0
-top,Kansas,New York,8,10,1,17,0.058823529411764705
-top,Kansas,North Carolina,8,10,2,16,0.125
+top,Kansas,New Mexico,8,7,1,14,0.07142857142857142
+top,Kansas,New York,8,9,1,16,0.0625
+top,Kansas,North Carolina,8,9,1,16,0.0625
 top,Kansas,North Dakota,8,6,0,14,0.0
-top,Kansas,Ohio,8,10,2,16,0.125
-top,Kansas,Oklahoma,8,9,2,15,0.13333333333333333
-top,Kansas,Oregon,8,9,2,15,0.13333333333333333
-top,Kansas,Pennsylvania,8,10,1,17,0.058823529411764705
-top,Kansas,Rhode Island,8,7,1,14,0.07142857142857142
-top,Kansas,South Carolina,8,9,1,16,0.0625
+top,Kansas,Ohio,8,9,3,14,0.21428571428571427
+top,Kansas,Oklahoma,8,8,3,13,0.23076923076923078
+top,Kansas,Oregon,8,8,1,15,0.06666666666666667
+top,Kansas,Pennsylvania,8,9,2,15,0.13333333333333333
+top,Kansas,Rhode Island,8,6,1,13,0.07692307692307693
+top,Kansas,South Carolina,8,9,2,15,0.13333333333333333
 top,Kansas,South Dakota,8,6,0,14,0.0
-top,Kansas,Tennessee,8,9,3,14,0.21428571428571427
+top,Kansas,Tennessee,8,9,4,13,0.3076923076923077
 top,Kansas,Texas,8,10,0,18,0.0
-top,Kansas,Utah,8,9,2,15,0.13333333333333333
+top,Kansas,Utah,8,8,1,15,0.06666666666666667
 top,Kansas,Vermont,8,6,1,13,0.07692307692307693
 top,Kansas,Virginia,8,9,1,16,0.0625
 top,Kansas,Washington,8,9,1,16,0.0625
-top,Kansas,West Virginia,8,7,0,15,0.0
-top,Kansas,Wisconsin,8,9,0,17,0.0
-top,Kansas,Wyoming,8,5,0,13,0.0
-top,Kentucky,Louisiana,9,8,0,17,0.0
-top,Kentucky,Maine,9,7,0,16,0.0
-top,Kentucky,Maryland,9,9,3,15,0.2
-top,Kentucky,Massachusetts,9,8,1,16,0.0625
-top,Kentucky,Michigan,9,9,1,17,0.058823529411764705
-top,Kentucky,Minnesota,9,9,1,17,0.058823529411764705
-top,Kentucky,Mississippi,9,7,1,15,0.06666666666666667
-top,Kentucky,Missouri,9,9,4,14,0.2857142857142857
-top,Kentucky,Montana,9,6,0,15,0.0
-top,Kentucky,Nebraska,9,7,0,16,0.0
-top,Kentucky,Nevada,9,7,2,14,0.14285714285714285
-top,Kentucky,New Hampshire,9,7,0,16,0.0
-top,Kentucky,New Jersey,9,9,0,18,0.0
-top,Kentucky,New Mexico,9,7,0,16,0.0
-top,Kentucky,New York,9,10,0,19,0.0
-top,Kentucky,North Carolina,9,10,2,17,0.11764705882352941
-top,Kentucky,North Dakota,9,6,0,15,0.0
-top,Kentucky,Ohio,9,10,2,17,0.11764705882352941
-top,Kentucky,Oklahoma,9,9,3,15,0.2
-top,Kentucky,Oregon,9,9,2,16,0.125
-top,Kentucky,Pennsylvania,9,10,1,18,0.05555555555555555
-top,Kentucky,Rhode Island,9,7,1,15,0.06666666666666667
-top,Kentucky,South Carolina,9,9,1,17,0.058823529411764705
-top,Kentucky,South Dakota,9,6,0,15,0.0
-top,Kentucky,Tennessee,9,9,1,17,0.058823529411764705
-top,Kentucky,Texas,9,10,3,16,0.1875
-top,Kentucky,Utah,9,9,4,14,0.2857142857142857
-top,Kentucky,Vermont,9,6,1,14,0.07142857142857142
-top,Kentucky,Virginia,9,9,1,17,0.058823529411764705
-top,Kentucky,Washington,9,9,1,17,0.058823529411764705
-top,Kentucky,West Virginia,9,7,2,14,0.14285714285714285
-top,Kentucky,Wisconsin,9,9,0,18,0.0
-top,Kentucky,Wyoming,9,5,0,14,0.0
-top,Louisiana,Maine,8,7,0,15,0.0
-top,Louisiana,Maryland,8,9,1,16,0.0625
+top,Kansas,West Virginia,8,6,1,13,0.07692307692307693
+top,Kansas,Wisconsin,8,9,2,15,0.13333333333333333
+top,Kansas,Wyoming,8,5,1,12,0.08333333333333333
+top,Kentucky,Louisiana,8,8,0,16,0.0
+top,Kentucky,Maine,8,6,0,14,0.0
+top,Kentucky,Maryland,8,8,3,13,0.23076923076923078
+top,Kentucky,Massachusetts,8,8,1,15,0.06666666666666667
+top,Kentucky,Michigan,8,9,1,16,0.0625
+top,Kentucky,Minnesota,8,9,2,15,0.13333333333333333
+top,Kentucky,Mississippi,8,7,1,14,0.07142857142857142
+top,Kentucky,Missouri,8,9,4,13,0.3076923076923077
+top,Kentucky,Montana,8,6,0,14,0.0
+top,Kentucky,Nebraska,8,7,0,15,0.0
+top,Kentucky,Nevada,8,7,1,14,0.07142857142857142
+top,Kentucky,New Hampshire,8,7,0,15,0.0
+top,Kentucky,New Jersey,8,9,0,17,0.0
+top,Kentucky,New Mexico,8,7,1,14,0.07142857142857142
+top,Kentucky,New York,8,9,0,17,0.0
+top,Kentucky,North Carolina,8,9,1,16,0.0625
+top,Kentucky,North Dakota,8,6,0,14,0.0
+top,Kentucky,Ohio,8,9,2,15,0.13333333333333333
+top,Kentucky,Oklahoma,8,8,4,12,0.3333333333333333
+top,Kentucky,Oregon,8,8,0,16,0.0
+top,Kentucky,Pennsylvania,8,9,1,16,0.0625
+top,Kentucky,Rhode Island,8,6,1,13,0.07692307692307693
+top,Kentucky,South Carolina,8,9,1,16,0.0625
+top,Kentucky,South Dakota,8,6,0,14,0.0
+top,Kentucky,Tennessee,8,9,1,16,0.0625
+top,Kentucky,Texas,8,10,3,15,0.2
+top,Kentucky,Utah,8,8,3,13,0.23076923076923078
+top,Kentucky,Vermont,8,6,1,13,0.07692307692307693
+top,Kentucky,Virginia,8,9,1,16,0.0625
+top,Kentucky,Washington,8,9,1,16,0.0625
+top,Kentucky,West Virginia,8,6,2,12,0.16666666666666666
+top,Kentucky,Wisconsin,8,9,2,15,0.13333333333333333
+top,Kentucky,Wyoming,8,5,0,13,0.0
+top,Louisiana,Maine,8,6,0,14,0.0
+top,Louisiana,Maryland,8,8,1,15,0.06666666666666667
 top,Louisiana,Massachusetts,8,8,0,16,0.0
 top,Louisiana,Michigan,8,9,0,17,0.0
-top,Louisiana,Minnesota,8,9,1,16,0.0625
+top,Louisiana,Minnesota,8,9,0,17,0.0
 top,Louisiana,Mississippi,8,7,0,15,0.0
 top,Louisiana,Missouri,8,9,0,17,0.0
-top,Louisiana,Montana,8,6,2,12,0.16666666666666666
+top,Louisiana,Montana,8,6,1,13,0.07692307692307693
 top,Louisiana,Nebraska,8,7,0,15,0.0
 top,Louisiana,Nevada,8,7,0,15,0.0
 top,Louisiana,New Hampshire,8,7,0,15,0.0
-top,Louisiana,New Jersey,8,9,1,16,0.0625
+top,Louisiana,New Jersey,8,9,0,17,0.0
 top,Louisiana,New Mexico,8,7,0,15,0.0
-top,Louisiana,New York,8,10,0,18,0.0
-top,Louisiana,North Carolina,8,10,1,17,0.058823529411764705
+top,Louisiana,New York,8,9,0,17,0.0
+top,Louisiana,North Carolina,8,9,1,16,0.0625
 top,Louisiana,North Dakota,8,6,0,14,0.0
-top,Louisiana,Ohio,8,10,1,17,0.058823529411764705
-top,Louisiana,Oklahoma,8,9,0,17,0.0
-top,Louisiana,Oregon,8,9,0,17,0.0
-top,Louisiana,Pennsylvania,8,10,1,17,0.058823529411764705
-top,Louisiana,Rhode Island,8,7,0,15,0.0
+top,Louisiana,Ohio,8,9,0,17,0.0
+top,Louisiana,Oklahoma,8,8,0,16,0.0
+top,Louisiana,Oregon,8,8,0,16,0.0
+top,Louisiana,Pennsylvania,8,9,0,17,0.0
+top,Louisiana,Rhode Island,8,6,0,14,0.0
 top,Louisiana,South Carolina,8,9,1,16,0.0625
 top,Louisiana,South Dakota,8,6,0,14,0.0
-top,Louisiana,Tennessee,8,9,1,16,0.0625
-top,Louisiana,Texas,8,10,1,17,0.058823529411764705
-top,Louisiana,Utah,8,9,0,17,0.0
+top,Louisiana,Tennessee,8,9,0,17,0.0
+top,Louisiana,Texas,8,10,2,16,0.125
+top,Louisiana,Utah,8,8,0,16,0.0
 top,Louisiana,Vermont,8,6,0,14,0.0
 top,Louisiana,Virginia,8,9,0,17,0.0
-top,Louisiana,Washington,8,9,1,16,0.0625
-top,Louisiana,West Virginia,8,7,0,15,0.0
-top,Louisiana,Wisconsin,8,9,1,16,0.0625
-top,Louisiana,Wyoming,8,5,1,12,0.08333333333333333
-top,Maine,Maryland,7,9,0,16,0.0
-top,Maine,Massachusetts,7,8,1,14,0.07142857142857142
-top,Maine,Michigan,7,9,0,16,0.0
-top,Maine,Minnesota,7,9,0,16,0.0
-top,Maine,Mississippi,7,7,0,14,0.0
-top,Maine,Missouri,7,9,0,16,0.0
-top,Maine,Montana,7,6,0,13,0.0
-top,Maine,Nebraska,7,7,0,14,0.0
-top,Maine,Nevada,7,7,0,14,0.0
-top,Maine,New Hampshire,7,7,1,13,0.07692307692307693
-top,Maine,New Jersey,7,9,0,16,0.0
-top,Maine,New Mexico,7,7,0,14,0.0
-top,Maine,New York,7,10,1,16,0.0625
-top,Maine,North Carolina,7,10,0,17,0.0
-top,Maine,North Dakota,7,6,0,13,0.0
-top,Maine,Ohio,7,10,1,16,0.0625
-top,Maine,Oklahoma,7,9,0,16,0.0
-top,Maine,Oregon,7,9,1,15,0.06666666666666667
-top,Maine,Pennsylvania,7,10,1,16,0.0625
-top,Maine,Rhode Island,7,7,1,13,0.07692307692307693
-top,Maine,South Carolina,7,9,0,16,0.0
-top,Maine,South Dakota,7,6,0,13,0.0
-top,Maine,Tennessee,7,9,1,15,0.06666666666666667
-top,Maine,Texas,7,10,0,17,0.0
-top,Maine,Utah,7,9,0,16,0.0
-top,Maine,Vermont,7,6,0,13,0.0
-top,Maine,Virginia,7,9,0,16,0.0
-top,Maine,Washington,7,9,0,16,0.0
-top,Maine,West Virginia,7,7,0,14,0.0
-top,Maine,Wisconsin,7,9,0,16,0.0
-top,Maine,Wyoming,7,5,0,12,0.0
-top,Maryland,Massachusetts,9,8,1,16,0.0625
-top,Maryland,Michigan,9,9,0,18,0.0
-top,Maryland,Minnesota,9,9,0,18,0.0
-top,Maryland,Mississippi,9,7,1,15,0.06666666666666667
-top,Maryland,Missouri,9,9,2,16,0.125
-top,Maryland,Montana,9,6,0,15,0.0
-top,Maryland,Nebraska,9,7,0,16,0.0
-top,Maryland,Nevada,9,7,1,15,0.06666666666666667
-top,Maryland,New Hampshire,9,7,0,16,0.0
-top,Maryland,New Jersey,9,9,1,17,0.058823529411764705
-top,Maryland,New Mexico,9,7,0,16,0.0
-top,Maryland,New York,9,10,0,19,0.0
-top,Maryland,North Carolina,9,10,3,16,0.1875
-top,Maryland,North Dakota,9,6,0,15,0.0
-top,Maryland,Ohio,9,10,1,18,0.05555555555555555
-top,Maryland,Oklahoma,9,9,2,16,0.125
-top,Maryland,Oregon,9,9,0,18,0.0
-top,Maryland,Pennsylvania,9,10,0,19,0.0
-top,Maryland,Rhode Island,9,7,0,16,0.0
-top,Maryland,South Carolina,9,9,1,17,0.058823529411764705
-top,Maryland,South Dakota,9,6,1,14,0.07142857142857142
-top,Maryland,Tennessee,9,9,0,18,0.0
-top,Maryland,Texas,9,10,3,16,0.1875
-top,Maryland,Utah,9,9,2,16,0.125
-top,Maryland,Vermont,9,6,0,15,0.0
-top,Maryland,Virginia,9,9,1,17,0.058823529411764705
-top,Maryland,Washington,9,9,2,16,0.125
-top,Maryland,West Virginia,9,7,1,15,0.06666666666666667
-top,Maryland,Wisconsin,9,9,0,18,0.0
-top,Maryland,Wyoming,9,5,0,14,0.0
+top,Louisiana,Washington,8,9,0,17,0.0
+top,Louisiana,West Virginia,8,6,0,14,0.0
+top,Louisiana,Wisconsin,8,9,0,17,0.0
+top,Louisiana,Wyoming,8,5,0,13,0.0
+top,Maine,Maryland,6,8,0,14,0.0
+top,Maine,Massachusetts,6,8,1,13,0.07692307692307693
+top,Maine,Michigan,6,9,2,13,0.15384615384615385
+top,Maine,Minnesota,6,9,0,15,0.0
+top,Maine,Mississippi,6,7,0,13,0.0
+top,Maine,Missouri,6,9,0,15,0.0
+top,Maine,Montana,6,6,0,12,0.0
+top,Maine,Nebraska,6,7,0,13,0.0
+top,Maine,Nevada,6,7,0,13,0.0
+top,Maine,New Hampshire,6,7,1,12,0.08333333333333333
+top,Maine,New Jersey,6,9,0,15,0.0
+top,Maine,New Mexico,6,7,0,13,0.0
+top,Maine,New York,6,9,2,13,0.15384615384615385
+top,Maine,North Carolina,6,9,1,14,0.07142857142857142
+top,Maine,North Dakota,6,6,0,12,0.0
+top,Maine,Ohio,6,9,1,14,0.07142857142857142
+top,Maine,Oklahoma,6,8,0,14,0.0
+top,Maine,Oregon,6,8,1,13,0.07692307692307693
+top,Maine,Pennsylvania,6,9,1,14,0.07142857142857142
+top,Maine,Rhode Island,6,6,1,11,0.09090909090909091
+top,Maine,South Carolina,6,9,1,14,0.07142857142857142
+top,Maine,South Dakota,6,6,0,12,0.0
+top,Maine,Tennessee,6,9,1,14,0.07142857142857142
+top,Maine,Texas,6,10,0,16,0.0
+top,Maine,Utah,6,8,0,14,0.0
+top,Maine,Vermont,6,6,0,12,0.0
+top,Maine,Virginia,6,9,0,15,0.0
+top,Maine,Washington,6,9,0,15,0.0
+top,Maine,West Virginia,6,6,0,12,0.0
+top,Maine,Wisconsin,6,9,1,14,0.07142857142857142
+top,Maine,Wyoming,6,5,0,11,0.0
+top,Maryland,Massachusetts,8,8,1,15,0.06666666666666667
+top,Maryland,Michigan,8,9,0,17,0.0
+top,Maryland,Minnesota,8,9,1,16,0.0625
+top,Maryland,Mississippi,8,7,1,14,0.07142857142857142
+top,Maryland,Missouri,8,9,2,15,0.13333333333333333
+top,Maryland,Montana,8,6,0,14,0.0
+top,Maryland,Nebraska,8,7,0,15,0.0
+top,Maryland,Nevada,8,7,1,14,0.07142857142857142
+top,Maryland,New Hampshire,8,7,0,15,0.0
+top,Maryland,New Jersey,8,9,1,16,0.0625
+top,Maryland,New Mexico,8,7,0,15,0.0
+top,Maryland,New York,8,9,0,17,0.0
+top,Maryland,North Carolina,8,9,3,14,0.21428571428571427
+top,Maryland,North Dakota,8,6,0,14,0.0
+top,Maryland,Ohio,8,9,1,16,0.0625
+top,Maryland,Oklahoma,8,8,2,14,0.14285714285714285
+top,Maryland,Oregon,8,8,0,16,0.0
+top,Maryland,Pennsylvania,8,9,0,17,0.0
+top,Maryland,Rhode Island,8,6,0,14,0.0
+top,Maryland,South Carolina,8,9,1,16,0.0625
+top,Maryland,South Dakota,8,6,1,13,0.07692307692307693
+top,Maryland,Tennessee,8,9,0,17,0.0
+top,Maryland,Texas,8,10,2,16,0.125
+top,Maryland,Utah,8,8,2,14,0.14285714285714285
+top,Maryland,Vermont,8,6,0,14,0.0
+top,Maryland,Virginia,8,9,2,15,0.13333333333333333
+top,Maryland,Washington,8,9,1,16,0.0625
+top,Maryland,West Virginia,8,6,1,13,0.07692307692307693
+top,Maryland,Wisconsin,8,9,0,17,0.0
+top,Maryland,Wyoming,8,5,0,13,0.0
 top,Massachusetts,Michigan,8,9,1,16,0.0625
 top,Massachusetts,Minnesota,8,9,1,16,0.0625
 top,Massachusetts,Mississippi,8,7,0,15,0.0
@@ -846,454 +846,454 @@ top,Massachusetts,Missouri,8,9,0,17,0.0
 top,Massachusetts,Montana,8,6,0,14,0.0
 top,Massachusetts,Nebraska,8,7,1,14,0.07142857142857142
 top,Massachusetts,Nevada,8,7,0,15,0.0
-top,Massachusetts,New Hampshire,8,7,1,14,0.07142857142857142
-top,Massachusetts,New Jersey,8,9,1,16,0.0625
+top,Massachusetts,New Hampshire,8,7,0,15,0.0
+top,Massachusetts,New Jersey,8,9,2,15,0.13333333333333333
 top,Massachusetts,New Mexico,8,7,0,15,0.0
-top,Massachusetts,New York,8,10,2,16,0.125
-top,Massachusetts,North Carolina,8,10,2,16,0.125
+top,Massachusetts,New York,8,9,1,16,0.0625
+top,Massachusetts,North Carolina,8,9,1,16,0.0625
 top,Massachusetts,North Dakota,8,6,0,14,0.0
-top,Massachusetts,Ohio,8,10,3,15,0.2
-top,Massachusetts,Oklahoma,8,9,0,17,0.0
-top,Massachusetts,Oregon,8,9,0,17,0.0
-top,Massachusetts,Pennsylvania,8,10,2,16,0.125
-top,Massachusetts,Rhode Island,8,7,2,13,0.15384615384615385
+top,Massachusetts,Ohio,8,9,3,14,0.21428571428571427
+top,Massachusetts,Oklahoma,8,8,0,16,0.0
+top,Massachusetts,Oregon,8,8,0,16,0.0
+top,Massachusetts,Pennsylvania,8,9,1,16,0.0625
+top,Massachusetts,Rhode Island,8,6,1,13,0.07692307692307693
 top,Massachusetts,South Carolina,8,9,0,17,0.0
-top,Massachusetts,South Dakota,8,6,1,13,0.07692307692307693
+top,Massachusetts,South Dakota,8,6,0,14,0.0
 top,Massachusetts,Tennessee,8,9,0,17,0.0
-top,Massachusetts,Texas,8,10,1,17,0.058823529411764705
-top,Massachusetts,Utah,8,9,1,16,0.0625
-top,Massachusetts,Vermont,8,6,0,14,0.0
+top,Massachusetts,Texas,8,10,2,16,0.125
+top,Massachusetts,Utah,8,8,1,15,0.06666666666666667
+top,Massachusetts,Vermont,8,6,1,13,0.07692307692307693
 top,Massachusetts,Virginia,8,9,0,17,0.0
-top,Massachusetts,Washington,8,9,1,16,0.0625
-top,Massachusetts,West Virginia,8,7,1,14,0.07142857142857142
+top,Massachusetts,Washington,8,9,2,15,0.13333333333333333
+top,Massachusetts,West Virginia,8,6,1,13,0.07692307692307693
 top,Massachusetts,Wisconsin,8,9,0,17,0.0
 top,Massachusetts,Wyoming,8,5,0,13,0.0
 top,Michigan,Minnesota,9,9,2,16,0.125
 top,Michigan,Mississippi,9,7,0,16,0.0
 top,Michigan,Missouri,9,9,1,17,0.058823529411764705
-top,Michigan,Montana,9,6,2,13,0.15384615384615385
+top,Michigan,Montana,9,6,1,14,0.07142857142857142
 top,Michigan,Nebraska,9,7,2,14,0.14285714285714285
 top,Michigan,Nevada,9,7,0,16,0.0
-top,Michigan,New Hampshire,9,7,2,14,0.14285714285714285
-top,Michigan,New Jersey,9,9,0,18,0.0
+top,Michigan,New Hampshire,9,7,1,15,0.06666666666666667
+top,Michigan,New Jersey,9,9,1,17,0.058823529411764705
 top,Michigan,New Mexico,9,7,1,15,0.06666666666666667
-top,Michigan,New York,9,10,3,16,0.1875
-top,Michigan,North Carolina,9,10,2,17,0.11764705882352941
-top,Michigan,North Dakota,9,6,0,15,0.0
-top,Michigan,Ohio,9,10,1,18,0.05555555555555555
-top,Michigan,Oklahoma,9,9,0,18,0.0
-top,Michigan,Oregon,9,9,2,16,0.125
-top,Michigan,Pennsylvania,9,10,1,18,0.05555555555555555
-top,Michigan,Rhode Island,9,7,2,14,0.14285714285714285
-top,Michigan,South Carolina,9,9,0,18,0.0
-top,Michigan,South Dakota,9,6,1,14,0.07142857142857142
-top,Michigan,Tennessee,9,9,0,18,0.0
-top,Michigan,Texas,9,10,1,18,0.05555555555555555
-top,Michigan,Utah,9,9,2,16,0.125
-top,Michigan,Vermont,9,6,1,14,0.07142857142857142
-top,Michigan,Virginia,9,9,1,17,0.058823529411764705
-top,Michigan,Washington,9,9,0,18,0.0
-top,Michigan,West Virginia,9,7,2,14,0.14285714285714285
-top,Michigan,Wisconsin,9,9,3,15,0.2
+top,Michigan,New York,9,9,4,14,0.2857142857142857
+top,Michigan,North Carolina,9,9,1,17,0.058823529411764705
+top,Michigan,North Dakota,9,6,1,14,0.07142857142857142
+top,Michigan,Ohio,9,9,3,15,0.2
+top,Michigan,Oklahoma,9,8,1,16,0.0625
+top,Michigan,Oregon,9,8,1,16,0.0625
+top,Michigan,Pennsylvania,9,9,2,16,0.125
+top,Michigan,Rhode Island,9,6,2,13,0.15384615384615385
+top,Michigan,South Carolina,9,9,1,17,0.058823529411764705
+top,Michigan,South Dakota,9,6,0,15,0.0
+top,Michigan,Tennessee,9,9,1,17,0.058823529411764705
+top,Michigan,Texas,9,10,0,19,0.0
+top,Michigan,Utah,9,8,1,16,0.0625
+top,Michigan,Vermont,9,6,2,13,0.15384615384615385
+top,Michigan,Virginia,9,9,0,18,0.0
+top,Michigan,Washington,9,9,1,17,0.058823529411764705
+top,Michigan,West Virginia,9,6,2,13,0.15384615384615385
+top,Michigan,Wisconsin,9,9,4,14,0.2857142857142857
 top,Michigan,Wyoming,9,5,2,12,0.16666666666666666
 top,Minnesota,Mississippi,9,7,1,15,0.06666666666666667
 top,Minnesota,Missouri,9,9,1,17,0.058823529411764705
-top,Minnesota,Montana,9,6,2,13,0.15384615384615385
+top,Minnesota,Montana,9,6,1,14,0.07142857142857142
 top,Minnesota,Nebraska,9,7,1,15,0.06666666666666667
 top,Minnesota,Nevada,9,7,0,16,0.0
-top,Minnesota,New Hampshire,9,7,2,14,0.14285714285714285
-top,Minnesota,New Jersey,9,9,1,17,0.058823529411764705
+top,Minnesota,New Hampshire,9,7,1,15,0.06666666666666667
+top,Minnesota,New Jersey,9,9,0,18,0.0
 top,Minnesota,New Mexico,9,7,0,16,0.0
-top,Minnesota,New York,9,10,3,16,0.1875
-top,Minnesota,North Carolina,9,10,1,18,0.05555555555555555
-top,Minnesota,North Dakota,9,6,1,14,0.07142857142857142
-top,Minnesota,Ohio,9,10,3,16,0.1875
-top,Minnesota,Oklahoma,9,9,1,17,0.058823529411764705
-top,Minnesota,Oregon,9,9,0,18,0.0
-top,Minnesota,Pennsylvania,9,10,2,17,0.11764705882352941
-top,Minnesota,Rhode Island,9,7,3,13,0.23076923076923078
+top,Minnesota,New York,9,9,2,16,0.125
+top,Minnesota,North Carolina,9,9,1,17,0.058823529411764705
+top,Minnesota,North Dakota,9,6,3,12,0.25
+top,Minnesota,Ohio,9,9,4,14,0.2857142857142857
+top,Minnesota,Oklahoma,9,8,2,15,0.13333333333333333
+top,Minnesota,Oregon,9,8,0,17,0.0
+top,Minnesota,Pennsylvania,9,9,1,17,0.058823529411764705
+top,Minnesota,Rhode Island,9,6,2,13,0.15384615384615385
 top,Minnesota,South Carolina,9,9,0,18,0.0
-top,Minnesota,South Dakota,9,6,2,13,0.15384615384615385
-top,Minnesota,Tennessee,9,9,2,16,0.125
+top,Minnesota,South Dakota,9,6,1,14,0.07142857142857142
+top,Minnesota,Tennessee,9,9,1,17,0.058823529411764705
 top,Minnesota,Texas,9,10,1,18,0.05555555555555555
-top,Minnesota,Utah,9,9,2,16,0.125
+top,Minnesota,Utah,9,8,1,16,0.0625
 top,Minnesota,Vermont,9,6,2,13,0.15384615384615385
-top,Minnesota,Virginia,9,9,1,17,0.058823529411764705
-top,Minnesota,Washington,9,9,1,17,0.058823529411764705
-top,Minnesota,West Virginia,9,7,1,15,0.06666666666666667
-top,Minnesota,Wisconsin,9,9,3,15,0.2
+top,Minnesota,Virginia,9,9,0,18,0.0
+top,Minnesota,Washington,9,9,2,16,0.125
+top,Minnesota,West Virginia,9,6,1,14,0.07142857142857142
+top,Minnesota,Wisconsin,9,9,2,16,0.125
 top,Minnesota,Wyoming,9,5,1,13,0.07692307692307693
-top,Mississippi,Missouri,7,9,2,14,0.14285714285714285
+top,Mississippi,Missouri,7,9,1,15,0.06666666666666667
 top,Mississippi,Montana,7,6,0,13,0.0
 top,Mississippi,Nebraska,7,7,1,13,0.07692307692307693
 top,Mississippi,Nevada,7,7,0,14,0.0
 top,Mississippi,New Hampshire,7,7,1,13,0.07692307692307693
 top,Mississippi,New Jersey,7,9,0,16,0.0
-top,Mississippi,New Mexico,7,7,0,14,0.0
-top,Mississippi,New York,7,10,0,17,0.0
-top,Mississippi,North Carolina,7,10,1,16,0.0625
+top,Mississippi,New Mexico,7,7,1,13,0.07692307692307693
+top,Mississippi,New York,7,9,0,16,0.0
+top,Mississippi,North Carolina,7,9,1,15,0.06666666666666667
 top,Mississippi,North Dakota,7,6,0,13,0.0
-top,Mississippi,Ohio,7,10,2,15,0.13333333333333333
-top,Mississippi,Oklahoma,7,9,1,15,0.06666666666666667
-top,Mississippi,Oregon,7,9,0,16,0.0
-top,Mississippi,Pennsylvania,7,10,0,17,0.0
-top,Mississippi,Rhode Island,7,7,1,13,0.07692307692307693
+top,Mississippi,Ohio,7,9,2,14,0.14285714285714285
+top,Mississippi,Oklahoma,7,8,1,14,0.07142857142857142
+top,Mississippi,Oregon,7,8,0,15,0.0
+top,Mississippi,Pennsylvania,7,9,0,16,0.0
+top,Mississippi,Rhode Island,7,6,1,12,0.08333333333333333
 top,Mississippi,South Carolina,7,9,1,15,0.06666666666666667
 top,Mississippi,South Dakota,7,6,0,13,0.0
-top,Mississippi,Tennessee,7,9,3,13,0.23076923076923078
+top,Mississippi,Tennessee,7,9,2,14,0.14285714285714285
 top,Mississippi,Texas,7,10,0,17,0.0
-top,Mississippi,Utah,7,9,1,15,0.06666666666666667
+top,Mississippi,Utah,7,8,1,14,0.07142857142857142
 top,Mississippi,Vermont,7,6,1,12,0.08333333333333333
-top,Mississippi,Virginia,7,9,0,16,0.0
+top,Mississippi,Virginia,7,9,1,15,0.06666666666666667
 top,Mississippi,Washington,7,9,0,16,0.0
-top,Mississippi,West Virginia,7,7,0,14,0.0
-top,Mississippi,Wisconsin,7,9,0,16,0.0
+top,Mississippi,West Virginia,7,6,0,13,0.0
+top,Mississippi,Wisconsin,7,9,1,15,0.06666666666666667
 top,Mississippi,Wyoming,7,5,0,12,0.0
 top,Missouri,Montana,9,6,0,15,0.0
 top,Missouri,Nebraska,9,7,0,16,0.0
-top,Missouri,Nevada,9,7,1,15,0.06666666666666667
+top,Missouri,Nevada,9,7,2,14,0.14285714285714285
 top,Missouri,New Hampshire,9,7,0,16,0.0
 top,Missouri,New Jersey,9,9,0,18,0.0
-top,Missouri,New Mexico,9,7,1,15,0.06666666666666667
-top,Missouri,New York,9,10,0,19,0.0
-top,Missouri,North Carolina,9,10,1,18,0.05555555555555555
+top,Missouri,New Mexico,9,7,2,14,0.14285714285714285
+top,Missouri,New York,9,9,0,18,0.0
+top,Missouri,North Carolina,9,9,1,17,0.058823529411764705
 top,Missouri,North Dakota,9,6,0,15,0.0
-top,Missouri,Ohio,9,10,1,18,0.05555555555555555
-top,Missouri,Oklahoma,9,9,3,15,0.2
-top,Missouri,Oregon,9,9,1,17,0.058823529411764705
-top,Missouri,Pennsylvania,9,10,0,19,0.0
-top,Missouri,Rhode Island,9,7,1,15,0.06666666666666667
+top,Missouri,Ohio,9,9,1,17,0.058823529411764705
+top,Missouri,Oklahoma,9,8,4,13,0.3076923076923077
+top,Missouri,Oregon,9,8,2,15,0.13333333333333333
+top,Missouri,Pennsylvania,9,9,1,17,0.058823529411764705
+top,Missouri,Rhode Island,9,6,1,14,0.07142857142857142
 top,Missouri,South Carolina,9,9,2,16,0.125
 top,Missouri,South Dakota,9,6,0,15,0.0
 top,Missouri,Tennessee,9,9,2,16,0.125
 top,Missouri,Texas,9,10,1,18,0.05555555555555555
-top,Missouri,Utah,9,9,4,14,0.2857142857142857
+top,Missouri,Utah,9,8,3,14,0.21428571428571427
 top,Missouri,Vermont,9,6,2,13,0.15384615384615385
-top,Missouri,Virginia,9,9,3,15,0.2
+top,Missouri,Virginia,9,9,4,14,0.2857142857142857
 top,Missouri,Washington,9,9,0,18,0.0
-top,Missouri,West Virginia,9,7,1,15,0.06666666666666667
-top,Missouri,Wisconsin,9,9,0,18,0.0
+top,Missouri,West Virginia,9,6,2,13,0.15384615384615385
+top,Missouri,Wisconsin,9,9,2,16,0.125
 top,Missouri,Wyoming,9,5,0,14,0.0
-top,Montana,Nebraska,6,7,2,11,0.18181818181818182
+top,Montana,Nebraska,6,7,1,12,0.08333333333333333
 top,Montana,Nevada,6,7,1,12,0.08333333333333333
 top,Montana,New Hampshire,6,7,1,12,0.08333333333333333
-top,Montana,New Jersey,6,9,1,14,0.07142857142857142
+top,Montana,New Jersey,6,9,0,15,0.0
 top,Montana,New Mexico,6,7,0,13,0.0
-top,Montana,New York,6,10,2,14,0.14285714285714285
-top,Montana,North Carolina,6,10,0,16,0.0
+top,Montana,New York,6,9,1,14,0.07142857142857142
+top,Montana,North Carolina,6,9,0,15,0.0
 top,Montana,North Dakota,6,6,0,12,0.0
-top,Montana,Ohio,6,10,3,13,0.23076923076923078
-top,Montana,Oklahoma,6,9,0,15,0.0
-top,Montana,Oregon,6,9,1,14,0.07142857142857142
-top,Montana,Pennsylvania,6,10,2,14,0.14285714285714285
-top,Montana,Rhode Island,6,7,1,12,0.08333333333333333
-top,Montana,South Carolina,6,9,0,15,0.0
+top,Montana,Ohio,6,9,2,13,0.15384615384615385
+top,Montana,Oklahoma,6,8,0,14,0.0
+top,Montana,Oregon,6,8,0,14,0.0
+top,Montana,Pennsylvania,6,9,1,14,0.07142857142857142
+top,Montana,Rhode Island,6,6,1,11,0.09090909090909091
+top,Montana,South Carolina,6,9,1,14,0.07142857142857142
 top,Montana,South Dakota,6,6,0,12,0.0
 top,Montana,Tennessee,6,9,1,14,0.07142857142857142
-top,Montana,Texas,6,10,1,15,0.06666666666666667
-top,Montana,Utah,6,9,0,15,0.0
+top,Montana,Texas,6,10,0,16,0.0
+top,Montana,Utah,6,8,0,14,0.0
 top,Montana,Vermont,6,6,1,11,0.09090909090909091
 top,Montana,Virginia,6,9,0,15,0.0
-top,Montana,Washington,6,9,1,14,0.07142857142857142
-top,Montana,West Virginia,6,7,0,13,0.0
-top,Montana,Wisconsin,6,9,3,12,0.25
-top,Montana,Wyoming,6,5,2,9,0.2222222222222222
+top,Montana,Washington,6,9,0,15,0.0
+top,Montana,West Virginia,6,6,0,12,0.0
+top,Montana,Wisconsin,6,9,1,14,0.07142857142857142
+top,Montana,Wyoming,6,5,1,10,0.1
 top,Nebraska,Nevada,7,7,0,14,0.0
-top,Nebraska,New Hampshire,7,7,1,13,0.07692307692307693
+top,Nebraska,New Hampshire,7,7,0,14,0.0
 top,Nebraska,New Jersey,7,9,0,16,0.0
-top,Nebraska,New Mexico,7,7,0,14,0.0
-top,Nebraska,New York,7,10,4,13,0.3076923076923077
-top,Nebraska,North Carolina,7,10,1,16,0.0625
+top,Nebraska,New Mexico,7,7,1,13,0.07692307692307693
+top,Nebraska,New York,7,9,2,14,0.14285714285714285
+top,Nebraska,North Carolina,7,9,1,15,0.06666666666666667
 top,Nebraska,North Dakota,7,6,1,12,0.08333333333333333
-top,Nebraska,Ohio,7,10,2,15,0.13333333333333333
-top,Nebraska,Oklahoma,7,9,1,15,0.06666666666666667
-top,Nebraska,Oregon,7,9,1,15,0.06666666666666667
-top,Nebraska,Pennsylvania,7,10,2,15,0.13333333333333333
-top,Nebraska,Rhode Island,7,7,1,13,0.07692307692307693
+top,Nebraska,Ohio,7,9,4,12,0.3333333333333333
+top,Nebraska,Oklahoma,7,8,1,14,0.07142857142857142
+top,Nebraska,Oregon,7,8,0,15,0.0
+top,Nebraska,Pennsylvania,7,9,3,13,0.23076923076923078
+top,Nebraska,Rhode Island,7,6,0,13,0.0
 top,Nebraska,South Carolina,7,9,1,15,0.06666666666666667
-top,Nebraska,South Dakota,7,6,1,12,0.08333333333333333
+top,Nebraska,South Dakota,7,6,0,13,0.0
 top,Nebraska,Tennessee,7,9,1,15,0.06666666666666667
-top,Nebraska,Texas,7,10,2,15,0.13333333333333333
-top,Nebraska,Utah,7,9,1,15,0.06666666666666667
+top,Nebraska,Texas,7,10,1,16,0.0625
+top,Nebraska,Utah,7,8,0,15,0.0
 top,Nebraska,Vermont,7,6,0,13,0.0
 top,Nebraska,Virginia,7,9,0,16,0.0
-top,Nebraska,Washington,7,9,1,15,0.06666666666666667
-top,Nebraska,West Virginia,7,7,1,13,0.07692307692307693
-top,Nebraska,Wisconsin,7,9,3,13,0.23076923076923078
-top,Nebraska,Wyoming,7,5,1,11,0.09090909090909091
+top,Nebraska,Washington,7,9,2,14,0.14285714285714285
+top,Nebraska,West Virginia,7,6,2,11,0.18181818181818182
+top,Nebraska,Wisconsin,7,9,1,15,0.06666666666666667
+top,Nebraska,Wyoming,7,5,2,10,0.2
 top,Nevada,New Hampshire,7,7,0,14,0.0
 top,Nevada,New Jersey,7,9,0,16,0.0
-top,Nevada,New Mexico,7,7,1,13,0.07692307692307693
-top,Nevada,New York,7,10,0,17,0.0
-top,Nevada,North Carolina,7,10,0,17,0.0
+top,Nevada,New Mexico,7,7,2,12,0.16666666666666666
+top,Nevada,New York,7,9,0,16,0.0
+top,Nevada,North Carolina,7,9,0,16,0.0
 top,Nevada,North Dakota,7,6,0,13,0.0
-top,Nevada,Ohio,7,10,0,17,0.0
-top,Nevada,Oklahoma,7,9,1,15,0.06666666666666667
-top,Nevada,Oregon,7,9,1,15,0.06666666666666667
-top,Nevada,Pennsylvania,7,10,0,17,0.0
-top,Nevada,Rhode Island,7,7,0,14,0.0
-top,Nevada,South Carolina,7,9,0,16,0.0
+top,Nevada,Ohio,7,9,0,16,0.0
+top,Nevada,Oklahoma,7,8,2,13,0.15384615384615385
+top,Nevada,Oregon,7,8,0,15,0.0
+top,Nevada,Pennsylvania,7,9,0,16,0.0
+top,Nevada,Rhode Island,7,6,0,13,0.0
+top,Nevada,South Carolina,7,9,2,14,0.14285714285714285
 top,Nevada,South Dakota,7,6,0,13,0.0
-top,Nevada,Tennessee,7,9,0,16,0.0
-top,Nevada,Texas,7,10,2,15,0.13333333333333333
-top,Nevada,Utah,7,9,1,15,0.06666666666666667
+top,Nevada,Tennessee,7,9,1,15,0.06666666666666667
+top,Nevada,Texas,7,10,1,16,0.0625
+top,Nevada,Utah,7,8,1,14,0.07142857142857142
 top,Nevada,Vermont,7,6,0,13,0.0
-top,Nevada,Virginia,7,9,0,16,0.0
+top,Nevada,Virginia,7,9,1,15,0.06666666666666667
 top,Nevada,Washington,7,9,0,16,0.0
-top,Nevada,West Virginia,7,7,1,13,0.07692307692307693
+top,Nevada,West Virginia,7,6,0,13,0.0
 top,Nevada,Wisconsin,7,9,0,16,0.0
 top,Nevada,Wyoming,7,5,0,12,0.0
-top,New Hampshire,New Jersey,7,9,0,16,0.0
+top,New Hampshire,New Jersey,7,9,1,15,0.06666666666666667
 top,New Hampshire,New Mexico,7,7,0,14,0.0
-top,New Hampshire,New York,7,10,3,14,0.21428571428571427
-top,New Hampshire,North Carolina,7,10,1,16,0.0625
+top,New Hampshire,New York,7,9,3,13,0.23076923076923078
+top,New Hampshire,North Carolina,7,9,0,16,0.0
 top,New Hampshire,North Dakota,7,6,0,13,0.0
-top,New Hampshire,Ohio,7,10,1,16,0.0625
-top,New Hampshire,Oklahoma,7,9,0,16,0.0
-top,New Hampshire,Oregon,7,9,0,16,0.0
-top,New Hampshire,Pennsylvania,7,10,1,16,0.0625
-top,New Hampshire,Rhode Island,7,7,3,11,0.2727272727272727
+top,New Hampshire,Ohio,7,9,1,15,0.06666666666666667
+top,New Hampshire,Oklahoma,7,8,0,15,0.0
+top,New Hampshire,Oregon,7,8,1,14,0.07142857142857142
+top,New Hampshire,Pennsylvania,7,9,1,15,0.06666666666666667
+top,New Hampshire,Rhode Island,7,6,2,11,0.18181818181818182
 top,New Hampshire,South Carolina,7,9,0,16,0.0
-top,New Hampshire,South Dakota,7,6,1,12,0.08333333333333333
+top,New Hampshire,South Dakota,7,6,0,13,0.0
 top,New Hampshire,Tennessee,7,9,0,16,0.0
 top,New Hampshire,Texas,7,10,0,17,0.0
-top,New Hampshire,Utah,7,9,1,15,0.06666666666666667
+top,New Hampshire,Utah,7,8,0,15,0.0
 top,New Hampshire,Vermont,7,6,1,12,0.08333333333333333
 top,New Hampshire,Virginia,7,9,0,16,0.0
-top,New Hampshire,Washington,7,9,0,16,0.0
-top,New Hampshire,West Virginia,7,7,1,13,0.07692307692307693
+top,New Hampshire,Washington,7,9,1,15,0.06666666666666667
+top,New Hampshire,West Virginia,7,6,0,13,0.0
 top,New Hampshire,Wisconsin,7,9,2,14,0.14285714285714285
 top,New Hampshire,Wyoming,7,5,0,12,0.0
 top,New Jersey,New Mexico,9,7,0,16,0.0
-top,New Jersey,New York,9,10,2,17,0.11764705882352941
-top,New Jersey,North Carolina,9,10,0,19,0.0
+top,New Jersey,New York,9,9,3,15,0.2
+top,New Jersey,North Carolina,9,9,0,18,0.0
 top,New Jersey,North Dakota,9,6,0,15,0.0
-top,New Jersey,Ohio,9,10,2,17,0.11764705882352941
-top,New Jersey,Oklahoma,9,9,0,18,0.0
-top,New Jersey,Oregon,9,9,0,18,0.0
-top,New Jersey,Pennsylvania,9,10,2,17,0.11764705882352941
-top,New Jersey,Rhode Island,9,7,1,15,0.06666666666666667
+top,New Jersey,Ohio,9,9,1,17,0.058823529411764705
+top,New Jersey,Oklahoma,9,8,0,17,0.0
+top,New Jersey,Oregon,9,8,2,15,0.13333333333333333
+top,New Jersey,Pennsylvania,9,9,2,16,0.125
+top,New Jersey,Rhode Island,9,6,1,14,0.07142857142857142
 top,New Jersey,South Carolina,9,9,0,18,0.0
 top,New Jersey,South Dakota,9,6,0,15,0.0
-top,New Jersey,Tennessee,9,9,1,17,0.058823529411764705
+top,New Jersey,Tennessee,9,9,0,18,0.0
 top,New Jersey,Texas,9,10,1,18,0.05555555555555555
-top,New Jersey,Utah,9,9,1,17,0.058823529411764705
-top,New Jersey,Vermont,9,6,0,15,0.0
-top,New Jersey,Virginia,9,9,0,18,0.0
+top,New Jersey,Utah,9,8,2,15,0.13333333333333333
+top,New Jersey,Vermont,9,6,1,14,0.07142857142857142
+top,New Jersey,Virginia,9,9,1,17,0.058823529411764705
 top,New Jersey,Washington,9,9,2,16,0.125
-top,New Jersey,West Virginia,9,7,0,16,0.0
-top,New Jersey,Wisconsin,9,9,1,17,0.058823529411764705
-top,New Jersey,Wyoming,9,5,1,13,0.07692307692307693
-top,New Mexico,New York,7,10,0,17,0.0
-top,New Mexico,North Carolina,7,10,0,17,0.0
+top,New Jersey,West Virginia,9,6,0,15,0.0
+top,New Jersey,Wisconsin,9,9,0,18,0.0
+top,New Jersey,Wyoming,9,5,0,14,0.0
+top,New Mexico,New York,7,9,0,16,0.0
+top,New Mexico,North Carolina,7,9,0,16,0.0
 top,New Mexico,North Dakota,7,6,0,13,0.0
-top,New Mexico,Ohio,7,10,0,17,0.0
-top,New Mexico,Oklahoma,7,9,1,15,0.06666666666666667
-top,New Mexico,Oregon,7,9,1,15,0.06666666666666667
-top,New Mexico,Pennsylvania,7,10,0,17,0.0
-top,New Mexico,Rhode Island,7,7,0,14,0.0
-top,New Mexico,South Carolina,7,9,1,15,0.06666666666666667
+top,New Mexico,Ohio,7,9,1,15,0.06666666666666667
+top,New Mexico,Oklahoma,7,8,1,14,0.07142857142857142
+top,New Mexico,Oregon,7,8,1,14,0.07142857142857142
+top,New Mexico,Pennsylvania,7,9,0,16,0.0
+top,New Mexico,Rhode Island,7,6,0,13,0.0
+top,New Mexico,South Carolina,7,9,2,14,0.14285714285714285
 top,New Mexico,South Dakota,7,6,0,13,0.0
-top,New Mexico,Tennessee,7,9,0,16,0.0
+top,New Mexico,Tennessee,7,9,1,15,0.06666666666666667
 top,New Mexico,Texas,7,10,0,17,0.0
-top,New Mexico,Utah,7,9,0,16,0.0
+top,New Mexico,Utah,7,8,0,15,0.0
 top,New Mexico,Vermont,7,6,0,13,0.0
-top,New Mexico,Virginia,7,9,1,15,0.06666666666666667
+top,New Mexico,Virginia,7,9,2,14,0.14285714285714285
 top,New Mexico,Washington,7,9,1,15,0.06666666666666667
-top,New Mexico,West Virginia,7,7,1,13,0.07692307692307693
+top,New Mexico,West Virginia,7,6,1,12,0.08333333333333333
 top,New Mexico,Wisconsin,7,9,2,14,0.14285714285714285
 top,New Mexico,Wyoming,7,5,0,12,0.0
-top,New York,North Carolina,10,10,1,19,0.05263157894736842
-top,New York,North Dakota,10,6,2,14,0.14285714285714285
-top,New York,Ohio,10,10,2,18,0.1111111111111111
-top,New York,Oklahoma,10,9,1,18,0.05555555555555555
-top,New York,Oregon,10,9,1,18,0.05555555555555555
-top,New York,Pennsylvania,10,10,3,17,0.17647058823529413
-top,New York,Rhode Island,10,7,4,13,0.3076923076923077
-top,New York,South Carolina,10,9,0,19,0.0
-top,New York,South Dakota,10,6,2,14,0.14285714285714285
-top,New York,Tennessee,10,9,0,19,0.0
-top,New York,Texas,10,10,3,17,0.17647058823529413
-top,New York,Utah,10,9,1,18,0.05555555555555555
-top,New York,Vermont,10,6,1,15,0.06666666666666667
-top,New York,Virginia,10,9,0,19,0.0
-top,New York,Washington,10,9,1,18,0.05555555555555555
-top,New York,West Virginia,10,7,1,16,0.0625
-top,New York,Wisconsin,10,9,3,16,0.1875
-top,New York,Wyoming,10,5,0,15,0.0
-top,North Carolina,North Dakota,10,6,1,15,0.06666666666666667
-top,North Carolina,Ohio,10,10,1,19,0.05263157894736842
-top,North Carolina,Oklahoma,10,9,0,19,0.0
-top,North Carolina,Oregon,10,9,1,18,0.05555555555555555
-top,North Carolina,Pennsylvania,10,10,3,17,0.17647058823529413
-top,North Carolina,Rhode Island,10,7,1,16,0.0625
-top,North Carolina,South Carolina,10,9,2,17,0.11764705882352941
-top,North Carolina,South Dakota,10,6,2,14,0.14285714285714285
-top,North Carolina,Tennessee,10,9,1,18,0.05555555555555555
-top,North Carolina,Texas,10,10,1,19,0.05263157894736842
-top,North Carolina,Utah,10,9,2,17,0.11764705882352941
-top,North Carolina,Vermont,10,6,0,16,0.0
-top,North Carolina,Virginia,10,9,2,17,0.11764705882352941
-top,North Carolina,Washington,10,9,1,18,0.05555555555555555
-top,North Carolina,West Virginia,10,7,2,15,0.13333333333333333
-top,North Carolina,Wisconsin,10,9,0,19,0.0
-top,North Carolina,Wyoming,10,5,0,15,0.0
-top,North Dakota,Ohio,6,10,0,16,0.0
-top,North Dakota,Oklahoma,6,9,0,15,0.0
-top,North Dakota,Oregon,6,9,0,15,0.0
-top,North Dakota,Pennsylvania,6,10,1,15,0.06666666666666667
-top,North Dakota,Rhode Island,6,7,0,13,0.0
+top,New York,North Carolina,9,9,0,18,0.0
+top,New York,North Dakota,9,6,1,14,0.07142857142857142
+top,New York,Ohio,9,9,3,15,0.2
+top,New York,Oklahoma,9,8,1,16,0.0625
+top,New York,Oregon,9,8,2,15,0.13333333333333333
+top,New York,Pennsylvania,9,9,3,15,0.2
+top,New York,Rhode Island,9,6,3,12,0.25
+top,New York,South Carolina,9,9,0,18,0.0
+top,New York,South Dakota,9,6,0,15,0.0
+top,New York,Tennessee,9,9,0,18,0.0
+top,New York,Texas,9,10,1,18,0.05555555555555555
+top,New York,Utah,9,8,1,16,0.0625
+top,New York,Vermont,9,6,2,13,0.15384615384615385
+top,New York,Virginia,9,9,0,18,0.0
+top,New York,Washington,9,9,3,15,0.2
+top,New York,West Virginia,9,6,1,14,0.07142857142857142
+top,New York,Wisconsin,9,9,2,16,0.125
+top,New York,Wyoming,9,5,1,13,0.07692307692307693
+top,North Carolina,North Dakota,9,6,1,14,0.07142857142857142
+top,North Carolina,Ohio,9,9,1,17,0.058823529411764705
+top,North Carolina,Oklahoma,9,8,0,17,0.0
+top,North Carolina,Oregon,9,8,0,17,0.0
+top,North Carolina,Pennsylvania,9,9,2,16,0.125
+top,North Carolina,Rhode Island,9,6,0,15,0.0
+top,North Carolina,South Carolina,9,9,2,16,0.125
+top,North Carolina,South Dakota,9,6,1,14,0.07142857142857142
+top,North Carolina,Tennessee,9,9,2,16,0.125
+top,North Carolina,Texas,9,10,2,17,0.11764705882352941
+top,North Carolina,Utah,9,8,0,17,0.0
+top,North Carolina,Vermont,9,6,0,15,0.0
+top,North Carolina,Virginia,9,9,4,14,0.2857142857142857
+top,North Carolina,Washington,9,9,2,16,0.125
+top,North Carolina,West Virginia,9,6,1,14,0.07142857142857142
+top,North Carolina,Wisconsin,9,9,0,18,0.0
+top,North Carolina,Wyoming,9,5,0,14,0.0
+top,North Dakota,Ohio,6,9,0,15,0.0
+top,North Dakota,Oklahoma,6,8,0,14,0.0
+top,North Dakota,Oregon,6,8,0,14,0.0
+top,North Dakota,Pennsylvania,6,9,1,14,0.07142857142857142
+top,North Dakota,Rhode Island,6,6,0,12,0.0
 top,North Dakota,South Carolina,6,9,0,15,0.0
 top,North Dakota,South Dakota,6,6,1,11,0.09090909090909091
 top,North Dakota,Tennessee,6,9,0,15,0.0
-top,North Dakota,Texas,6,10,1,15,0.06666666666666667
-top,North Dakota,Utah,6,9,0,15,0.0
+top,North Dakota,Texas,6,10,0,16,0.0
+top,North Dakota,Utah,6,8,0,14,0.0
 top,North Dakota,Vermont,6,6,0,12,0.0
 top,North Dakota,Virginia,6,9,1,14,0.07142857142857142
 top,North Dakota,Washington,6,9,0,15,0.0
-top,North Dakota,West Virginia,6,7,1,12,0.08333333333333333
+top,North Dakota,West Virginia,6,6,1,11,0.09090909090909091
 top,North Dakota,Wisconsin,6,9,1,14,0.07142857142857142
 top,North Dakota,Wyoming,6,5,0,11,0.0
-top,Ohio,Oklahoma,10,9,1,18,0.05555555555555555
-top,Ohio,Oregon,10,9,0,19,0.0
-top,Ohio,Pennsylvania,10,10,3,17,0.17647058823529413
-top,Ohio,Rhode Island,10,7,3,14,0.21428571428571427
-top,Ohio,South Carolina,10,9,1,18,0.05555555555555555
-top,Ohio,South Dakota,10,6,0,16,0.0
-top,Ohio,Tennessee,10,9,4,15,0.26666666666666666
-top,Ohio,Texas,10,10,1,19,0.05263157894736842
-top,Ohio,Utah,10,9,1,18,0.05555555555555555
-top,Ohio,Vermont,10,6,2,14,0.14285714285714285
-top,Ohio,Virginia,10,9,0,19,0.0
-top,Ohio,Washington,10,9,2,17,0.11764705882352941
-top,Ohio,West Virginia,10,7,0,17,0.0
-top,Ohio,Wisconsin,10,9,2,17,0.11764705882352941
-top,Ohio,Wyoming,10,5,2,13,0.15384615384615385
-top,Oklahoma,Oregon,9,9,0,18,0.0
-top,Oklahoma,Pennsylvania,9,10,0,19,0.0
-top,Oklahoma,Rhode Island,9,7,1,15,0.06666666666666667
-top,Oklahoma,South Carolina,9,9,2,16,0.125
-top,Oklahoma,South Dakota,9,6,0,15,0.0
-top,Oklahoma,Tennessee,9,9,1,17,0.058823529411764705
-top,Oklahoma,Texas,9,10,2,17,0.11764705882352941
-top,Oklahoma,Utah,9,9,2,16,0.125
-top,Oklahoma,Vermont,9,6,1,14,0.07142857142857142
-top,Oklahoma,Virginia,9,9,2,16,0.125
-top,Oklahoma,Washington,9,9,2,16,0.125
-top,Oklahoma,West Virginia,9,7,0,16,0.0
-top,Oklahoma,Wisconsin,9,9,0,18,0.0
-top,Oklahoma,Wyoming,9,5,0,14,0.0
-top,Oregon,Pennsylvania,9,10,1,18,0.05555555555555555
-top,Oregon,Rhode Island,9,7,0,16,0.0
-top,Oregon,South Carolina,9,9,0,18,0.0
-top,Oregon,South Dakota,9,6,0,15,0.0
-top,Oregon,Tennessee,9,9,1,17,0.058823529411764705
-top,Oregon,Texas,9,10,2,17,0.11764705882352941
-top,Oregon,Utah,9,9,1,17,0.058823529411764705
-top,Oregon,Vermont,9,6,1,14,0.07142857142857142
-top,Oregon,Virginia,9,9,1,17,0.058823529411764705
-top,Oregon,Washington,9,9,0,18,0.0
-top,Oregon,West Virginia,9,7,1,15,0.06666666666666667
-top,Oregon,Wisconsin,9,9,1,17,0.058823529411764705
-top,Oregon,Wyoming,9,5,0,14,0.0
-top,Pennsylvania,Rhode Island,10,7,1,16,0.0625
-top,Pennsylvania,South Carolina,10,9,1,18,0.05555555555555555
-top,Pennsylvania,South Dakota,10,6,1,15,0.06666666666666667
-top,Pennsylvania,Tennessee,10,9,3,16,0.1875
-top,Pennsylvania,Texas,10,10,1,19,0.05263157894736842
-top,Pennsylvania,Utah,10,9,1,18,0.05555555555555555
-top,Pennsylvania,Vermont,10,6,0,16,0.0
-top,Pennsylvania,Virginia,10,9,1,18,0.05555555555555555
-top,Pennsylvania,Washington,10,9,1,18,0.05555555555555555
-top,Pennsylvania,West Virginia,10,7,2,15,0.13333333333333333
-top,Pennsylvania,Wisconsin,10,9,1,18,0.05555555555555555
-top,Pennsylvania,Wyoming,10,5,2,13,0.15384615384615385
-top,Rhode Island,South Carolina,7,9,0,16,0.0
-top,Rhode Island,South Dakota,7,6,1,12,0.08333333333333333
-top,Rhode Island,Tennessee,7,9,1,15,0.06666666666666667
-top,Rhode Island,Texas,7,10,0,17,0.0
-top,Rhode Island,Utah,7,9,2,14,0.14285714285714285
-top,Rhode Island,Vermont,7,6,2,11,0.18181818181818182
-top,Rhode Island,Virginia,7,9,0,16,0.0
-top,Rhode Island,Washington,7,9,0,16,0.0
-top,Rhode Island,West Virginia,7,7,1,13,0.07692307692307693
-top,Rhode Island,Wisconsin,7,9,1,15,0.06666666666666667
-top,Rhode Island,Wyoming,7,5,0,12,0.0
+top,Ohio,Oklahoma,9,8,2,15,0.13333333333333333
+top,Ohio,Oregon,9,8,0,17,0.0
+top,Ohio,Pennsylvania,9,9,3,15,0.2
+top,Ohio,Rhode Island,9,6,3,12,0.25
+top,Ohio,South Carolina,9,9,1,17,0.058823529411764705
+top,Ohio,South Dakota,9,6,0,15,0.0
+top,Ohio,Tennessee,9,9,2,16,0.125
+top,Ohio,Texas,9,10,1,18,0.05555555555555555
+top,Ohio,Utah,9,8,2,15,0.13333333333333333
+top,Ohio,Vermont,9,6,3,12,0.25
+top,Ohio,Virginia,9,9,0,18,0.0
+top,Ohio,Washington,9,9,2,16,0.125
+top,Ohio,West Virginia,9,6,1,14,0.07142857142857142
+top,Ohio,Wisconsin,9,9,2,16,0.125
+top,Ohio,Wyoming,9,5,2,12,0.16666666666666666
+top,Oklahoma,Oregon,8,8,0,16,0.0
+top,Oklahoma,Pennsylvania,8,9,1,16,0.0625
+top,Oklahoma,Rhode Island,8,6,1,13,0.07692307692307693
+top,Oklahoma,South Carolina,8,9,1,16,0.0625
+top,Oklahoma,South Dakota,8,6,0,14,0.0
+top,Oklahoma,Tennessee,8,9,1,16,0.0625
+top,Oklahoma,Texas,8,10,1,17,0.058823529411764705
+top,Oklahoma,Utah,8,8,3,13,0.23076923076923078
+top,Oklahoma,Vermont,8,6,1,13,0.07692307692307693
+top,Oklahoma,Virginia,8,9,2,15,0.13333333333333333
+top,Oklahoma,Washington,8,9,1,16,0.0625
+top,Oklahoma,West Virginia,8,6,2,12,0.16666666666666666
+top,Oklahoma,Wisconsin,8,9,1,16,0.0625
+top,Oklahoma,Wyoming,8,5,1,12,0.08333333333333333
+top,Oregon,Pennsylvania,8,9,3,14,0.21428571428571427
+top,Oregon,Rhode Island,8,6,0,14,0.0
+top,Oregon,South Carolina,8,9,2,15,0.13333333333333333
+top,Oregon,South Dakota,8,6,0,14,0.0
+top,Oregon,Tennessee,8,9,1,16,0.0625
+top,Oregon,Texas,8,10,1,17,0.058823529411764705
+top,Oregon,Utah,8,8,0,16,0.0
+top,Oregon,Vermont,8,6,0,14,0.0
+top,Oregon,Virginia,8,9,2,15,0.13333333333333333
+top,Oregon,Washington,8,9,2,15,0.13333333333333333
+top,Oregon,West Virginia,8,6,0,14,0.0
+top,Oregon,Wisconsin,8,9,1,16,0.0625
+top,Oregon,Wyoming,8,5,0,13,0.0
+top,Pennsylvania,Rhode Island,9,6,0,15,0.0
+top,Pennsylvania,South Carolina,9,9,2,16,0.125
+top,Pennsylvania,South Dakota,9,6,0,15,0.0
+top,Pennsylvania,Tennessee,9,9,2,16,0.125
+top,Pennsylvania,Texas,9,10,1,18,0.05555555555555555
+top,Pennsylvania,Utah,9,8,0,17,0.0
+top,Pennsylvania,Vermont,9,6,0,15,0.0
+top,Pennsylvania,Virginia,9,9,2,16,0.125
+top,Pennsylvania,Washington,9,9,3,15,0.2
+top,Pennsylvania,West Virginia,9,6,2,13,0.15384615384615385
+top,Pennsylvania,Wisconsin,9,9,1,17,0.058823529411764705
+top,Pennsylvania,Wyoming,9,5,2,12,0.16666666666666666
+top,Rhode Island,South Carolina,6,9,0,15,0.0
+top,Rhode Island,South Dakota,6,6,0,12,0.0
+top,Rhode Island,Tennessee,6,9,1,14,0.07142857142857142
+top,Rhode Island,Texas,6,10,0,16,0.0
+top,Rhode Island,Utah,6,8,2,12,0.16666666666666666
+top,Rhode Island,Vermont,6,6,3,9,0.3333333333333333
+top,Rhode Island,Virginia,6,9,0,15,0.0
+top,Rhode Island,Washington,6,9,0,15,0.0
+top,Rhode Island,West Virginia,6,6,0,12,0.0
+top,Rhode Island,Wisconsin,6,9,2,13,0.15384615384615385
+top,Rhode Island,Wyoming,6,5,0,11,0.0
 top,South Carolina,South Dakota,9,6,1,14,0.07142857142857142
-top,South Carolina,Tennessee,9,9,1,17,0.058823529411764705
-top,South Carolina,Texas,9,10,1,18,0.05555555555555555
-top,South Carolina,Utah,9,9,0,18,0.0
+top,South Carolina,Tennessee,9,9,3,15,0.2
+top,South Carolina,Texas,9,10,0,19,0.0
+top,South Carolina,Utah,9,8,0,17,0.0
 top,South Carolina,Vermont,9,6,0,15,0.0
-top,South Carolina,Virginia,9,9,3,15,0.2
+top,South Carolina,Virginia,9,9,2,16,0.125
 top,South Carolina,Washington,9,9,0,18,0.0
-top,South Carolina,West Virginia,9,7,0,16,0.0
-top,South Carolina,Wisconsin,9,9,0,18,0.0
+top,South Carolina,West Virginia,9,6,0,15,0.0
+top,South Carolina,Wisconsin,9,9,1,17,0.058823529411764705
 top,South Carolina,Wyoming,9,5,0,14,0.0
 top,South Dakota,Tennessee,6,9,0,15,0.0
-top,South Dakota,Texas,6,10,1,15,0.06666666666666667
-top,South Dakota,Utah,6,9,1,14,0.07142857142857142
-top,South Dakota,Vermont,6,6,0,12,0.0
+top,South Dakota,Texas,6,10,0,16,0.0
+top,South Dakota,Utah,6,8,0,14,0.0
+top,South Dakota,Vermont,6,6,1,11,0.09090909090909091
 top,South Dakota,Virginia,6,9,0,15,0.0
 top,South Dakota,Washington,6,9,0,15,0.0
-top,South Dakota,West Virginia,6,7,1,12,0.08333333333333333
+top,South Dakota,West Virginia,6,6,0,12,0.0
 top,South Dakota,Wisconsin,6,9,0,15,0.0
 top,South Dakota,Wyoming,6,5,0,11,0.0
-top,Tennessee,Texas,9,10,0,19,0.0
-top,Tennessee,Utah,9,9,2,16,0.125
+top,Tennessee,Texas,9,10,1,18,0.05555555555555555
+top,Tennessee,Utah,9,8,2,15,0.13333333333333333
 top,Tennessee,Vermont,9,6,1,14,0.07142857142857142
-top,Tennessee,Virginia,9,9,0,18,0.0
-top,Tennessee,Washington,9,9,2,16,0.125
-top,Tennessee,West Virginia,9,7,0,16,0.0
-top,Tennessee,Wisconsin,9,9,1,17,0.058823529411764705
-top,Tennessee,Wyoming,9,5,1,13,0.07692307692307693
-top,Texas,Utah,10,9,1,18,0.05555555555555555
+top,Tennessee,Virginia,9,9,2,16,0.125
+top,Tennessee,Washington,9,9,1,17,0.058823529411764705
+top,Tennessee,West Virginia,9,6,0,15,0.0
+top,Tennessee,Wisconsin,9,9,2,16,0.125
+top,Tennessee,Wyoming,9,5,0,14,0.0
+top,Texas,Utah,10,8,2,16,0.125
 top,Texas,Vermont,10,6,0,16,0.0
 top,Texas,Virginia,10,9,0,19,0.0
-top,Texas,Washington,10,9,2,17,0.11764705882352941
-top,Texas,West Virginia,10,7,1,16,0.0625
-top,Texas,Wisconsin,10,9,2,17,0.11764705882352941
+top,Texas,Washington,10,9,5,14,0.35714285714285715
+top,Texas,West Virginia,10,6,1,15,0.06666666666666667
+top,Texas,Wisconsin,10,9,0,19,0.0
 top,Texas,Wyoming,10,5,0,15,0.0
-top,Utah,Vermont,9,6,1,14,0.07142857142857142
-top,Utah,Virginia,9,9,1,17,0.058823529411764705
-top,Utah,Washington,9,9,1,17,0.058823529411764705
-top,Utah,West Virginia,9,7,2,14,0.14285714285714285
-top,Utah,Wisconsin,9,9,0,18,0.0
-top,Utah,Wyoming,9,5,0,14,0.0
-top,Vermont,Virginia,6,9,1,14,0.07142857142857142
+top,Utah,Vermont,8,6,2,12,0.16666666666666666
+top,Utah,Virginia,8,9,1,16,0.0625
+top,Utah,Washington,8,9,1,16,0.0625
+top,Utah,West Virginia,8,6,1,13,0.07692307692307693
+top,Utah,Wisconsin,8,9,1,16,0.0625
+top,Utah,Wyoming,8,5,0,13,0.0
+top,Vermont,Virginia,6,9,0,15,0.0
 top,Vermont,Washington,6,9,0,15,0.0
-top,Vermont,West Virginia,6,7,0,13,0.0
-top,Vermont,Wisconsin,6,9,1,14,0.07142857142857142
+top,Vermont,West Virginia,6,6,0,12,0.0
+top,Vermont,Wisconsin,6,9,2,13,0.15384615384615385
 top,Vermont,Wyoming,6,5,0,11,0.0
 top,Virginia,Washington,9,9,0,18,0.0
-top,Virginia,West Virginia,9,7,2,14,0.14285714285714285
-top,Virginia,Wisconsin,9,9,1,17,0.058823529411764705
+top,Virginia,West Virginia,9,6,2,13,0.15384615384615385
+top,Virginia,Wisconsin,9,9,0,18,0.0
 top,Virginia,Wyoming,9,5,0,14,0.0
-top,Washington,West Virginia,9,7,1,15,0.06666666666666667
-top,Washington,Wisconsin,9,9,2,16,0.125
+top,Washington,West Virginia,9,6,2,13,0.15384615384615385
+top,Washington,Wisconsin,9,9,1,17,0.058823529411764705
 top,Washington,Wyoming,9,5,1,13,0.07692307692307693
-top,West Virginia,Wisconsin,7,9,1,15,0.06666666666666667
-top,West Virginia,Wyoming,7,5,0,12,0.0
-top,Wisconsin,Wyoming,9,5,1,13,0.07692307692307693
+top,West Virginia,Wisconsin,6,9,1,14,0.07142857142857142
+top,West Virginia,Wyoming,6,5,1,10,0.1
+top,Wisconsin,Wyoming,9,5,0,14,0.0
 bottom,Alabama,Alaska,9,5,0,14,0.0
 bottom,Alabama,Arizona,9,9,0,18,0.0
 bottom,Alabama,Arkansas,9,8,0,17,0.0
 bottom,Alabama,California,9,10,0,19,0.0
-bottom,Alabama,Colorado,9,9,0,18,0.0
+bottom,Alabama,Colorado,9,8,0,17,0.0
 bottom,Alabama,Connecticut,9,8,0,17,0.0
 bottom,Alabama,DC,9,4,0,13,0.0
-bottom,Alabama,Delaware,9,6,0,15,0.0
+bottom,Alabama,Delaware,9,5,0,14,0.0
 bottom,Alabama,Florida,9,10,0,19,0.0
-bottom,Alabama,Georgia,9,10,0,19,0.0
+bottom,Alabama,Georgia,9,9,0,18,0.0
 bottom,Alabama,Hawaii,9,6,0,15,0.0
 bottom,Alabama,Idaho,9,7,0,16,0.0
-bottom,Alabama,Illinois,9,10,0,19,0.0
+bottom,Alabama,Illinois,9,9,0,18,0.0
 bottom,Alabama,Indiana,9,9,0,18,0.0
 bottom,Alabama,Iowa,9,8,0,17,0.0
 bottom,Alabama,Kansas,9,8,0,17,0.0
-bottom,Alabama,Kentucky,9,9,0,18,0.0
+bottom,Alabama,Kentucky,9,8,0,17,0.0
 bottom,Alabama,Louisiana,9,8,0,17,0.0
-bottom,Alabama,Maine,9,7,0,16,0.0
-bottom,Alabama,Maryland,9,9,0,18,0.0
+bottom,Alabama,Maine,9,6,0,15,0.0
+bottom,Alabama,Maryland,9,8,0,17,0.0
 bottom,Alabama,Massachusetts,9,8,0,17,0.0
 bottom,Alabama,Michigan,9,9,0,18,0.0
 bottom,Alabama,Minnesota,9,9,1,17,0.058823529411764705
@@ -1305,44 +1305,44 @@ bottom,Alabama,Nevada,9,7,0,16,0.0
 bottom,Alabama,New Hampshire,9,7,0,16,0.0
 bottom,Alabama,New Jersey,9,9,0,18,0.0
 bottom,Alabama,New Mexico,9,7,0,16,0.0
-bottom,Alabama,New York,9,10,0,19,0.0
-bottom,Alabama,North Carolina,9,10,0,19,0.0
+bottom,Alabama,New York,9,9,0,18,0.0
+bottom,Alabama,North Carolina,9,9,0,18,0.0
 bottom,Alabama,North Dakota,9,6,0,15,0.0
-bottom,Alabama,Ohio,9,10,0,19,0.0
-bottom,Alabama,Oklahoma,9,9,1,17,0.058823529411764705
-bottom,Alabama,Oregon,9,9,0,18,0.0
-bottom,Alabama,Pennsylvania,9,10,1,18,0.05555555555555555
-bottom,Alabama,Rhode Island,9,7,0,16,0.0
+bottom,Alabama,Ohio,9,9,0,18,0.0
+bottom,Alabama,Oklahoma,9,8,1,16,0.0625
+bottom,Alabama,Oregon,9,8,0,17,0.0
+bottom,Alabama,Pennsylvania,9,9,1,17,0.058823529411764705
+bottom,Alabama,Rhode Island,9,6,0,15,0.0
 bottom,Alabama,South Carolina,9,9,0,18,0.0
 bottom,Alabama,South Dakota,9,6,1,14,0.07142857142857142
 bottom,Alabama,Tennessee,9,9,0,18,0.0
 bottom,Alabama,Texas,9,10,0,19,0.0
-bottom,Alabama,Utah,9,9,0,18,0.0
+bottom,Alabama,Utah,9,8,0,17,0.0
 bottom,Alabama,Vermont,9,6,0,15,0.0
 bottom,Alabama,Virginia,9,9,0,18,0.0
 bottom,Alabama,Washington,9,9,1,17,0.058823529411764705
-bottom,Alabama,West Virginia,9,7,0,16,0.0
+bottom,Alabama,West Virginia,9,6,0,15,0.0
 bottom,Alabama,Wisconsin,9,9,0,18,0.0
 bottom,Alabama,Wyoming,9,5,0,14,0.0
 bottom,Alaska,Arizona,5,9,0,14,0.0
 bottom,Alaska,Arkansas,5,8,1,12,0.08333333333333333
 bottom,Alaska,California,5,10,0,15,0.0
-bottom,Alaska,Colorado,5,9,0,14,0.0
+bottom,Alaska,Colorado,5,8,0,13,0.0
 bottom,Alaska,Connecticut,5,8,0,13,0.0
 bottom,Alaska,DC,5,4,0,9,0.0
-bottom,Alaska,Delaware,5,6,0,11,0.0
+bottom,Alaska,Delaware,5,5,0,10,0.0
 bottom,Alaska,Florida,5,10,0,15,0.0
-bottom,Alaska,Georgia,5,10,0,15,0.0
+bottom,Alaska,Georgia,5,9,0,14,0.0
 bottom,Alaska,Hawaii,5,6,0,11,0.0
 bottom,Alaska,Idaho,5,7,1,11,0.09090909090909091
-bottom,Alaska,Illinois,5,10,0,15,0.0
+bottom,Alaska,Illinois,5,9,0,14,0.0
 bottom,Alaska,Indiana,5,9,0,14,0.0
 bottom,Alaska,Iowa,5,8,0,13,0.0
 bottom,Alaska,Kansas,5,8,0,13,0.0
-bottom,Alaska,Kentucky,5,9,0,14,0.0
+bottom,Alaska,Kentucky,5,8,0,13,0.0
 bottom,Alaska,Louisiana,5,8,0,13,0.0
-bottom,Alaska,Maine,5,7,0,12,0.0
-bottom,Alaska,Maryland,5,9,0,14,0.0
+bottom,Alaska,Maine,5,6,0,11,0.0
+bottom,Alaska,Maryland,5,8,0,13,0.0
 bottom,Alaska,Massachusetts,5,8,0,13,0.0
 bottom,Alaska,Michigan,5,9,0,14,0.0
 bottom,Alaska,Minnesota,5,9,0,14,0.0
@@ -1354,43 +1354,43 @@ bottom,Alaska,Nevada,5,7,0,12,0.0
 bottom,Alaska,New Hampshire,5,7,0,12,0.0
 bottom,Alaska,New Jersey,5,9,0,14,0.0
 bottom,Alaska,New Mexico,5,7,0,12,0.0
-bottom,Alaska,New York,5,10,0,15,0.0
-bottom,Alaska,North Carolina,5,10,0,15,0.0
+bottom,Alaska,New York,5,9,0,14,0.0
+bottom,Alaska,North Carolina,5,9,0,14,0.0
 bottom,Alaska,North Dakota,5,6,0,11,0.0
-bottom,Alaska,Ohio,5,10,0,15,0.0
-bottom,Alaska,Oklahoma,5,9,1,13,0.07692307692307693
-bottom,Alaska,Oregon,5,9,0,14,0.0
-bottom,Alaska,Pennsylvania,5,10,0,15,0.0
-bottom,Alaska,Rhode Island,5,7,0,12,0.0
+bottom,Alaska,Ohio,5,9,0,14,0.0
+bottom,Alaska,Oklahoma,5,8,1,12,0.08333333333333333
+bottom,Alaska,Oregon,5,8,0,13,0.0
+bottom,Alaska,Pennsylvania,5,9,0,14,0.0
+bottom,Alaska,Rhode Island,5,6,0,11,0.0
 bottom,Alaska,South Carolina,5,9,0,14,0.0
 bottom,Alaska,South Dakota,5,6,0,11,0.0
 bottom,Alaska,Tennessee,5,9,0,14,0.0
 bottom,Alaska,Texas,5,10,1,14,0.07142857142857142
-bottom,Alaska,Utah,5,9,0,14,0.0
+bottom,Alaska,Utah,5,8,0,13,0.0
 bottom,Alaska,Vermont,5,6,0,11,0.0
 bottom,Alaska,Virginia,5,9,0,14,0.0
 bottom,Alaska,Washington,5,9,0,14,0.0
-bottom,Alaska,West Virginia,5,7,1,11,0.09090909090909091
+bottom,Alaska,West Virginia,5,6,1,10,0.1
 bottom,Alaska,Wisconsin,5,9,0,14,0.0
 bottom,Alaska,Wyoming,5,5,0,10,0.0
 bottom,Arizona,Arkansas,9,8,0,17,0.0
 bottom,Arizona,California,9,10,0,19,0.0
-bottom,Arizona,Colorado,9,9,0,18,0.0
+bottom,Arizona,Colorado,9,8,0,17,0.0
 bottom,Arizona,Connecticut,9,8,0,17,0.0
 bottom,Arizona,DC,9,4,0,13,0.0
-bottom,Arizona,Delaware,9,6,0,15,0.0
+bottom,Arizona,Delaware,9,5,0,14,0.0
 bottom,Arizona,Florida,9,10,0,19,0.0
-bottom,Arizona,Georgia,9,10,1,18,0.05555555555555555
+bottom,Arizona,Georgia,9,9,1,17,0.058823529411764705
 bottom,Arizona,Hawaii,9,6,0,15,0.0
 bottom,Arizona,Idaho,9,7,0,16,0.0
-bottom,Arizona,Illinois,9,10,0,19,0.0
+bottom,Arizona,Illinois,9,9,0,18,0.0
 bottom,Arizona,Indiana,9,9,1,17,0.058823529411764705
 bottom,Arizona,Iowa,9,8,0,17,0.0
 bottom,Arizona,Kansas,9,8,0,17,0.0
-bottom,Arizona,Kentucky,9,9,0,18,0.0
+bottom,Arizona,Kentucky,9,8,0,17,0.0
 bottom,Arizona,Louisiana,9,8,0,17,0.0
-bottom,Arizona,Maine,9,7,0,16,0.0
-bottom,Arizona,Maryland,9,9,0,18,0.0
+bottom,Arizona,Maine,9,6,0,15,0.0
+bottom,Arizona,Maryland,9,8,0,17,0.0
 bottom,Arizona,Massachusetts,9,8,0,17,0.0
 bottom,Arizona,Michigan,9,9,0,18,0.0
 bottom,Arizona,Minnesota,9,9,0,18,0.0
@@ -1402,42 +1402,42 @@ bottom,Arizona,Nevada,9,7,0,16,0.0
 bottom,Arizona,New Hampshire,9,7,0,16,0.0
 bottom,Arizona,New Jersey,9,9,0,18,0.0
 bottom,Arizona,New Mexico,9,7,0,16,0.0
-bottom,Arizona,New York,9,10,0,19,0.0
-bottom,Arizona,North Carolina,9,10,0,19,0.0
+bottom,Arizona,New York,9,9,0,18,0.0
+bottom,Arizona,North Carolina,9,9,0,18,0.0
 bottom,Arizona,North Dakota,9,6,0,15,0.0
-bottom,Arizona,Ohio,9,10,0,19,0.0
-bottom,Arizona,Oklahoma,9,9,0,18,0.0
-bottom,Arizona,Oregon,9,9,0,18,0.0
-bottom,Arizona,Pennsylvania,9,10,0,19,0.0
-bottom,Arizona,Rhode Island,9,7,0,16,0.0
+bottom,Arizona,Ohio,9,9,0,18,0.0
+bottom,Arizona,Oklahoma,9,8,0,17,0.0
+bottom,Arizona,Oregon,9,8,0,17,0.0
+bottom,Arizona,Pennsylvania,9,9,0,18,0.0
+bottom,Arizona,Rhode Island,9,6,0,15,0.0
 bottom,Arizona,South Carolina,9,9,1,17,0.058823529411764705
 bottom,Arizona,South Dakota,9,6,0,15,0.0
 bottom,Arizona,Tennessee,9,9,0,18,0.0
 bottom,Arizona,Texas,9,10,0,19,0.0
-bottom,Arizona,Utah,9,9,0,18,0.0
+bottom,Arizona,Utah,9,8,0,17,0.0
 bottom,Arizona,Vermont,9,6,0,15,0.0
 bottom,Arizona,Virginia,9,9,0,18,0.0
 bottom,Arizona,Washington,9,9,0,18,0.0
-bottom,Arizona,West Virginia,9,7,0,16,0.0
+bottom,Arizona,West Virginia,9,6,0,15,0.0
 bottom,Arizona,Wisconsin,9,9,1,17,0.058823529411764705
 bottom,Arizona,Wyoming,9,5,0,14,0.0
 bottom,Arkansas,California,8,10,0,18,0.0
-bottom,Arkansas,Colorado,8,9,0,17,0.0
+bottom,Arkansas,Colorado,8,8,0,16,0.0
 bottom,Arkansas,Connecticut,8,8,0,16,0.0
 bottom,Arkansas,DC,8,4,0,12,0.0
-bottom,Arkansas,Delaware,8,6,0,14,0.0
+bottom,Arkansas,Delaware,8,5,0,13,0.0
 bottom,Arkansas,Florida,8,10,0,18,0.0
-bottom,Arkansas,Georgia,8,10,0,18,0.0
+bottom,Arkansas,Georgia,8,9,0,17,0.0
 bottom,Arkansas,Hawaii,8,6,0,14,0.0
 bottom,Arkansas,Idaho,8,7,1,14,0.07142857142857142
-bottom,Arkansas,Illinois,8,10,0,18,0.0
+bottom,Arkansas,Illinois,8,9,0,17,0.0
 bottom,Arkansas,Indiana,8,9,0,17,0.0
 bottom,Arkansas,Iowa,8,8,0,16,0.0
 bottom,Arkansas,Kansas,8,8,0,16,0.0
-bottom,Arkansas,Kentucky,8,9,0,17,0.0
+bottom,Arkansas,Kentucky,8,8,0,16,0.0
 bottom,Arkansas,Louisiana,8,8,0,16,0.0
-bottom,Arkansas,Maine,8,7,0,15,0.0
-bottom,Arkansas,Maryland,8,9,0,17,0.0
+bottom,Arkansas,Maine,8,6,0,14,0.0
+bottom,Arkansas,Maryland,8,8,0,16,0.0
 bottom,Arkansas,Massachusetts,8,8,2,14,0.14285714285714285
 bottom,Arkansas,Michigan,8,9,0,17,0.0
 bottom,Arkansas,Minnesota,8,9,0,17,0.0
@@ -1449,41 +1449,41 @@ bottom,Arkansas,Nevada,8,7,0,15,0.0
 bottom,Arkansas,New Hampshire,8,7,0,15,0.0
 bottom,Arkansas,New Jersey,8,9,0,17,0.0
 bottom,Arkansas,New Mexico,8,7,0,15,0.0
-bottom,Arkansas,New York,8,10,0,18,0.0
-bottom,Arkansas,North Carolina,8,10,0,18,0.0
+bottom,Arkansas,New York,8,9,0,17,0.0
+bottom,Arkansas,North Carolina,8,9,0,17,0.0
 bottom,Arkansas,North Dakota,8,6,0,14,0.0
-bottom,Arkansas,Ohio,8,10,0,18,0.0
-bottom,Arkansas,Oklahoma,8,9,3,14,0.21428571428571427
-bottom,Arkansas,Oregon,8,9,0,17,0.0
-bottom,Arkansas,Pennsylvania,8,10,0,18,0.0
-bottom,Arkansas,Rhode Island,8,7,1,14,0.07142857142857142
+bottom,Arkansas,Ohio,8,9,0,17,0.0
+bottom,Arkansas,Oklahoma,8,8,3,13,0.23076923076923078
+bottom,Arkansas,Oregon,8,8,0,16,0.0
+bottom,Arkansas,Pennsylvania,8,9,0,17,0.0
+bottom,Arkansas,Rhode Island,8,6,1,13,0.07692307692307693
 bottom,Arkansas,South Carolina,8,9,0,17,0.0
 bottom,Arkansas,South Dakota,8,6,0,14,0.0
 bottom,Arkansas,Tennessee,8,9,0,17,0.0
 bottom,Arkansas,Texas,8,10,0,18,0.0
-bottom,Arkansas,Utah,8,9,0,17,0.0
+bottom,Arkansas,Utah,8,8,0,16,0.0
 bottom,Arkansas,Vermont,8,6,0,14,0.0
 bottom,Arkansas,Virginia,8,9,0,17,0.0
 bottom,Arkansas,Washington,8,9,0,17,0.0
-bottom,Arkansas,West Virginia,8,7,1,14,0.07142857142857142
+bottom,Arkansas,West Virginia,8,6,1,13,0.07692307692307693
 bottom,Arkansas,Wisconsin,8,9,0,17,0.0
 bottom,Arkansas,Wyoming,8,5,0,13,0.0
-bottom,California,Colorado,10,9,0,19,0.0
+bottom,California,Colorado,10,8,0,18,0.0
 bottom,California,Connecticut,10,8,0,18,0.0
 bottom,California,DC,10,4,0,14,0.0
-bottom,California,Delaware,10,6,0,16,0.0
+bottom,California,Delaware,10,5,0,15,0.0
 bottom,California,Florida,10,10,0,20,0.0
-bottom,California,Georgia,10,10,0,20,0.0
+bottom,California,Georgia,10,9,0,19,0.0
 bottom,California,Hawaii,10,6,0,16,0.0
 bottom,California,Idaho,10,7,1,16,0.0625
-bottom,California,Illinois,10,10,0,20,0.0
+bottom,California,Illinois,10,9,0,19,0.0
 bottom,California,Indiana,10,9,0,19,0.0
 bottom,California,Iowa,10,8,0,18,0.0
 bottom,California,Kansas,10,8,0,18,0.0
-bottom,California,Kentucky,10,9,0,19,0.0
+bottom,California,Kentucky,10,8,0,18,0.0
 bottom,California,Louisiana,10,8,0,18,0.0
-bottom,California,Maine,10,7,1,16,0.0625
-bottom,California,Maryland,10,9,1,18,0.05555555555555555
+bottom,California,Maine,10,6,1,15,0.06666666666666667
+bottom,California,Maryland,10,8,0,18,0.0
 bottom,California,Massachusetts,10,8,0,18,0.0
 bottom,California,Michigan,10,9,0,19,0.0
 bottom,California,Minnesota,10,9,0,19,0.0
@@ -1495,84 +1495,84 @@ bottom,California,Nevada,10,7,0,17,0.0
 bottom,California,New Hampshire,10,7,0,17,0.0
 bottom,California,New Jersey,10,9,0,19,0.0
 bottom,California,New Mexico,10,7,0,17,0.0
-bottom,California,New York,10,10,0,20,0.0
-bottom,California,North Carolina,10,10,1,19,0.05263157894736842
+bottom,California,New York,10,9,0,19,0.0
+bottom,California,North Carolina,10,9,1,18,0.05555555555555555
 bottom,California,North Dakota,10,6,0,16,0.0
-bottom,California,Ohio,10,10,0,20,0.0
-bottom,California,Oklahoma,10,9,0,19,0.0
-bottom,California,Oregon,10,9,1,18,0.05555555555555555
-bottom,California,Pennsylvania,10,10,0,20,0.0
-bottom,California,Rhode Island,10,7,0,17,0.0
+bottom,California,Ohio,10,9,0,19,0.0
+bottom,California,Oklahoma,10,8,0,18,0.0
+bottom,California,Oregon,10,8,1,17,0.058823529411764705
+bottom,California,Pennsylvania,10,9,0,19,0.0
+bottom,California,Rhode Island,10,6,0,16,0.0
 bottom,California,South Carolina,10,9,1,18,0.05555555555555555
 bottom,California,South Dakota,10,6,0,16,0.0
 bottom,California,Tennessee,10,9,1,18,0.05555555555555555
 bottom,California,Texas,10,10,0,20,0.0
-bottom,California,Utah,10,9,0,19,0.0
+bottom,California,Utah,10,8,0,18,0.0
 bottom,California,Vermont,10,6,0,16,0.0
 bottom,California,Virginia,10,9,0,19,0.0
 bottom,California,Washington,10,9,0,19,0.0
-bottom,California,West Virginia,10,7,0,17,0.0
+bottom,California,West Virginia,10,6,0,16,0.0
 bottom,California,Wisconsin,10,9,0,19,0.0
 bottom,California,Wyoming,10,5,0,15,0.0
-bottom,Colorado,Connecticut,9,8,0,17,0.0
-bottom,Colorado,DC,9,4,0,13,0.0
-bottom,Colorado,Delaware,9,6,0,15,0.0
-bottom,Colorado,Florida,9,10,0,19,0.0
-bottom,Colorado,Georgia,9,10,0,19,0.0
-bottom,Colorado,Hawaii,9,6,0,15,0.0
-bottom,Colorado,Idaho,9,7,0,16,0.0
-bottom,Colorado,Illinois,9,10,0,19,0.0
-bottom,Colorado,Indiana,9,9,0,18,0.0
-bottom,Colorado,Iowa,9,8,0,17,0.0
-bottom,Colorado,Kansas,9,8,0,17,0.0
-bottom,Colorado,Kentucky,9,9,1,17,0.058823529411764705
-bottom,Colorado,Louisiana,9,8,1,16,0.0625
-bottom,Colorado,Maine,9,7,0,16,0.0
-bottom,Colorado,Maryland,9,9,0,18,0.0
-bottom,Colorado,Massachusetts,9,8,0,17,0.0
-bottom,Colorado,Michigan,9,9,0,18,0.0
-bottom,Colorado,Minnesota,9,9,0,18,0.0
-bottom,Colorado,Mississippi,9,7,0,16,0.0
-bottom,Colorado,Missouri,9,9,0,18,0.0
-bottom,Colorado,Montana,9,6,0,15,0.0
-bottom,Colorado,Nebraska,9,7,0,16,0.0
-bottom,Colorado,Nevada,9,7,0,16,0.0
-bottom,Colorado,New Hampshire,9,7,1,15,0.06666666666666667
-bottom,Colorado,New Jersey,9,9,1,17,0.058823529411764705
-bottom,Colorado,New Mexico,9,7,1,15,0.06666666666666667
-bottom,Colorado,New York,9,10,0,19,0.0
-bottom,Colorado,North Carolina,9,10,0,19,0.0
-bottom,Colorado,North Dakota,9,6,0,15,0.0
-bottom,Colorado,Ohio,9,10,0,19,0.0
-bottom,Colorado,Oklahoma,9,9,0,18,0.0
-bottom,Colorado,Oregon,9,9,0,18,0.0
-bottom,Colorado,Pennsylvania,9,10,0,19,0.0
-bottom,Colorado,Rhode Island,9,7,0,16,0.0
-bottom,Colorado,South Carolina,9,9,0,18,0.0
-bottom,Colorado,South Dakota,9,6,0,15,0.0
-bottom,Colorado,Tennessee,9,9,0,18,0.0
-bottom,Colorado,Texas,9,10,0,19,0.0
-bottom,Colorado,Utah,9,9,0,18,0.0
-bottom,Colorado,Vermont,9,6,0,15,0.0
-bottom,Colorado,Virginia,9,9,0,18,0.0
-bottom,Colorado,Washington,9,9,0,18,0.0
-bottom,Colorado,West Virginia,9,7,0,16,0.0
-bottom,Colorado,Wisconsin,9,9,0,18,0.0
-bottom,Colorado,Wyoming,9,5,1,13,0.07692307692307693
+bottom,Colorado,Connecticut,8,8,0,16,0.0
+bottom,Colorado,DC,8,4,0,12,0.0
+bottom,Colorado,Delaware,8,5,0,13,0.0
+bottom,Colorado,Florida,8,10,0,18,0.0
+bottom,Colorado,Georgia,8,9,0,17,0.0
+bottom,Colorado,Hawaii,8,6,0,14,0.0
+bottom,Colorado,Idaho,8,7,0,15,0.0
+bottom,Colorado,Illinois,8,9,0,17,0.0
+bottom,Colorado,Indiana,8,9,0,17,0.0
+bottom,Colorado,Iowa,8,8,0,16,0.0
+bottom,Colorado,Kansas,8,8,0,16,0.0
+bottom,Colorado,Kentucky,8,8,1,15,0.06666666666666667
+bottom,Colorado,Louisiana,8,8,1,15,0.06666666666666667
+bottom,Colorado,Maine,8,6,0,14,0.0
+bottom,Colorado,Maryland,8,8,0,16,0.0
+bottom,Colorado,Massachusetts,8,8,0,16,0.0
+bottom,Colorado,Michigan,8,9,0,17,0.0
+bottom,Colorado,Minnesota,8,9,0,17,0.0
+bottom,Colorado,Mississippi,8,7,0,15,0.0
+bottom,Colorado,Missouri,8,9,0,17,0.0
+bottom,Colorado,Montana,8,6,0,14,0.0
+bottom,Colorado,Nebraska,8,7,0,15,0.0
+bottom,Colorado,Nevada,8,7,0,15,0.0
+bottom,Colorado,New Hampshire,8,7,1,14,0.07142857142857142
+bottom,Colorado,New Jersey,8,9,1,16,0.0625
+bottom,Colorado,New Mexico,8,7,0,15,0.0
+bottom,Colorado,New York,8,9,0,17,0.0
+bottom,Colorado,North Carolina,8,9,0,17,0.0
+bottom,Colorado,North Dakota,8,6,0,14,0.0
+bottom,Colorado,Ohio,8,9,0,17,0.0
+bottom,Colorado,Oklahoma,8,8,0,16,0.0
+bottom,Colorado,Oregon,8,8,0,16,0.0
+bottom,Colorado,Pennsylvania,8,9,0,17,0.0
+bottom,Colorado,Rhode Island,8,6,0,14,0.0
+bottom,Colorado,South Carolina,8,9,0,17,0.0
+bottom,Colorado,South Dakota,8,6,0,14,0.0
+bottom,Colorado,Tennessee,8,9,0,17,0.0
+bottom,Colorado,Texas,8,10,0,18,0.0
+bottom,Colorado,Utah,8,8,0,16,0.0
+bottom,Colorado,Vermont,8,6,0,14,0.0
+bottom,Colorado,Virginia,8,9,0,17,0.0
+bottom,Colorado,Washington,8,9,0,17,0.0
+bottom,Colorado,West Virginia,8,6,0,14,0.0
+bottom,Colorado,Wisconsin,8,9,0,17,0.0
+bottom,Colorado,Wyoming,8,5,0,13,0.0
 bottom,Connecticut,DC,8,4,0,12,0.0
-bottom,Connecticut,Delaware,8,6,0,14,0.0
+bottom,Connecticut,Delaware,8,5,0,13,0.0
 bottom,Connecticut,Florida,8,10,0,18,0.0
-bottom,Connecticut,Georgia,8,10,0,18,0.0
+bottom,Connecticut,Georgia,8,9,0,17,0.0
 bottom,Connecticut,Hawaii,8,6,0,14,0.0
 bottom,Connecticut,Idaho,8,7,0,15,0.0
-bottom,Connecticut,Illinois,8,10,0,18,0.0
+bottom,Connecticut,Illinois,8,9,0,17,0.0
 bottom,Connecticut,Indiana,8,9,0,17,0.0
 bottom,Connecticut,Iowa,8,8,0,16,0.0
 bottom,Connecticut,Kansas,8,8,0,16,0.0
-bottom,Connecticut,Kentucky,8,9,0,17,0.0
+bottom,Connecticut,Kentucky,8,8,0,16,0.0
 bottom,Connecticut,Louisiana,8,8,1,15,0.06666666666666667
-bottom,Connecticut,Maine,8,7,0,15,0.0
-bottom,Connecticut,Maryland,8,9,1,16,0.0625
+bottom,Connecticut,Maine,8,6,0,14,0.0
+bottom,Connecticut,Maryland,8,8,1,15,0.06666666666666667
 bottom,Connecticut,Massachusetts,8,8,0,16,0.0
 bottom,Connecticut,Michigan,8,9,1,16,0.0625
 bottom,Connecticut,Minnesota,8,9,0,17,0.0
@@ -1584,38 +1584,38 @@ bottom,Connecticut,Nevada,8,7,0,15,0.0
 bottom,Connecticut,New Hampshire,8,7,1,14,0.07142857142857142
 bottom,Connecticut,New Jersey,8,9,0,17,0.0
 bottom,Connecticut,New Mexico,8,7,1,14,0.07142857142857142
-bottom,Connecticut,New York,8,10,0,18,0.0
-bottom,Connecticut,North Carolina,8,10,0,18,0.0
+bottom,Connecticut,New York,8,9,0,17,0.0
+bottom,Connecticut,North Carolina,8,9,0,17,0.0
 bottom,Connecticut,North Dakota,8,6,1,13,0.07692307692307693
-bottom,Connecticut,Ohio,8,10,0,18,0.0
-bottom,Connecticut,Oklahoma,8,9,0,17,0.0
-bottom,Connecticut,Oregon,8,9,0,17,0.0
-bottom,Connecticut,Pennsylvania,8,10,0,18,0.0
-bottom,Connecticut,Rhode Island,8,7,0,15,0.0
+bottom,Connecticut,Ohio,8,9,0,17,0.0
+bottom,Connecticut,Oklahoma,8,8,0,16,0.0
+bottom,Connecticut,Oregon,8,8,0,16,0.0
+bottom,Connecticut,Pennsylvania,8,9,0,17,0.0
+bottom,Connecticut,Rhode Island,8,6,0,14,0.0
 bottom,Connecticut,South Carolina,8,9,1,16,0.0625
 bottom,Connecticut,South Dakota,8,6,0,14,0.0
 bottom,Connecticut,Tennessee,8,9,0,17,0.0
 bottom,Connecticut,Texas,8,10,0,18,0.0
-bottom,Connecticut,Utah,8,9,0,17,0.0
+bottom,Connecticut,Utah,8,8,0,16,0.0
 bottom,Connecticut,Vermont,8,6,0,14,0.0
 bottom,Connecticut,Virginia,8,9,0,17,0.0
 bottom,Connecticut,Washington,8,9,1,16,0.0625
-bottom,Connecticut,West Virginia,8,7,1,14,0.07142857142857142
+bottom,Connecticut,West Virginia,8,6,1,13,0.07692307692307693
 bottom,Connecticut,Wisconsin,8,9,0,17,0.0
 bottom,Connecticut,Wyoming,8,5,0,13,0.0
-bottom,DC,Delaware,4,6,0,10,0.0
+bottom,DC,Delaware,4,5,0,9,0.0
 bottom,DC,Florida,4,10,0,14,0.0
-bottom,DC,Georgia,4,10,1,13,0.07692307692307693
+bottom,DC,Georgia,4,9,1,12,0.08333333333333333
 bottom,DC,Hawaii,4,6,0,10,0.0
 bottom,DC,Idaho,4,7,0,11,0.0
-bottom,DC,Illinois,4,10,1,13,0.07692307692307693
+bottom,DC,Illinois,4,9,1,12,0.08333333333333333
 bottom,DC,Indiana,4,9,0,13,0.0
 bottom,DC,Iowa,4,8,0,12,0.0
 bottom,DC,Kansas,4,8,0,12,0.0
-bottom,DC,Kentucky,4,9,0,13,0.0
+bottom,DC,Kentucky,4,8,0,12,0.0
 bottom,DC,Louisiana,4,8,1,11,0.09090909090909091
-bottom,DC,Maine,4,7,0,11,0.0
-bottom,DC,Maryland,4,9,0,13,0.0
+bottom,DC,Maine,4,6,0,10,0.0
+bottom,DC,Maryland,4,8,0,12,0.0
 bottom,DC,Massachusetts,4,8,0,12,0.0
 bottom,DC,Michigan,4,9,0,13,0.0
 bottom,DC,Minnesota,4,9,0,13,0.0
@@ -1627,78 +1627,78 @@ bottom,DC,Nevada,4,7,0,11,0.0
 bottom,DC,New Hampshire,4,7,0,11,0.0
 bottom,DC,New Jersey,4,9,0,13,0.0
 bottom,DC,New Mexico,4,7,0,11,0.0
-bottom,DC,New York,4,10,0,14,0.0
-bottom,DC,North Carolina,4,10,0,14,0.0
+bottom,DC,New York,4,9,0,13,0.0
+bottom,DC,North Carolina,4,9,0,13,0.0
 bottom,DC,North Dakota,4,6,0,10,0.0
-bottom,DC,Ohio,4,10,0,14,0.0
-bottom,DC,Oklahoma,4,9,0,13,0.0
-bottom,DC,Oregon,4,9,0,13,0.0
-bottom,DC,Pennsylvania,4,10,0,14,0.0
-bottom,DC,Rhode Island,4,7,1,10,0.1
+bottom,DC,Ohio,4,9,0,13,0.0
+bottom,DC,Oklahoma,4,8,0,12,0.0
+bottom,DC,Oregon,4,8,0,12,0.0
+bottom,DC,Pennsylvania,4,9,0,13,0.0
+bottom,DC,Rhode Island,4,6,1,9,0.1111111111111111
 bottom,DC,South Carolina,4,9,0,13,0.0
 bottom,DC,South Dakota,4,6,0,10,0.0
 bottom,DC,Tennessee,4,9,0,13,0.0
 bottom,DC,Texas,4,10,0,14,0.0
-bottom,DC,Utah,4,9,0,13,0.0
+bottom,DC,Utah,4,8,0,12,0.0
 bottom,DC,Vermont,4,6,0,10,0.0
 bottom,DC,Virginia,4,9,0,13,0.0
 bottom,DC,Washington,4,9,0,13,0.0
-bottom,DC,West Virginia,4,7,0,11,0.0
+bottom,DC,West Virginia,4,6,0,10,0.0
 bottom,DC,Wisconsin,4,9,0,13,0.0
 bottom,DC,Wyoming,4,5,0,9,0.0
-bottom,Delaware,Florida,6,10,0,16,0.0
-bottom,Delaware,Georgia,6,10,0,16,0.0
-bottom,Delaware,Hawaii,6,6,0,12,0.0
-bottom,Delaware,Idaho,6,7,0,13,0.0
-bottom,Delaware,Illinois,6,10,1,15,0.06666666666666667
-bottom,Delaware,Indiana,6,9,0,15,0.0
-bottom,Delaware,Iowa,6,8,0,14,0.0
-bottom,Delaware,Kansas,6,8,0,14,0.0
-bottom,Delaware,Kentucky,6,9,0,15,0.0
-bottom,Delaware,Louisiana,6,8,0,14,0.0
-bottom,Delaware,Maine,6,7,0,13,0.0
-bottom,Delaware,Maryland,6,9,0,15,0.0
-bottom,Delaware,Massachusetts,6,8,0,14,0.0
-bottom,Delaware,Michigan,6,9,0,15,0.0
-bottom,Delaware,Minnesota,6,9,0,15,0.0
-bottom,Delaware,Mississippi,6,7,0,13,0.0
-bottom,Delaware,Missouri,6,9,1,14,0.07142857142857142
-bottom,Delaware,Montana,6,6,0,12,0.0
-bottom,Delaware,Nebraska,6,7,0,13,0.0
-bottom,Delaware,Nevada,6,7,1,12,0.08333333333333333
-bottom,Delaware,New Hampshire,6,7,0,13,0.0
-bottom,Delaware,New Jersey,6,9,0,15,0.0
-bottom,Delaware,New Mexico,6,7,0,13,0.0
-bottom,Delaware,New York,6,10,0,16,0.0
-bottom,Delaware,North Carolina,6,10,0,16,0.0
-bottom,Delaware,North Dakota,6,6,0,12,0.0
-bottom,Delaware,Ohio,6,10,0,16,0.0
-bottom,Delaware,Oklahoma,6,9,0,15,0.0
-bottom,Delaware,Oregon,6,9,0,15,0.0
-bottom,Delaware,Pennsylvania,6,10,0,16,0.0
-bottom,Delaware,Rhode Island,6,7,0,13,0.0
-bottom,Delaware,South Carolina,6,9,0,15,0.0
-bottom,Delaware,South Dakota,6,6,0,12,0.0
-bottom,Delaware,Tennessee,6,9,1,14,0.07142857142857142
-bottom,Delaware,Texas,6,10,0,16,0.0
-bottom,Delaware,Utah,6,9,0,15,0.0
-bottom,Delaware,Vermont,6,6,1,11,0.09090909090909091
-bottom,Delaware,Virginia,6,9,0,15,0.0
-bottom,Delaware,Washington,6,9,0,15,0.0
-bottom,Delaware,West Virginia,6,7,0,13,0.0
-bottom,Delaware,Wisconsin,6,9,0,15,0.0
-bottom,Delaware,Wyoming,6,5,0,11,0.0
-bottom,Florida,Georgia,10,10,0,20,0.0
+bottom,Delaware,Florida,5,10,0,15,0.0
+bottom,Delaware,Georgia,5,9,0,14,0.0
+bottom,Delaware,Hawaii,5,6,0,11,0.0
+bottom,Delaware,Idaho,5,7,0,12,0.0
+bottom,Delaware,Illinois,5,9,0,14,0.0
+bottom,Delaware,Indiana,5,9,0,14,0.0
+bottom,Delaware,Iowa,5,8,0,13,0.0
+bottom,Delaware,Kansas,5,8,0,13,0.0
+bottom,Delaware,Kentucky,5,8,0,13,0.0
+bottom,Delaware,Louisiana,5,8,0,13,0.0
+bottom,Delaware,Maine,5,6,0,11,0.0
+bottom,Delaware,Maryland,5,8,0,13,0.0
+bottom,Delaware,Massachusetts,5,8,0,13,0.0
+bottom,Delaware,Michigan,5,9,0,14,0.0
+bottom,Delaware,Minnesota,5,9,0,14,0.0
+bottom,Delaware,Mississippi,5,7,0,12,0.0
+bottom,Delaware,Missouri,5,9,1,13,0.07692307692307693
+bottom,Delaware,Montana,5,6,0,11,0.0
+bottom,Delaware,Nebraska,5,7,0,12,0.0
+bottom,Delaware,Nevada,5,7,1,11,0.09090909090909091
+bottom,Delaware,New Hampshire,5,7,0,12,0.0
+bottom,Delaware,New Jersey,5,9,0,14,0.0
+bottom,Delaware,New Mexico,5,7,0,12,0.0
+bottom,Delaware,New York,5,9,0,14,0.0
+bottom,Delaware,North Carolina,5,9,0,14,0.0
+bottom,Delaware,North Dakota,5,6,0,11,0.0
+bottom,Delaware,Ohio,5,9,0,14,0.0
+bottom,Delaware,Oklahoma,5,8,0,13,0.0
+bottom,Delaware,Oregon,5,8,0,13,0.0
+bottom,Delaware,Pennsylvania,5,9,0,14,0.0
+bottom,Delaware,Rhode Island,5,6,0,11,0.0
+bottom,Delaware,South Carolina,5,9,0,14,0.0
+bottom,Delaware,South Dakota,5,6,0,11,0.0
+bottom,Delaware,Tennessee,5,9,1,13,0.07692307692307693
+bottom,Delaware,Texas,5,10,0,15,0.0
+bottom,Delaware,Utah,5,8,0,13,0.0
+bottom,Delaware,Vermont,5,6,1,10,0.1
+bottom,Delaware,Virginia,5,9,0,14,0.0
+bottom,Delaware,Washington,5,9,0,14,0.0
+bottom,Delaware,West Virginia,5,6,0,11,0.0
+bottom,Delaware,Wisconsin,5,9,0,14,0.0
+bottom,Delaware,Wyoming,5,5,0,10,0.0
+bottom,Florida,Georgia,10,9,0,19,0.0
 bottom,Florida,Hawaii,10,6,0,16,0.0
 bottom,Florida,Idaho,10,7,0,17,0.0
-bottom,Florida,Illinois,10,10,1,19,0.05263157894736842
+bottom,Florida,Illinois,10,9,1,18,0.05555555555555555
 bottom,Florida,Indiana,10,9,1,18,0.05555555555555555
 bottom,Florida,Iowa,10,8,0,18,0.0
 bottom,Florida,Kansas,10,8,0,18,0.0
-bottom,Florida,Kentucky,10,9,0,19,0.0
+bottom,Florida,Kentucky,10,8,0,18,0.0
 bottom,Florida,Louisiana,10,8,0,18,0.0
-bottom,Florida,Maine,10,7,0,17,0.0
-bottom,Florida,Maryland,10,9,0,19,0.0
+bottom,Florida,Maine,10,6,0,16,0.0
+bottom,Florida,Maryland,10,8,0,18,0.0
 bottom,Florida,Massachusetts,10,8,0,18,0.0
 bottom,Florida,Michigan,10,9,0,19,0.0
 bottom,Florida,Minnesota,10,9,1,18,0.05555555555555555
@@ -1710,74 +1710,74 @@ bottom,Florida,Nevada,10,7,0,17,0.0
 bottom,Florida,New Hampshire,10,7,1,16,0.0625
 bottom,Florida,New Jersey,10,9,0,19,0.0
 bottom,Florida,New Mexico,10,7,0,17,0.0
-bottom,Florida,New York,10,10,1,19,0.05263157894736842
-bottom,Florida,North Carolina,10,10,1,19,0.05263157894736842
+bottom,Florida,New York,10,9,1,18,0.05555555555555555
+bottom,Florida,North Carolina,10,9,1,18,0.05555555555555555
 bottom,Florida,North Dakota,10,6,0,16,0.0
-bottom,Florida,Ohio,10,10,1,19,0.05263157894736842
-bottom,Florida,Oklahoma,10,9,0,19,0.0
-bottom,Florida,Oregon,10,9,0,19,0.0
-bottom,Florida,Pennsylvania,10,10,0,20,0.0
-bottom,Florida,Rhode Island,10,7,0,17,0.0
+bottom,Florida,Ohio,10,9,1,18,0.05555555555555555
+bottom,Florida,Oklahoma,10,8,0,18,0.0
+bottom,Florida,Oregon,10,8,0,18,0.0
+bottom,Florida,Pennsylvania,10,9,0,19,0.0
+bottom,Florida,Rhode Island,10,6,0,16,0.0
 bottom,Florida,South Carolina,10,9,0,19,0.0
 bottom,Florida,South Dakota,10,6,0,16,0.0
 bottom,Florida,Tennessee,10,9,1,18,0.05555555555555555
 bottom,Florida,Texas,10,10,1,19,0.05263157894736842
-bottom,Florida,Utah,10,9,0,19,0.0
+bottom,Florida,Utah,10,8,0,18,0.0
 bottom,Florida,Vermont,10,6,1,15,0.06666666666666667
 bottom,Florida,Virginia,10,9,0,19,0.0
 bottom,Florida,Washington,10,9,0,19,0.0
-bottom,Florida,West Virginia,10,7,1,16,0.0625
+bottom,Florida,West Virginia,10,6,1,15,0.06666666666666667
 bottom,Florida,Wisconsin,10,9,1,18,0.05555555555555555
 bottom,Florida,Wyoming,10,5,0,15,0.0
-bottom,Georgia,Hawaii,10,6,0,16,0.0
-bottom,Georgia,Idaho,10,7,0,17,0.0
-bottom,Georgia,Illinois,10,10,1,19,0.05263157894736842
-bottom,Georgia,Indiana,10,9,0,19,0.0
-bottom,Georgia,Iowa,10,8,0,18,0.0
-bottom,Georgia,Kansas,10,8,0,18,0.0
-bottom,Georgia,Kentucky,10,9,0,19,0.0
-bottom,Georgia,Louisiana,10,8,1,17,0.058823529411764705
-bottom,Georgia,Maine,10,7,0,17,0.0
-bottom,Georgia,Maryland,10,9,0,19,0.0
-bottom,Georgia,Massachusetts,10,8,0,18,0.0
-bottom,Georgia,Michigan,10,9,0,19,0.0
-bottom,Georgia,Minnesota,10,9,0,19,0.0
-bottom,Georgia,Mississippi,10,7,0,17,0.0
-bottom,Georgia,Missouri,10,9,0,19,0.0
-bottom,Georgia,Montana,10,6,0,16,0.0
-bottom,Georgia,Nebraska,10,7,1,16,0.0625
-bottom,Georgia,Nevada,10,7,0,17,0.0
-bottom,Georgia,New Hampshire,10,7,0,17,0.0
-bottom,Georgia,New Jersey,10,9,1,18,0.05555555555555555
-bottom,Georgia,New Mexico,10,7,0,17,0.0
-bottom,Georgia,New York,10,10,0,20,0.0
-bottom,Georgia,North Carolina,10,10,0,20,0.0
-bottom,Georgia,North Dakota,10,6,0,16,0.0
-bottom,Georgia,Ohio,10,10,0,20,0.0
-bottom,Georgia,Oklahoma,10,9,0,19,0.0
-bottom,Georgia,Oregon,10,9,0,19,0.0
-bottom,Georgia,Pennsylvania,10,10,1,19,0.05263157894736842
-bottom,Georgia,Rhode Island,10,7,0,17,0.0
-bottom,Georgia,South Carolina,10,9,0,19,0.0
-bottom,Georgia,South Dakota,10,6,0,16,0.0
-bottom,Georgia,Tennessee,10,9,0,19,0.0
-bottom,Georgia,Texas,10,10,0,20,0.0
-bottom,Georgia,Utah,10,9,1,18,0.05555555555555555
-bottom,Georgia,Vermont,10,6,0,16,0.0
-bottom,Georgia,Virginia,10,9,1,18,0.05555555555555555
-bottom,Georgia,Washington,10,9,0,19,0.0
-bottom,Georgia,West Virginia,10,7,0,17,0.0
-bottom,Georgia,Wisconsin,10,9,0,19,0.0
-bottom,Georgia,Wyoming,10,5,0,15,0.0
+bottom,Georgia,Hawaii,9,6,0,15,0.0
+bottom,Georgia,Idaho,9,7,0,16,0.0
+bottom,Georgia,Illinois,9,9,0,18,0.0
+bottom,Georgia,Indiana,9,9,0,18,0.0
+bottom,Georgia,Iowa,9,8,0,17,0.0
+bottom,Georgia,Kansas,9,8,0,17,0.0
+bottom,Georgia,Kentucky,9,8,0,17,0.0
+bottom,Georgia,Louisiana,9,8,1,16,0.0625
+bottom,Georgia,Maine,9,6,0,15,0.0
+bottom,Georgia,Maryland,9,8,0,17,0.0
+bottom,Georgia,Massachusetts,9,8,0,17,0.0
+bottom,Georgia,Michigan,9,9,0,18,0.0
+bottom,Georgia,Minnesota,9,9,0,18,0.0
+bottom,Georgia,Mississippi,9,7,0,16,0.0
+bottom,Georgia,Missouri,9,9,0,18,0.0
+bottom,Georgia,Montana,9,6,0,15,0.0
+bottom,Georgia,Nebraska,9,7,1,15,0.06666666666666667
+bottom,Georgia,Nevada,9,7,0,16,0.0
+bottom,Georgia,New Hampshire,9,7,0,16,0.0
+bottom,Georgia,New Jersey,9,9,1,17,0.058823529411764705
+bottom,Georgia,New Mexico,9,7,0,16,0.0
+bottom,Georgia,New York,9,9,0,18,0.0
+bottom,Georgia,North Carolina,9,9,0,18,0.0
+bottom,Georgia,North Dakota,9,6,0,15,0.0
+bottom,Georgia,Ohio,9,9,0,18,0.0
+bottom,Georgia,Oklahoma,9,8,0,17,0.0
+bottom,Georgia,Oregon,9,8,0,17,0.0
+bottom,Georgia,Pennsylvania,9,9,1,17,0.058823529411764705
+bottom,Georgia,Rhode Island,9,6,0,15,0.0
+bottom,Georgia,South Carolina,9,9,0,18,0.0
+bottom,Georgia,South Dakota,9,6,0,15,0.0
+bottom,Georgia,Tennessee,9,9,0,18,0.0
+bottom,Georgia,Texas,9,10,0,19,0.0
+bottom,Georgia,Utah,9,8,1,16,0.0625
+bottom,Georgia,Vermont,9,6,0,15,0.0
+bottom,Georgia,Virginia,9,9,1,17,0.058823529411764705
+bottom,Georgia,Washington,9,9,0,18,0.0
+bottom,Georgia,West Virginia,9,6,0,15,0.0
+bottom,Georgia,Wisconsin,9,9,0,18,0.0
+bottom,Georgia,Wyoming,9,5,0,14,0.0
 bottom,Hawaii,Idaho,6,7,2,11,0.18181818181818182
-bottom,Hawaii,Illinois,6,10,0,16,0.0
+bottom,Hawaii,Illinois,6,9,0,15,0.0
 bottom,Hawaii,Indiana,6,9,0,15,0.0
 bottom,Hawaii,Iowa,6,8,0,14,0.0
 bottom,Hawaii,Kansas,6,8,0,14,0.0
-bottom,Hawaii,Kentucky,6,9,1,14,0.07142857142857142
+bottom,Hawaii,Kentucky,6,8,1,13,0.07692307692307693
 bottom,Hawaii,Louisiana,6,8,0,14,0.0
-bottom,Hawaii,Maine,6,7,1,12,0.08333333333333333
-bottom,Hawaii,Maryland,6,9,0,15,0.0
+bottom,Hawaii,Maine,6,6,1,11,0.09090909090909091
+bottom,Hawaii,Maryland,6,8,0,14,0.0
 bottom,Hawaii,Massachusetts,6,8,0,14,0.0
 bottom,Hawaii,Michigan,6,9,0,15,0.0
 bottom,Hawaii,Minnesota,6,9,0,15,0.0
@@ -1789,33 +1789,33 @@ bottom,Hawaii,Nevada,6,7,0,13,0.0
 bottom,Hawaii,New Hampshire,6,7,0,13,0.0
 bottom,Hawaii,New Jersey,6,9,0,15,0.0
 bottom,Hawaii,New Mexico,6,7,0,13,0.0
-bottom,Hawaii,New York,6,10,0,16,0.0
-bottom,Hawaii,North Carolina,6,10,0,16,0.0
+bottom,Hawaii,New York,6,9,0,15,0.0
+bottom,Hawaii,North Carolina,6,9,0,15,0.0
 bottom,Hawaii,North Dakota,6,6,1,11,0.09090909090909091
-bottom,Hawaii,Ohio,6,10,1,15,0.06666666666666667
-bottom,Hawaii,Oklahoma,6,9,0,15,0.0
-bottom,Hawaii,Oregon,6,9,0,15,0.0
-bottom,Hawaii,Pennsylvania,6,10,0,16,0.0
-bottom,Hawaii,Rhode Island,6,7,0,13,0.0
+bottom,Hawaii,Ohio,6,9,1,14,0.07142857142857142
+bottom,Hawaii,Oklahoma,6,8,0,14,0.0
+bottom,Hawaii,Oregon,6,8,0,14,0.0
+bottom,Hawaii,Pennsylvania,6,9,0,15,0.0
+bottom,Hawaii,Rhode Island,6,6,0,12,0.0
 bottom,Hawaii,South Carolina,6,9,1,14,0.07142857142857142
 bottom,Hawaii,South Dakota,6,6,0,12,0.0
 bottom,Hawaii,Tennessee,6,9,0,15,0.0
 bottom,Hawaii,Texas,6,10,0,16,0.0
-bottom,Hawaii,Utah,6,9,0,15,0.0
+bottom,Hawaii,Utah,6,8,0,14,0.0
 bottom,Hawaii,Vermont,6,6,0,12,0.0
 bottom,Hawaii,Virginia,6,9,0,15,0.0
 bottom,Hawaii,Washington,6,9,0,15,0.0
-bottom,Hawaii,West Virginia,6,7,0,13,0.0
+bottom,Hawaii,West Virginia,6,6,0,12,0.0
 bottom,Hawaii,Wisconsin,6,9,0,15,0.0
 bottom,Hawaii,Wyoming,6,5,0,11,0.0
-bottom,Idaho,Illinois,7,10,0,17,0.0
+bottom,Idaho,Illinois,7,9,0,16,0.0
 bottom,Idaho,Indiana,7,9,0,16,0.0
 bottom,Idaho,Iowa,7,8,0,15,0.0
 bottom,Idaho,Kansas,7,8,0,15,0.0
-bottom,Idaho,Kentucky,7,9,0,16,0.0
+bottom,Idaho,Kentucky,7,8,0,15,0.0
 bottom,Idaho,Louisiana,7,8,0,15,0.0
-bottom,Idaho,Maine,7,7,1,13,0.07692307692307693
-bottom,Idaho,Maryland,7,9,1,15,0.06666666666666667
+bottom,Idaho,Maine,7,6,1,12,0.08333333333333333
+bottom,Idaho,Maryland,7,8,0,15,0.0
 bottom,Idaho,Massachusetts,7,8,0,15,0.0
 bottom,Idaho,Michigan,7,9,0,16,0.0
 bottom,Idaho,Minnesota,7,9,0,16,0.0
@@ -1827,68 +1827,68 @@ bottom,Idaho,Nevada,7,7,0,14,0.0
 bottom,Idaho,New Hampshire,7,7,1,13,0.07692307692307693
 bottom,Idaho,New Jersey,7,9,0,16,0.0
 bottom,Idaho,New Mexico,7,7,0,14,0.0
-bottom,Idaho,New York,7,10,0,17,0.0
-bottom,Idaho,North Carolina,7,10,1,16,0.0625
+bottom,Idaho,New York,7,9,0,16,0.0
+bottom,Idaho,North Carolina,7,9,1,15,0.06666666666666667
 bottom,Idaho,North Dakota,7,6,0,13,0.0
-bottom,Idaho,Ohio,7,10,0,17,0.0
-bottom,Idaho,Oklahoma,7,9,1,15,0.06666666666666667
-bottom,Idaho,Oregon,7,9,1,15,0.06666666666666667
-bottom,Idaho,Pennsylvania,7,10,0,17,0.0
-bottom,Idaho,Rhode Island,7,7,0,14,0.0
+bottom,Idaho,Ohio,7,9,0,16,0.0
+bottom,Idaho,Oklahoma,7,8,1,14,0.07142857142857142
+bottom,Idaho,Oregon,7,8,1,14,0.07142857142857142
+bottom,Idaho,Pennsylvania,7,9,0,16,0.0
+bottom,Idaho,Rhode Island,7,6,0,13,0.0
 bottom,Idaho,South Carolina,7,9,1,15,0.06666666666666667
 bottom,Idaho,South Dakota,7,6,0,13,0.0
 bottom,Idaho,Tennessee,7,9,0,16,0.0
 bottom,Idaho,Texas,7,10,0,17,0.0
-bottom,Idaho,Utah,7,9,0,16,0.0
+bottom,Idaho,Utah,7,8,0,15,0.0
 bottom,Idaho,Vermont,7,6,0,13,0.0
 bottom,Idaho,Virginia,7,9,0,16,0.0
 bottom,Idaho,Washington,7,9,0,16,0.0
-bottom,Idaho,West Virginia,7,7,1,13,0.07692307692307693
+bottom,Idaho,West Virginia,7,6,1,12,0.08333333333333333
 bottom,Idaho,Wisconsin,7,9,0,16,0.0
 bottom,Idaho,Wyoming,7,5,0,12,0.0
-bottom,Illinois,Indiana,10,9,0,19,0.0
-bottom,Illinois,Iowa,10,8,0,18,0.0
-bottom,Illinois,Kansas,10,8,0,18,0.0
-bottom,Illinois,Kentucky,10,9,0,19,0.0
-bottom,Illinois,Louisiana,10,8,0,18,0.0
-bottom,Illinois,Maine,10,7,0,17,0.0
-bottom,Illinois,Maryland,10,9,0,19,0.0
-bottom,Illinois,Massachusetts,10,8,0,18,0.0
-bottom,Illinois,Michigan,10,9,0,19,0.0
-bottom,Illinois,Minnesota,10,9,0,19,0.0
-bottom,Illinois,Mississippi,10,7,1,16,0.0625
-bottom,Illinois,Missouri,10,9,0,19,0.0
-bottom,Illinois,Montana,10,6,0,16,0.0
-bottom,Illinois,Nebraska,10,7,0,17,0.0
-bottom,Illinois,Nevada,10,7,0,17,0.0
-bottom,Illinois,New Hampshire,10,7,0,17,0.0
-bottom,Illinois,New Jersey,10,9,2,17,0.11764705882352941
-bottom,Illinois,New Mexico,10,7,0,17,0.0
-bottom,Illinois,New York,10,10,0,20,0.0
-bottom,Illinois,North Carolina,10,10,1,19,0.05263157894736842
-bottom,Illinois,North Dakota,10,6,0,16,0.0
-bottom,Illinois,Ohio,10,10,0,20,0.0
-bottom,Illinois,Oklahoma,10,9,0,19,0.0
-bottom,Illinois,Oregon,10,9,0,19,0.0
-bottom,Illinois,Pennsylvania,10,10,0,20,0.0
-bottom,Illinois,Rhode Island,10,7,1,16,0.0625
-bottom,Illinois,South Carolina,10,9,0,19,0.0
-bottom,Illinois,South Dakota,10,6,1,15,0.06666666666666667
-bottom,Illinois,Tennessee,10,9,0,19,0.0
-bottom,Illinois,Texas,10,10,0,20,0.0
-bottom,Illinois,Utah,10,9,0,19,0.0
-bottom,Illinois,Vermont,10,6,0,16,0.0
-bottom,Illinois,Virginia,10,9,1,18,0.05555555555555555
-bottom,Illinois,Washington,10,9,0,19,0.0
-bottom,Illinois,West Virginia,10,7,0,17,0.0
-bottom,Illinois,Wisconsin,10,9,1,18,0.05555555555555555
-bottom,Illinois,Wyoming,10,5,2,13,0.15384615384615385
+bottom,Illinois,Indiana,9,9,0,18,0.0
+bottom,Illinois,Iowa,9,8,0,17,0.0
+bottom,Illinois,Kansas,9,8,0,17,0.0
+bottom,Illinois,Kentucky,9,8,0,17,0.0
+bottom,Illinois,Louisiana,9,8,0,17,0.0
+bottom,Illinois,Maine,9,6,0,15,0.0
+bottom,Illinois,Maryland,9,8,0,17,0.0
+bottom,Illinois,Massachusetts,9,8,0,17,0.0
+bottom,Illinois,Michigan,9,9,0,18,0.0
+bottom,Illinois,Minnesota,9,9,0,18,0.0
+bottom,Illinois,Mississippi,9,7,1,15,0.06666666666666667
+bottom,Illinois,Missouri,9,9,0,18,0.0
+bottom,Illinois,Montana,9,6,0,15,0.0
+bottom,Illinois,Nebraska,9,7,0,16,0.0
+bottom,Illinois,Nevada,9,7,0,16,0.0
+bottom,Illinois,New Hampshire,9,7,0,16,0.0
+bottom,Illinois,New Jersey,9,9,1,17,0.058823529411764705
+bottom,Illinois,New Mexico,9,7,0,16,0.0
+bottom,Illinois,New York,9,9,0,18,0.0
+bottom,Illinois,North Carolina,9,9,1,17,0.058823529411764705
+bottom,Illinois,North Dakota,9,6,0,15,0.0
+bottom,Illinois,Ohio,9,9,0,18,0.0
+bottom,Illinois,Oklahoma,9,8,0,17,0.0
+bottom,Illinois,Oregon,9,8,0,17,0.0
+bottom,Illinois,Pennsylvania,9,9,0,18,0.0
+bottom,Illinois,Rhode Island,9,6,1,14,0.07142857142857142
+bottom,Illinois,South Carolina,9,9,0,18,0.0
+bottom,Illinois,South Dakota,9,6,1,14,0.07142857142857142
+bottom,Illinois,Tennessee,9,9,0,18,0.0
+bottom,Illinois,Texas,9,10,0,19,0.0
+bottom,Illinois,Utah,9,8,0,17,0.0
+bottom,Illinois,Vermont,9,6,0,15,0.0
+bottom,Illinois,Virginia,9,9,0,18,0.0
+bottom,Illinois,Washington,9,9,0,18,0.0
+bottom,Illinois,West Virginia,9,6,0,15,0.0
+bottom,Illinois,Wisconsin,9,9,1,17,0.058823529411764705
+bottom,Illinois,Wyoming,9,5,2,12,0.16666666666666666
 bottom,Indiana,Iowa,9,8,1,16,0.0625
 bottom,Indiana,Kansas,9,8,1,16,0.0625
-bottom,Indiana,Kentucky,9,9,0,18,0.0
+bottom,Indiana,Kentucky,9,8,0,17,0.0
 bottom,Indiana,Louisiana,9,8,0,17,0.0
-bottom,Indiana,Maine,9,7,0,16,0.0
-bottom,Indiana,Maryland,9,9,0,18,0.0
+bottom,Indiana,Maine,9,6,0,15,0.0
+bottom,Indiana,Maryland,9,8,0,17,0.0
 bottom,Indiana,Massachusetts,9,8,0,17,0.0
 bottom,Indiana,Michigan,9,9,0,18,0.0
 bottom,Indiana,Minnesota,9,9,0,18,0.0
@@ -1900,30 +1900,30 @@ bottom,Indiana,Nevada,9,7,0,16,0.0
 bottom,Indiana,New Hampshire,9,7,0,16,0.0
 bottom,Indiana,New Jersey,9,9,0,18,0.0
 bottom,Indiana,New Mexico,9,7,0,16,0.0
-bottom,Indiana,New York,9,10,1,18,0.05555555555555555
-bottom,Indiana,North Carolina,9,10,0,19,0.0
+bottom,Indiana,New York,9,9,1,17,0.058823529411764705
+bottom,Indiana,North Carolina,9,9,0,18,0.0
 bottom,Indiana,North Dakota,9,6,0,15,0.0
-bottom,Indiana,Ohio,9,10,1,18,0.05555555555555555
-bottom,Indiana,Oklahoma,9,9,0,18,0.0
-bottom,Indiana,Oregon,9,9,0,18,0.0
-bottom,Indiana,Pennsylvania,9,10,0,19,0.0
-bottom,Indiana,Rhode Island,9,7,1,15,0.06666666666666667
+bottom,Indiana,Ohio,9,9,0,18,0.0
+bottom,Indiana,Oklahoma,9,8,0,17,0.0
+bottom,Indiana,Oregon,9,8,0,17,0.0
+bottom,Indiana,Pennsylvania,9,9,0,18,0.0
+bottom,Indiana,Rhode Island,9,6,1,14,0.07142857142857142
 bottom,Indiana,South Carolina,9,9,0,18,0.0
 bottom,Indiana,South Dakota,9,6,0,15,0.0
 bottom,Indiana,Tennessee,9,9,0,18,0.0
 bottom,Indiana,Texas,9,10,0,19,0.0
-bottom,Indiana,Utah,9,9,0,18,0.0
+bottom,Indiana,Utah,9,8,0,17,0.0
 bottom,Indiana,Vermont,9,6,0,15,0.0
 bottom,Indiana,Virginia,9,9,0,18,0.0
 bottom,Indiana,Washington,9,9,0,18,0.0
-bottom,Indiana,West Virginia,9,7,2,14,0.14285714285714285
+bottom,Indiana,West Virginia,9,6,2,13,0.15384615384615385
 bottom,Indiana,Wisconsin,9,9,1,17,0.058823529411764705
 bottom,Indiana,Wyoming,9,5,0,14,0.0
 bottom,Iowa,Kansas,8,8,0,16,0.0
-bottom,Iowa,Kentucky,8,9,0,17,0.0
+bottom,Iowa,Kentucky,8,8,0,16,0.0
 bottom,Iowa,Louisiana,8,8,0,16,0.0
-bottom,Iowa,Maine,8,7,1,14,0.07142857142857142
-bottom,Iowa,Maryland,8,9,0,17,0.0
+bottom,Iowa,Maine,8,6,1,13,0.07692307692307693
+bottom,Iowa,Maryland,8,8,0,16,0.0
 bottom,Iowa,Massachusetts,8,8,1,15,0.06666666666666667
 bottom,Iowa,Michigan,8,9,0,17,0.0
 bottom,Iowa,Minnesota,8,9,0,17,0.0
@@ -1935,29 +1935,29 @@ bottom,Iowa,Nevada,8,7,0,15,0.0
 bottom,Iowa,New Hampshire,8,7,0,15,0.0
 bottom,Iowa,New Jersey,8,9,0,17,0.0
 bottom,Iowa,New Mexico,8,7,0,15,0.0
-bottom,Iowa,New York,8,10,0,18,0.0
-bottom,Iowa,North Carolina,8,10,0,18,0.0
+bottom,Iowa,New York,8,9,0,17,0.0
+bottom,Iowa,North Carolina,8,9,0,17,0.0
 bottom,Iowa,North Dakota,8,6,0,14,0.0
-bottom,Iowa,Ohio,8,10,0,18,0.0
-bottom,Iowa,Oklahoma,8,9,0,17,0.0
-bottom,Iowa,Oregon,8,9,0,17,0.0
-bottom,Iowa,Pennsylvania,8,10,0,18,0.0
-bottom,Iowa,Rhode Island,8,7,0,15,0.0
+bottom,Iowa,Ohio,8,9,0,17,0.0
+bottom,Iowa,Oklahoma,8,8,0,16,0.0
+bottom,Iowa,Oregon,8,8,0,16,0.0
+bottom,Iowa,Pennsylvania,8,9,0,17,0.0
+bottom,Iowa,Rhode Island,8,6,0,14,0.0
 bottom,Iowa,South Carolina,8,9,1,16,0.0625
 bottom,Iowa,South Dakota,8,6,0,14,0.0
 bottom,Iowa,Tennessee,8,9,0,17,0.0
 bottom,Iowa,Texas,8,10,1,17,0.058823529411764705
-bottom,Iowa,Utah,8,9,0,17,0.0
+bottom,Iowa,Utah,8,8,0,16,0.0
 bottom,Iowa,Vermont,8,6,1,13,0.07692307692307693
 bottom,Iowa,Virginia,8,9,0,17,0.0
 bottom,Iowa,Washington,8,9,0,17,0.0
-bottom,Iowa,West Virginia,8,7,0,15,0.0
+bottom,Iowa,West Virginia,8,6,0,14,0.0
 bottom,Iowa,Wisconsin,8,9,0,17,0.0
 bottom,Iowa,Wyoming,8,5,0,13,0.0
-bottom,Kansas,Kentucky,8,9,0,17,0.0
+bottom,Kansas,Kentucky,8,8,0,16,0.0
 bottom,Kansas,Louisiana,8,8,0,16,0.0
-bottom,Kansas,Maine,8,7,0,15,0.0
-bottom,Kansas,Maryland,8,9,0,17,0.0
+bottom,Kansas,Maine,8,6,0,14,0.0
+bottom,Kansas,Maryland,8,8,0,16,0.0
 bottom,Kansas,Massachusetts,8,8,0,16,0.0
 bottom,Kansas,Michigan,8,9,0,17,0.0
 bottom,Kansas,Minnesota,8,9,0,17,0.0
@@ -1969,60 +1969,60 @@ bottom,Kansas,Nevada,8,7,0,15,0.0
 bottom,Kansas,New Hampshire,8,7,0,15,0.0
 bottom,Kansas,New Jersey,8,9,0,17,0.0
 bottom,Kansas,New Mexico,8,7,0,15,0.0
-bottom,Kansas,New York,8,10,0,18,0.0
-bottom,Kansas,North Carolina,8,10,0,18,0.0
+bottom,Kansas,New York,8,9,0,17,0.0
+bottom,Kansas,North Carolina,8,9,0,17,0.0
 bottom,Kansas,North Dakota,8,6,0,14,0.0
-bottom,Kansas,Ohio,8,10,1,17,0.058823529411764705
-bottom,Kansas,Oklahoma,8,9,1,16,0.0625
-bottom,Kansas,Oregon,8,9,0,17,0.0
-bottom,Kansas,Pennsylvania,8,10,0,18,0.0
-bottom,Kansas,Rhode Island,8,7,0,15,0.0
+bottom,Kansas,Ohio,8,9,1,16,0.0625
+bottom,Kansas,Oklahoma,8,8,1,15,0.06666666666666667
+bottom,Kansas,Oregon,8,8,0,16,0.0
+bottom,Kansas,Pennsylvania,8,9,0,17,0.0
+bottom,Kansas,Rhode Island,8,6,0,14,0.0
 bottom,Kansas,South Carolina,8,9,0,17,0.0
 bottom,Kansas,South Dakota,8,6,0,14,0.0
 bottom,Kansas,Tennessee,8,9,1,16,0.0625
 bottom,Kansas,Texas,8,10,1,17,0.058823529411764705
-bottom,Kansas,Utah,8,9,1,16,0.0625
+bottom,Kansas,Utah,8,8,1,15,0.06666666666666667
 bottom,Kansas,Vermont,8,6,0,14,0.0
 bottom,Kansas,Virginia,8,9,1,16,0.0625
 bottom,Kansas,Washington,8,9,0,17,0.0
-bottom,Kansas,West Virginia,8,7,0,15,0.0
+bottom,Kansas,West Virginia,8,6,0,14,0.0
 bottom,Kansas,Wisconsin,8,9,1,16,0.0625
 bottom,Kansas,Wyoming,8,5,0,13,0.0
-bottom,Kentucky,Louisiana,9,8,0,17,0.0
-bottom,Kentucky,Maine,9,7,1,15,0.06666666666666667
-bottom,Kentucky,Maryland,9,9,0,18,0.0
-bottom,Kentucky,Massachusetts,9,8,0,17,0.0
-bottom,Kentucky,Michigan,9,9,0,18,0.0
-bottom,Kentucky,Minnesota,9,9,0,18,0.0
-bottom,Kentucky,Mississippi,9,7,1,15,0.06666666666666667
-bottom,Kentucky,Missouri,9,9,0,18,0.0
-bottom,Kentucky,Montana,9,6,0,15,0.0
-bottom,Kentucky,Nebraska,9,7,0,16,0.0
-bottom,Kentucky,Nevada,9,7,0,16,0.0
-bottom,Kentucky,New Hampshire,9,7,0,16,0.0
-bottom,Kentucky,New Jersey,9,9,0,18,0.0
-bottom,Kentucky,New Mexico,9,7,0,16,0.0
-bottom,Kentucky,New York,9,10,0,19,0.0
-bottom,Kentucky,North Carolina,9,10,0,19,0.0
-bottom,Kentucky,North Dakota,9,6,0,15,0.0
-bottom,Kentucky,Ohio,9,10,0,19,0.0
-bottom,Kentucky,Oklahoma,9,9,0,18,0.0
-bottom,Kentucky,Oregon,9,9,1,17,0.058823529411764705
-bottom,Kentucky,Pennsylvania,9,10,0,19,0.0
-bottom,Kentucky,Rhode Island,9,7,0,16,0.0
-bottom,Kentucky,South Carolina,9,9,0,18,0.0
-bottom,Kentucky,South Dakota,9,6,0,15,0.0
-bottom,Kentucky,Tennessee,9,9,1,17,0.058823529411764705
-bottom,Kentucky,Texas,9,10,0,19,0.0
-bottom,Kentucky,Utah,9,9,0,18,0.0
-bottom,Kentucky,Vermont,9,6,0,15,0.0
-bottom,Kentucky,Virginia,9,9,2,16,0.125
-bottom,Kentucky,Washington,9,9,0,18,0.0
-bottom,Kentucky,West Virginia,9,7,0,16,0.0
-bottom,Kentucky,Wisconsin,9,9,0,18,0.0
-bottom,Kentucky,Wyoming,9,5,0,14,0.0
-bottom,Louisiana,Maine,8,7,0,15,0.0
-bottom,Louisiana,Maryland,8,9,0,17,0.0
+bottom,Kentucky,Louisiana,8,8,0,16,0.0
+bottom,Kentucky,Maine,8,6,1,13,0.07692307692307693
+bottom,Kentucky,Maryland,8,8,0,16,0.0
+bottom,Kentucky,Massachusetts,8,8,0,16,0.0
+bottom,Kentucky,Michigan,8,9,0,17,0.0
+bottom,Kentucky,Minnesota,8,9,0,17,0.0
+bottom,Kentucky,Mississippi,8,7,1,14,0.07142857142857142
+bottom,Kentucky,Missouri,8,9,0,17,0.0
+bottom,Kentucky,Montana,8,6,0,14,0.0
+bottom,Kentucky,Nebraska,8,7,0,15,0.0
+bottom,Kentucky,Nevada,8,7,0,15,0.0
+bottom,Kentucky,New Hampshire,8,7,0,15,0.0
+bottom,Kentucky,New Jersey,8,9,0,17,0.0
+bottom,Kentucky,New Mexico,8,7,0,15,0.0
+bottom,Kentucky,New York,8,9,0,17,0.0
+bottom,Kentucky,North Carolina,8,9,0,17,0.0
+bottom,Kentucky,North Dakota,8,6,0,14,0.0
+bottom,Kentucky,Ohio,8,9,0,17,0.0
+bottom,Kentucky,Oklahoma,8,8,0,16,0.0
+bottom,Kentucky,Oregon,8,8,1,15,0.06666666666666667
+bottom,Kentucky,Pennsylvania,8,9,0,17,0.0
+bottom,Kentucky,Rhode Island,8,6,0,14,0.0
+bottom,Kentucky,South Carolina,8,9,0,17,0.0
+bottom,Kentucky,South Dakota,8,6,0,14,0.0
+bottom,Kentucky,Tennessee,8,9,1,16,0.0625
+bottom,Kentucky,Texas,8,10,0,18,0.0
+bottom,Kentucky,Utah,8,8,0,16,0.0
+bottom,Kentucky,Vermont,8,6,0,14,0.0
+bottom,Kentucky,Virginia,8,9,2,15,0.13333333333333333
+bottom,Kentucky,Washington,8,9,0,17,0.0
+bottom,Kentucky,West Virginia,8,6,0,14,0.0
+bottom,Kentucky,Wisconsin,8,9,0,17,0.0
+bottom,Kentucky,Wyoming,8,5,0,13,0.0
+bottom,Louisiana,Maine,8,6,0,14,0.0
+bottom,Louisiana,Maryland,8,8,0,16,0.0
 bottom,Louisiana,Massachusetts,8,8,0,16,0.0
 bottom,Louisiana,Michigan,8,9,0,17,0.0
 bottom,Louisiana,Minnesota,8,9,1,16,0.0625
@@ -2034,86 +2034,86 @@ bottom,Louisiana,Nevada,8,7,0,15,0.0
 bottom,Louisiana,New Hampshire,8,7,0,15,0.0
 bottom,Louisiana,New Jersey,8,9,1,16,0.0625
 bottom,Louisiana,New Mexico,8,7,0,15,0.0
-bottom,Louisiana,New York,8,10,0,18,0.0
-bottom,Louisiana,North Carolina,8,10,0,18,0.0
+bottom,Louisiana,New York,8,9,0,17,0.0
+bottom,Louisiana,North Carolina,8,9,0,17,0.0
 bottom,Louisiana,North Dakota,8,6,0,14,0.0
-bottom,Louisiana,Ohio,8,10,0,18,0.0
-bottom,Louisiana,Oklahoma,8,9,0,17,0.0
-bottom,Louisiana,Oregon,8,9,1,16,0.0625
-bottom,Louisiana,Pennsylvania,8,10,0,18,0.0
-bottom,Louisiana,Rhode Island,8,7,0,15,0.0
+bottom,Louisiana,Ohio,8,9,0,17,0.0
+bottom,Louisiana,Oklahoma,8,8,0,16,0.0
+bottom,Louisiana,Oregon,8,8,1,15,0.06666666666666667
+bottom,Louisiana,Pennsylvania,8,9,0,17,0.0
+bottom,Louisiana,Rhode Island,8,6,0,14,0.0
 bottom,Louisiana,South Carolina,8,9,0,17,0.0
 bottom,Louisiana,South Dakota,8,6,0,14,0.0
 bottom,Louisiana,Tennessee,8,9,0,17,0.0
 bottom,Louisiana,Texas,8,10,0,18,0.0
-bottom,Louisiana,Utah,8,9,0,17,0.0
+bottom,Louisiana,Utah,8,8,0,16,0.0
 bottom,Louisiana,Vermont,8,6,0,14,0.0
 bottom,Louisiana,Virginia,8,9,0,17,0.0
 bottom,Louisiana,Washington,8,9,0,17,0.0
-bottom,Louisiana,West Virginia,8,7,0,15,0.0
+bottom,Louisiana,West Virginia,8,6,0,14,0.0
 bottom,Louisiana,Wisconsin,8,9,0,17,0.0
 bottom,Louisiana,Wyoming,8,5,0,13,0.0
-bottom,Maine,Maryland,7,9,2,14,0.14285714285714285
-bottom,Maine,Massachusetts,7,8,1,14,0.07142857142857142
-bottom,Maine,Michigan,7,9,1,15,0.06666666666666667
-bottom,Maine,Minnesota,7,9,0,16,0.0
-bottom,Maine,Mississippi,7,7,1,13,0.07692307692307693
-bottom,Maine,Missouri,7,9,1,15,0.06666666666666667
-bottom,Maine,Montana,7,6,0,13,0.0
-bottom,Maine,Nebraska,7,7,0,14,0.0
-bottom,Maine,Nevada,7,7,0,14,0.0
-bottom,Maine,New Hampshire,7,7,0,14,0.0
-bottom,Maine,New Jersey,7,9,0,16,0.0
-bottom,Maine,New Mexico,7,7,0,14,0.0
-bottom,Maine,New York,7,10,1,16,0.0625
-bottom,Maine,North Carolina,7,10,1,16,0.0625
-bottom,Maine,North Dakota,7,6,0,13,0.0
-bottom,Maine,Ohio,7,10,0,17,0.0
-bottom,Maine,Oklahoma,7,9,0,16,0.0
-bottom,Maine,Oregon,7,9,1,15,0.06666666666666667
-bottom,Maine,Pennsylvania,7,10,0,17,0.0
-bottom,Maine,Rhode Island,7,7,0,14,0.0
-bottom,Maine,South Carolina,7,9,1,15,0.06666666666666667
-bottom,Maine,South Dakota,7,6,0,13,0.0
-bottom,Maine,Tennessee,7,9,0,16,0.0
-bottom,Maine,Texas,7,10,0,17,0.0
-bottom,Maine,Utah,7,9,0,16,0.0
-bottom,Maine,Vermont,7,6,0,13,0.0
-bottom,Maine,Virginia,7,9,0,16,0.0
-bottom,Maine,Washington,7,9,0,16,0.0
-bottom,Maine,West Virginia,7,7,0,14,0.0
-bottom,Maine,Wisconsin,7,9,0,16,0.0
-bottom,Maine,Wyoming,7,5,0,12,0.0
-bottom,Maryland,Massachusetts,9,8,0,17,0.0
-bottom,Maryland,Michigan,9,9,0,18,0.0
-bottom,Maryland,Minnesota,9,9,0,18,0.0
-bottom,Maryland,Mississippi,9,7,0,16,0.0
-bottom,Maryland,Missouri,9,9,1,17,0.058823529411764705
-bottom,Maryland,Montana,9,6,0,15,0.0
-bottom,Maryland,Nebraska,9,7,0,16,0.0
-bottom,Maryland,Nevada,9,7,0,16,0.0
-bottom,Maryland,New Hampshire,9,7,1,15,0.06666666666666667
-bottom,Maryland,New Jersey,9,9,0,18,0.0
-bottom,Maryland,New Mexico,9,7,0,16,0.0
-bottom,Maryland,New York,9,10,1,18,0.05555555555555555
-bottom,Maryland,North Carolina,9,10,1,18,0.05555555555555555
-bottom,Maryland,North Dakota,9,6,0,15,0.0
-bottom,Maryland,Ohio,9,10,0,19,0.0
-bottom,Maryland,Oklahoma,9,9,0,18,0.0
-bottom,Maryland,Oregon,9,9,1,17,0.058823529411764705
-bottom,Maryland,Pennsylvania,9,10,0,19,0.0
-bottom,Maryland,Rhode Island,9,7,0,16,0.0
-bottom,Maryland,South Carolina,9,9,1,17,0.058823529411764705
-bottom,Maryland,South Dakota,9,6,0,15,0.0
-bottom,Maryland,Tennessee,9,9,0,18,0.0
-bottom,Maryland,Texas,9,10,0,19,0.0
-bottom,Maryland,Utah,9,9,0,18,0.0
-bottom,Maryland,Vermont,9,6,0,15,0.0
-bottom,Maryland,Virginia,9,9,0,18,0.0
-bottom,Maryland,Washington,9,9,0,18,0.0
-bottom,Maryland,West Virginia,9,7,0,16,0.0
-bottom,Maryland,Wisconsin,9,9,0,18,0.0
-bottom,Maryland,Wyoming,9,5,0,14,0.0
+bottom,Maine,Maryland,6,8,1,13,0.07692307692307693
+bottom,Maine,Massachusetts,6,8,1,13,0.07692307692307693
+bottom,Maine,Michigan,6,9,1,14,0.07142857142857142
+bottom,Maine,Minnesota,6,9,0,15,0.0
+bottom,Maine,Mississippi,6,7,1,12,0.08333333333333333
+bottom,Maine,Missouri,6,9,1,14,0.07142857142857142
+bottom,Maine,Montana,6,6,0,12,0.0
+bottom,Maine,Nebraska,6,7,0,13,0.0
+bottom,Maine,Nevada,6,7,0,13,0.0
+bottom,Maine,New Hampshire,6,7,0,13,0.0
+bottom,Maine,New Jersey,6,9,0,15,0.0
+bottom,Maine,New Mexico,6,7,0,13,0.0
+bottom,Maine,New York,6,9,1,14,0.07142857142857142
+bottom,Maine,North Carolina,6,9,1,14,0.07142857142857142
+bottom,Maine,North Dakota,6,6,0,12,0.0
+bottom,Maine,Ohio,6,9,0,15,0.0
+bottom,Maine,Oklahoma,6,8,0,14,0.0
+bottom,Maine,Oregon,6,8,1,13,0.07692307692307693
+bottom,Maine,Pennsylvania,6,9,0,15,0.0
+bottom,Maine,Rhode Island,6,6,0,12,0.0
+bottom,Maine,South Carolina,6,9,1,14,0.07142857142857142
+bottom,Maine,South Dakota,6,6,0,12,0.0
+bottom,Maine,Tennessee,6,9,0,15,0.0
+bottom,Maine,Texas,6,10,0,16,0.0
+bottom,Maine,Utah,6,8,0,14,0.0
+bottom,Maine,Vermont,6,6,0,12,0.0
+bottom,Maine,Virginia,6,9,0,15,0.0
+bottom,Maine,Washington,6,9,0,15,0.0
+bottom,Maine,West Virginia,6,6,0,12,0.0
+bottom,Maine,Wisconsin,6,9,0,15,0.0
+bottom,Maine,Wyoming,6,5,0,11,0.0
+bottom,Maryland,Massachusetts,8,8,0,16,0.0
+bottom,Maryland,Michigan,8,9,0,17,0.0
+bottom,Maryland,Minnesota,8,9,0,17,0.0
+bottom,Maryland,Mississippi,8,7,0,15,0.0
+bottom,Maryland,Missouri,8,9,0,17,0.0
+bottom,Maryland,Montana,8,6,0,14,0.0
+bottom,Maryland,Nebraska,8,7,0,15,0.0
+bottom,Maryland,Nevada,8,7,0,15,0.0
+bottom,Maryland,New Hampshire,8,7,1,14,0.07142857142857142
+bottom,Maryland,New Jersey,8,9,0,17,0.0
+bottom,Maryland,New Mexico,8,7,0,15,0.0
+bottom,Maryland,New York,8,9,1,16,0.0625
+bottom,Maryland,North Carolina,8,9,0,17,0.0
+bottom,Maryland,North Dakota,8,6,0,14,0.0
+bottom,Maryland,Ohio,8,9,0,17,0.0
+bottom,Maryland,Oklahoma,8,8,0,16,0.0
+bottom,Maryland,Oregon,8,8,0,16,0.0
+bottom,Maryland,Pennsylvania,8,9,0,17,0.0
+bottom,Maryland,Rhode Island,8,6,0,14,0.0
+bottom,Maryland,South Carolina,8,9,0,17,0.0
+bottom,Maryland,South Dakota,8,6,0,14,0.0
+bottom,Maryland,Tennessee,8,9,0,17,0.0
+bottom,Maryland,Texas,8,10,0,18,0.0
+bottom,Maryland,Utah,8,8,0,16,0.0
+bottom,Maryland,Vermont,8,6,0,14,0.0
+bottom,Maryland,Virginia,8,9,0,17,0.0
+bottom,Maryland,Washington,8,9,0,17,0.0
+bottom,Maryland,West Virginia,8,6,0,14,0.0
+bottom,Maryland,Wisconsin,8,9,0,17,0.0
+bottom,Maryland,Wyoming,8,5,0,13,0.0
 bottom,Massachusetts,Michigan,8,9,1,16,0.0625
 bottom,Massachusetts,Minnesota,8,9,0,17,0.0
 bottom,Massachusetts,Mississippi,8,7,1,14,0.07142857142857142
@@ -2124,23 +2124,23 @@ bottom,Massachusetts,Nevada,8,7,0,15,0.0
 bottom,Massachusetts,New Hampshire,8,7,0,15,0.0
 bottom,Massachusetts,New Jersey,8,9,0,17,0.0
 bottom,Massachusetts,New Mexico,8,7,0,15,0.0
-bottom,Massachusetts,New York,8,10,0,18,0.0
-bottom,Massachusetts,North Carolina,8,10,0,18,0.0
+bottom,Massachusetts,New York,8,9,0,17,0.0
+bottom,Massachusetts,North Carolina,8,9,0,17,0.0
 bottom,Massachusetts,North Dakota,8,6,1,13,0.07692307692307693
-bottom,Massachusetts,Ohio,8,10,0,18,0.0
-bottom,Massachusetts,Oklahoma,8,9,1,16,0.0625
-bottom,Massachusetts,Oregon,8,9,0,17,0.0
-bottom,Massachusetts,Pennsylvania,8,10,0,18,0.0
-bottom,Massachusetts,Rhode Island,8,7,1,14,0.07142857142857142
+bottom,Massachusetts,Ohio,8,9,0,17,0.0
+bottom,Massachusetts,Oklahoma,8,8,1,15,0.06666666666666667
+bottom,Massachusetts,Oregon,8,8,0,16,0.0
+bottom,Massachusetts,Pennsylvania,8,9,0,17,0.0
+bottom,Massachusetts,Rhode Island,8,6,1,13,0.07692307692307693
 bottom,Massachusetts,South Carolina,8,9,0,17,0.0
 bottom,Massachusetts,South Dakota,8,6,0,14,0.0
 bottom,Massachusetts,Tennessee,8,9,0,17,0.0
 bottom,Massachusetts,Texas,8,10,0,18,0.0
-bottom,Massachusetts,Utah,8,9,0,17,0.0
+bottom,Massachusetts,Utah,8,8,0,16,0.0
 bottom,Massachusetts,Vermont,8,6,0,14,0.0
 bottom,Massachusetts,Virginia,8,9,0,17,0.0
 bottom,Massachusetts,Washington,8,9,0,17,0.0
-bottom,Massachusetts,West Virginia,8,7,0,15,0.0
+bottom,Massachusetts,West Virginia,8,6,0,14,0.0
 bottom,Massachusetts,Wisconsin,8,9,1,16,0.0625
 bottom,Massachusetts,Wyoming,8,5,0,13,0.0
 bottom,Michigan,Minnesota,9,9,0,18,0.0
@@ -2152,23 +2152,23 @@ bottom,Michigan,Nevada,9,7,0,16,0.0
 bottom,Michigan,New Hampshire,9,7,0,16,0.0
 bottom,Michigan,New Jersey,9,9,0,18,0.0
 bottom,Michigan,New Mexico,9,7,0,16,0.0
-bottom,Michigan,New York,9,10,2,17,0.11764705882352941
-bottom,Michigan,North Carolina,9,10,0,19,0.0
+bottom,Michigan,New York,9,9,2,16,0.125
+bottom,Michigan,North Carolina,9,9,0,18,0.0
 bottom,Michigan,North Dakota,9,6,1,14,0.07142857142857142
-bottom,Michigan,Ohio,9,10,0,19,0.0
-bottom,Michigan,Oklahoma,9,9,0,18,0.0
-bottom,Michigan,Oregon,9,9,0,18,0.0
-bottom,Michigan,Pennsylvania,9,10,0,19,0.0
-bottom,Michigan,Rhode Island,9,7,1,15,0.06666666666666667
+bottom,Michigan,Ohio,9,9,0,18,0.0
+bottom,Michigan,Oklahoma,9,8,0,17,0.0
+bottom,Michigan,Oregon,9,8,0,17,0.0
+bottom,Michigan,Pennsylvania,9,9,0,18,0.0
+bottom,Michigan,Rhode Island,9,6,1,14,0.07142857142857142
 bottom,Michigan,South Carolina,9,9,0,18,0.0
 bottom,Michigan,South Dakota,9,6,0,15,0.0
 bottom,Michigan,Tennessee,9,9,0,18,0.0
 bottom,Michigan,Texas,9,10,0,19,0.0
-bottom,Michigan,Utah,9,9,1,17,0.058823529411764705
+bottom,Michigan,Utah,9,8,1,16,0.0625
 bottom,Michigan,Vermont,9,6,0,15,0.0
 bottom,Michigan,Virginia,9,9,0,18,0.0
 bottom,Michigan,Washington,9,9,1,17,0.058823529411764705
-bottom,Michigan,West Virginia,9,7,0,16,0.0
+bottom,Michigan,West Virginia,9,6,0,15,0.0
 bottom,Michigan,Wisconsin,9,9,1,17,0.058823529411764705
 bottom,Michigan,Wyoming,9,5,0,14,0.0
 bottom,Minnesota,Mississippi,9,7,1,15,0.06666666666666667
@@ -2179,23 +2179,23 @@ bottom,Minnesota,Nevada,9,7,1,15,0.06666666666666667
 bottom,Minnesota,New Hampshire,9,7,1,15,0.06666666666666667
 bottom,Minnesota,New Jersey,9,9,0,18,0.0
 bottom,Minnesota,New Mexico,9,7,1,15,0.06666666666666667
-bottom,Minnesota,New York,9,10,0,19,0.0
-bottom,Minnesota,North Carolina,9,10,0,19,0.0
+bottom,Minnesota,New York,9,9,0,18,0.0
+bottom,Minnesota,North Carolina,9,9,0,18,0.0
 bottom,Minnesota,North Dakota,9,6,0,15,0.0
-bottom,Minnesota,Ohio,9,10,0,19,0.0
-bottom,Minnesota,Oklahoma,9,9,0,18,0.0
-bottom,Minnesota,Oregon,9,9,1,17,0.058823529411764705
-bottom,Minnesota,Pennsylvania,9,10,1,18,0.05555555555555555
-bottom,Minnesota,Rhode Island,9,7,0,16,0.0
+bottom,Minnesota,Ohio,9,9,0,18,0.0
+bottom,Minnesota,Oklahoma,9,8,0,17,0.0
+bottom,Minnesota,Oregon,9,8,1,16,0.0625
+bottom,Minnesota,Pennsylvania,9,9,1,17,0.058823529411764705
+bottom,Minnesota,Rhode Island,9,6,0,15,0.0
 bottom,Minnesota,South Carolina,9,9,0,18,0.0
 bottom,Minnesota,South Dakota,9,6,0,15,0.0
 bottom,Minnesota,Tennessee,9,9,0,18,0.0
 bottom,Minnesota,Texas,9,10,2,17,0.11764705882352941
-bottom,Minnesota,Utah,9,9,0,18,0.0
+bottom,Minnesota,Utah,9,8,0,17,0.0
 bottom,Minnesota,Vermont,9,6,0,15,0.0
 bottom,Minnesota,Virginia,9,9,1,17,0.058823529411764705
 bottom,Minnesota,Washington,9,9,0,18,0.0
-bottom,Minnesota,West Virginia,9,7,0,16,0.0
+bottom,Minnesota,West Virginia,9,6,0,15,0.0
 bottom,Minnesota,Wisconsin,9,9,1,17,0.058823529411764705
 bottom,Minnesota,Wyoming,9,5,0,14,0.0
 bottom,Mississippi,Missouri,7,9,0,16,0.0
@@ -2205,23 +2205,23 @@ bottom,Mississippi,Nevada,7,7,0,14,0.0
 bottom,Mississippi,New Hampshire,7,7,0,14,0.0
 bottom,Mississippi,New Jersey,7,9,0,16,0.0
 bottom,Mississippi,New Mexico,7,7,0,14,0.0
-bottom,Mississippi,New York,7,10,0,17,0.0
-bottom,Mississippi,North Carolina,7,10,0,17,0.0
+bottom,Mississippi,New York,7,9,0,16,0.0
+bottom,Mississippi,North Carolina,7,9,0,16,0.0
 bottom,Mississippi,North Dakota,7,6,0,13,0.0
-bottom,Mississippi,Ohio,7,10,0,17,0.0
-bottom,Mississippi,Oklahoma,7,9,2,14,0.14285714285714285
-bottom,Mississippi,Oregon,7,9,0,16,0.0
-bottom,Mississippi,Pennsylvania,7,10,0,17,0.0
-bottom,Mississippi,Rhode Island,7,7,2,12,0.16666666666666666
+bottom,Mississippi,Ohio,7,9,0,16,0.0
+bottom,Mississippi,Oklahoma,7,8,2,13,0.15384615384615385
+bottom,Mississippi,Oregon,7,8,0,15,0.0
+bottom,Mississippi,Pennsylvania,7,9,0,16,0.0
+bottom,Mississippi,Rhode Island,7,6,2,11,0.18181818181818182
 bottom,Mississippi,South Carolina,7,9,0,16,0.0
 bottom,Mississippi,South Dakota,7,6,0,13,0.0
 bottom,Mississippi,Tennessee,7,9,0,16,0.0
 bottom,Mississippi,Texas,7,10,0,17,0.0
-bottom,Mississippi,Utah,7,9,0,16,0.0
+bottom,Mississippi,Utah,7,8,0,15,0.0
 bottom,Mississippi,Vermont,7,6,0,13,0.0
 bottom,Mississippi,Virginia,7,9,0,16,0.0
 bottom,Mississippi,Washington,7,9,0,16,0.0
-bottom,Mississippi,West Virginia,7,7,1,13,0.07692307692307693
+bottom,Mississippi,West Virginia,7,6,1,12,0.08333333333333333
 bottom,Mississippi,Wisconsin,7,9,0,16,0.0
 bottom,Mississippi,Wyoming,7,5,0,12,0.0
 bottom,Missouri,Montana,9,6,0,15,0.0
@@ -2230,23 +2230,23 @@ bottom,Missouri,Nevada,9,7,1,15,0.06666666666666667
 bottom,Missouri,New Hampshire,9,7,0,16,0.0
 bottom,Missouri,New Jersey,9,9,0,18,0.0
 bottom,Missouri,New Mexico,9,7,0,16,0.0
-bottom,Missouri,New York,9,10,0,19,0.0
-bottom,Missouri,North Carolina,9,10,1,18,0.05555555555555555
+bottom,Missouri,New York,9,9,0,18,0.0
+bottom,Missouri,North Carolina,9,9,1,17,0.058823529411764705
 bottom,Missouri,North Dakota,9,6,0,15,0.0
-bottom,Missouri,Ohio,9,10,0,19,0.0
-bottom,Missouri,Oklahoma,9,9,1,17,0.058823529411764705
-bottom,Missouri,Oregon,9,9,2,16,0.125
-bottom,Missouri,Pennsylvania,9,10,1,18,0.05555555555555555
-bottom,Missouri,Rhode Island,9,7,0,16,0.0
+bottom,Missouri,Ohio,9,9,0,18,0.0
+bottom,Missouri,Oklahoma,9,8,1,16,0.0625
+bottom,Missouri,Oregon,9,8,2,15,0.13333333333333333
+bottom,Missouri,Pennsylvania,9,9,1,17,0.058823529411764705
+bottom,Missouri,Rhode Island,9,6,0,15,0.0
 bottom,Missouri,South Carolina,9,9,1,17,0.058823529411764705
 bottom,Missouri,South Dakota,9,6,0,15,0.0
 bottom,Missouri,Tennessee,9,9,1,17,0.058823529411764705
 bottom,Missouri,Texas,9,10,0,19,0.0
-bottom,Missouri,Utah,9,9,0,18,0.0
+bottom,Missouri,Utah,9,8,0,17,0.0
 bottom,Missouri,Vermont,9,6,1,14,0.07142857142857142
 bottom,Missouri,Virginia,9,9,0,18,0.0
 bottom,Missouri,Washington,9,9,0,18,0.0
-bottom,Missouri,West Virginia,9,7,0,16,0.0
+bottom,Missouri,West Virginia,9,6,0,15,0.0
 bottom,Missouri,Wisconsin,9,9,1,17,0.058823529411764705
 bottom,Missouri,Wyoming,9,5,0,14,0.0
 bottom,Montana,Nebraska,6,7,0,13,0.0
@@ -2254,298 +2254,298 @@ bottom,Montana,Nevada,6,7,0,13,0.0
 bottom,Montana,New Hampshire,6,7,1,12,0.08333333333333333
 bottom,Montana,New Jersey,6,9,0,15,0.0
 bottom,Montana,New Mexico,6,7,0,13,0.0
-bottom,Montana,New York,6,10,0,16,0.0
-bottom,Montana,North Carolina,6,10,0,16,0.0
+bottom,Montana,New York,6,9,0,15,0.0
+bottom,Montana,North Carolina,6,9,0,15,0.0
 bottom,Montana,North Dakota,6,6,0,12,0.0
-bottom,Montana,Ohio,6,10,1,15,0.06666666666666667
-bottom,Montana,Oklahoma,6,9,2,13,0.15384615384615385
-bottom,Montana,Oregon,6,9,0,15,0.0
-bottom,Montana,Pennsylvania,6,10,0,16,0.0
-bottom,Montana,Rhode Island,6,7,0,13,0.0
+bottom,Montana,Ohio,6,9,1,14,0.07142857142857142
+bottom,Montana,Oklahoma,6,8,1,13,0.07692307692307693
+bottom,Montana,Oregon,6,8,0,14,0.0
+bottom,Montana,Pennsylvania,6,9,0,15,0.0
+bottom,Montana,Rhode Island,6,6,0,12,0.0
 bottom,Montana,South Carolina,6,9,0,15,0.0
 bottom,Montana,South Dakota,6,6,1,11,0.09090909090909091
 bottom,Montana,Tennessee,6,9,1,14,0.07142857142857142
 bottom,Montana,Texas,6,10,0,16,0.0
-bottom,Montana,Utah,6,9,0,15,0.0
+bottom,Montana,Utah,6,8,0,14,0.0
 bottom,Montana,Vermont,6,6,0,12,0.0
 bottom,Montana,Virginia,6,9,0,15,0.0
 bottom,Montana,Washington,6,9,0,15,0.0
-bottom,Montana,West Virginia,6,7,0,13,0.0
+bottom,Montana,West Virginia,6,6,0,12,0.0
 bottom,Montana,Wisconsin,6,9,0,15,0.0
 bottom,Montana,Wyoming,6,5,0,11,0.0
 bottom,Nebraska,Nevada,7,7,0,14,0.0
 bottom,Nebraska,New Hampshire,7,7,0,14,0.0
 bottom,Nebraska,New Jersey,7,9,0,16,0.0
 bottom,Nebraska,New Mexico,7,7,0,14,0.0
-bottom,Nebraska,New York,7,10,0,17,0.0
-bottom,Nebraska,North Carolina,7,10,0,17,0.0
+bottom,Nebraska,New York,7,9,0,16,0.0
+bottom,Nebraska,North Carolina,7,9,0,16,0.0
 bottom,Nebraska,North Dakota,7,6,0,13,0.0
-bottom,Nebraska,Ohio,7,10,0,17,0.0
-bottom,Nebraska,Oklahoma,7,9,0,16,0.0
-bottom,Nebraska,Oregon,7,9,1,15,0.06666666666666667
-bottom,Nebraska,Pennsylvania,7,10,1,16,0.0625
-bottom,Nebraska,Rhode Island,7,7,0,14,0.0
+bottom,Nebraska,Ohio,7,9,0,16,0.0
+bottom,Nebraska,Oklahoma,7,8,0,15,0.0
+bottom,Nebraska,Oregon,7,8,1,14,0.07142857142857142
+bottom,Nebraska,Pennsylvania,7,9,0,16,0.0
+bottom,Nebraska,Rhode Island,7,6,0,13,0.0
 bottom,Nebraska,South Carolina,7,9,0,16,0.0
 bottom,Nebraska,South Dakota,7,6,0,13,0.0
 bottom,Nebraska,Tennessee,7,9,1,15,0.06666666666666667
 bottom,Nebraska,Texas,7,10,0,17,0.0
-bottom,Nebraska,Utah,7,9,0,16,0.0
+bottom,Nebraska,Utah,7,8,0,15,0.0
 bottom,Nebraska,Vermont,7,6,0,13,0.0
 bottom,Nebraska,Virginia,7,9,1,15,0.06666666666666667
 bottom,Nebraska,Washington,7,9,0,16,0.0
-bottom,Nebraska,West Virginia,7,7,0,14,0.0
+bottom,Nebraska,West Virginia,7,6,0,13,0.0
 bottom,Nebraska,Wisconsin,7,9,0,16,0.0
 bottom,Nebraska,Wyoming,7,5,0,12,0.0
 bottom,Nevada,New Hampshire,7,7,0,14,0.0
 bottom,Nevada,New Jersey,7,9,0,16,0.0
 bottom,Nevada,New Mexico,7,7,0,14,0.0
-bottom,Nevada,New York,7,10,0,17,0.0
-bottom,Nevada,North Carolina,7,10,0,17,0.0
+bottom,Nevada,New York,7,9,0,16,0.0
+bottom,Nevada,North Carolina,7,9,0,16,0.0
 bottom,Nevada,North Dakota,7,6,0,13,0.0
-bottom,Nevada,Ohio,7,10,0,17,0.0
-bottom,Nevada,Oklahoma,7,9,1,15,0.06666666666666667
-bottom,Nevada,Oregon,7,9,0,16,0.0
-bottom,Nevada,Pennsylvania,7,10,0,17,0.0
-bottom,Nevada,Rhode Island,7,7,0,14,0.0
+bottom,Nevada,Ohio,7,9,0,16,0.0
+bottom,Nevada,Oklahoma,7,8,1,14,0.07142857142857142
+bottom,Nevada,Oregon,7,8,0,15,0.0
+bottom,Nevada,Pennsylvania,7,9,0,16,0.0
+bottom,Nevada,Rhode Island,7,6,0,13,0.0
 bottom,Nevada,South Carolina,7,9,0,16,0.0
 bottom,Nevada,South Dakota,7,6,0,13,0.0
 bottom,Nevada,Tennessee,7,9,1,15,0.06666666666666667
 bottom,Nevada,Texas,7,10,0,17,0.0
-bottom,Nevada,Utah,7,9,0,16,0.0
+bottom,Nevada,Utah,7,8,0,15,0.0
 bottom,Nevada,Vermont,7,6,1,12,0.08333333333333333
 bottom,Nevada,Virginia,7,9,0,16,0.0
 bottom,Nevada,Washington,7,9,0,16,0.0
-bottom,Nevada,West Virginia,7,7,0,14,0.0
+bottom,Nevada,West Virginia,7,6,0,13,0.0
 bottom,Nevada,Wisconsin,7,9,1,15,0.06666666666666667
 bottom,Nevada,Wyoming,7,5,0,12,0.0
 bottom,New Hampshire,New Jersey,7,9,0,16,0.0
 bottom,New Hampshire,New Mexico,7,7,0,14,0.0
-bottom,New Hampshire,New York,7,10,0,17,0.0
-bottom,New Hampshire,North Carolina,7,10,0,17,0.0
+bottom,New Hampshire,New York,7,9,0,16,0.0
+bottom,New Hampshire,North Carolina,7,9,0,16,0.0
 bottom,New Hampshire,North Dakota,7,6,0,13,0.0
-bottom,New Hampshire,Ohio,7,10,1,16,0.0625
-bottom,New Hampshire,Oklahoma,7,9,1,15,0.06666666666666667
-bottom,New Hampshire,Oregon,7,9,0,16,0.0
-bottom,New Hampshire,Pennsylvania,7,10,0,17,0.0
-bottom,New Hampshire,Rhode Island,7,7,0,14,0.0
+bottom,New Hampshire,Ohio,7,9,1,15,0.06666666666666667
+bottom,New Hampshire,Oklahoma,7,8,0,15,0.0
+bottom,New Hampshire,Oregon,7,8,0,15,0.0
+bottom,New Hampshire,Pennsylvania,7,9,0,16,0.0
+bottom,New Hampshire,Rhode Island,7,6,0,13,0.0
 bottom,New Hampshire,South Carolina,7,9,0,16,0.0
 bottom,New Hampshire,South Dakota,7,6,1,12,0.08333333333333333
 bottom,New Hampshire,Tennessee,7,9,0,16,0.0
 bottom,New Hampshire,Texas,7,10,1,16,0.0625
-bottom,New Hampshire,Utah,7,9,0,16,0.0
+bottom,New Hampshire,Utah,7,8,0,15,0.0
 bottom,New Hampshire,Vermont,7,6,0,13,0.0
 bottom,New Hampshire,Virginia,7,9,0,16,0.0
 bottom,New Hampshire,Washington,7,9,1,15,0.06666666666666667
-bottom,New Hampshire,West Virginia,7,7,0,14,0.0
+bottom,New Hampshire,West Virginia,7,6,0,13,0.0
 bottom,New Hampshire,Wisconsin,7,9,0,16,0.0
 bottom,New Hampshire,Wyoming,7,5,0,12,0.0
 bottom,New Jersey,New Mexico,9,7,0,16,0.0
-bottom,New Jersey,New York,9,10,0,19,0.0
-bottom,New Jersey,North Carolina,9,10,0,19,0.0
+bottom,New Jersey,New York,9,9,0,18,0.0
+bottom,New Jersey,North Carolina,9,9,0,18,0.0
 bottom,New Jersey,North Dakota,9,6,0,15,0.0
-bottom,New Jersey,Ohio,9,10,0,19,0.0
-bottom,New Jersey,Oklahoma,9,9,0,18,0.0
-bottom,New Jersey,Oregon,9,9,0,18,0.0
-bottom,New Jersey,Pennsylvania,9,10,0,19,0.0
-bottom,New Jersey,Rhode Island,9,7,1,15,0.06666666666666667
+bottom,New Jersey,Ohio,9,9,0,18,0.0
+bottom,New Jersey,Oklahoma,9,8,0,17,0.0
+bottom,New Jersey,Oregon,9,8,0,17,0.0
+bottom,New Jersey,Pennsylvania,9,9,0,18,0.0
+bottom,New Jersey,Rhode Island,9,6,1,14,0.07142857142857142
 bottom,New Jersey,South Carolina,9,9,0,18,0.0
 bottom,New Jersey,South Dakota,9,6,1,14,0.07142857142857142
 bottom,New Jersey,Tennessee,9,9,0,18,0.0
 bottom,New Jersey,Texas,9,10,0,19,0.0
-bottom,New Jersey,Utah,9,9,0,18,0.0
+bottom,New Jersey,Utah,9,8,0,17,0.0
 bottom,New Jersey,Vermont,9,6,0,15,0.0
 bottom,New Jersey,Virginia,9,9,2,16,0.125
 bottom,New Jersey,Washington,9,9,0,18,0.0
-bottom,New Jersey,West Virginia,9,7,0,16,0.0
+bottom,New Jersey,West Virginia,9,6,0,15,0.0
 bottom,New Jersey,Wisconsin,9,9,0,18,0.0
 bottom,New Jersey,Wyoming,9,5,1,13,0.07692307692307693
-bottom,New Mexico,New York,7,10,0,17,0.0
-bottom,New Mexico,North Carolina,7,10,1,16,0.0625
+bottom,New Mexico,New York,7,9,0,16,0.0
+bottom,New Mexico,North Carolina,7,9,1,15,0.06666666666666667
 bottom,New Mexico,North Dakota,7,6,0,13,0.0
-bottom,New Mexico,Ohio,7,10,0,17,0.0
-bottom,New Mexico,Oklahoma,7,9,0,16,0.0
-bottom,New Mexico,Oregon,7,9,0,16,0.0
-bottom,New Mexico,Pennsylvania,7,10,0,17,0.0
-bottom,New Mexico,Rhode Island,7,7,0,14,0.0
+bottom,New Mexico,Ohio,7,9,0,16,0.0
+bottom,New Mexico,Oklahoma,7,8,0,15,0.0
+bottom,New Mexico,Oregon,7,8,0,15,0.0
+bottom,New Mexico,Pennsylvania,7,9,0,16,0.0
+bottom,New Mexico,Rhode Island,7,6,0,13,0.0
 bottom,New Mexico,South Carolina,7,9,1,15,0.06666666666666667
 bottom,New Mexico,South Dakota,7,6,0,13,0.0
 bottom,New Mexico,Tennessee,7,9,1,15,0.06666666666666667
 bottom,New Mexico,Texas,7,10,0,17,0.0
-bottom,New Mexico,Utah,7,9,0,16,0.0
+bottom,New Mexico,Utah,7,8,0,15,0.0
 bottom,New Mexico,Vermont,7,6,0,13,0.0
 bottom,New Mexico,Virginia,7,9,1,15,0.06666666666666667
 bottom,New Mexico,Washington,7,9,0,16,0.0
-bottom,New Mexico,West Virginia,7,7,0,14,0.0
+bottom,New Mexico,West Virginia,7,6,0,13,0.0
 bottom,New Mexico,Wisconsin,7,9,0,16,0.0
 bottom,New Mexico,Wyoming,7,5,1,11,0.09090909090909091
-bottom,New York,North Carolina,10,10,0,20,0.0
-bottom,New York,North Dakota,10,6,0,16,0.0
-bottom,New York,Ohio,10,10,1,19,0.05263157894736842
-bottom,New York,Oklahoma,10,9,0,19,0.0
-bottom,New York,Oregon,10,9,0,19,0.0
-bottom,New York,Pennsylvania,10,10,0,20,0.0
-bottom,New York,Rhode Island,10,7,0,17,0.0
-bottom,New York,South Carolina,10,9,0,19,0.0
-bottom,New York,South Dakota,10,6,0,16,0.0
-bottom,New York,Tennessee,10,9,1,18,0.05555555555555555
-bottom,New York,Texas,10,10,0,20,0.0
-bottom,New York,Utah,10,9,0,19,0.0
-bottom,New York,Vermont,10,6,0,16,0.0
-bottom,New York,Virginia,10,9,0,19,0.0
-bottom,New York,Washington,10,9,0,19,0.0
-bottom,New York,West Virginia,10,7,0,17,0.0
-bottom,New York,Wisconsin,10,9,0,19,0.0
-bottom,New York,Wyoming,10,5,0,15,0.0
-bottom,North Carolina,North Dakota,10,6,0,16,0.0
-bottom,North Carolina,Ohio,10,10,0,20,0.0
-bottom,North Carolina,Oklahoma,10,9,0,19,0.0
-bottom,North Carolina,Oregon,10,9,1,18,0.05555555555555555
-bottom,North Carolina,Pennsylvania,10,10,1,19,0.05263157894736842
-bottom,North Carolina,Rhode Island,10,7,0,17,0.0
-bottom,North Carolina,South Carolina,10,9,1,18,0.05555555555555555
-bottom,North Carolina,South Dakota,10,6,0,16,0.0
-bottom,North Carolina,Tennessee,10,9,0,19,0.0
-bottom,North Carolina,Texas,10,10,0,20,0.0
-bottom,North Carolina,Utah,10,9,1,18,0.05555555555555555
-bottom,North Carolina,Vermont,10,6,0,16,0.0
-bottom,North Carolina,Virginia,10,9,0,19,0.0
-bottom,North Carolina,Washington,10,9,0,19,0.0
-bottom,North Carolina,West Virginia,10,7,0,17,0.0
-bottom,North Carolina,Wisconsin,10,9,0,19,0.0
-bottom,North Carolina,Wyoming,10,5,0,15,0.0
-bottom,North Dakota,Ohio,6,10,0,16,0.0
-bottom,North Dakota,Oklahoma,6,9,0,15,0.0
-bottom,North Dakota,Oregon,6,9,0,15,0.0
-bottom,North Dakota,Pennsylvania,6,10,0,16,0.0
-bottom,North Dakota,Rhode Island,6,7,0,13,0.0
+bottom,New York,North Carolina,9,9,0,18,0.0
+bottom,New York,North Dakota,9,6,0,15,0.0
+bottom,New York,Ohio,9,9,0,18,0.0
+bottom,New York,Oklahoma,9,8,0,17,0.0
+bottom,New York,Oregon,9,8,0,17,0.0
+bottom,New York,Pennsylvania,9,9,0,18,0.0
+bottom,New York,Rhode Island,9,6,0,15,0.0
+bottom,New York,South Carolina,9,9,0,18,0.0
+bottom,New York,South Dakota,9,6,0,15,0.0
+bottom,New York,Tennessee,9,9,1,17,0.058823529411764705
+bottom,New York,Texas,9,10,0,19,0.0
+bottom,New York,Utah,9,8,0,17,0.0
+bottom,New York,Vermont,9,6,0,15,0.0
+bottom,New York,Virginia,9,9,0,18,0.0
+bottom,New York,Washington,9,9,0,18,0.0
+bottom,New York,West Virginia,9,6,0,15,0.0
+bottom,New York,Wisconsin,9,9,0,18,0.0
+bottom,New York,Wyoming,9,5,0,14,0.0
+bottom,North Carolina,North Dakota,9,6,0,15,0.0
+bottom,North Carolina,Ohio,9,9,0,18,0.0
+bottom,North Carolina,Oklahoma,9,8,0,17,0.0
+bottom,North Carolina,Oregon,9,8,1,16,0.0625
+bottom,North Carolina,Pennsylvania,9,9,1,17,0.058823529411764705
+bottom,North Carolina,Rhode Island,9,6,0,15,0.0
+bottom,North Carolina,South Carolina,9,9,1,17,0.058823529411764705
+bottom,North Carolina,South Dakota,9,6,0,15,0.0
+bottom,North Carolina,Tennessee,9,9,0,18,0.0
+bottom,North Carolina,Texas,9,10,0,19,0.0
+bottom,North Carolina,Utah,9,8,0,17,0.0
+bottom,North Carolina,Vermont,9,6,0,15,0.0
+bottom,North Carolina,Virginia,9,9,0,18,0.0
+bottom,North Carolina,Washington,9,9,0,18,0.0
+bottom,North Carolina,West Virginia,9,6,0,15,0.0
+bottom,North Carolina,Wisconsin,9,9,0,18,0.0
+bottom,North Carolina,Wyoming,9,5,0,14,0.0
+bottom,North Dakota,Ohio,6,9,0,15,0.0
+bottom,North Dakota,Oklahoma,6,8,0,14,0.0
+bottom,North Dakota,Oregon,6,8,0,14,0.0
+bottom,North Dakota,Pennsylvania,6,9,0,15,0.0
+bottom,North Dakota,Rhode Island,6,6,0,12,0.0
 bottom,North Dakota,South Carolina,6,9,0,15,0.0
 bottom,North Dakota,South Dakota,6,6,0,12,0.0
 bottom,North Dakota,Tennessee,6,9,0,15,0.0
 bottom,North Dakota,Texas,6,10,0,16,0.0
-bottom,North Dakota,Utah,6,9,1,14,0.07142857142857142
+bottom,North Dakota,Utah,6,8,1,13,0.07692307692307693
 bottom,North Dakota,Vermont,6,6,0,12,0.0
 bottom,North Dakota,Virginia,6,9,0,15,0.0
 bottom,North Dakota,Washington,6,9,2,13,0.15384615384615385
-bottom,North Dakota,West Virginia,6,7,0,13,0.0
+bottom,North Dakota,West Virginia,6,6,0,12,0.0
 bottom,North Dakota,Wisconsin,6,9,0,15,0.0
 bottom,North Dakota,Wyoming,6,5,0,11,0.0
-bottom,Ohio,Oklahoma,10,9,2,17,0.11764705882352941
-bottom,Ohio,Oregon,10,9,0,19,0.0
-bottom,Ohio,Pennsylvania,10,10,0,20,0.0
-bottom,Ohio,Rhode Island,10,7,0,17,0.0
-bottom,Ohio,South Carolina,10,9,1,18,0.05555555555555555
-bottom,Ohio,South Dakota,10,6,1,15,0.06666666666666667
-bottom,Ohio,Tennessee,10,9,0,19,0.0
-bottom,Ohio,Texas,10,10,0,20,0.0
-bottom,Ohio,Utah,10,9,0,19,0.0
-bottom,Ohio,Vermont,10,6,0,16,0.0
-bottom,Ohio,Virginia,10,9,1,18,0.05555555555555555
-bottom,Ohio,Washington,10,9,0,19,0.0
-bottom,Ohio,West Virginia,10,7,0,17,0.0
-bottom,Ohio,Wisconsin,10,9,1,18,0.05555555555555555
-bottom,Ohio,Wyoming,10,5,0,15,0.0
-bottom,Oklahoma,Oregon,9,9,0,18,0.0
-bottom,Oklahoma,Pennsylvania,9,10,0,19,0.0
-bottom,Oklahoma,Rhode Island,9,7,1,15,0.06666666666666667
-bottom,Oklahoma,South Carolina,9,9,0,18,0.0
-bottom,Oklahoma,South Dakota,9,6,1,14,0.07142857142857142
-bottom,Oklahoma,Tennessee,9,9,0,18,0.0
-bottom,Oklahoma,Texas,9,10,0,19,0.0
-bottom,Oklahoma,Utah,9,9,0,18,0.0
-bottom,Oklahoma,Vermont,9,6,0,15,0.0
-bottom,Oklahoma,Virginia,9,9,1,17,0.058823529411764705
-bottom,Oklahoma,Washington,9,9,0,18,0.0
-bottom,Oklahoma,West Virginia,9,7,1,15,0.06666666666666667
-bottom,Oklahoma,Wisconsin,9,9,0,18,0.0
-bottom,Oklahoma,Wyoming,9,5,0,14,0.0
-bottom,Oregon,Pennsylvania,9,10,0,19,0.0
-bottom,Oregon,Rhode Island,9,7,0,16,0.0
-bottom,Oregon,South Carolina,9,9,1,17,0.058823529411764705
-bottom,Oregon,South Dakota,9,6,0,15,0.0
-bottom,Oregon,Tennessee,9,9,1,17,0.058823529411764705
-bottom,Oregon,Texas,9,10,0,19,0.0
-bottom,Oregon,Utah,9,9,1,17,0.058823529411764705
-bottom,Oregon,Vermont,9,6,0,15,0.0
-bottom,Oregon,Virginia,9,9,0,18,0.0
-bottom,Oregon,Washington,9,9,0,18,0.0
-bottom,Oregon,West Virginia,9,7,0,16,0.0
-bottom,Oregon,Wisconsin,9,9,0,18,0.0
-bottom,Oregon,Wyoming,9,5,0,14,0.0
-bottom,Pennsylvania,Rhode Island,10,7,0,17,0.0
-bottom,Pennsylvania,South Carolina,10,9,0,19,0.0
-bottom,Pennsylvania,South Dakota,10,6,1,15,0.06666666666666667
-bottom,Pennsylvania,Tennessee,10,9,0,19,0.0
-bottom,Pennsylvania,Texas,10,10,0,20,0.0
-bottom,Pennsylvania,Utah,10,9,1,18,0.05555555555555555
-bottom,Pennsylvania,Vermont,10,6,0,16,0.0
-bottom,Pennsylvania,Virginia,10,9,0,19,0.0
-bottom,Pennsylvania,Washington,10,9,0,19,0.0
-bottom,Pennsylvania,West Virginia,10,7,0,17,0.0
-bottom,Pennsylvania,Wisconsin,10,9,0,19,0.0
-bottom,Pennsylvania,Wyoming,10,5,0,15,0.0
-bottom,Rhode Island,South Carolina,7,9,0,16,0.0
-bottom,Rhode Island,South Dakota,7,6,0,13,0.0
-bottom,Rhode Island,Tennessee,7,9,0,16,0.0
-bottom,Rhode Island,Texas,7,10,0,17,0.0
-bottom,Rhode Island,Utah,7,9,0,16,0.0
-bottom,Rhode Island,Vermont,7,6,0,13,0.0
-bottom,Rhode Island,Virginia,7,9,0,16,0.0
-bottom,Rhode Island,Washington,7,9,0,16,0.0
-bottom,Rhode Island,West Virginia,7,7,1,13,0.07692307692307693
-bottom,Rhode Island,Wisconsin,7,9,0,16,0.0
-bottom,Rhode Island,Wyoming,7,5,0,12,0.0
+bottom,Ohio,Oklahoma,9,8,1,16,0.0625
+bottom,Ohio,Oregon,9,8,0,17,0.0
+bottom,Ohio,Pennsylvania,9,9,0,18,0.0
+bottom,Ohio,Rhode Island,9,6,0,15,0.0
+bottom,Ohio,South Carolina,9,9,1,17,0.058823529411764705
+bottom,Ohio,South Dakota,9,6,1,14,0.07142857142857142
+bottom,Ohio,Tennessee,9,9,0,18,0.0
+bottom,Ohio,Texas,9,10,0,19,0.0
+bottom,Ohio,Utah,9,8,0,17,0.0
+bottom,Ohio,Vermont,9,6,0,15,0.0
+bottom,Ohio,Virginia,9,9,1,17,0.058823529411764705
+bottom,Ohio,Washington,9,9,0,18,0.0
+bottom,Ohio,West Virginia,9,6,0,15,0.0
+bottom,Ohio,Wisconsin,9,9,1,17,0.058823529411764705
+bottom,Ohio,Wyoming,9,5,0,14,0.0
+bottom,Oklahoma,Oregon,8,8,0,16,0.0
+bottom,Oklahoma,Pennsylvania,8,9,0,17,0.0
+bottom,Oklahoma,Rhode Island,8,6,1,13,0.07692307692307693
+bottom,Oklahoma,South Carolina,8,9,0,17,0.0
+bottom,Oklahoma,South Dakota,8,6,0,14,0.0
+bottom,Oklahoma,Tennessee,8,9,0,17,0.0
+bottom,Oklahoma,Texas,8,10,0,18,0.0
+bottom,Oklahoma,Utah,8,8,0,16,0.0
+bottom,Oklahoma,Vermont,8,6,0,14,0.0
+bottom,Oklahoma,Virginia,8,9,1,16,0.0625
+bottom,Oklahoma,Washington,8,9,0,17,0.0
+bottom,Oklahoma,West Virginia,8,6,1,13,0.07692307692307693
+bottom,Oklahoma,Wisconsin,8,9,0,17,0.0
+bottom,Oklahoma,Wyoming,8,5,0,13,0.0
+bottom,Oregon,Pennsylvania,8,9,0,17,0.0
+bottom,Oregon,Rhode Island,8,6,0,14,0.0
+bottom,Oregon,South Carolina,8,9,1,16,0.0625
+bottom,Oregon,South Dakota,8,6,0,14,0.0
+bottom,Oregon,Tennessee,8,9,1,16,0.0625
+bottom,Oregon,Texas,8,10,0,18,0.0
+bottom,Oregon,Utah,8,8,1,15,0.06666666666666667
+bottom,Oregon,Vermont,8,6,0,14,0.0
+bottom,Oregon,Virginia,8,9,0,17,0.0
+bottom,Oregon,Washington,8,9,0,17,0.0
+bottom,Oregon,West Virginia,8,6,0,14,0.0
+bottom,Oregon,Wisconsin,8,9,0,17,0.0
+bottom,Oregon,Wyoming,8,5,0,13,0.0
+bottom,Pennsylvania,Rhode Island,9,6,0,15,0.0
+bottom,Pennsylvania,South Carolina,9,9,0,18,0.0
+bottom,Pennsylvania,South Dakota,9,6,1,14,0.07142857142857142
+bottom,Pennsylvania,Tennessee,9,9,0,18,0.0
+bottom,Pennsylvania,Texas,9,10,0,19,0.0
+bottom,Pennsylvania,Utah,9,8,1,16,0.0625
+bottom,Pennsylvania,Vermont,9,6,0,15,0.0
+bottom,Pennsylvania,Virginia,9,9,0,18,0.0
+bottom,Pennsylvania,Washington,9,9,0,18,0.0
+bottom,Pennsylvania,West Virginia,9,6,0,15,0.0
+bottom,Pennsylvania,Wisconsin,9,9,0,18,0.0
+bottom,Pennsylvania,Wyoming,9,5,0,14,0.0
+bottom,Rhode Island,South Carolina,6,9,0,15,0.0
+bottom,Rhode Island,South Dakota,6,6,0,12,0.0
+bottom,Rhode Island,Tennessee,6,9,0,15,0.0
+bottom,Rhode Island,Texas,6,10,0,16,0.0
+bottom,Rhode Island,Utah,6,8,0,14,0.0
+bottom,Rhode Island,Vermont,6,6,0,12,0.0
+bottom,Rhode Island,Virginia,6,9,0,15,0.0
+bottom,Rhode Island,Washington,6,9,0,15,0.0
+bottom,Rhode Island,West Virginia,6,6,1,11,0.09090909090909091
+bottom,Rhode Island,Wisconsin,6,9,0,15,0.0
+bottom,Rhode Island,Wyoming,6,5,0,11,0.0
 bottom,South Carolina,South Dakota,9,6,0,15,0.0
 bottom,South Carolina,Tennessee,9,9,0,18,0.0
 bottom,South Carolina,Texas,9,10,0,19,0.0
-bottom,South Carolina,Utah,9,9,0,18,0.0
+bottom,South Carolina,Utah,9,8,0,17,0.0
 bottom,South Carolina,Vermont,9,6,0,15,0.0
 bottom,South Carolina,Virginia,9,9,0,18,0.0
 bottom,South Carolina,Washington,9,9,0,18,0.0
-bottom,South Carolina,West Virginia,9,7,1,15,0.06666666666666667
+bottom,South Carolina,West Virginia,9,6,1,14,0.07142857142857142
 bottom,South Carolina,Wisconsin,9,9,0,18,0.0
 bottom,South Carolina,Wyoming,9,5,0,14,0.0
 bottom,South Dakota,Tennessee,6,9,0,15,0.0
 bottom,South Dakota,Texas,6,10,0,16,0.0
-bottom,South Dakota,Utah,6,9,0,15,0.0
+bottom,South Dakota,Utah,6,8,0,14,0.0
 bottom,South Dakota,Vermont,6,6,0,12,0.0
 bottom,South Dakota,Virginia,6,9,0,15,0.0
 bottom,South Dakota,Washington,6,9,0,15,0.0
-bottom,South Dakota,West Virginia,6,7,0,13,0.0
+bottom,South Dakota,West Virginia,6,6,0,12,0.0
 bottom,South Dakota,Wisconsin,6,9,0,15,0.0
 bottom,South Dakota,Wyoming,6,5,1,10,0.1
 bottom,Tennessee,Texas,9,10,0,19,0.0
-bottom,Tennessee,Utah,9,9,0,18,0.0
+bottom,Tennessee,Utah,9,8,0,17,0.0
 bottom,Tennessee,Vermont,9,6,1,14,0.07142857142857142
 bottom,Tennessee,Virginia,9,9,1,17,0.058823529411764705
 bottom,Tennessee,Washington,9,9,0,18,0.0
-bottom,Tennessee,West Virginia,9,7,0,16,0.0
+bottom,Tennessee,West Virginia,9,6,0,15,0.0
 bottom,Tennessee,Wisconsin,9,9,0,18,0.0
 bottom,Tennessee,Wyoming,9,5,0,14,0.0
-bottom,Texas,Utah,10,9,1,18,0.05555555555555555
+bottom,Texas,Utah,10,8,1,17,0.058823529411764705
 bottom,Texas,Vermont,10,6,1,15,0.06666666666666667
 bottom,Texas,Virginia,10,9,0,19,0.0
 bottom,Texas,Washington,10,9,0,19,0.0
-bottom,Texas,West Virginia,10,7,0,17,0.0
+bottom,Texas,West Virginia,10,6,0,16,0.0
 bottom,Texas,Wisconsin,10,9,0,19,0.0
 bottom,Texas,Wyoming,10,5,0,15,0.0
-bottom,Utah,Vermont,9,6,0,15,0.0
-bottom,Utah,Virginia,9,9,1,17,0.058823529411764705
-bottom,Utah,Washington,9,9,1,17,0.058823529411764705
-bottom,Utah,West Virginia,9,7,0,16,0.0
-bottom,Utah,Wisconsin,9,9,0,18,0.0
-bottom,Utah,Wyoming,9,5,0,14,0.0
+bottom,Utah,Vermont,8,6,0,14,0.0
+bottom,Utah,Virginia,8,9,1,16,0.0625
+bottom,Utah,Washington,8,9,1,16,0.0625
+bottom,Utah,West Virginia,8,6,0,14,0.0
+bottom,Utah,Wisconsin,8,9,0,17,0.0
+bottom,Utah,Wyoming,8,5,0,13,0.0
 bottom,Vermont,Virginia,6,9,0,15,0.0
 bottom,Vermont,Washington,6,9,0,15,0.0
-bottom,Vermont,West Virginia,6,7,0,13,0.0
+bottom,Vermont,West Virginia,6,6,0,12,0.0
 bottom,Vermont,Wisconsin,6,9,0,15,0.0
 bottom,Vermont,Wyoming,6,5,0,11,0.0
 bottom,Virginia,Washington,9,9,0,18,0.0
-bottom,Virginia,West Virginia,9,7,0,16,0.0
+bottom,Virginia,West Virginia,9,6,0,15,0.0
 bottom,Virginia,Wisconsin,9,9,0,18,0.0
 bottom,Virginia,Wyoming,9,5,0,14,0.0
-bottom,Washington,West Virginia,9,7,1,15,0.06666666666666667
+bottom,Washington,West Virginia,9,6,1,14,0.07142857142857142
 bottom,Washington,Wisconsin,9,9,0,18,0.0
 bottom,Washington,Wyoming,9,5,0,14,0.0
-bottom,West Virginia,Wisconsin,7,9,1,15,0.06666666666666667
-bottom,West Virginia,Wyoming,7,5,0,12,0.0
+bottom,West Virginia,Wisconsin,6,9,1,14,0.07142857142857142
+bottom,West Virginia,Wyoming,6,5,0,11,0.0
 bottom,Wisconsin,Wyoming,9,5,0,14,0.0

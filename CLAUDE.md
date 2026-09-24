@@ -631,20 +631,37 @@ Outputs (`output/tables/`): `state_top1pct_naics6.csv`, `state_bottom1pct_naics6
 `top1pct_sector_frequency.csv`, `bottom1pct_sector_frequency.csv`,
 `state_percentile_overlap_summary.csv`, `state_percentile_pairwise_jaccard.csv`.
 
-Key findings:
-- **Most-seasonal tail is sector-concentrated but state-specific**: Agriculture
-  appears in the top 1% of 96% of states, Arts/entertainment in 86%, Accommodation/food
-  in 41%, Construction in 33% — but only **137 unique NAICS6 codes** ever make a
-  state's top-1% tail, and just 7 of those appear in 10+ states.
-- **Least-seasonal tail**: dominated by Mfg-metals (84% of states), Wholesale (67%),
-  Mfg-chemicals (57%), Finance (55%).
-- **Only ~11% overlap with the national ranking** (47 of 413 state top-tail slots
-  are also in the national top 1%): most industries that are "most seasonal" in a
-  given state are not nationally seasonal, i.e. there's substantial state-specific
+**Excludes agriculture by default (2026-09)**, both from the within-state tail
+selection and the national top/bottom-percentile flagging used for overlap —
+same rationale as `agriculture_exclusion_check.py`/`geographic_analysis.py`
+(`--include-agriculture` reproduces the full-sample version). Fixed a real bug
+along the way: `seasonal_index_naics6_by_state.csv` already carries NAICS title
+columns (merged in by `geographic_analysis.py`), so `add_naics_titles()`
+re-merging the same crosswalk unconditionally collided and got silently
+suffixed (`_x`/`_y`) by pandas, dropping the plain `national_industry_title`
+column the frequency tables need — `add_naics_titles()` now only merges
+columns not already present.
+
+Key findings (ex-agriculture):
+- **Most-seasonal tail is sector-concentrated but state-specific**:
+  Arts/entertainment appears in the top 1% of 92% of states, Manufacturing-food
+  in 53%, Accommodation/food in 49%, Other services in 45%, Construction in
+  37% — but only **124 unique NAICS6 codes** ever make a state's top-1% tail
+  (397 state-industry slots total), and 8 of those appear in 10+ states
+  (Marinas 16, Ice Manufacturing 14, Specialty Trade Contractors 12,
+  Racetracks 12, Golf Courses/Country Clubs 11).
+- **Least-seasonal tail**: dominated by Mfg-metals (82% of states), Wholesale
+  (69%), Mfg-chemicals (61%), Finance (51%), Mfg-food (39%) — essentially
+  unchanged from the full-sample version, as expected since agriculture rarely
+  appears in a "least seasonal" tail.
+- **~16% overlap with the national ranking** (63 of 397 state top-tail slots
+  are also in the national top 1%, up from ~11%/47 of 413 with agriculture
+  included): most industries that are "most seasonal" in a given state are
+  still not nationally seasonal, i.e. there's substantial state-specific
   heterogeneity a national-only index would miss.
-- **Low cross-state overlap** (mean pairwise Jaccard ≈ 0.05 for top tails): beyond
-  the common sectors above, which specific industries make a state's top-1% list
-  varies a lot state to state.
+- **Low cross-state overlap** (mean pairwise Jaccard ≈ 0.059 for top tails,
+  0.013 for bottom): beyond the common sectors above, which specific
+  industries make a state's top-1% list varies a lot state to state.
 - Implication: for firm classification, prefer the **state × NAICS** index
   (`geographic_analysis.py`'s output) over the national index when the firm's
   state is known — confirms and quantifies the geographic-variation finding above.

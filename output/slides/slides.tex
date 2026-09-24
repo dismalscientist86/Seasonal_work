@@ -149,20 +149,20 @@
         \caption{Top 12, excl.\ agriculture}
         \begin{tabular}{lcc}
           \toprule
-          NAICS \& description & ExcessPeak & $n$ \\
+          NAICS \& description & ExcessPeak & Peak Q \\
           \midrule
-          512132 Drive-in motion picture theaters & 0.363 & 21 \\
-          532284 Recreational goods rental     & 0.485 & 22 \\
-          722330 Mobile food services        & 0.316 & 18 \\
-          525120 Health and welfare funds    & 0.310 & 21 \\
-          713990 Other amusement/recreation  & 0.325 & 24 \\
-          311313 Beet sugar manufacturing    & 0.335 & 23 \\
-          721211 RV parks and campgrounds    & 0.252 & 23 \\
-          711212 Racetracks                  & 0.238 & 23 \\
-          611710 Educational support services & 0.239 & 17 \\
-          487210 Scenic/sightseeing water transport.\ & 0.269 & 23 \\
-          312113 Ice manufacturing            & 0.292 & 24 \\
-          611620 Sports/recreation instruction & 0.310 & 24 \\
+          512132 Drive-in motion picture theaters & 0.363 & Q3 \\
+          532284 Recreational goods rental     & 0.485 & Q3 \\
+          722330 Mobile food services        & 0.316 & Q3 \\
+          525120 Health and welfare funds    & 0.310 & Q4 \\
+          713990 Other amusement/recreation  & 0.325 & Q3 \\
+          311313 Beet sugar manufacturing    & 0.335 & Q4 \\
+          721211 RV parks and campgrounds    & 0.252 & Q4 \\
+          711212 Racetracks                  & 0.238 & Q4 \\
+          611710 Educational support services & 0.239 & Q2 \\
+          487210 Scenic/sightseeing water transport.\ & 0.269 & Q4 \\
+          312113 Ice manufacturing            & 0.292 & Q3 \\
+          611620 Sports/recreation instruction & 0.310 & Q3 \\
           \bottomrule
         \end{tabular}
       \end{table}
@@ -173,8 +173,8 @@
         \item \textbf{Excludes agriculture} --- QWI's UI-based ag coverage
               is historically weaker/partial, so it may look more seasonal
               than it truly is (see sensitivity check)
-        \item $n$ = years contributing to ExcessPeak; $\geq 5$-year minimum
-              guards against thin, disclosure-suppressed cells
+        \item Every ExcessPeak estimate requires $\geq 5$ contributing
+              years, guarding against thin, disclosure-suppressed cells
         \item Seasonal index: [0,1] via 99th-pct winsorization --- top
               industries tie at exactly 1.00
         \item Correlation with CP 1-digit rankings: $\rho = 0.829$
@@ -390,17 +390,17 @@
     \begin{column}{0.50\textwidth}
       \begin{table}
         \footnotesize
-        \caption{Within-state NAICS6 tails}
+        \caption{Within-state NAICS6 tails (excl.\ agriculture)}
         \begin{tabular}{lcc}
           \toprule
           Statistic & Top 1\% & Bottom 1\% \\
           \midrule
-          State-industry slots & 413 & 413 \\
-          Unique NAICS6 codes & 137 & 253 \\
-          Codes appearing once & 59 & 156 \\
-          Codes in 10+ states & 7 & 0 \\
-          Pairwise Jaccard & 0.053 & 0.014 \\
-          Also national same tail & 11.4\% & 1.9\% \\
+          State-industry slots & 397 & 397 \\
+          Unique NAICS6 codes & 124 & 245 \\
+          Codes appearing once & 54 & 151 \\
+          Codes in 10+ states & 8 & 0 \\
+          Pairwise Jaccard & 0.059 & 0.013 \\
+          Also national same tail & 15.9\% & 1.8\% \\
           \bottomrule
         \end{tabular}
       \end{table}
@@ -414,18 +414,18 @@
       \footnotesize
       \textbf{Recurring top-1\% industries}
       \begin{itemize}
-        \item Nursery/tree production: 15 states
-        \item Marinas: 14 states
+        \item Marinas: 16 states
+        \item Ice manufacturing: 14 states
         \item Specialty trade contractors: 12 states
+        \item Racetracks: 12 states
         \item Golf courses/country clubs: 11 states
-        \item Miscellaneous crop farming: 11 states
       \end{itemize}
       \medskip
       \textbf{Bottom-1\% pattern}
       \begin{itemize}
         \item More diffuse than the top tail
         \item Concentrated in metals manufacturing, wholesale,
-              chemicals, finance, and transportation
+              chemicals, finance, and food manufacturing
       \end{itemize}
     \end{column}
   \end{columns}
