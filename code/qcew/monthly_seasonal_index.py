@@ -109,13 +109,48 @@ def compute_monthly_excess(emp_shares: pd.DataFrame, min_obs: int = MIN_EXCESS_O
     return pd.DataFrame(records)
 
 
+def compute_common_calendar_effect(excess_df: pd.DataFrame) -> dict:
+    """
+    The cross-industry mean emp_excessM* pattern -- the monthly analog of
+    earnings_index.py's compute_common_calendar_effect().
+
+    42% of industries have their *raw* monthly_seasonal_index peak in
+    December, 22% in January (verified directly) -- QCEW/QWI data is not
+    seasonally adjusted, and non-seasonally-adjusted U.S. employment data
+    has a well-documented broad, economy-wide December build-up/January
+    pull-back that isn't industry-specific seasonality (it's the same
+    phenomenon BLS's own seasonal adjustment exists to remove). Left in,
+    this swamps genuine industry-specific timing for any industry whose own
+    signal is weak, the same way earnings_index.py found a common Q4-bonus
+    effect dominating weakly-seasonal industries' apparent earnings peak.
+    """
+    cols = [f"emp_excessM{m}" for m in range(1, 13)]
+    return {c: excess_df[c].mean() for c in cols}
+
+
+def add_idiosyncratic_excess(excess_df: pd.DataFrame, common_effect: dict) -> pd.DataFrame:
+    """Subtract the common calendar effect from each industry's raw monthly
+    excess, isolating industry-specific timing -- mirrors
+    earnings_index.py's add_idiosyncratic_excess()."""
+    df = excess_df.copy()
+    for m in range(1, 13):
+        col = f"emp_excessM{m}"
+        df[f"idio_{col}"] = df[col] - common_effect[col]
+    return df
+
+
 def compute_placebo_amplitude(
-    emp_shares: pd.DataFrame, min_obs: int = MIN_EXCESS_OBS, n_perms: int = 10, seed: int = 42
+    emp_shares: pd.DataFrame,
+    common_effect: dict,
+    min_obs: int = MIN_EXCESS_OBS,
+    n_perms: int = 10,
+    seed: int = 42,
 ) -> pd.DataFrame:
     """
-    Estimate, per industry, the monthly amplitude expected under the null of
-    *no true seasonal pattern*, by permuting month labels within each year
-    independently and recomputing the cyclical-excess amplitude.
+    Estimate, per industry, the *idiosyncratic* monthly amplitude expected
+    under the null of no true industry-specific seasonal pattern, by
+    permuting month labels within each year independently and recomputing
+    the cyclical-excess amplitude net of the common calendar effect.
 
     This corrects for a real statistical artifact, not a bug: max(x) - min(x)
     over 12 monthly draws is mechanically larger than over 4 quarterly draws
@@ -126,11 +161,15 @@ def compute_placebo_amplitude(
     an extreme month." Permuting within each year preserves each industry's
     actual year-to-year variance while destroying any genuine across-year
     seasonal timing, giving a same-industry, same-scale null to compare
-    against.
+    against. `common_effect` is fixed (estimated once from the real,
+    unpermuted data) and subtracted from every permutation's recomputed
+    excess too, so the placebo distribution is on the same idiosyncratic
+    scale as the real signal it's compared against.
 
     Returns naics_code, placebo_amplitude (mean over n_perms), n_perms_used.
     """
     rng = np.random.default_rng(seed)
+    common_vec = np.array([common_effect[f"emp_excessM{m}"] for m in range(1, 13)])
     records = []
     for ind, grp in emp_shares.groupby("industry"):
         pivot = grp.pivot(index="year", columns="month", values="emp_share")
@@ -144,7 +183,8 @@ def compute_placebo_amplitude(
                 if not pd.isna(row).any():
                     p.loc[yr] = rng.permutation(row)
             excess_p, _ = cyclical_excess_by_month(p, min_obs, "e")
-            vals = [excess_p[f"eM{m}"] for m in range(1, 13) if pd.notna(excess_p[f"eM{m}"])]
+            vals = [excess_p[f"eM{m}"] - common_vec[m - 1]
+                    for m in range(1, 13) if pd.notna(excess_p[f"eM{m}"])]
             if len(vals) >= 2:
                 reps.append(max(vals) - min(vals))
         if reps:
@@ -156,64 +196,78 @@ def compute_placebo_amplitude(
     return pd.DataFrame(records)
 
 
-def build_monthly_seasonal_index(excess_df: pd.DataFrame) -> pd.DataFrame:
+def build_monthly_seasonal_index(
+    excess_df: pd.DataFrame, in_prefix: str = "emp_excess", out_prefix: str = "monthly"
+) -> pd.DataFrame:
     """Construct the 0-1 monthly stock seasonal index, mirroring
     build_employment_seasonal_index()'s quarterly construction exactly,
-    generalized from 4 to 12 periods."""
+    generalized from 4 to 12 periods. `in_prefix` selects which excess
+    columns to build from -- "emp_excess" (raw) or "idio_emp_excess"
+    (net of the common calendar effect, see compute_common_calendar_effect);
+    `out_prefix` names the resulting columns so both versions can coexist
+    on the same DataFrame (e.g. "monthly" -> monthly_seasonal_index,
+    "idio_monthly" -> idio_monthly_seasonal_index)."""
     df = excess_df.copy()
-    excess_cols = [f"emp_excessM{m}" for m in range(1, 13)]
+    excess_cols = [f"{in_prefix}M{m}" for m in range(1, 13)]
     available = [c for c in excess_cols if c in df.columns]
+    p = out_prefix
 
     # Same degenerate-period guard as the quarterly measures: <2 non-missing
     # months makes max-min trivially 0, a data-thinness artifact.
     enough_months = df[available].notna().sum(axis=1) >= 2
 
-    df["monthly_seasonal_amplitude"] = df[available].max(axis=1) - df[available].min(axis=1)
-    df.loc[~enough_months, "monthly_seasonal_amplitude"] = np.nan
+    df[f"{p}_seasonal_amplitude"] = df[available].max(axis=1) - df[available].min(axis=1)
+    df.loc[~enough_months, f"{p}_seasonal_amplitude"] = np.nan
 
     _peak = df[available].apply(lambda row: row.idxmax() if row.notna().any() else pd.NA, axis=1)
-    df["peak_month"] = (
-        _peak.str.replace("emp_excessM", "", regex=False).astype("Int64")
+    df[f"{p}_peak_month"] = (
+        _peak.str.replace(f"{in_prefix}M", "", regex=False).astype("Int64")
     )
-    df.loc[~enough_months, "peak_month"] = pd.NA
-    df["peak_quarter_from_month"] = ((df["peak_month"] - 1) // 3 + 1).astype("Int64")
+    df.loc[~enough_months, f"{p}_peak_month"] = pd.NA
+    df[f"{p}_peak_quarter_from_month"] = ((df[f"{p}_peak_month"] - 1) // 3 + 1).astype("Int64")
 
-    df["peak_excess_month"] = df[available].max(axis=1)
-    df.loc[~enough_months, "peak_excess_month"] = np.nan
+    df[f"{p}_peak_excess_month"] = df[available].max(axis=1)
+    df.loc[~enough_months, f"{p}_peak_excess_month"] = np.nan
 
-    df["n_excess_obs_month"] = df.apply(
-        lambda row: row[f"n_emp_excessM{int(row['peak_month'])}"]
-        if pd.notna(row["peak_month"]) and f"n_emp_excessM{int(row['peak_month'])}" in df.columns
+    # Sample-count columns (n_emp_excessM*) exist only for the raw excess --
+    # idio_emp_excessM* is just emp_excessM* shifted by a fixed constant, so
+    # it shares the same underlying year-counts. Always look counts up under
+    # the raw "emp_excess" prefix regardless of in_prefix.
+    df[f"{p}_n_excess_obs"] = df.apply(
+        lambda row: row[f"n_emp_excessM{int(row[f'{p}_peak_month'])}"]
+        if pd.notna(row[f"{p}_peak_month"])
+           and f"n_emp_excessM{int(row[f'{p}_peak_month'])}" in df.columns
         else pd.NA,
         axis=1,
     ).astype("Int64")
 
-    p99 = df["monthly_seasonal_amplitude"].quantile(0.99)
-    df["monthly_seasonal_index"] = (df["monthly_seasonal_amplitude"] / p99).clip(0, 1)
+    p99 = df[f"{p}_seasonal_amplitude"].quantile(0.99)
+    df[f"{p}_seasonal_index"] = (df[f"{p}_seasonal_amplitude"] / p99).clip(0, 1)
 
     df["sector_2d"] = df["naics_code"].astype(str).str[:2]
     df["sector_label"] = df["sector_2d"].map(NAICS_SECTOR_LABELS).fillna("Other")
 
     return df[[
         "naics_code", "sector_2d", "sector_label", "n_years",
-        "monthly_seasonal_amplitude", "peak_month", "peak_quarter_from_month",
-        "peak_excess_month", "n_excess_obs_month", "monthly_seasonal_index",
+        f"{p}_seasonal_amplitude", f"{p}_peak_month", f"{p}_peak_quarter_from_month",
+        f"{p}_peak_excess_month", f"{p}_n_excess_obs", f"{p}_seasonal_index",
     ]]
 
 
 def add_placebo_correction(monthly_idx: pd.DataFrame, placebo_df: pd.DataFrame) -> pd.DataFrame:
     """
-    Merge in the placebo (permutation-null) amplitude and derive a bias-
-    corrected signal_amplitude / signal_index -- see compute_placebo_amplitude()
-    for why this correction matters: raw monthly_seasonal_amplitude conflates
-    genuine seasonality with the mechanical range inflation from having 12
-    sampling points instead of 4. signal_amplitude subtracts out each
-    industry's own estimated noise floor before re-winsorizing, so
-    signal_index is the more defensible "how much MORE seasonal is this
-    industry than pure noise would produce at monthly resolution" measure.
+    Merge in the placebo (permutation-null) amplitude -- estimated on the
+    idiosyncratic scale, see compute_placebo_amplitude() -- and derive the
+    final bias-corrected signal_amplitude / signal_index. This is the most
+    defensible measure in the file: net of both (1) the common calendar
+    effect shared by most industries and (2) the mechanical range inflation
+    from comparing a 12-point max-min range to a 4-point one, so
+    signal_index isolates "how much MORE seasonal is this industry, at
+    monthly resolution, than pure noise plus the broad economy-wide
+    December/January pattern would produce."
     """
     df = monthly_idx.merge(placebo_df, on="naics_code", how="left")
-    df["signal_amplitude"] = (df["monthly_seasonal_amplitude"] - df["placebo_amplitude"]).clip(lower=0)
+    df["signal_amplitude"] = (df["idio_monthly_seasonal_amplitude"] - df["placebo_amplitude"]).clip(lower=0)
     p99_signal = df["signal_amplitude"].quantile(0.99)
     df["signal_index"] = (df["signal_amplitude"] / p99_signal).clip(0, 1)
     return df
@@ -235,7 +289,7 @@ def compare_to_quarterly_stock(monthly_idx: pd.DataFrame) -> pd.DataFrame:
     merged = monthly_idx.merge(quarterly, on="naics_code", how="inner")
     merged = merged.dropna(subset=["monthly_seasonal_index", "seasonal_index_emp"])
     merged["peak_quarter_concordant"] = (
-        merged["peak_quarter_from_month"] == merged["peak_quarter_emp"]
+        merged["idio_monthly_peak_quarter_from_month"] == merged["peak_quarter_emp"]
     )
     return merged.sort_values("monthly_seasonal_index", ascending=False)
 
@@ -249,7 +303,7 @@ def plot_comparison(merged: pd.DataFrame) -> plt.Figure:
     ax.plot([0, 1], [0, 1], color="black", lw=0.8, ls="--", label="y = x")
     ax.set_xlabel("Seasonal index (stock), quarterly (QWI)")
     ax.set_ylabel("Raw seasonal index (stock), monthly (QCEW)")
-    ax.set_title("Raw comparison\n(conflates real seasonality with sample-size artifact)")
+    ax.set_title("Raw comparison\n(conflates real seasonality with two confounds)")
     ax.legend(fontsize=8)
 
     ax = axes[1]
@@ -257,8 +311,8 @@ def plot_comparison(merged: pd.DataFrame) -> plt.Figure:
                s=10, alpha=0.5, c="#d62728")
     ax.plot([0, 1], [0, 1], color="black", lw=0.8, ls="--", label="y = x")
     ax.set_xlabel("Seasonal index (stock), quarterly (QWI)")
-    ax.set_ylabel("Placebo-corrected signal index, monthly (QCEW)")
-    ax.set_title("Bias-corrected comparison\n(placebo: within-year month-label permutation)")
+    ax.set_ylabel("Bias-corrected signal index, monthly (QCEW)")
+    ax.set_title("Bias-corrected comparison\n(net of common calendar effect + sample-size artifact)")
     ax.legend(fontsize=8)
 
     fig.suptitle("Does monthly resolution change the stock-seasonality picture?")
@@ -276,25 +330,34 @@ def print_summary(merged: pd.DataFrame) -> None:
 
     print(f"\n{n} industries with both a quarterly (QWI) and monthly (QCEW) stock index.")
     print(f"Raw:               Pearson {pearson:.3f}, Spearman {spearman:.3f}")
-    print(f"Placebo-corrected: Pearson {pearson_sig:.3f}, Spearman {spearman_sig:.3f}")
-    print(f"Peak-quarter concordance (QCEW peak month's quarter vs. QWI peak "
-          f"quarter): {concordance:.1%}")
+    print(f"Bias-corrected:    Pearson {pearson_sig:.3f}, Spearman {spearman_sig:.3f}")
+    print(f"Peak-quarter concordance (QCEW idiosyncratic peak month's quarter "
+          f"vs. QWI peak quarter): {concordance:.1%}")
 
-    frac_above = (merged["monthly_seasonal_amplitude"] > merged["placebo_amplitude"]).mean()
-    mean_real = merged["monthly_seasonal_amplitude"].mean()
+    raw_peak_month_share = merged["monthly_peak_month"].value_counts(normalize=True)
+    print(f"\nCommon calendar effect check: {raw_peak_month_share.get(12, 0):.1%} of "
+          f"industries have their RAW peak in December, {raw_peak_month_share.get(1, 0):.1%} "
+          f"in January (vs. ~8.3% each if peaks were spread evenly across 12 months) -- "
+          f"consistent with a broad, non-seasonally-adjusted economy-wide pattern, not "
+          f"industry-specific timing. Netted out via idio_monthly_* columns before placebo correction.")
+
+    frac_above = (merged["idio_monthly_seasonal_amplitude"] > merged["placebo_amplitude"]).mean()
+    mean_real = merged["idio_monthly_seasonal_amplitude"].mean()
     mean_placebo = merged["placebo_amplitude"].mean()
-    print(f"\nPlacebo check: raw monthly amplitude exceeds its own industry's "
+    print(f"\nPlacebo check: idiosyncratic monthly amplitude exceeds its own industry's "
           f"placebo (permuted-null) amplitude in {frac_above:.1%} of industries.")
-    print(f"Mean raw amplitude: {mean_real:.4f}   Mean placebo amplitude: {mean_placebo:.4f}"
-          f"   (placebo is {mean_placebo/mean_real:.1%} of raw -- this share reflects "
-          f"the mechanical range inflation from 12 vs. 4 sampling points, not real seasonality)")
+    print(f"Mean idiosyncratic amplitude: {mean_real:.4f}   Mean placebo amplitude: {mean_placebo:.4f}"
+          f"   (placebo is {mean_placebo/mean_real:.1%} of the idiosyncratic amplitude -- this "
+          f"share reflects the mechanical range inflation from 12 vs. 4 sampling points, not "
+          f"real seasonality)")
 
-    print("\nTop 10 by placebo-corrected signal index:")
+    print("\nTop 10 by bias-corrected signal index:")
     cols = ["naics_code", "national_industry_title", "signal_index",
-            "monthly_seasonal_index", "peak_month", "seasonal_index_emp", "peak_quarter_emp"]
+            "monthly_seasonal_index", "idio_monthly_peak_month",
+            "seasonal_index_emp", "peak_quarter_emp"]
     print(merged.sort_values("signal_index", ascending=False)[cols].head(10).to_string(index=False))
 
-    print("\nBiggest divergences (placebo-corrected signal index vs. quarterly stock index):")
+    print("\nBiggest divergences (bias-corrected signal index vs. quarterly stock index):")
     merged["divergence"] = merged["signal_index"] - merged["seasonal_index_emp"]
     movers = merged.reindex(merged["divergence"].abs().sort_values(ascending=False).index)
     print(movers.head(10)[cols + ["divergence"]].to_string(index=False))
@@ -309,11 +372,21 @@ def run() -> None:
     monthly = to_monthly_panel(qcew)
     shares = compute_monthly_employment_shares(monthly)
     excess = compute_monthly_excess(shares)
-    monthly_idx = build_monthly_seasonal_index(excess)
 
-    print("\nRunning placebo (within-year month-permutation) correction "
+    print("\nComputing and netting out the common cross-industry calendar effect...")
+    common_effect = compute_common_calendar_effect(excess)
+    idio_excess = add_idiosyncratic_excess(excess, common_effect)
+
+    raw_idx = build_monthly_seasonal_index(idio_excess, in_prefix="emp_excess", out_prefix="monthly")
+    idio_idx = build_monthly_seasonal_index(idio_excess, in_prefix="idio_emp_excess", out_prefix="idio_monthly")
+    monthly_idx = raw_idx.merge(
+        idio_idx.drop(columns=["sector_2d", "sector_label", "n_years"]),
+        on="naics_code", how="outer",
+    )
+
+    print("Running placebo (within-year month-permutation) correction "
           "-- this takes a few minutes...")
-    placebo = compute_placebo_amplitude(shares)
+    placebo = compute_placebo_amplitude(shares, common_effect)
     monthly_idx = add_placebo_correction(monthly_idx, placebo)
 
     # Compare against the quarterly (QWI) stock index before attaching NAICS

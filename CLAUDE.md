@@ -375,60 +375,85 @@ this project, generalized from 4 periods to 12
 byte-identical to the pre-refactor quarterly output on a full rerun, and
 the December-January wraparound verified directly with a synthetic test).
 
-**Critical correction found before trusting any headline number**: a naive
-raw comparison of monthly vs. quarterly `seasonal_amplitude` showed monthly
-seasonality higher for the vast majority of industries -- but `max - min`
-over 12 monthly draws is *mechanically* larger than over 4 quarterly draws
-for the same underlying noise process, since the expected range of a
-sample grows with its size even absent any true seasonal pattern. A
-placebo test (`compute_placebo_amplitude()`: permute month labels within
-each year independently, 10 reps/industry, recompute the same excess
-calculation) confirms this is a real, large confound, not a minor
-technicality: **mean placebo (null) amplitude is 74.5% of mean raw
-amplitude**, and raw monthly amplitude exceeds its own industry's placebo
-in only 60.0% of industries -- far from the near-universal gap the naive
-comparison suggested. `add_placebo_correction()` nets this out
-(`signal_amplitude = max(monthly_amplitude - placebo_amplitude, 0)`,
-re-winsorized into `signal_index`) to isolate genuine month-level signal.
+**Two confounds found and corrected before trusting any headline number**
+(published dataset carries all three layers so the corrections are
+auditable -- see the file's own codebook):
 
-**Result, using the bias-corrected measure**: correlation with the
-quarterly stock index drops sharply once corrected (raw Pearson 0.788,
-Spearman 0.748 -> corrected Pearson 0.404, Spearman 0.344) -- quarterly
-and monthly seasonality are much more weakly related than the raw numbers
-implied. Peak-quarter concordance (QCEW's peak month's containing quarter
-vs. QWI's own peak quarter) is only 36.9%, similar in spirit to the
+1. **Common calendar effect.** 47.4% of industries have their *raw*
+   monthly peak in December, 11.0% in January -- QCEW, like QWI, is not
+   seasonally adjusted, and raw U.S. employment data has a well-documented
+   broad, economy-wide December build-up/January pull-back that isn't
+   industry-specific. This is the exact same class of confound
+   `earnings_index.py` found for earnings (83% of industries peaking in
+   Q4 there). `compute_common_calendar_effect()`/`add_idiosyncratic_excess()`
+   net it out, mirroring that precedent exactly, into `idio_monthly_*`
+   columns.
+2. **Sample-size artifact.** A raw comparison of monthly vs. quarterly
+   amplitude (even after step 1) still showed monthly seasonality higher
+   for most industries -- but `max - min` over 12 monthly draws is
+   *mechanically* larger than over 4 quarterly draws for the same
+   underlying noise, since the expected range of a sample grows with its
+   size even absent any true seasonal pattern. A placebo test
+   (`compute_placebo_amplitude()`: permute month labels within each year,
+   10 reps/industry, recompute the same idiosyncratic-excess calculation)
+   confirms this is large: **mean placebo (null) amplitude is 89.7% of
+   mean idiosyncratic amplitude**, and idiosyncratic amplitude exceeds its
+   own industry's placebo in only 41.5% of industries.
+   `add_placebo_correction()` nets this out too
+   (`signal_amplitude = max(idio_amplitude - placebo_amplitude, 0)`,
+   re-winsorized into `signal_index`) -- **the recommended column**, net
+   of both confounds. 660 of 1,364 industries (48.4%) land at
+   `signal_index = 0`: their apparent monthly seasonality was entirely
+   explained by the two confounds combined, not genuine signal.
+
+**Result, using `signal_index`**: correlation with the quarterly stock
+index drops sharply once corrected (raw Pearson 0.788, Spearman 0.748 ->
+corrected Pearson 0.444, Spearman 0.398) -- quarterly and monthly
+seasonality are much more weakly related than the raw numbers implied.
+Peak-quarter concordance (idiosyncratic peak month's containing quarter
+vs. QWI's own peak quarter) is only 38.3%, similar in spirit to the
 flow-vs-stock comparison's low timing concordance above. Two genuinely
 different kinds of industries emerge:
-- **Industries whose apparent monthly seasonality was entirely the
-  placebo artifact** (`signal_index` corrects to 0 despite a high raw
-  monthly index): Skiing Facilities, RV Parks and Campgrounds, Tobacco
-  Farming, Recreational Goods Rental, Drive-In Motion Picture Theaters,
-  Golf Courses, Scenic/Sightseeing Water Transportation. These industries'
+- **Industries whose apparent monthly seasonality was entirely
+  confound** (`signal_index` corrects to 0 despite a high raw monthly
+  index): Skiing Facilities, RV Parks and Campgrounds, Drive-In Motion
+  Picture Theaters, Recreational Goods Rental, Golf Courses,
+  Scenic/Sightseeing Water Transportation, Marinas. These industries'
   seasonality genuinely operates at a quarterly-or-longer time scale (a
-  whole ski season, a whole harvest), so quarterly QWI data already
-  captures them well -- refining to monthly resolution adds noise, not
-  information.
-- **Industries with a robust, placebo-surviving monthly-specific signal
+  whole ski season, a whole boating season), so quarterly QWI data
+  already captures them well -- refining to monthly resolution adds
+  noise, not information.
+- **Industries with a robust, confound-surviving monthly-specific signal
   that quarterly data misses almost entirely**: **School and Employee Bus
   Transportation** is the standout example -- `signal_index = 1.00` (ties
   the winsorization ceiling) vs. a quarterly stock index of just **0.11**.
   The school year's abrupt September start gets averaged away with a much
   quieter July-August within the same Q3, so quarterly aggregation nearly
   erases a genuinely large, sharply-timed seasonal swing. Photography
-  Studios/Portrait (December holiday portraits, 0.98 vs. 0.15 quarterly)
-  and Independent Artists/Writers/Performers (0.89 vs. 0.12, holiday-season
-  performances) show the same pattern.
+  Studios/Portrait (December holiday portraits, 0.94 vs. 0.15 quarterly)
+  and Corn Farming (July, 1.00 vs. 0.41 quarterly) show the same pattern.
 
 **Implication**: this validates and quantifies the "quarterly is a coarser
 measure of timing than CP's month-level data" caveat already noted in the
 slide decks -- but the effect is concentrated in a specific, identifiable
 kind of industry (a sharp calendar-driven event that falls mid-quarter or
 spans a quarter boundary), not a uniform "everything looks more seasonal
-monthly" story. A raw, uncorrected monthly-vs-quarterly comparison would
-have overstated this effect substantially and been actively misleading
-about *which* industries it applies to.
+monthly" story. An uncorrected monthly-vs-quarterly comparison would have
+overstated this effect substantially and been actively misleading about
+*which* industries it applies to.
 
-Outputs: `data/qcew_clean/monthly_seasonal_index_naics6.csv`,
+A third, unrelated data-quality issue surfaced while building this:
+`national_industry_title` is missing for ~30% of rows, because QCEW's
+`industry_code` reflects whichever NAICS revision was current when each
+year's data was published, while the title crosswalk is fixed at the 2022
+vintage -- confirmed directly (e.g. code `211111`, retired by NAICS 2022,
+appears through 2010 but not 2023; its replacement `211120` appears only
+from 2023). Not corrected (would require reconciling pre- and post-2022
+NAICS vintages into one continuous series); documented in the file's
+codebook instead.
+
+Published to the public repo: `data/qcew_clean/monthly_seasonal_index_naics6.csv`
+with its own codebook (see "Public Index Files" above). Comparison outputs:
 `output/tables/monthly_vs_quarterly_stock_comparison.csv`,
 `output/figures/monthly_vs_quarterly_stock_scatter.pdf/png` (two-panel:
 raw vs. bias-corrected).
@@ -865,19 +890,20 @@ code/
 - Census API key (free: https://api.census.gov/data/key_signup.html)
 - Set `CENSUS_API_KEY` in a `.env` file at the repo root (see `.env.example`)
 
-### Public Index Files (`data/qwi_clean/`, committed to the repo)
-Unlike the rest of `data/` (raw QWI/CBP/replication inputs, all gitignored due
-to size), the three **derived** index CSVs in `data/qwi_clean/` are tracked
-and shipped in the public repo, each with its own codebook markdown file
+### Public Index Files (`data/qwi_clean/`, `data/qcew_clean/`, committed to the repo)
+Unlike the rest of `data/` (raw QWI/QCEW/CBP/replication inputs, all
+gitignored due to size), these **derived** index CSVs are tracked and
+shipped in the public repo, each with its own codebook markdown file
 alongside it:
-- `seasonal_index_naics6.csv` — national flow + stock index ([codebook](data/qwi_clean/seasonal_index_naics6_codebook.md))
-- `seasonal_index_naics6_by_state.csv` — state x NAICS6 flow + stock index ([codebook](data/qwi_clean/seasonal_index_naics6_by_state_codebook.md))
-- `earnings_index_naics6.csv` — income/earnings seasonality index, raw + idiosyncratic ([codebook](data/qwi_clean/earnings_index_naics6_codebook.md))
+- `qwi_clean/seasonal_index_naics6.csv` — national flow + stock index ([codebook](data/qwi_clean/seasonal_index_naics6_codebook.md))
+- `qwi_clean/seasonal_index_naics6_by_state.csv` — state x NAICS6 flow + stock index ([codebook](data/qwi_clean/seasonal_index_naics6_by_state_codebook.md))
+- `qwi_clean/earnings_index_naics6.csv` — income/earnings seasonality index, raw + idiosyncratic ([codebook](data/qwi_clean/earnings_index_naics6_codebook.md))
+- `qcew_clean/monthly_seasonal_index_naics6.csv` — monthly stock seasonal index (QCEW), raw + idiosyncratic + placebo-corrected ([codebook](data/qcew_clean/monthly_seasonal_index_naics6_codebook.md))
 
-The `.gitignore` pattern is `data/*` + `!data/qwi_clean/` (a carve-out, same
-pattern as `output/*` + `!output/figures/` etc.) — raw inputs under
-`data/qwi_raw/`, `data/replication/`, `data/cbp_raw/`, and the NAICS
-crosswalk source workbook stay untracked.
+The `.gitignore` pattern is `data/*` + `!data/qwi_clean/` + `!data/qcew_clean/`
+(a carve-out, same pattern as `output/*` + `!output/figures/` etc.) — raw
+inputs under `data/qwi_raw/`, `data/qcew_raw/`, `data/replication/`,
+`data/cbp_raw/`, and the NAICS crosswalk source workbook stay untracked.
 
 ### NAICS Title Crosswalk (optional)
 - `data/naics_xwalk/2022_NAICS_Structure.xlsx` — Census 2022 NAICS structure workbook
@@ -984,7 +1010,7 @@ python code/qcew/monthly_seasonal_index.py # monthly stock index + placebo-corre
 - [x] Establishment size vs. seasonality (`establishment_size_analysis.py`) — fetched national CBP by NAICS x establishment-size class (`fetch_cbp.py --by-size`, 831 industries). More seasonal industries skew toward smaller establishments (Spearman ~0.5 for small-establishment employment share, -0.52 for average establishment size; median establishment size 51 emp in the least-seasonal quartile -> 10 emp in the most). But it's concave (plateaus at ~40% small-establishment employment above seasonal_index ~0.15) and sector-driven: seasonal services/construction/ag-support are small-establishment-heavy, seasonal manufacturing (canning, frozen foods) and big recreation venues (racetracks, golf courses) are the opposite. Conditional on the CBP universe — NAICS 111/112 farm production is not in CBP at all
 - [ ] National CBP-by-*size* is done, but the national CBP-by-*county* run (for a 51-state county-level exposure index) is still not launched (~21-22hrs)
 - [x] Industry pay/gender/seasonality profile (`industry_pay_gender_profile.py`, `find_seasonal_pairs.py`) — built to find a same-pay/opposite-seasonality/female-dominated industry pair for a rent-burden illustration. Fetched ACS 1-year PUMS (3.4M people, all states) and built a Census-industry-code <-> NAICS6 crosswalk (`build_indp_naics_crosswalk.py`) so pay (realized `WAGP`, not a QWI rate annualized x12), gender, and seasonality are all computed at one consistent resolution. Found 3 candidate pairs; best: "Other schools and instruction, and educational support services" (seasonal_index 0.51) vs. "Other personal services" (0.13) — both exactly $20,000 realized median annual pay, 65%/68% female, both 84.8% rent-burdened at the national median rent. Notably, weeks-worked is nearly identical in every pair, so the pay gap between seasonal and non-seasonal categories isn't explained by seasonal workers logging fewer annual weeks — it's a wage-level difference between these industry categories, independent of seasonality
-- [x] QCEW monthly resolution check (`fetch_qcew.py`, `monthly_seasonal_index.py`) — QCEW has monthly employment but no separations, so it can only sharpen the existing *stock* index from quarterly to monthly, not replicate the flow-based measure. All 24 years fetched via bulk CSV in under an hour (no API key, much faster than QWI's per-state-per-industry loop). A naive raw comparison suggested monthly resolution reveals far more seasonality almost everywhere — but a placebo test (permute month labels within each year) showed **74.5% of the raw monthly amplitude is a mechanical artifact** of comparing a 12-point range to a 4-point range, not real signal. After bias-correcting: correlation with the quarterly stock index drops from Pearson 0.79 (raw) to 0.40 (corrected), and peak-quarter concordance is only 37%. The genuine finding: quarterly aggregation specifically hides seasonality for industries with a sharp, brief calendar-driven event that falls mid-quarter (School and Employee Bus Transportation: corrected signal index 1.00 vs. quarterly stock index 0.11; Photography Studios/Portrait 0.98 vs. 0.15) — while several industries that looked "more seasonal monthly" in the raw comparison (Skiing Facilities, RV Parks, Golf Courses) correct to zero added signal, since their seasonality genuinely operates at a quarterly-or-longer scale already well captured by QWI
+- [x] QCEW monthly resolution check (`fetch_qcew.py`, `monthly_seasonal_index.py`) — QCEW has monthly employment but no separations, so it can only sharpen the existing *stock* index from quarterly to monthly, not replicate the flow-based measure. All 24 years fetched via bulk CSV in under an hour (no API key, much faster than QWI's per-state-per-industry loop). Two confounds found and corrected before trusting any number: (1) a common calendar effect — 47% of industries raw-peak in December, the same class of confound found in `earnings_index.py` for Q4 earnings — netted out via an idiosyncratic-excess correction; (2) a sample-size artifact — max-min range over 12 monthly draws is mechanically larger than over 4 quarterly draws even with zero true seasonality, confirmed via a permutation placebo test (**89.7% of the idiosyncratic amplitude is this artifact**, not real signal). After both corrections (`signal_index`): correlation with the quarterly stock index drops from Pearson 0.79 (raw) to 0.44 (corrected), peak-quarter concordance is only 38%, and 48% of industries show zero genuine monthly-specific signal. The genuine finding: quarterly aggregation specifically hides seasonality for industries with a sharp, brief calendar-driven event that falls mid-quarter (School and Employee Bus Transportation: corrected signal index 1.00 vs. quarterly stock index 0.11) — while several industries that looked "more seasonal monthly" in the raw comparison (Skiing Facilities, RV Parks, Golf Courses) correct to zero added signal, since their seasonality genuinely operates at a quarterly-or-longer scale already well captured by QWI. Published to the public repo as `data/qcew_clean/monthly_seasonal_index_naics6.csv` with a codebook
 
 ---
 

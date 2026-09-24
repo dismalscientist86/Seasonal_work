@@ -4,11 +4,12 @@
 # Replication package zip (1.8 GB)
 replication_package/238636-V1.zip
 
-# Extracted Stata data files — data/qwi_clean/ is the exception: those are
-# derived index CSVs (+ codebooks) meant to ship in the public repo, not raw
-# input data.
+# Extracted Stata data files — data/qwi_clean/ and data/qcew_clean/ are the
+# exceptions: those are derived index CSVs (+ codebooks) meant to ship in
+# the public repo, not raw input data.
 data/*
 !data/qwi_clean/
+!data/qcew_clean/
 *.dta
 *.dta.gz
 *.dta.gz.*

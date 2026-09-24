@@ -155,6 +155,44 @@ $$
   trend every year; non-seasonal industries (red/purple/brown) barely move
   quarter to quarter
 
+## A Sharper Clock: Monthly Employment via QCEW
+
+- **Drawback flagged earlier:** QWI is quarterly, a coarser measure of
+  timing than CP's month-level analysis. BLS's QCEW reports true monthly
+  employment --- does resolution actually matter?
+- **Scope limit:** QCEW has no separations data, so this only sharpens
+  our **stock** (headcount) measure, not the flow (separations) measure
+- **Two confounds had to be corrected before trusting any comparison:**
+  1. **Common calendar effect** --- 47% of industries raw-peak in
+     December (vs. ~8% if spread evenly): a broad, non-seasonally-adjusted
+     economy-wide pattern, not industry-specific --- same phenomenon
+     already found for earnings (Q4 bonus effect)
+  2. **Sample-size artifact** --- max$-$min range over 12 monthly draws
+     is *mechanically* larger than over 4 quarterly draws, even with zero
+     true seasonality. A permutation test (shuffle month labels within
+     each year, recompute) confirms this: **89.7% of the apparent
+     "extra" monthly seasonality is this artifact, not real signal**
+
+## Does Monthly Resolution Change the Picture?
+
+![](../figures/monthly_vs_quarterly_stock_scatter.png){fig-align="center" height="420"}
+
+- After correcting for both confounds: correlation with the quarterly
+  measure drops from $r=0.79$ (raw) to $r=0.44$ (corrected); only **38%**
+  of industries agree on which quarter drives their seasonality
+- **48% of industries show zero genuine monthly-specific signal** ---
+  their raw "extra" monthly seasonality was entirely the two confounds
+- **Real winner:** School and Employee Bus Transportation --- corrected
+  signal index **1.00** vs. quarterly index **0.11**. September's abrupt
+  school-year start gets averaged away with a quiet summer in the same
+  quarter
+- **False signals, corrected to zero:** Skiing Facilities, RV Parks,
+  Golf Courses --- genuinely seasonal, but at a quarterly-or-longer
+  scale QWI already captures well
+- **Bottom line:** quarterly resolution specifically hides *sharp,
+  sub-quarter* calendar-driven seasonality --- a real, identifiable
+  minority of industries, not a universal effect
+
 ## State-Specific Seasonality
 
 - Suppression is much more binding at the state $\times$ 6-digit level

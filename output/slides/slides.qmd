@@ -455,6 +455,59 @@ $$
 :::
 :::
 
+# Monthly Resolution via QCEW
+
+## Does Quarterly Averaging Hide Seasonality?
+
+- **Motivation:** QWI is quarterly --- a coarser measure of timing than
+  CP's month-level analysis. BLS's QCEW reports true monthly employment
+  (`month1_emplvl`/`month2_emplvl`/`month3_emplvl`); does resolution
+  actually matter?
+- **Scope limit:** QCEW has no separations/hires field at all --- it can
+  only sharpen the **stock** measure (`seasonal_index_emp`) from
+  quarterly to monthly, not the flow (separations) measure
+- Same shared cyclical-excess calculation as every other measure in this
+  project, generalized from 4 periods to 12
+  (`excess_utils.cyclical_excess_by_month()`)
+
+**Two confounds corrected before trusting any comparison:**
+
+1. **Common calendar effect** --- 47.4% of industries raw-peak in
+   December (vs. $\sim$8.3% if spread evenly across 12 months): a broad,
+   non-seasonally-adjusted economy-wide pattern, the same phenomenon
+   already found for earnings (Q4 bonus effect, see below)
+2. **Sample-size artifact** --- max$-$min range over 12 monthly draws is
+   *mechanically* larger than over 4 quarterly draws even with zero true
+   seasonality. A permutation test (shuffle month labels within each
+   year, recompute) confirms: placebo (null) amplitude is **89.7%** of
+   the idiosyncratic amplitude on average
+
+## Monthly Resolution: Result
+
+::: {.columns}
+::: {.column width="55%"}
+![](../figures/monthly_vs_quarterly_stock_scatter.png)
+:::
+::: {.column width="42%"}
+
+**Correlation drops sharply once corrected**
+
+- Raw: Pearson $r=0.788$, Spearman $r=0.748$
+- Bias-corrected (`signal_index`): Pearson $r=0.444$, Spearman $r=0.398$
+- Peak-quarter concordance only 38.3%
+- 48.4% of industries show **zero** genuine monthly-specific signal
+
+**Real winner:** School and Employee Bus Transportation --- signal index
+**1.00** vs. quarterly stock index **0.11**. September's abrupt school-year
+start is averaged away with a quiet summer in the same quarter.
+
+**False signals, corrected to zero:** Skiing Facilities, RV Parks, Golf
+Courses --- genuinely seasonal, but at a quarterly-or-longer scale QWI
+already captures well.
+
+:::
+:::
+
 # Income/Earnings Seasonality
 
 ## A Third Lens: Does Income Dip in the Off-Season?

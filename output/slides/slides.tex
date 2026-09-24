@@ -562,6 +562,73 @@
 \end{frame}
 
 % ══════════════════════════════════════════════════════════════════════════════
+\section{Monthly Resolution via QCEW}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Does Quarterly Averaging Hide Seasonality?}
+  \small
+  \begin{itemize}
+    \item \textbf{Motivation:} QWI is quarterly --- a coarser measure of
+          timing than CP's month-level analysis. BLS's QCEW reports true
+          monthly employment (\texttt{month1\_emplvl}/\texttt{month2\_emplvl}/
+          \texttt{month3\_emplvl}); does resolution actually matter?
+    \item \textbf{Scope limit:} QCEW has no separations/hires field at all
+          --- it can only sharpen the \textbf{stock} measure
+          (\texttt{seasonal\_index\_emp}) from quarterly to monthly, not the
+          flow (separations) measure
+    \item Same shared cyclical-excess calculation as every other measure in
+          this project, generalized from 4 periods to 12
+          (\texttt{excess\_utils.cyclical\_excess\_by\_month()})
+    \item \textbf{Two confounds corrected before trusting any comparison:}
+    \begin{enumerate}
+      \item \textbf{Common calendar effect} --- 47.4\% of industries
+            raw-peak in December (vs.\ $\sim$8.3\% if spread evenly across
+            12 months): a broad, non-seasonally-adjusted economy-wide
+            pattern, the same phenomenon already found for earnings (Q4
+            bonus effect, see below)
+      \item \textbf{Sample-size artifact} --- max$-$min range over 12
+            monthly draws is \emph{mechanically} larger than over 4
+            quarterly draws even with zero true seasonality. A permutation
+            test (shuffle month labels within each year, recompute)
+            confirms: placebo (null) amplitude is \textbf{89.7\%} of the
+            idiosyncratic amplitude on average
+    \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Monthly Resolution: Result}
+  \begin{columns}
+    \begin{column}{0.55\textwidth}
+      \begin{center}
+        \includegraphics[width=\textwidth,height=0.72\textheight,keepaspectratio]%
+          {monthly_vs_quarterly_stock_scatter.pdf}
+      \end{center}
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \scriptsize
+      \textbf{Correlation drops sharply once corrected}
+      \begin{itemize}
+        \item Raw: Pearson $r=0.788$, Spearman $r=0.748$
+        \item Bias-corrected (\texttt{signal\_index}): Pearson $r=0.444$,
+              Spearman $r=0.398$
+        \item Peak-quarter concordance only 38.3\%
+        \item 48.4\% of industries show \textbf{zero} genuine
+              monthly-specific signal
+      \end{itemize}
+      \smallskip
+      \textbf{Real winner:} School and Employee Bus Transportation ---
+      signal index \textbf{1.00} vs.\ quarterly stock index \textbf{0.11}.
+      September's abrupt school-year start is averaged away with a quiet
+      summer in the same quarter.
+      \smallskip
+      \textbf{False signals, corrected to zero:} Skiing Facilities, RV
+      Parks, Golf Courses --- genuinely seasonal, but at a
+      quarterly-or-longer scale QWI already captures well.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
 \section{Income/Earnings Seasonality}
 % ══════════════════════════════════════════════════════════════════════════════
 
