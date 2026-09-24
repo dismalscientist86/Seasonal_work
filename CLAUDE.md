@@ -70,8 +70,16 @@ industry-group title hierarchy (via the same NAICS crosswalk lookup used in
 `state_index_percentiles.py`) so 6-digit codes are human-readable without a
 separate join.
 
-Top sectors by seasonal_index (mean peak_excess):
-- Agriculture (0.504, 15.7 p.p.) > Arts/entertainment (0.461, 14.3 p.p.) > Accommodation/food (0.345, 10.3 p.p.) > Education (0.272, 8.4 p.p.) > Construction (0.193, 5.9 p.p.)
+**Headline sector ranking excludes agriculture (2026-09)**: QWI's UI-based
+coverage of agricultural employment is historically weaker/partial relative
+to other industries, so agriculture's QWI-covered establishments may be a
+non-representative (more seasonal) slice of the true agricultural
+workforce — see "Agriculture Exclusion Check" below for the full
+sensitivity analysis. With agriculture excluded and the index
+re-winsorized:
+- Arts/entertainment (0.551, 14.3 p.p.) > Accommodation/food (0.395, 10.3 p.p.) > Education (0.332, 8.4 p.p.) > Construction (0.236, 5.9 p.p.) > Real estate (0.193, 5.6 p.p.)
+
+If agriculture is included, it ranks #1 (0.504, 15.7 p.p.) — see below.
 
 **Data-quality fix (Jul 2026)**: `seasonal_index.py` was missing the `sys.path`
 bootstrap present in every other `code/qwi/` script, so it silently depended on
@@ -268,6 +276,18 @@ adjacent services), not farming specifically. The states most sensitive to
 dropping agriculture: Oregon drops 8 ranks (18th -> 26th); Michigan and
 Mississippi also drop several ranks; West Virginia and Utah rise.
 
+**Decision (2026-09):** given how little the state-level story depends on
+agriculture, and the genuine UI-coverage concern raised in feedback,
+excluding agriculture is now the primary/default presentation throughout
+this project -- `geographic_analysis.py`'s headline figures (state bar
+chart, tile map, sector-variation chart, state x sector heatmap) and both
+slide decks' National Seasonality / Sector Summary / Geographic Variation
+content all exclude it. The full sample (agriculture included) is kept as
+a documented sensitivity check, not deleted -- `data/qwi_clean/seasonal_index_naics6.csv`
+and `seasonal_index_naics6_by_state.csv` are unchanged and still carry
+agriculture's rows, and `agriculture_exclusion_check.py`'s outputs plus a
+dedicated slide in both decks present the with-agriculture comparison.
+
 Outputs: `output/tables/agriculture_exclusion_sector_summary.csv`,
 `agriculture_exclusion_top_industries.csv`, `agriculture_exclusion_state_ranking.csv`,
 `output/figures/agriculture_exclusion_state_comparison.pdf/png`.
@@ -440,15 +460,26 @@ and the sector/subsector/industry-group title hierarchy now (same crosswalk
 merge as the national index), 100% matched across all 42,344 state × industry
 rows.
 
-Key finding: 2.8× gap between most seasonal (Alaska, 9.6 p.p.) and least seasonal
-(Texas, 3.4 p.p.) states — up from an originally-reported 2.4× (8.0 vs. 3.3 p.p.)
-after the degenerate-quarter fix above; small/sparse states like Alaska had more
-single-quarter cells to correct than large ones, so its true mean rose more.
+**Headline figures exclude agriculture (2026-09)** — see "Agriculture
+Exclusion Check" below; `make_figures()` computes `geo_state_mean_seasonality`,
+the tile map, `geo_sector_variation`, and the state×sector heatmap from the
+data with NAICS sector 11 dropped, and re-labels them accordingly.
+`geo_construction_agriculture_by_state.pdf` still uses the full sample,
+since it's explicitly and only about agriculture's own within-sector
+variation, shown for context.
+
+Key finding: 3.2× gap between most seasonal (Alaska, 9.5 p.p.) and least seasonal
+(Texas, 3.0 p.p.) states, excl. agriculture (up from 2.8× / 9.6 vs. 3.4 p.p.
+when agriculture is included — see sensitivity check below). Earlier still,
+this ratio was 2.4× (8.0 vs. 3.3 p.p.) before the degenerate-quarter fix
+above; small/sparse states like Alaska had more single-quarter cells to
+correct than large ones, so its true mean rose more.
 Construction: MN 19.7 p.p. vs FL 2.6 p.p. (8× gap, unchanged) — Alaska newly
 enters construction's state top-5 (18.7 p.p.) post-fix, previously absent.
-Cross-state variation (SD) is now led by Agriculture (14.5 p.p.) and
-Arts/entertainment (13.4 p.p.); Construction (9.6 p.p.) drops behind
-Accommodation/food (10.8 p.p.) into 4th, from 3rd pre-fix.
+Cross-state variation (SD), excl. agriculture, is now led by Arts/entertainment
+(13.4 p.p.) and Accommodation/food (10.8 p.p.); Construction (9.6 p.p.) is
+3rd, ahead of Educational services (9.3 p.p.), which enters the top 4 once
+agriculture (formerly #1 at 14.5 p.p.) is dropped.
 Implication: use state × NAICS index for firm classification when state is known.
 
 **Data-coverage caveat (2026-09)**: per-state QWI year coverage is uneven.
@@ -844,7 +875,7 @@ python code/establishment_size_analysis.py # do seasonal industries skew toward 
 - [x] County-level seasonal exposure index (`county_seasonal_index.py`) — fetched CBP NAICS-6 and NAICS-4 for California, built a 3-tier fallback (state NAICS6 -> national NAICS6 -> national NAICS4) reaching 100% employment coverage in all 58 CA counties. Case study: Yolo County ranks 41st of 58 (30th percentile) -- less seasonal than ~2/3 of CA counties despite being an ag county, because its employment is dominated by large stable service/logistics employers, not its small-but-extreme agricultural niches
 - [ ] Fetch and merge County Business Patterns (CBP) data nationally for a 51-state county-level index (California pilot validated; full run not yet launched, ~21-22hrs)
 - [x] Seasonality-over-time trend check (`seasonality_trend_check.py`) — 2000-2010 vs. 2011-2023. Economy-wide mean is essentially flat (0.131 -> 0.122), but masks real reshuffling: **as of a 2026-09 pipeline re-run, Educational services fell most (-0.053) and Construction kept falling (-0.047); Agriculture also fell (-0.037), reversing an earlier read of this same check that had reported Agriculture as the largest increaser off older QWI data (see correction note under "Has Seasonality Changed Over Time?" above) — the H-2A guest-worker hypothesis floated there is retracted**. Correlation (Pearson 0.931/Spearman 0.826) is meaningfully lower than the COVID check's, as expected for an 11-year period gap vs. excluding 2 years; the elevated peak-quarter-change rate (30.2%) concentrates in weakly-seasonal industries (noise), not strongly-seasonal ones
-- [x] Agriculture exclusion check (`agriculture_exclusion_check.py`) — responds to feedback that agriculture's weaker/partial UI coverage could make it look more seasonal in the QWI than it truly is. Sector ranking reshuffles once agriculture is dropped and the index re-winsorized (Arts/entertainment becomes #1 at 0.551; the "most seasonal industries" list changes completely — Drive-In Theaters, Recreational Goods Rental, Mobile Food Services, etc.), but **state-level rankings barely move** (Pearson r=0.991, Spearman r=0.989 vs. full sample) — Alaska stays most seasonal (9.58 -> 9.45 p.p.) and Texas stays least seasonal (3.43 -> 2.99 p.p.) either way, implying Alaska's seasonality is driven mainly by non-agricultural industries, not farming
+- [x] Agriculture exclusion check (`agriculture_exclusion_check.py`) — responds to feedback that agriculture's weaker/partial UI coverage could make it look more seasonal in the QWI than it truly is. Sector ranking reshuffles once agriculture is dropped and the index re-winsorized (Arts/entertainment becomes #1 at 0.551; the "most seasonal industries" list changes completely — Drive-In Theaters, Recreational Goods Rental, Mobile Food Services, etc.), but **state-level rankings barely move** (Pearson r=0.991, Spearman r=0.989 vs. full sample) — Alaska stays most seasonal (9.58 -> 9.45 p.p.) and Texas stays least seasonal (3.43 -> 2.99 p.p.) either way, implying Alaska's seasonality is driven mainly by non-agricultural industries, not farming. **Decision: excluding agriculture is now the primary/default presentation** — `geographic_analysis.py`'s headline figures and both slide decks were updated accordingly; the full sample is kept as a documented sensitivity check (new slide in each deck), not deleted
 - [ ] Apply firm-level code on other machine
 - [x] Published the derived index CSVs in `data/qwi_clean/` (national, state x NAICS6, earnings) to the public repo with a codebook per file; `.gitignore` carved out `data/*` + `!data/qwi_clean/` so raw inputs stay untracked
 - [x] Deduplicated the cyclical excess-by-quarter calc into `code/qwi/excess_utils.py` — was copy-pasted 4x (separations, employment/stock, earnings, state-level); all callers verified byte-identical after the refactor

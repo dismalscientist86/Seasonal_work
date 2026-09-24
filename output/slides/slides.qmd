@@ -106,33 +106,37 @@ $$
 
 | NAICS & description | ExcessPeak | $n$ |
 |---|---|---|
-| 111336 Fruit/tree nut combo farm. | 0.333 | 18 |
-| 722330 Mobile food services | 0.316 | 18 |
-| 111140 Wheat farming | 0.287 | 20 |
-| 111160 Rice farming | 0.563 | 22 |
-| 111199 Other grain farming | 0.398 | 23 |
-| 111219 Other veg. (ex. potato) farm. | 0.462 | 16 |
-| 111998 Other misc. crop farming | 0.328 | 20 |
-| 111120 Oilseed (ex. soybean) farm. | 0.348 | 12 |
-| 115113 Crop harvesting (machine) | 0.398 | 10 |
 | 512132 Drive-in motion picture theaters | 0.363 | 21 |
 | 532284 Recreational goods rental | 0.485 | 22 |
-| 111191 Oilseed/grain combo farm. | 0.321 | 23 |
+| 722330 Mobile food services | 0.316 | 18 |
+| 525120 Health and welfare funds | 0.310 | 21 |
+| 713990 Other amusement/recreation | 0.325 | 24 |
+| 311313 Beet sugar manufacturing | 0.335 | 23 |
+| 721211 RV parks and campgrounds | 0.252 | 23 |
+| 711212 Racetracks | 0.238 | 23 |
+| 611710 Educational support services | 0.239 | 17 |
+| 487210 Scenic/sightseeing water transport. | 0.269 | 23 |
+| 312113 Ice manufacturing | 0.292 | 24 |
+| 611620 Sports/recreation instruction | 0.310 | 24 |
 
-: Top 12 most seasonal 6-digit NAICS industries (national)
+: Top 12 most seasonal 6-digit NAICS industries (national, excl. agriculture)
 
 :::
 ::: {.column width="40%"}
 
+- **Excludes agriculture** (NAICS 11) --- QWI's UI-based coverage of
+  agricultural employment is historically weaker/partial, so it may look
+  more seasonal here than it truly is (see sensitivity check)
 - $n$ = years contributing to ExcessPeak estimate; a $\geq 5$-year minimum
   is enforced so thin, disclosure-suppressed cells can't masquerade as
   extreme seasonality
-- Non-agriculture entries are intuitive once named: mobile food services
-  (food trucks), drive-in theaters, recreational goods rental
+- Entries are intuitive once named: mobile food services (food trucks),
+  drive-in theaters, ice manufacturing (summer demand), beet sugar
+  manufacturing (harvest season)
 - Seasonal index normalized to [0,1] via 99th-pct winsorization ---
-  raw amplitude is right-skewed (median 0.03, max 0.96), so dividing
-  by the true max would compress everyone else near 0; cost is that
-  the top ~10 industries all tie at exactly 1.00
+  raw amplitude is right-skewed, so dividing by the true max would
+  compress everyone else near 0; cost is that the top industries tie
+  at exactly 1.00
 - Correlation with CP 1-digit rankings: $\rho = 0.829$
 
 :::
@@ -142,23 +146,24 @@ $$
 
 | Sector | Mean seasonal index | ExcessPeak (p.p.) |
 |---|---|---|
-| Agriculture, forestry, fishing | 0.504 | 15.7 |
-| Arts, entertainment & recreation | 0.461 | 14.3 |
-| Accommodation & food services | 0.345 | 10.3 |
-| Educational services | 0.272 | 8.4 |
-| Construction | 0.193 | 5.9 |
-| Real estate | 0.167 | 5.6 |
-| Warehousing & couriers | 0.135 | 4.6 |
-| Other services | 0.134 | 4.2 |
-| Health care & social assistance | 0.067 | 2.2 |
-| Wholesale trade | 0.063 | 1.8 |
-| Manufacturing (metals/machinery) | 0.036 | 1.1 |
+| Arts, entertainment & recreation | 0.551 | 14.3 |
+| Accommodation & food services | 0.395 | 10.3 |
+| Educational services | 0.332 | 8.4 |
+| Construction | 0.236 | 5.9 |
+| Real estate | 0.193 | 5.6 |
+| Other services | 0.163 | 4.2 |
+| Retail trade | 0.149 | 3.5 |
+| Transportation & warehousing | 0.134 | 3.5 |
+| Health care & social assistance | 0.081 | 2.2 |
+| Wholesale trade | 0.077 | 1.8 |
+| Manufacturing | 0.065 | 1.7 |
 
-: Mean seasonal index by 2-digit sector (national)
+: Mean seasonal index by 2-digit sector (national, excl. agriculture)
 
-Education peaks in Q2 (end of school year), not Q4 --- ExcessPeak is
-positive across all sectors. CP's 1-digit rankings confirmed at finer
-granularity.
+Excludes agriculture (see sensitivity check) --- if included, it would
+rank #1 (0.504). Education peaks in Q2 (end of school year), not Q4 ---
+ExcessPeak is positive across all sectors. CP's 1-digit rankings confirmed
+at finer granularity.
 
 ## Robustness Check: Does COVID Distort the Index?
 
@@ -239,22 +244,23 @@ granularity.
 
 - The national index masks substantial state-level heterogeneity
 - We compute ExcessPeak for each state $\times$ 6-digit NAICS cell (42,344
-  cells with $\geq 5$ year-observations)
+  cells with $\geq 5$ year-observations); **excludes agriculture**
+  throughout (see sensitivity check)
 
-- **Main finding:** a 2.8$\times$ gap between most and least seasonal
-  states in mean peak excess (Alaska: 9.6 p.p. vs. Texas: 3.4 p.p.)
+- **Main finding:** a 3.2$\times$ gap between most and least seasonal
+  states in mean peak excess (Alaska: 9.5 p.p. vs. Texas: 3.0 p.p.)
 - Northern/Great Plains states consistently more seasonal across multiple
   sectors; Sun Belt states consistently less so
 
 **Most geographically variable sectors:**
 
-1. Agriculture (cross-state SD = 14.5 p.p.)
-2. Arts & entertainment (SD = 13.4 p.p.)
-3. Accommodation/food (SD = 10.8 p.p.)
-4. Construction (SD = 9.6 p.p.)
+1. Arts & entertainment (cross-state SD = 13.4 p.p.)
+2. Accommodation/food (SD = 10.8 p.p.)
+3. Construction (SD = 9.6 p.p.)
+4. Educational services (SD = 9.3 p.p.)
 
-- **Least geographically variable:** healthcare, metals manufacturing,
-  utilities --- consistent low seasonality everywhere
+- **Least geographically variable:** management of companies, metals
+  manufacturing, healthcare --- consistent low seasonality everywhere
 
 - **Caveat:** per-state QWI coverage years are uneven --- 40 of 51 states
   span the full 2000--2023 window, but 11 have partial coverage.
@@ -269,10 +275,40 @@ granularity.
 
 ![](../figures/geo_construction_agriculture_by_state.png)
 
+Agriculture panel shown for context only (excluded from headline figures
+above --- see sensitivity check).
 **Construction:** Minnesota (19.7 p.p.) vs. Florida (2.6 p.p.) --- an
 8$\times$ gap driven by winter construction shutdowns in northern states.
 **Agriculture:** North Dakota (29.6 p.p.) leads, ahead of Michigan (23.5
 p.p.), Alaska (23.1 p.p.), Montana, and Idaho.
+
+## Robustness Check: Does Excluding Agriculture Matter?
+
+- **Motivation:** QWI/LEHD UI wage-record coverage for agricultural
+  employment is historically weaker/partial relative to other industries
+  (state-level UI exemptions for small ag employers; later coverage
+  extension in several states) --- so agriculture's QWI-covered
+  establishments may be a non-representative (more seasonal) slice of the
+  true agricultural workforce
+- **Test:** recompute the sector and state rankings excluding NAICS
+  sector 11 (crop production, animal production, forestry/logging,
+  fishing/hunting, and support activities for agriculture)
+
+**Result: sector ranking reshuffles; state ranking barely moves.**
+
+- Sector level: Agriculture (0.504) drops out; Arts & entertainment
+  becomes the new #1 (0.461 $\to$ 0.551 after re-winsorization); the
+  top-12 individual-industries list changes completely
+- State level: full-sample vs. excluding-agriculture rankings correlate
+  at Pearson $r=0.991$, Spearman $r=0.989$ --- **Alaska stays most
+  seasonal** (9.58 $\to$ 9.45 p.p.) and **Texas stays least seasonal**
+  (3.43 $\to$ 2.99 p.p.) either way
+
+**Interpretation:** Alaska's high seasonality is driven mainly by
+*non-agricultural* seasonal industries (plausibly tourism/fishing-adjacent
+services), not farming --- the geographic story does not rest on
+agriculture's contested UI coverage, so the headline figures in this deck
+exclude it as the more defensible choice.
 
 ## State-Specific Top and Bottom 1% Industries
 

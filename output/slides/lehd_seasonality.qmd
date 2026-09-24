@@ -94,17 +94,21 @@ $$
 
 ## National Seasonality
 
+- **Excludes agriculture** (NAICS 11) throughout --- QWI's UI-based coverage
+  of agricultural employment is historically weaker/partial, so it may look
+  more seasonal here than it truly is (see sensitivity check below)
+
 | NAICS & description | Seasonal index | Excess recurrence | Peak quarter |
 |---|---|---|---|
-| 111336 Fruit/tree nut combo farm. | 1.00 | 0.333 | Q4 |
-| 722330 Mobile food services | 1.00 | 0.316 | Q3 |
-| 111160 Rice farming | 1.00 | 0.563 | Q4 |
-| 111199 Other grain farming | 1.00 | 0.398 | Q4 |
-| 115113 Crop harvesting (machine) | 1.00 | 0.398 | Q4 |
 | 512132 Drive-in motion picture theaters | 1.00 | 0.363 | Q3 |
 | 532284 Recreational goods rental | 1.00 | 0.485 | Q3 |
+| 722330 Mobile food services | 1.00 | 0.316 | Q3 |
+| 525120 Health and welfare funds | 1.00 | 0.310 | Q4 |
+| 713990 Other amusement/recreation | 1.00 | 0.325 | Q3 |
+| 311313 Beet sugar manufacturing | 1.00 | 0.335 | Q4 |
+| 721211 RV parks and campgrounds | 1.00 | 0.252 | Q4 |
 
-: Most seasonal 6-digit NAICS industries (national)
+: Most seasonal 6-digit NAICS industries (national, excl. agriculture)
 
 ## Seasonality by Sector
 
@@ -113,32 +117,31 @@ $$
 
 | Sector | Seas. idx | Excess rec. | Peak Q |
 |---|---|---|---|
-| Agriculture, forestry, fishing | 0.504 | 0.157 | Q4 |
-| Arts, entertainment & recreation | 0.461 | 0.143 | Q3 |
-| Accommodation & food services | 0.345 | 0.103 | Q3 |
-| Educational services | 0.272 | 0.084 | Q2 |
-| Construction | 0.193 | 0.059 | Q4 |
-| Real estate | 0.166 | 0.056 | Q4 |
-| Other services | 0.134 | 0.042 | Q3 |
-| Professional & technical services | 0.129 | 0.040 | Q4 |
-| Retail trade | 0.122 | 0.035 | Q3 |
-| Information | 0.119 | 0.039 | Q4 |
+| Arts, entertainment & recreation | 0.551 | 0.143 | Q3 |
+| Accommodation & food services | 0.395 | 0.103 | Q3 |
+| Educational services | 0.332 | 0.084 | Q2 |
+| Construction | 0.236 | 0.059 | Q4 |
+| Real estate | 0.193 | 0.056 | Q4 |
+| Other services | 0.163 | 0.042 | Q3 |
+| Professional & technical services | 0.157 | 0.040 | Q4 |
+| Retail trade | 0.149 | 0.035 | Q3 |
+| Public administration | 0.143 | 0.038 | Q3 |
+| Administrative & waste services | 0.141 | 0.032 | Q4 |
 
 :::
 ::: {.column width="50%"}
 
 | Sector | Seas. idx | Excess rec. | Peak Q |
 |---|---|---|---|
-| Public administration | 0.117 | 0.038 | Q3 |
-| Administrative & waste services | 0.115 | 0.032 | Q4 |
-| Transportation & warehousing | 0.110 | 0.035 | Q4 |
-| Finance & insurance | 0.101 | 0.033 | Q4 |
-| Mining, quarrying, oil & gas | 0.088 | 0.027 | Q4 |
-| Health care & social assistance | 0.066 | 0.022 | Q3 |
-| Wholesale trade | 0.063 | 0.018 | Q4 |
-| Management of companies | 0.061 | 0.021 | Q4 |
-| Manufacturing | 0.053 | 0.017 | Q3 |
-| Utilities | 0.049 | 0.014 | Q3 |
+| Information | 0.138 | 0.039 | Q4 |
+| Transportation & warehousing | 0.134 | 0.035 | Q4 |
+| Finance & insurance | 0.119 | 0.033 | Q4 |
+| Mining, quarrying, oil & gas | 0.107 | 0.027 | Q4 |
+| Health care & social assistance | 0.081 | 0.022 | Q3 |
+| Wholesale trade | 0.077 | 0.018 | Q4 |
+| Management of companies | 0.075 | 0.021 | Q4 |
+| Manufacturing | 0.065 | 0.017 | Q3 |
+| Utilities | 0.060 | 0.014 | Q3 |
 
 :::
 :::
@@ -180,14 +183,28 @@ $$
 
 ![](../figures/geo_state_mean_seasonality.png){fig-align="center" height="500"}
 
-- **2.8$\times$ gap** between the most seasonal (Alaska, 9.6 p.p.) and
-  least seasonal (Texas, 3.4 p.p.) states
+- **3.2$\times$ gap** between the most seasonal (Alaska, 9.5 p.p.) and
+  least seasonal (Texas, 3.0 p.p.) states (excl. agriculture)
 - Northern/Great Plains states consistently more seasonal; Sun Belt
   states consistently less so
 - **Caveat:** per-state QWI coverage years are uneven --- 40 of 51 states
   span the full 2000--2023 window, but 11 have partial coverage.
   **Alaska only has data through 2016** (missing 2017--2023); Massachusetts
   only starts in 2010
+
+## Sensitivity Check: Including Agriculture
+
+![](../figures/agriculture_exclusion_state_comparison.png){fig-align="center" height="480"}
+
+- **State-level story is robust either way**: full sample vs.
+  excluding-agriculture state rankings correlate at Pearson $r=0.991$,
+  Spearman $r=0.989$ --- Alaska is most seasonal and Texas is least
+  seasonal under *both* versions
+- **What does change if agriculture is included:** it becomes the top
+  sector nationally (0.50 seasonal index) and dominates the "most seasonal
+  industries" list (rice, grain, and fruit/nut farming)
+- **Bottom line:** the choice to exclude agriculture changes *which
+  industries* look most seasonal, but not *which states* do
 
 ## Where This Goes Next
 

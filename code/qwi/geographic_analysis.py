@@ -8,6 +8,19 @@ Computes a reusable state x NAICS6 seasonal index, then produces:
   4. State tile map: mean state seasonality
   5. Heatmap: state x sector for top variable sectors
 
+Figures 1, 1b, 2, and 4 (the state-level "how seasonal is this state overall"
+figures) exclude agriculture (NAICS sector 11) as of 2026-09 -- QWI/LEHD UI
+wage-record coverage for agricultural employment is historically weaker/
+partial relative to other industries (state-level UI exemptions for small
+ag employers; later coverage extension in several states), so agriculture's
+QWI-covered establishments may be a non-representative (more seasonal)
+slice of the true agricultural workforce. See agriculture_exclusion_check.py
+for the full sensitivity analysis: state-level rankings barely move either
+way (Pearson r=0.991 vs. including agriculture), so this exclusion doesn't
+rest on a knife's edge, but it is the more defensible headline number. Fig 3
+(construction and agriculture by state) still uses the full sample, since
+it is explicitly and only about agriculture's own within-sector variation.
+
 Outputs:
   data/qwi_clean/seasonal_index_naics6_by_state.csv
 """
@@ -249,9 +262,12 @@ def make_figures(si: pd.DataFrame):
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     TABLES_DIR.mkdir(parents=True, exist_ok=True)
 
-    state_avg = si.groupby("state_name")["peak_excess"].mean().sort_values(ascending=True)
+    # Primary analysis excludes agriculture -- see module docstring.
+    si_primary = si[si["sector_2d"] != "11"].copy()
+
+    state_avg = si_primary.groupby("state_name")["peak_excess"].mean().sort_values(ascending=True)
     sector_var = (
-        si.groupby("sector_label")["peak_excess"]
+        si_primary.groupby("sector_label")["peak_excess"]
         .agg(["mean", "std"])
         .sort_values("std", ascending=True)
     )
@@ -266,7 +282,8 @@ def make_figures(si: pd.DataFrame):
     ax.bar(state_avg_desc.index, state_avg_desc.values * 100, color=colors)
     ax.axhline(med * 100, color="black", lw=0.8, ls="--", label=f"Median ({med*100:.2f} p.p.)")
     ax.set_ylabel("Mean peak quarter excess separation rate (p.p.)")
-    ax.set_title("State-level seasonality\n(mean peak excess across 6-digit NAICS industries)")
+    ax.set_title("State-level seasonality\n"
+                 "(mean peak excess across 6-digit NAICS industries, excl. agriculture)")
     ax.set_xticks(range(len(state_avg_desc)))
     ax.set_xticklabels(state_avg_desc.index, rotation=90, fontsize=7)
     ax.set_xlim(-0.7, len(state_avg_desc) - 0.3)
@@ -313,7 +330,7 @@ def make_figures(si: pd.DataFrame):
     cbar.ax.yaxis.set_major_formatter(mtick.FuncFormatter(lambda x, pos: f"{x*100:.1f}"))
     ax.set_title(
         "State-level seasonality\n"
-        "Mean peak excess separation rate across 6-digit NAICS industries",
+        "Mean peak excess separation rate across 6-digit NAICS industries (excl. agriculture)",
         loc="left", fontsize=12,
     )
     fig.tight_layout()
@@ -327,7 +344,8 @@ def make_figures(si: pd.DataFrame):
     ax.barh(sector_var.index, sector_var["std"] * 100, color="steelblue", label="Cross-state SD")
     ax.barh(sector_var.index, sector_var["mean"] * 100, color="orange", alpha=0.7, label="National mean")
     ax.set_xlabel("Peak quarter excess separation rate (p.p.)")
-    ax.set_title("Geographic variation in seasonality by sector\n(cross-state standard deviation vs. national mean)")
+    ax.set_title("Geographic variation in seasonality by sector\n"
+                 "(cross-state standard deviation vs. national mean, excl. agriculture)")
     ax.legend(fontsize=8)
     fig.tight_layout()
     fig.savefig(FIGURES_DIR / "geo_sector_variation.pdf", bbox_inches="tight")
@@ -354,15 +372,15 @@ def make_figures(si: pd.DataFrame):
     print("Saved: geo_construction_agriculture_by_state.pdf")
 
     # ── Fig 4: Heatmap — state x sector ───────────────────────────────────────
-    top_sectors = si.groupby("sector_label")["peak_excess"].std().nlargest(8).index.tolist()
+    top_sectors = si_primary.groupby("sector_label")["peak_excess"].std().nlargest(8).index.tolist()
     state_order = (
-        si.groupby("state_name")["peak_excess"]
+        si_primary.groupby("state_name")["peak_excess"]
         .mean()
         .sort_values(ascending=False)
         .index.tolist()
     )
     heat = (
-        si[si["sector_label"].isin(top_sectors)]
+        si_primary[si_primary["sector_label"].isin(top_sectors)]
         .pivot_table(index="state_name", columns="sector_label", values="peak_excess", aggfunc="mean")
         .reindex(state_order)
     )
@@ -377,7 +395,8 @@ def make_figures(si: pd.DataFrame):
     plt.colorbar(im, ax=ax, label="Peak excess sep. rate (p.p.)")
     ax.set_title(
         "Peak excess separation rate: state x sector\n"
-        "(states sorted by overall seasonality; top 8 sectors by geographic variation)",
+        "(states sorted by overall seasonality; top 8 sectors by geographic "
+        "variation, excl. agriculture)",
         fontsize=9,
     )
     fig.tight_layout()
@@ -389,7 +408,8 @@ def make_figures(si: pd.DataFrame):
 
 
 def print_key_numbers(si: pd.DataFrame, state_avg: pd.Series):
-    print("\n=== KEY NUMBERS ===")
+    print("\n=== KEY NUMBERS (excl. agriculture -- see agriculture_exclusion_check.py "
+          "for the with-agriculture sensitivity numbers) ===")
     print(f"Most seasonal:  {state_avg.idxmax()} ({state_avg.max()*100:.2f} p.p.)")
     print(f"Least seasonal: {state_avg.idxmin()} ({state_avg.min()*100:.2f} p.p.)")
     print(f"Ratio max/min:  {state_avg.max()/state_avg.min():.1f}x")
