@@ -217,6 +217,61 @@ as *less* seasonal in the later period, the opposite direction — and treat
 any seasonality-trend finding as good only as of its last actual run against
 current data.
 
+### Agriculture Exclusion Check
+
+Feedback received (2026-09): agricultural UI coverage in the QWI is
+historically weaker/partial relative to most industries (some states
+exempt small agricultural employers, and coverage was extended to
+agriculture later than to other sectors in several states). If the
+QWI-covered slice of agricultural establishments is a non-representative
+(more seasonal, more UI-compliant) subset of the true agricultural
+workforce, the sector could look more seasonal in this index than
+agricultural employment as a whole actually is. `code/qwi/agriculture_exclusion_check.py`
+asks how much of the headline ranking depends on agriculture (NAICS sector
+11 -- crop production, animal production, forestry/logging, fishing/
+hunting/trapping, and support activities for agriculture and forestry).
+
+Unlike the COVID/trend checks, this doesn't reload raw QWI or recompute
+excess-by-quarter: each industry's `seasonal_amplitude`/`peak_excess` is
+computed independently of every other industry, so dropping agriculture's
+rows from the already-committed clean CSVs is methodologically identical
+to excluding it from the QWI input before the pipeline runs. The one thing
+that does need recomputing is `seasonal_index` itself, since it's built by
+winsorizing `seasonal_amplitude` at the 99th percentile of whichever pool
+of industries is included -- removing agriculture (some of the largest
+amplitudes nationally) shifts that threshold for everyone else, so the
+script re-winsorizes after dropping agriculture rather than just deleting
+them from the existing index column.
+
+**Result: sector ranking reshuffles, but state-level rankings barely
+move.** Agriculture (0.504) drops out; **Arts, entertainment & recreation
+becomes the new #1 sector** (0.461 -> 0.551 after re-winsorization),
+followed by Accommodation & food (0.395), Educational services (0.332),
+Construction (0.236) -- every remaining sector's index rises somewhat
+mechanically since the 99th-percentile threshold falls once agriculture's
+large amplitudes are removed. The "most seasonal individual industries"
+list changes completely without agriculture: Drive-In Motion Picture
+Theaters, Recreational Goods Rental, Mobile Food Services, Health and
+Welfare Funds, All Other Amusement/Recreation, Beet Sugar Manufacturing,
+RV Parks & Campgrounds, Racetracks, Educational Support Services, and
+Scenic/Sightseeing Water Transportation.
+
+At the **state level**, full-sample and ex-agriculture rankings correlate
+at Pearson r=0.991, Spearman r=0.989 -- agriculture is not doing much work
+in the state-level headline finding. **Alaska remains the most seasonal
+state either way** (9.58 -> 9.45 p.p., barely changed) and **Texas remains
+least seasonal** (3.43 -> 2.99 p.p.); the max/min gap actually widens
+slightly (2.8x -> 3.2x), since Texas's non-agricultural seasonality is even
+lower relatively. This implies Alaska's high seasonality is driven mainly
+by *non-agricultural* seasonal industries (plausibly tourism/fishing-
+adjacent services), not farming specifically. The states most sensitive to
+dropping agriculture: Oregon drops 8 ranks (18th -> 26th); Michigan and
+Mississippi also drop several ranks; West Virginia and Utah rise.
+
+Outputs: `output/tables/agriculture_exclusion_sector_summary.csv`,
+`agriculture_exclusion_top_industries.csv`, `agriculture_exclusion_state_ranking.csv`,
+`output/figures/agriculture_exclusion_state_comparison.pdf/png`.
+
 ### Flow vs. Stock Seasonal Index Comparison
 
 The seasonal index has always been built two ways in parallel: **flow**
@@ -662,6 +717,7 @@ code/
 │   ├── state_index_percentiles.py   # Within-state top/bottom-1% seasonality + national/cross-state overlap
 │   ├── covid_robustness_check.py    # Pre-COVID (2000-19) vs. full-sample index comparison
 │   ├── seasonality_trend_check.py   # 2000-10 vs. 2011-23: has seasonality changed over time?
+│   ├── agriculture_exclusion_check.py # Full sample vs. excluding agriculture: how much depends on ag's weaker UI coverage?
 │   ├── earnings_index.py            # Income seasonality (EarnBeg): does income dip in the off-season?
 │   ├── clean_naics_xwalk.py         # Census NAICS structure workbook -> naics6 title lookup
 │   ├── national_state_scatterplot.py  # diagnostic: state vs. national seasonal index scatter
@@ -743,6 +799,7 @@ python code/qwi/clean_naics_xwalk.py       # (optional) build NAICS6 title looku
 python code/qwi/state_index_percentiles.py # within-state top/bottom-1% seasonality + overlap
 python code/qwi/covid_robustness_check.py  # pre-COVID vs. full-sample index comparison
 python code/qwi/seasonality_trend_check.py # 2000-10 vs. 2011-23: has seasonality changed over time?
+python code/qwi/agriculture_exclusion_check.py # full sample vs. excluding agriculture (weaker UI coverage concern)
 python code/qwi/seasonal_index.py --compare-flow-stock both  # flow vs. stock index comparison
 python code/qwi/earnings_index.py          # income/earnings seasonality + off-season income-dip test
 python code/qwi/hire_index.py              # hiring seasonality + hire-vs-separation timing [needs fetch_qwi.py rerun for HirA]
@@ -787,6 +844,7 @@ python code/establishment_size_analysis.py # do seasonal industries skew toward 
 - [x] County-level seasonal exposure index (`county_seasonal_index.py`) — fetched CBP NAICS-6 and NAICS-4 for California, built a 3-tier fallback (state NAICS6 -> national NAICS6 -> national NAICS4) reaching 100% employment coverage in all 58 CA counties. Case study: Yolo County ranks 41st of 58 (30th percentile) -- less seasonal than ~2/3 of CA counties despite being an ag county, because its employment is dominated by large stable service/logistics employers, not its small-but-extreme agricultural niches
 - [ ] Fetch and merge County Business Patterns (CBP) data nationally for a 51-state county-level index (California pilot validated; full run not yet launched, ~21-22hrs)
 - [x] Seasonality-over-time trend check (`seasonality_trend_check.py`) — 2000-2010 vs. 2011-2023. Economy-wide mean is essentially flat (0.131 -> 0.122), but masks real reshuffling: **as of a 2026-09 pipeline re-run, Educational services fell most (-0.053) and Construction kept falling (-0.047); Agriculture also fell (-0.037), reversing an earlier read of this same check that had reported Agriculture as the largest increaser off older QWI data (see correction note under "Has Seasonality Changed Over Time?" above) — the H-2A guest-worker hypothesis floated there is retracted**. Correlation (Pearson 0.931/Spearman 0.826) is meaningfully lower than the COVID check's, as expected for an 11-year period gap vs. excluding 2 years; the elevated peak-quarter-change rate (30.2%) concentrates in weakly-seasonal industries (noise), not strongly-seasonal ones
+- [x] Agriculture exclusion check (`agriculture_exclusion_check.py`) — responds to feedback that agriculture's weaker/partial UI coverage could make it look more seasonal in the QWI than it truly is. Sector ranking reshuffles once agriculture is dropped and the index re-winsorized (Arts/entertainment becomes #1 at 0.551; the "most seasonal industries" list changes completely — Drive-In Theaters, Recreational Goods Rental, Mobile Food Services, etc.), but **state-level rankings barely move** (Pearson r=0.991, Spearman r=0.989 vs. full sample) — Alaska stays most seasonal (9.58 -> 9.45 p.p.) and Texas stays least seasonal (3.43 -> 2.99 p.p.) either way, implying Alaska's seasonality is driven mainly by non-agricultural industries, not farming
 - [ ] Apply firm-level code on other machine
 - [x] Published the derived index CSVs in `data/qwi_clean/` (national, state x NAICS6, earnings) to the public repo with a codebook per file; `.gitignore` carved out `data/*` + `!data/qwi_clean/` so raw inputs stay untracked
 - [x] Deduplicated the cyclical excess-by-quarter calc into `code/qwi/excess_utils.py` — was copy-pasted 4x (separations, employment/stock, earnings, state-level); all callers verified byte-identical after the refactor

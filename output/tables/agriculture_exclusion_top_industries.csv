@@ -1,0 +1,11 @@
+naics_code_full,national_industry_title_full,sector_label_full,seasonal_index_full,peak_excess_full,peak_quarter_full,n_excess_obs_full,naics_code_exag,national_industry_title_exag,sector_label_exag,seasonal_index_exag,peak_excess_exag,peak_quarter_exag,n_excess_obs_exag
+512132,Drive-In Motion Picture Theaters,Information,1.0,0.3633011624018609,3.0,21.0,512132,Drive-In Motion Picture Theaters,Information,1.0,0.3633011624018609,3.0,21.0
+111199,All Other Grain Farming,"Agriculture, forestry, fishing",1.0,0.3978473385729851,4.0,23.0,532284,Recreational Goods Rental,Real estate,1.0,0.484871738812808,3.0,22.0
+111336,Fruit and Tree Nut Combination Farming,"Agriculture, forestry, fishing",1.0,0.3330033895997136,4.0,18.0,722330,Mobile Food Services,Accommodation & food services,1.0,0.3160794174324675,3.0,18.0
+115113,"Crop Harvesting, Primarily by Machine","Agriculture, forestry, fishing",1.0,0.3977713072860586,4.0,10.0,525120,Health and Welfare Funds,Finance & insurance,1.0,0.3096860422980581,4.0,21.0
+532284,Recreational Goods Rental,Real estate,1.0,0.484871738812808,3.0,22.0,713990,All Other Amusement and Recreation Industries,"Arts, entertainment & recreation",1.0,0.3246038411497486,3.0,24.0
+111219,Other Vegetable (except Potato) and Melon Farming,"Agriculture, forestry, fishing",1.0,0.4619976327474054,4.0,16.0,311313,Beet Sugar Manufacturing,Manufacturing - food/textiles,1.0,0.3351833929152646,4.0,23.0
+111998,All Other Miscellaneous Crop Farming,"Agriculture, forestry, fishing",1.0,0.3280174682986663,4.0,20.0,721211,RV (Recreational Vehicle) Parks and Campgrounds,Accommodation & food services,1.0,0.2518733371887629,4.0,23.0
+111160,Rice Farming,"Agriculture, forestry, fishing",1.0,0.5625430222876308,4.0,22.0,711212,Racetracks,"Arts, entertainment & recreation",1.0,0.2382521286942374,4.0,23.0
+111120,Oilseed (except Soybean) Farming,"Agriculture, forestry, fishing",1.0,0.3481982524329453,4.0,12.0,611710,Educational Support Services,Educational services,1.0,0.2386502278446283,2.0,17.0
+111140,Wheat Farming,"Agriculture, forestry, fishing",1.0,0.2868493791888385,4.0,20.0,487210,"Scenic and Sightseeing Transportation, Water",Transportation,1.0,0.2685814466325185,4.0,23.0
