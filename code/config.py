@@ -42,6 +42,11 @@ XWALK      = REPO_ROOT / "data" / "naics_xwalk"
 CBP_RAW    = REPO_ROOT / "data" / "cbp_raw"
 CBP_CLEAN  = REPO_ROOT / "data" / "cbp_clean"
 
+# QCEW (Quarterly Census of Employment and Wages) data -- monthly employment,
+# no separations/hires (stock only). See code/qcew/fetch_qcew.py.
+QCEW_RAW   = REPO_ROOT / "data" / "qcew_raw"
+QCEW_CLEAN = REPO_ROOT / "data" / "qcew_clean"
+
 # Firm-level data (path on the other machine — override via env var or arg)
 FIRM_DATA  = REPO_ROOT / "data" / "firm_level"
 
@@ -91,6 +96,9 @@ QWI_NAICS_LEVEL = 6
 
 # QWI: years to fetch
 QWI_YEARS = list(range(2000, 2024))
+
+# QCEW: years to fetch (same window as QWI, for direct comparison)
+QCEW_YEARS = list(range(2000, 2024))
 
 # QWI: minimum number of year-observations required to report an excessQ estimate.
 # Cells with fewer contributing years are set to NaN rather than treated as
