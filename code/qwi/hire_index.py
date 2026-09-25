@@ -61,6 +61,8 @@ from config import QWI_RAW, QWI_CLEAN, FIGURES_DIR, TABLES_DIR, MIN_EXCESS_OBS, 
 from seasonal_index import load_qwi, NAICS_SECTOR_LABELS, load_naics_titles, add_naics_titles
 from excess_utils import cyclical_excess_by_quarter
 
+AGRICULTURE_SECTOR = "11"
+
 
 #  Hire rate / excess computation (mirrors compute_sep_rates /
 #  compute_excess_recurrence_by_quarter in seasonal_index.py, but for HirA)
@@ -213,7 +215,12 @@ def compare_hire_vs_separation_timing(
             by different workers each cycle -- only computed when
             seasonal_index_emp is present in sep_index.
     """
-    keep_sep_cols = ["naics_code", "sector_2d", "sector_label", "seasonal_index", "peak_quarter"]
+    # hire_index already carries its own sector_2d/sector_label (computed in
+    # build_hire_seasonal_index()) -- selecting them again from sep_index
+    # would collide on the merge below and get silently suffixed (_x/_y) by
+    # pandas instead of raising, dropping the plain columns downstream code
+    # (and the agriculture-exclusion filter) relies on.
+    keep_sep_cols = ["naics_code", "seasonal_index", "peak_quarter"]
     if "seasonal_index_emp" in sep_index.columns:
         keep_sep_cols.append("seasonal_index_emp")
     sep = sep_index[[c for c in keep_sep_cols if c in sep_index.columns]].copy()
@@ -334,6 +341,20 @@ def run_hire_index(
     index = build_hire_seasonal_index(excess)
     index["sector_2d"] = index["naics_code"].astype(str).str[:2]
     index["sector_label"] = index["sector_2d"].map(NAICS_SECTOR_LABELS).fillna("Other")
+
+    # Re-winsorize using the ex-agriculture 99th percentile as the primary
+    # threshold, consistent with every other national index in this project
+    # (QWI's UI coverage for agriculture is historically weaker/partial --
+    # see agriculture_exclusion_check.py and CLAUDE.md's "Agriculture
+    # Exclusion Check"). Agriculture rows keep an hire_seasonal_index value
+    # (usually clipped at 1.0, since ag amplitudes are typically larger than
+    # the ex-ag threshold) but don't get to set that threshold for everyone
+    # else. hire_seasonal_amplitude itself is untouched -- only the
+    # normalization changes.
+    p99_exag = index.loc[
+        index["sector_2d"] != AGRICULTURE_SECTOR, "hire_seasonal_amplitude"
+    ].quantile(0.99)
+    index["hire_seasonal_index"] = (index["hire_seasonal_amplitude"] / p99_exag).clip(0, 1)
     index = index.sort_values("hire_seasonal_index", ascending=False)
 
     naics_titles_path = naics_titles_path or (XWALK / "naics6_2022_titles.csv")
@@ -347,10 +368,11 @@ def run_hire_index(
     if "national_industry_title" in index.columns:
         top15_cols.append("national_industry_title")
     top15_cols += ["sector_label", "hire_seasonal_index", "peak_excess_hire", "peak_quarter_hire", "n_hire_excess_obs"]
-    print(f"\nTop 15 most hire-seasonal industries:")
-    print(index.head(15)[top15_cols].to_string(index=False))
+    print(f"\nTop 15 most hire-seasonal industries, excl. agriculture:")
+    ex_ag_ranked = index[index["sector_2d"] != AGRICULTURE_SECTOR]
+    print(ex_ag_ranked.head(15)[top15_cols].to_string(index=False))
 
-    fig = plot_hire_index(index, top_n=40)
+    fig = plot_hire_index(ex_ag_ranked, top_n=40)
     fig.savefig(FIGURES_DIR / "hire_index_naics6.pdf", bbox_inches="tight")
     plt.close(fig)
 
@@ -364,13 +386,17 @@ def run_hire_index(
         merged.to_csv(out_timing_path, index=False)
         print(f"Saved: {out_timing_path}")
 
-        print_timing_summary(merged)
+        # Print/plot summaries use the ex-agriculture subset as the primary
+        # view (same rationale as above); the saved CSV keeps every industry,
+        # agriculture included, for transparency.
+        merged_ex_ag = merged[merged["sector_2d"] != AGRICULTURE_SECTOR]
+        print_timing_summary(merged_ex_ag)
 
-        fig2 = plot_hire_vs_separation_scatter(merged)
+        fig2 = plot_hire_vs_separation_scatter(merged_ex_ag)
         fig2.savefig(FIGURES_DIR / "hire_vs_separation_scatter.pdf", bbox_inches="tight")
         plt.close(fig2)
 
-        fig3 = plot_lag_histogram(merged)
+        fig3 = plot_lag_histogram(merged_ex_ag)
         fig3.savefig(FIGURES_DIR / "hire_separation_lag_histogram.pdf", bbox_inches="tight")
         plt.close(fig3)
     else:

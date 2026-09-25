@@ -458,7 +458,7 @@ with its own codebook (see "Public Index Files" above). Comparison outputs:
 `output/figures/monthly_vs_quarterly_stock_scatter.pdf/png` (two-panel:
 raw vs. bias-corrected).
 
-### Hire (Accessions) Seasonal Index — code ready, awaiting refetch
+### Hire (Accessions) Seasonal Index — Season Length by Industry
 
 `code/qwi/hire_index.py` builds a third gross-flow measure — **hiring**, from
 QWI's `HirA` ("Hires All: Counts (Accessions)") — as the direct in-flow
@@ -469,21 +469,70 @@ then the same shared cyclical excess-by-quarter calc, then a 0-1
 ramping-up seasonal operation), so extreme values are left to the 99th-pct
 winsorization instead.
 
-The point is the **timing** vs. separations: `compare_hire_vs_separation_timing()`
+**Motivation (2026-09 request)**: does an industry's hiring surge and
+separation surge fall in the *same* quarter (a short season / high churn —
+the same jobs refilled by different workers) or in *different* quarters (a
+longer season, staffing up well before letting go)? `compare_hire_vs_separation_timing()`
 computes `hire_to_sep_lag_quarters = (peak_quarter - peak_quarter_hire) % 4`
-(0 = same quarter → likely high churn, same jobs different workers each cycle;
-1-3 = separation follows the hiring peak by that many quarters — e.g. retail's
-hire-Q4/separate-Q1) and a `likely_churn` flag (seasonal hiring AND
-separations, but flat seasonal headcount).
+(0 = same quarter; 1-3 = separation follows the hiring peak by that many
+quarters, cyclically) and a `likely_churn` flag (seasonal hiring AND
+separations, but flat seasonal headcount — `hire_seasonal_index` and
+`seasonal_index` both > 0.3, `seasonal_index_emp` < 0.3).
 
-`HirA` was **verified live** against the Census API (2026-09): populates with
-sensible magnitudes and a "good" status flag on both a large and a thin cell,
-unlike the broken Payroll field. It has been added to `QWI_VARS` in
-`fetch_qwi.py`, but the existing `qwi_state_*.parquet` files predate it —
-**`hire_index.py` needs a fresh full 51-state refetch (~17 hrs) before it can
-run for real**, and raises a clear error otherwise. The full pipeline (rates →
-excess → index → timing comparison → 3 figures) was dry-run-tested end to end
-on real-scale data by standing in `Sep` for the not-yet-fetched `HirA`.
+**Required a full 51-state QWI refetch (~17 hrs, completed 2026-09)**: `HirA`
+was verified live against the Census API before adding it to `QWI_VARS` in
+`fetch_qwi.py` (sensible magnitudes, "good" status flag on both a large and a
+thin cell, unlike the broken Payroll field), but the existing
+`qwi_state_*.parquet` files predated it. `fetch_qwi.py`'s resume logic checks
+`QWI_VARS[-1]` (`HirA`) for real data before skipping a cached state, so
+rerunning it with no changes correctly refetched all 51 states automatically.
+
+**Excludes agriculture as the primary presentation (consistent with the rest
+of the project)**: `hire_seasonal_index` is re-winsorized using the
+ex-agriculture 99th percentile as the threshold (agriculture rows keep an
+index value, usually clipped at 1.0, but don't set the threshold for
+everyone else); the "top 15"/plots/timing summary use the ex-agriculture
+subset, while `hire_index_naics6.csv` and `hire_vs_separation_timing.csv`
+keep every industry, agriculture included, for transparency.
+
+**Fixed the same title/sector-merge collision bug found in
+`state_index_percentiles.py`**: `compare_hire_vs_separation_timing()` selected
+`sector_2d`/`sector_label` from the separations index to merge onto the hire
+index -- which *already* computes its own `sector_2d`/`sector_label` -- so
+pandas silently suffixed both to `_x`/`_y` instead of raising. Fixed by not
+re-selecting those columns from the merge's right-hand side.
+
+**Result, excluding agriculture (n=942 industries with both a hire and
+separation estimate)**: Pearson r=0.781, Spearman r=0.826 between the hire
+and separation seasonal indices — industries that separate seasonally
+mostly also hire seasonally, as expected. The **lag distribution** answers
+the season-length question directly:
+
+| Lag (quarters) | Share of industries | Interpretation |
+|---|---|---|
+| 0 | 36.6% | Short season / high churn — same jobs, refilled each cycle |
+| 1 | 38.0% | Classic seasonal pattern — e.g. retail hire-Q4/separate-Q1 |
+| 2 | 20.3% | Longer season — staff up well before the eventual layoff |
+| 3 | 5.1% | Very long season (rare) |
+
+15 industries flagged `likely_churn`. Concrete examples by lag, restricted to
+industries with both `hire_seasonal_index` and `seasonal_index` > 0.3:
+- **Lag 0 (short season)**: Educational Support Services (hire and separate
+  both peak Q2 — matches the academic-term staffing cycle), Health and
+  Welfare Funds (both Q4).
+- **Lag 1**: Drive-In Motion Picture Theaters (hire Q2, separate Q3),
+  Marinas (hire Q2, separate Q3) — spring hiring for a summer season that
+  ends right on schedule.
+- **Lag 2 (longer season)**: RV Parks and Campgrounds (hire Q2, separate
+  Q4) — a full spring-through-fall season; several harvest-cycle
+  agricultural industries (hire at planting, separate after fall harvest).
+- No strongly-seasonal-on-both-sides industries reached lag 3 in this cut.
+
+Outputs: `data/qwi_clean/hire_index_naics6.csv`,
+`output/tables/hire_vs_separation_timing.csv`,
+`output/figures/hire_index_naics6.pdf`,
+`output/figures/hire_vs_separation_scatter.pdf`,
+`output/figures/hire_separation_lag_histogram.pdf`.
 
 **Shared refactor (2026-09):** the cyclical excess-by-quarter calculation was
 copy-pasted four times (separations, employment/stock, earnings, and
@@ -876,7 +925,7 @@ code/
 │   ├── fetch_qwi.py                 # Download QWI data via Census API (QWI_VARS now includes HirA)
 │   ├── excess_utils.py              # Shared cyclical-excess-by-quarter calc (used by all four seasonal measures)
 │   ├── seasonal_index.py            # Build 6-digit NAICS seasonal index (flow + stock, peak-flexible); flow-vs-stock comparison
-│   ├── hire_index.py                # Hiring (accessions) seasonal index + hire-vs-separation timing lag [needs HirA refetch]
+│   ├── hire_index.py                # Hiring (accessions) seasonal index + hire-vs-separation timing lag (season length by industry)
 │   ├── geographic_analysis.py       # State-level variation (flow + stock): figures + tables
 │   ├── state_index_percentiles.py   # Within-state top/bottom-1% seasonality + national/cross-state overlap
 │   ├── covid_robustness_check.py    # Pre-COVID (2000-19) vs. full-sample index comparison
@@ -975,7 +1024,7 @@ python code/qwi/seasonality_trend_check.py # 2000-10 vs. 2011-23: has seasonalit
 python code/qwi/agriculture_exclusion_check.py # full sample vs. excluding agriculture (weaker UI coverage concern)
 python code/qwi/seasonal_index.py --compare-flow-stock both  # flow vs. stock index comparison
 python code/qwi/earnings_index.py          # income/earnings seasonality + off-season income-dip test
-python code/qwi/hire_index.py              # hiring seasonality + hire-vs-separation timing [needs fetch_qwi.py rerun for HirA]
+python code/qwi/hire_index.py              # hiring seasonality + hire-vs-separation timing lag (season length by industry)
 python code/fetch_cbp.py --state 06 --naics-level 6  # county x NAICS establishment counts (CA done; other states in progress)
 python code/fetch_cbp.py --state 06 --naics-level 4  # NAICS-4 fallback for suppressed county cells
 python code/county_seasonal_index.py --state 06 --highlight 06113  # county-level seasonal exposure (example: Yolo, CA)
@@ -1023,7 +1072,7 @@ python code/qcew/monthly_seasonal_index.py # monthly stock index + placebo-corre
 - [ ] Apply firm-level code on other machine
 - [x] Published the derived index CSVs in `data/qwi_clean/` (national, state x NAICS6, earnings) to the public repo with a codebook per file; `.gitignore` carved out `data/*` + `!data/qwi_clean/` so raw inputs stay untracked
 - [x] Deduplicated the cyclical excess-by-quarter calc into `code/qwi/excess_utils.py` — was copy-pasted 4x (separations, employment/stock, earnings, state-level); all callers verified byte-identical after the refactor
-- [x] Hiring (accessions) seasonal index (`hire_index.py`) — code + dry-run test complete; `HirA` verified live and added to `QWI_VARS`. Blocked on a fresh ~17hr QWI refetch before it produces real numbers. The analysis it enables: hire-vs-separation *timing lag* per industry (0 quarters = churn; 1-3 = separation follows the hiring peak) and a `likely_churn` flag
+- [x] Hiring (accessions) seasonal index (`hire_index.py`) — completed the ~17hr full 51-state QWI refetch to get real `HirA` data (2026-09), fixed a title/sector-merge collision bug found along the way (mirrors the one fixed in `state_index_percentiles.py`), and excluded agriculture as the primary presentation for consistency. Answers "how long is an industry's season?" via hire-to-separation timing lag: 36.6% of industries hire and separate in the *same* quarter (short season/high churn, e.g. Educational Support Services), 38.0% one quarter apart (classic seasonal pattern, e.g. Drive-In Theaters, Marinas), 20.3% two quarters apart (a longer season, e.g. RV Parks, harvest-cycle agriculture), 5.1% three quarters apart. Hire and separation indices correlate at Pearson r=0.781 (n=942, ex-agriculture)
 - [x] Establishment size vs. seasonality (`establishment_size_analysis.py`) — fetched national CBP by NAICS x establishment-size class (`fetch_cbp.py --by-size`, 831 industries). More seasonal industries skew toward smaller establishments (Spearman ~0.5 for small-establishment employment share, -0.52 for average establishment size; median establishment size 51 emp in the least-seasonal quartile -> 10 emp in the most). But it's concave (plateaus at ~40% small-establishment employment above seasonal_index ~0.15) and sector-driven: seasonal services/construction/ag-support are small-establishment-heavy, seasonal manufacturing (canning, frozen foods) and big recreation venues (racetracks, golf courses) are the opposite. Conditional on the CBP universe — NAICS 111/112 farm production is not in CBP at all
 - [ ] National CBP-by-*size* is done, but the national CBP-by-*county* run (for a 51-state county-level exposure index) is still not launched (~21-22hrs)
 - [x] Industry pay/gender/seasonality profile (`industry_pay_gender_profile.py`, `find_seasonal_pairs.py`) — built to find a same-pay/opposite-seasonality/female-dominated industry pair for a rent-burden illustration. Fetched ACS 1-year PUMS (3.4M people, all states) and built a Census-industry-code <-> NAICS6 crosswalk (`build_indp_naics_crosswalk.py`) so pay (realized `WAGP`, not a QWI rate annualized x12), gender, and seasonality are all computed at one consistent resolution. Found 3 candidate pairs; best: "Other schools and instruction, and educational support services" (seasonal_index 0.51) vs. "Other personal services" (0.13) — both exactly $20,000 realized median annual pay, 65%/68% female, both 84.8% rent-burdened at the national median rent. Notably, weeks-worked is nearly identical in every pair, so the pay gap between seasonal and non-seasonal categories isn't explained by seasonal workers logging fewer annual weeks — it's a wage-level difference between these industry categories, independent of seasonality
