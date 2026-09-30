@@ -528,7 +528,8 @@ industries with both `hire_seasonal_index` and `seasonal_index` > 0.3:
   agricultural industries (hire at planting, separate after fall harvest).
 - No strongly-seasonal-on-both-sides industries reached lag 3 in this cut.
 
-Outputs: `data/qwi_clean/hire_index_naics6.csv`,
+Published to the public repo with its own codebook (see "Public Index
+Files" above): `data/qwi_clean/hire_index_naics6.csv`. Other outputs:
 `output/tables/hire_vs_separation_timing.csv`,
 `output/figures/hire_index_naics6.pdf`,
 `output/figures/hire_vs_separation_scatter.pdf`,
@@ -964,6 +965,7 @@ alongside it:
 - `qwi_clean/seasonal_index_naics6.csv` — national flow + stock index ([codebook](data/qwi_clean/seasonal_index_naics6_codebook.md))
 - `qwi_clean/seasonal_index_naics6_by_state.csv` — state x NAICS6 flow + stock index ([codebook](data/qwi_clean/seasonal_index_naics6_by_state_codebook.md))
 - `qwi_clean/earnings_index_naics6.csv` — income/earnings seasonality index, raw + idiosyncratic ([codebook](data/qwi_clean/earnings_index_naics6_codebook.md))
+- `qwi_clean/hire_index_naics6.csv` — hiring (accessions) seasonal index, ex-agriculture winsorization ([codebook](data/qwi_clean/hire_index_naics6_codebook.md))
 - `qcew_clean/monthly_seasonal_index_naics6.csv` — monthly stock seasonal index (QCEW), raw + idiosyncratic + placebo-corrected ([codebook](data/qcew_clean/monthly_seasonal_index_naics6_codebook.md))
 
 The `.gitignore` pattern is `data/*` + `!data/qwi_clean/` + `!data/qcew_clean/`
