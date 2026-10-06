@@ -629,6 +629,66 @@
 \end{frame}
 
 % ══════════════════════════════════════════════════════════════════════════════
+\section{Hiring Seasonality and Season Length}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{How Long Is the Season? Hiring vs.\ Separation}
+  \small
+  \begin{itemize}
+    \item \textbf{Idea:} if an industry's hiring surge and separation surge
+          land in the \emph{same} quarter, the season is short (same jobs
+          refilled each cycle); if they land in \emph{different} quarters,
+          the season is longer
+    \item \textbf{Data:} QWI hires (\texttt{HirA}) / end-of-quarter
+          employment, through the same shared cyclical-excess calculation as
+          separations; yields \texttt{hire\_seasonal\_index} and
+          \texttt{peak\_quarter\_hire}. Excludes agriculture (hire index
+          re-winsorized on the ex-agriculture pool)
+    \item Hire and separation seasonal indices correlate at Pearson
+          $r = 0.78$, Spearman $r = 0.83$ ($n = 942$)
+    \item \textbf{Lag} $= (\text{peak quarter}_{sep} - \text{peak
+          quarter}_{hire}) \bmod 4$; 15 industries are flagged likely
+          high-churn (seasonal hiring \emph{and} separations, but flat
+          seasonal headcount)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Season Length by Industry}
+  \begin{columns}
+    \begin{column}{0.55\textwidth}
+      \begin{center}
+        \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]%
+          {hire_separation_lag_histogram.pdf}
+      \end{center}
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \scriptsize
+      \textbf{Lag 0 --- short season}
+      \begin{itemize}
+        \item Educational Support Services (both Q2), Portrait Photography
+              (both Q4)
+      \end{itemize}
+      \smallskip
+      \textbf{Lag 1}
+      \begin{itemize}
+        \item Drive-In Theaters, Marinas, Ice Manufacturing: hire Q2,
+              separate Q3
+      \end{itemize}
+      \smallskip
+      \textbf{Lag 2 --- spring-through-fall season}
+      \begin{itemize}
+        \item RV Parks, Racetracks, Golf Courses: hire Q2, separate Q4
+      \end{itemize}
+      \smallskip
+      Among the 37 industries strongly seasonal on both sides (both indices
+      $> 0.3$): 27\% lag 0, 30\% lag 1, 43\% lag 2, none lag 3. The
+      all-industry panel is dominated by weakly seasonal industries whose
+      peak quarter is mostly noise.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
 \section{Income/Earnings Seasonality}
 % ══════════════════════════════════════════════════════════════════════════════
 

@@ -508,6 +508,51 @@ already captures well.
 :::
 :::
 
+# Hiring Seasonality and Season Length
+
+## How Long Is the Season? Hiring vs. Separation
+
+- **Idea:** if an industry's hiring surge and separation surge land in the
+  *same* quarter, the season is short (same jobs refilled each cycle); if
+  they land in *different* quarters, the season is longer
+- **Data:** QWI hires (`HirA`) / end-of-quarter employment, through the
+  same shared cyclical-excess calculation as separations; yields
+  `hire_seasonal_index` and `peak_quarter_hire`. Excludes agriculture
+  (hire index re-winsorized on the ex-agriculture pool)
+- Hire and separation seasonal indices correlate at Pearson $r = 0.78$,
+  Spearman $r = 0.83$ ($n = 942$)
+- **Lag** $= (\text{peak quarter}_{sep} - \text{peak quarter}_{hire}) \bmod 4$;
+  15 industries are flagged likely high-churn (seasonal hiring *and*
+  separations, but flat seasonal headcount)
+
+## Season Length by Industry
+
+::: {.columns}
+::: {.column width="55%"}
+![](../figures/hire_separation_lag_histogram.png)
+:::
+::: {.column width="42%"}
+
+**Lag 0 --- short season**
+
+- Educational Support Services (both Q2), Portrait Photography (both Q4)
+
+**Lag 1**
+
+- Drive-In Theaters, Marinas, Ice Manufacturing: hire Q2, separate Q3
+
+**Lag 2 --- spring-through-fall season**
+
+- RV Parks, Racetracks, Golf Courses: hire Q2, separate Q4
+
+Among the 37 industries strongly seasonal on both sides (both indices
+$> 0.3$): 27% lag 0, 30% lag 1, 43% lag 2, none lag 3. The all-industry
+panel is dominated by weakly seasonal industries whose peak quarter is
+mostly noise.
+
+:::
+:::
+
 # Income/Earnings Seasonality
 
 ## A Third Lens: Does Income Dip in the Off-Season?

@@ -524,18 +524,30 @@ the season-length question directly:
 | 2 | 20.3% | Longer season — staff up well before the eventual layoff |
 | 3 | 5.1% | Very long season (rare) |
 
-15 industries flagged `likely_churn`. Concrete examples by lag, restricted to
-industries with both `hire_seasonal_index` and `seasonal_index` > 0.3:
+15 industries flagged `likely_churn`. The all-industry distribution above is
+dominated by weakly seasonal industries whose "peak" quarter is mostly noise,
+so the more meaningful cut is the **37 ex-agriculture industries with both
+`hire_seasonal_index` and `seasonal_index` > 0.3**: 10 at lag 0 (27%), 11 at
+lag 1 (30%), 16 at lag 2 (43%), none at lag 3. Examples:
 - **Lag 0 (short season)**: Educational Support Services (hire and separate
-  both peak Q2 — matches the academic-term staffing cycle), Health and
+  both peak Q2 — matches the academic-term staffing cycle), Portrait
+  Photography Studios and Gift/Souvenir Retailers (both Q4), Health and
   Welfare Funds (both Q4).
-- **Lag 1**: Drive-In Motion Picture Theaters (hire Q2, separate Q3),
-  Marinas (hire Q2, separate Q3) — spring hiring for a summer season that
-  ends right on schedule.
-- **Lag 2 (longer season)**: RV Parks and Campgrounds (hire Q2, separate
-  Q4) — a full spring-through-fall season; several harvest-cycle
-  agricultural industries (hire at planting, separate after fall harvest).
-- No strongly-seasonal-on-both-sides industries reached lag 3 in this cut.
+- **Lag 1**: Drive-In Motion Picture Theaters, Marinas, Ice Manufacturing
+  (hire Q2, separate Q3) — spring hiring for a summer season that ends right
+  on schedule.
+- **Lag 2 (longer season)**: RV Parks and Campgrounds, Racetracks, Golf
+  Courses (hire Q2, separate Q4) — a full spring-through-fall season.
+- **Correction (2026-10)**: an earlier version of this section listed
+  "harvest-cycle agricultural industries" as lag-2 examples and gave 19/14/32
+  counts for this cut. Those came from an ad hoc query that read `sector_2d`
+  back from the CSV as an integer, so its `!= "11"` filter silently kept
+  agriculture. The headline all-industry distribution (n=942) was computed
+  in-script on string codes and was always ex-agriculture; only the examples
+  and the strong-subset counts were affected.
+
+`plot_lag_histogram()` now draws both views (all industries, and the strong
+subset) and saves a PNG; the section is on all three slide decks.
 
 Published to the public repo with its own codebook (see "Public Index
 Files" above): `data/qwi_clean/hire_index_naics6.csv`. Other outputs:

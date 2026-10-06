@@ -295,20 +295,30 @@ def plot_hire_vs_separation_scatter(merged: pd.DataFrame) -> plt.Figure:
     return fig
 
 
-def plot_lag_histogram(merged: pd.DataFrame) -> plt.Figure:
-    """Bar chart of the hire-to-separation lag distribution (0-3 quarters)."""
+def plot_lag_histogram(merged: pd.DataFrame, strong_threshold: float = 0.3) -> plt.Figure:
+    """Two-panel bar chart of the hire-to-separation lag distribution (0-3 quarters):
+    all industries, and only industries strongly seasonal on BOTH sides
+    (hire_seasonal_index and seasonal_index > strong_threshold). The all-industry
+    panel is dominated by weakly seasonal industries whose 'peak' quarter is
+    mostly noise; the strong subset is where a season length is meaningful."""
     lags = merged.dropna(subset=["hire_to_sep_lag_quarters"])
-    counts = lags["hire_to_sep_lag_quarters"].value_counts().reindex([0, 1, 2, 3], fill_value=0)
+    strong = lags[(lags["hire_seasonal_index"] > strong_threshold)
+                  & (lags["seasonal_index"] > strong_threshold)]
+    labels = ["0 (same quarter)", "1", "2", "3"]
 
-    fig, ax = plt.subplots(figsize=(7, 5))
-    labels = [
-        "0\n(same quarter --\nlikely churn)",
-        "1", "2", "3",
-    ]
-    ax.bar(labels, counts.values, color="#1f77b4")
-    ax.set_xlabel("Quarters from hire-peak to separation-peak")
-    ax.set_ylabel("Number of industries")
-    ax.set_title("Hire-to-separation timing lag")
+    fig, axes = plt.subplots(1, 2, figsize=(11, 4.8))
+    for ax, d, title in [
+        (axes[0], lags, f"All industries (n={len(lags)})"),
+        (axes[1], strong, f"Strongly seasonal on both sides (n={len(strong)})"),
+    ]:
+        counts = d["hire_to_sep_lag_quarters"].value_counts().reindex([0, 1, 2, 3], fill_value=0)
+        ax.bar(labels, counts.values, color="#1f77b4")
+        for i, v in enumerate(counts.values):
+            ax.text(i, v, f"{v / max(len(d), 1):.0%}", ha="center", va="bottom", fontsize=9)
+        ax.set_xlabel("Quarters from hire peak to separation peak")
+        ax.set_ylabel("Number of industries")
+        ax.set_title(title)
+    fig.suptitle("Hire-to-separation timing lag (excl. agriculture)")
     fig.tight_layout()
     return fig
 
@@ -398,6 +408,7 @@ def run_hire_index(
 
         fig3 = plot_lag_histogram(merged_ex_ag)
         fig3.savefig(FIGURES_DIR / "hire_separation_lag_histogram.pdf", bbox_inches="tight")
+        fig3.savefig(FIGURES_DIR / "hire_separation_lag_histogram.png", dpi=200, bbox_inches="tight")
         plt.close(fig3)
     else:
         print(f"\n[warn] {sep_path} not found; skipping the hire-vs-separation timing comparison.")
