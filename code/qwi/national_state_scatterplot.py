@@ -14,6 +14,8 @@ nat_file = DATA_DIR / "seasonal_index_naics6.csv"
 state_file = DATA_DIR / "seasonal_index_naics6_by_state.csv"
 output_file = FIG_DIR / "scatter_naics_sorted_by_national_index.png"
 
+AGRICULTURE_SECTOR = "11"
+
 
 def main():
     # ---------------------------------------------------------
@@ -28,9 +30,19 @@ def main():
     df_nat["naics_code"] = df_nat["naics_code"].astype(str).str.zfill(6)
     df_state["naics_code"] = df_state["naics_code"].astype(str).str.zfill(6)
 
-    # Drop missing seasonal index values
-    df_nat = df_nat.dropna(subset=["seasonal_index"])
-    df_state = df_state.dropna(subset=["seasonal_index"])
+    # Exclude agriculture (NAICS 11) and re-winsorize each series at the
+    # 99th percentile of its own ex-agriculture pool -- same convention as the
+    # rest of the project (QWI's UI coverage of agriculture is weaker/partial;
+    # see agriculture_exclusion_check.py). The stored seasonal_index columns
+    # were winsorized on the full sample, so they must be recomputed from
+    # seasonal_amplitude rather than just filtered.
+    for df in (df_nat, df_state):
+        df["sector_2d"] = df["naics_code"].str.zfill(6).str[:2]
+    df_nat = df_nat[df_nat["sector_2d"] != AGRICULTURE_SECTOR].dropna(subset=["seasonal_amplitude"]).copy()
+    df_state = df_state[df_state["sector_2d"] != AGRICULTURE_SECTOR].dropna(subset=["seasonal_amplitude"]).copy()
+    for df in (df_nat, df_state):
+        p99 = df["seasonal_amplitude"].quantile(0.99)
+        df["seasonal_index"] = (df["seasonal_amplitude"] / p99).clip(0, 1)
 
     # ---------------------------------------------------------
     # 3. Sort NAICS codes by national seasonal index
@@ -79,7 +91,7 @@ def main():
     # ---------------------------------------------------------
     plt.xlabel("NAICS codes sorted by national seasonal index (rank)")
     plt.ylabel("Seasonal index")
-    plt.title("State vs National Seasonal Index: NAICS sorted by national seasonality")
+    plt.title("State vs National Seasonal Index: NAICS sorted by national seasonality (excl. agriculture)")
     plt.legend(loc="upper left")
     plt.tight_layout()
 

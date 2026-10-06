@@ -94,6 +94,8 @@ def load_employment(qwi_file: Path) -> pd.DataFrame:
 # profiles. Not a data-quality problem -- just not a clean illustration.
 DEFAULT_EXCLUDE_CODES = [
     "621491",  # HMO Medical Centers: sharp 2015-2019 level shift, unrelated to seasonality
+    "722330",  # Mobile Food Services: ~10x secular growth swamps the y-axis, hiding every other series
+    "525120",  # Health and Welfare Funds: abrupt ~2013 level shift unrelated to seasonality
 ]
 
 
@@ -130,6 +132,16 @@ def select_industries_for_plot(seasonal_index: pd.DataFrame,
     # Normalize types
     df["naics_code"] = df["naics_code"].astype(str)
 
+    # Exclude agriculture (NAICS 11) and re-winsorize on the ex-agriculture
+    # pool, consistent with the rest of the project (weaker/partial UI
+    # coverage -- see agriculture_exclusion_check.py). Ranking is by raw
+    # seasonal_amplitude, since the stored seasonal_index ties many top
+    # industries at exactly 1.0.
+    df = df[df["naics_code"].str[:2] != "11"].copy()
+    df["seasonal_index"] = (
+        df["seasonal_amplitude"] / df["seasonal_amplitude"].quantile(0.99)
+    ).clip(0, 1)
+
     # Filter to exact NAICS length
     df = df[df["naics_code"].str.len() == naics_digits]
 
@@ -161,11 +173,11 @@ def select_industries_for_plot(seasonal_index: pd.DataFrame,
 
     # Select extremes within filtered set
     most = (
-        df.sort_values("seasonal_index", ascending=False)
+        df.sort_values("seasonal_amplitude", ascending=False)
         .head(n_seasonal)["naics_code"].tolist()
     )
     least = (
-        df.sort_values("seasonal_index", ascending=True)
+        df.sort_values("seasonal_amplitude", ascending=True)
         .head(n_nonseasonal)["naics_code"].tolist()
     )
 
@@ -261,7 +273,8 @@ def plot_employment_timeseries(emp: pd.DataFrame,
     ax.set_xlabel("Quarter")
     ax.set_ylabel("Employment Index (Base = 100)")
     ax.grid(alpha=0.3)
-    ax.legend()
+    # Legend below the axes so long industry names don't cover the series
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.12), ncol=1, fontsize=9, frameon=False)
 
     fig.tight_layout()
     return fig
@@ -316,6 +329,10 @@ def main(qwi_file: Path, seasonal_file: Path, outdir: Path):
     fig1 = plot_employment_timeseries(emp, seasonal_index)
     fig1.savefig(outdir / "employment_timeseries_examples.pdf",
                  bbox_inches="tight")
+    # PNG used directly by the revealjs deck; saving it here keeps it from
+    # going stale the way a manually exported copy did.
+    fig1.savefig(outdir / "employment_timeseries_examples.png",
+                 dpi=200, bbox_inches="tight")
     plt.close(fig1)
 
     print("Plotting seasonal amplitude distribution…")

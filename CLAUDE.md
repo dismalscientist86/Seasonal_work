@@ -125,6 +125,15 @@ than hand-edit the output, `select_industries_for_plot()` now takes an
 Artificial and Synthetic Fibers and Filaments Manufacturing (325220) fills
 the slot instead — a clean flat/declining trend.
 
+**Illustrative figures exclude agriculture (2026-10)**: `plot_seasonality_figures.py`'s
+employment time series examples and `national_state_scatterplot.py`'s national-vs-state
+scatter both drop NAICS 11 and re-winsorize on the ex-agriculture pool; the time series
+picks its top 3 by raw `seasonal_amplitude` (the stored index ties many industries at
+1.0) and now saves its own `.png`. `DEFAULT_EXCLUDE_CODES` also skips Mobile Food
+Services (~10x secular growth swamps the y-axis) and Health and Welfare Funds (abrupt
+~2013 level shift) as poor illustrations, alongside HMO Medical Centers; the examples
+are now Recreational Goods Rental, Drive-In Theaters, and All Other Amusement/Recreation.
+
 Note: Education peaks in Q2 (end of school year), not Q4. All education industries have
 positive peak_excess. Mathematical identity: the four quarter excesses sum to zero within
 any year, so peak_excess ≥ 0 by construction (barring thin-data filtering that excludes

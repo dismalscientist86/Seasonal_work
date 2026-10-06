@@ -151,9 +151,10 @@ $$
 ![](../figures/employment_timeseries_examples.png){fig-align="center" height="500"}
 
 - Employment normalized to 100 in each industry's first quarter
-- Seasonal industries (blue/orange/green) swing 20--40% above and below
-  trend every year; non-seasonal industries (red/purple/brown) barely move
-  quarter to quarter
+- Seasonal industries (blue/orange/green) swing sharply every year ---
+  drive-in theaters roughly double and halve; non-seasonal industries
+  (red/purple/brown) barely move quarter to quarter
+- Excludes agriculture, consistent with the rest of the deck
 
 ## A Sharper Clock: Monthly Employment via QCEW
 
@@ -208,7 +209,8 @@ $$
 
 ![](../figures/scatter_naics_sorted_by_national_index.png){fig-align="center" height="500"}
 
-- Industries (x-axis) sorted by their **national** seasonal index (red)
+- Industries (x-axis, excluding agriculture) sorted by their **national**
+  seasonal index (red)
 - **State-level** values for the same industries (blue) scatter widely
   above and below the national figure --- a lot of real seasonality is
   averaged away by the national index alone
