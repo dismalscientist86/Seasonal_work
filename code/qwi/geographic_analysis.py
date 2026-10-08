@@ -306,18 +306,21 @@ def make_figures(si: pd.DataFrame):
     tile = tile.dropna(subset=["x", "y"])
 
     fig, ax = plt.subplots(figsize=(11, 7.2))
-    cmap = plt.cm.YlOrRd
+    # Blues, not a hot palette: the most seasonal states are the cold ones.
+    cmap = plt.cm.Blues
     norm = plt.Normalize(tile["mean_peak_excess"].min(), tile["mean_peak_excess"].max())
     for _, row in tile.iterrows():
+        shade = norm(row["mean_peak_excess"])
+        label_color = "white" if shade > 0.55 else "black"
         ax.add_patch(plt.Rectangle(
             (row["x"], row["y"]), 0.9, 0.9,
-            facecolor=cmap(norm(row["mean_peak_excess"])),
+            facecolor=cmap(shade),
             edgecolor="white", linewidth=1.5,
         ))
         ax.text(row["x"] + 0.45, row["y"] + 0.33, row["abbr"],
-                ha="center", va="center", fontsize=10, fontweight="bold")
+                ha="center", va="center", fontsize=10, fontweight="bold", color=label_color)
         ax.text(row["x"] + 0.45, row["y"] + 0.62, f"{row['mean_peak_excess']*100:.1f}",
-                ha="center", va="center", fontsize=7)
+                ha="center", va="center", fontsize=7, color=label_color)
 
     ax.set_xlim(-0.2, 12.2)
     ax.set_ylim(8.1, -0.5)
